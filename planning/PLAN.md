@@ -48,6 +48,7 @@ Full design: `GDD.md` (7 locked layers) traces to `WORLD.md` (locked world bible
 
 ## Open questions
 
-- What form does the M5 playable prototype take — web app, terminal, something else? (Engine is TypeScript, so web is the natural default.)
-- TypeScript toolchain choices for `src/` — runtime (Node? Bun?), test framework, bundler. Nothing is set up yet (`TODO: confirm` in ARCHITECTURE.md).
-- Run stage 3 via the `game-loop` skill pipeline, or hand-build the engine conversationally? (The skill expects its own orchestration and budget sign-off.)
+All open game-design decisions live in **`planning/QUESTIONS.md`** — the register of what
+canon already answers, where the code drifts from canon, and what genuinely needs a human
+call (organized by the engine phase that decides it). Toolchain and stage-3-approach
+questions from this section were decided in D-007/D-008.

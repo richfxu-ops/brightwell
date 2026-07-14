@@ -15,6 +15,8 @@
 - [ ] (P3) Decide prototype form (web/terminal) and sketch UI #prototype #m5
 
 ## Next
+- [ ] (P1) Align Phase-2 resolvers to the L6 letter — QUESTIONS.md §A drift list #engine #m3
+- [ ] (P1) Engine Phase 3: the worked morning — decide QUESTIONS.md §B opens in its proposal #engine #m3
 - [ ] (P2) Toy morning: playable single-turn slice over the engine — the "is it fun?" check (after Phase 3) #prototype #m3
 
 ## In Progress

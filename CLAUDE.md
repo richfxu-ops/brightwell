@@ -30,6 +30,7 @@
 - `planning/TASKS.md` — the task board (source of truth for work to do).
 - `planning/tasks/` — one file per substantial task: its status, size, design, and checklist.
 - `planning/DECISIONS.md` — dated log of decisions and their rationale (D-001…D-006 from the design pipeline).
+- `planning/QUESTIONS.md` — the open-decisions register: what canon answers, where code drifts, what still needs a human call. Check it before designing any engine phase.
 - `planning/dashboard.html` — visual task tracker that reads `TASKS.md`.
 - `planning/GDD.md` — the locked game design document (7 layers). `planning/WORLD.md` — the locked world bible. `planning/terms.json` / `planning/ledger.json` — canon term registry + mechanics ledger.
 
