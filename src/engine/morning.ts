@@ -7,7 +7,7 @@ import type { GameEvent, GameState, PieceInstance } from "./state.js";
 import { MORNINGS_PER_LEG, currentNode } from "./state.js";
 import { applyEffect, emit, pourAttention, SEAT_FIRST, SEAT_DECAY } from "./effects.js";
 import { acceptAsking, checkFlopAtDusk, checkStaleAtDawn, payGladLoad } from "./asking.js";
-import { acceptCrown, checkRunEnd, isWintering, yearOver } from "./runframe.js";
+import { acceptCrown, checkRunEnd, isWintering } from "./runframe.js";
 import { nextInt } from "./rng.js";
 
 // ----- locked L6 constants + the one D-010 dial -----

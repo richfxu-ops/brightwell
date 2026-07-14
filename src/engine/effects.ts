@@ -59,7 +59,7 @@ function pieceById(state: GameState, id: string): PieceInstance | undefined {
   return state.pieces.find(p => p.instanceId === id);
 }
 
-function pieceCountsAs(state: GameState, p: PieceInstance, grain: Grain, ctx: EffectContext): boolean {
+function pieceCountsAs(p: PieceInstance, grain: Grain, ctx: EffectContext): boolean {
   return countsAs(p, grain, ctx.cardOf(p.cardId).grain);
 }
 
@@ -78,7 +78,7 @@ function resolveTarget(
         (ctx.cardOf(p.cardId).tags ?? []).some(t => t === "capstone" || t === "proud")) ?? null;
     case "hand:offgrain":
       return pieces.find(p => p.zone === "hand" && suit !== undefined &&
-        !pieceCountsAs(state, p, suit, ctx)) ?? null;
+        !pieceCountsAs(p, suit, ctx)) ?? null;
     case "hand:cheapest": {
       const hand = pieces.filter(p => p.zone === "hand");
       if (hand.length === 0) return null;
@@ -267,7 +267,7 @@ const RESOLVERS: Record<PrimitiveId, Resolver> = {
       let idx: number;
       if (suit) {
         // a filtered draw SEARCHES the pack — deterministic first match
-        idx = pack.findIndex(p => pieceCountsAs(state, p, suit, ctx));
+        idx = pack.findIndex(p => pieceCountsAs(p, suit, ctx));
         if (idx < 0) break;
       } else {
         [idx, state.rng] = nextInt(state.rng, pack.length);

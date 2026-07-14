@@ -134,7 +134,7 @@ describe("plays and stalls", () => {
 });
 
 describe("the cascade (D-010 B3)", () => {
-  function fulfilSetup(first: string, second: string): GameState {
+  function fulfilSetup(): GameState {
     return testState(s => {
       s.turn.dawned = true; s.turn.room = 4;
       s.asking = { tier: "kettle", needFill: 3, progress: 0, acceptedMorning: 1, staleAfterMornings: 4, acceptedLeg: 0, touched: false };
@@ -143,20 +143,20 @@ describe("the cascade (D-010 B3)", () => {
     });
   }
   it("listeners fire in played order", () => {
-    let r = playPiece(fulfilSetup("A", "B"), "A#1", 0, ctx);
+    let r = playPiece(fulfilSetup(), "A#1", 0, ctx);
     r = playPiece(r.state, "B#1", 0, ctx);
     r = playPiece(r.state, "F#1", 0, ctx);   // fill 3 completes → on-fulfil cascade
     const types = r.state.events.filter(e => e.type === "warmed" || e.type === "kept").map(e => e.type);
     expect(types).toEqual(["warmed", "kept"]);   // A before B
     // reversed play order reverses the cascade
-    let q = playPiece(fulfilSetup("B", "A"), "B#1", 0, ctx);
+    let q = playPiece(fulfilSetup(), "B#1", 0, ctx);
     q = playPiece(q.state, "A#1", 0, ctx);
     q = playPiece(q.state, "F#1", 0, ctx);
     const qtypes = q.state.events.filter(e => e.type === "warmed" || e.type === "kept").map(e => e.type);
     expect(qtypes).toEqual(["kept", "warmed"]);
   });
   it("fire-once: a second completion the same morning re-triggers nothing", () => {
-    let r = playPiece(fulfilSetup("A", "B"), "A#1", 0, ctx);
+    let r = playPiece(fulfilSetup(), "A#1", 0, ctx);
     r = playPiece(r.state, "F#1", 0, ctx);                      // completes (3/3) → warmA fires
     const warmsAfterFirst = r.state.events.filter(e => e.type === "warmed").length;
     // a second filler instance would complete "again" (progress 6/3); warmA must not re-fire

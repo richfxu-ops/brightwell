@@ -1,7 +1,7 @@
 // Behavior suite: every verb's documented outcomes, on hand-built states.
 import { describe, it, expect } from "vitest";
 import type { Card } from "./vocabulary.js";
-import { type GameState, type PieceInstance, STARTING_STANDING } from "./state.js";
+import { type GameState, STARTING_STANDING } from "./state.js";
 import { resolveEffect, type EffectContext, FULL_RATE_BAND, SEAT_FIRST, SEAT_DECAY } from "./effects.js";
 import { testPiece, testState, fx } from "./test-helpers.js";
 

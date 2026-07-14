@@ -2,7 +2,7 @@
 // Canon violations in card DATA are content bugs: they must be caught before a run
 // starts, never handled at play time. Returns violations; empty array = valid.
 
-import type { Card, Effect, Grain } from "./vocabulary.js";
+import type { Card, Effect } from "./vocabulary.js";
 import {
   BOARD_READ_SOURCES, BRIM_BAND_SOURCES, PLAY_EVENTS, PRIMITIVES, isReadExpr, isReadSource,
 } from "./vocabulary.js";
