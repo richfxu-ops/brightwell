@@ -1,7 +1,7 @@
 // The worked morning: dawn → plays/stalls → dusk, plus the golden Kilnfast test.
 import { describe, it, expect } from "vitest";
 import type { Card } from "./vocabulary.js";
-import { createInitialState, type GameState } from "./state.js";
+import { createInitialState, type Asking, type GameState } from "./state.js";
 import { dawn, playPiece, stallAction, dusk, legOf, HAND_SIZE } from "./morning.js";
 import { testPiece, testState } from "./test-helpers.js";
 import starterPool from "../content/cards/starter-pool.json" with { type: "json" };
@@ -192,39 +192,47 @@ describe("dusk", () => {
   });
 });
 
-describe("GOLDEN: the Kilnfast chain (GDD L7)", () => {
-  function kilnfastMorning(): GameState {
-    return testState(s => {
-      s.turn.dawned = true;
-      s.turn.room = 9;          // a matured Deep Gold room (L6)
-      s.turn.seatedCount = 5;   // home-note + 4 fired seated at dawn
-      s.asking = { tier: "poem", needFill: 3, progress: 0, acceptedMorning: 15, staleAfterMornings: 7, acceptedLeg: 0, touched: false };
-      s.pieces = [
-        testPiece("setterby-trestle", { instanceId: "c1" }),
-        testPiece("calipers-at-the-bench", { instanceId: "c2" }),
-        testPiece("the-fired-beam", { instanceId: "cap" }),
-        testPiece("loose-thread", { instanceId: "spare" }),           // the stamp target
-        ...Array.from({ length: 4 }, (_, i) =>
-          testPiece("dovetail-draw", { instanceId: `fired#${i}`, fired: true, zone: "discard" })),
-      ];
+// D-017: `fill` is on-play (repeatable), not on-wake. The reach is now "build the read, THEN PLAY the
+// filler" — and a woken filler still fills on replay (no hoarding). The old aim-the-room-to-wake-and-
+// fill-by-proxy combo is retired (a capstone woken by another card's pour is in-play, not playable).
+describe("GOLDEN: on-play fill — build the read, then play the filler (D-017)", () => {
+  const need = (needFill: number, tier: Asking["tier"] = "poem") =>
+    ({ tier, needFill, progress: 0, acceptedMorning: 1, acceptedLeg: 0, staleAfterMornings: 99, touched: false });
+
+  it("in order, the joinery read is built THEN the Beam fills it — its on-play fill completes the need", () => {
+    const s = testState(x => {
+      x.turn.dawned = true; x.turn.room = 12;
+      x.asking = need(2, "plea");
+      x.pieces = [testPiece("setterby-trestle", { instanceId: "j1" }), testPiece("the-fired-beam", { instanceId: "cap" })];
     });
-  }
-  it("in order, the chain wakes The Fired Beam and completes the poem", () => {
-    let r = playPiece(kilnfastMorning(), "c1", 2, poolCtx);    // Setterby: wakes, gathers, steadies
-    r = playPiece(r.state, "c2", 2, poolCtx);                  // Calipers: wakes, aims the room at the Beam
-    const beam = r.state.pieces.find(p => p.instanceId === "cap")!;
-    expect(beam.fired).toBe(true);                             // the Beam woke
+    let r = playPiece(s, "j1", 2, poolCtx);                    // Setterby wakes → joinery worked = 1
+    r = playPiece(r.state, "cap", 7, poolCtx);                 // play the Beam → wakes (joinery = 2); on-play fill by joinery completes
+    expect(r.state.pieces.find(p => p.instanceId === "cap")!.fired).toBe(true);
     expect(r.state.events.some(e => e.type === "filled" && e.data?.complete === true)).toBe(true);
-    // completing the need re-makes the town (Phase 4): the glad-load pays and the asking clears
     expect(r.state.events.some(e => e.type === "fulfilled")).toBe(true);
     expect(r.state.asking).toBeNull();
-    expect(r.state.player.gleam).toBeGreaterThan(1);           // the reach overflowed
   });
-  it("out of order, the same cards under-fill — the reach falls short", () => {
-    let r = playPiece(kilnfastMorning(), "c2", 2, poolCtx);    // Calipers FIRST: cold, dumps a bare room
-    r = playPiece(r.state, "c1", 2, poolCtx);                  // Setterby after — too late
-    expect(r.state.asking!.progress).toBeLessThan(3);
+
+  it("out of order, the Beam played cold under-fills — build the read first", () => {
+    const s = testState(x => {
+      x.turn.dawned = true; x.turn.room = 12;
+      x.asking = need(5);
+      x.pieces = [testPiece("the-fired-beam", { instanceId: "cap" })];
+    });
+    const r = playPiece(s, "cap", 7, poolCtx);                 // cold: joinery worked = 1 → a thin fill
+    expect(r.state.asking!.progress).toBeLessThan(5);
     expect(r.state.events.some(e => e.type === "filled" && e.data?.complete === true)).toBe(false);
+  });
+
+  it("the D-017 fix: an ALREADY-woken filler still fills on play — no hoarding", () => {
+    const s = testState(x => {
+      x.turn.dawned = true; x.turn.room = 12;
+      x.asking = need(7, "great");
+      // ripe-mending fills by room; woken already, so this is a replay — under on-wake it would fill nothing
+      x.pieces = [testPiece("ripe-mending", { instanceId: "rm", fired: true, zone: "hand" })];
+    });
+    const r = playPiece(s, "rm", 0, poolCtx);                  // replay the woken filler (pour 0)
+    expect(r.state.events.some(e => e.type === "filled")).toBe(true);   // it fills by room — repeatable
   });
 });
 

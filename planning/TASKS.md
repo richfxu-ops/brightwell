@@ -18,6 +18,7 @@
 ## In Progress
 
 ## Done
+- [x] (P1) [Card flow redesign](tasks/card-flow-redesign.md) — repeatable fills, more flow, pool 49→97 (from playtest) #m4
 - [x] (P1) [Simulation harness](tasks/sim-harness.md) — engine Phase 7, bots + run-driver + the 57-key emitter #sim #m3
 - [x] (P1) [Acquisition (the Fair)](tasks/acquisition.md) — engine Phase 6, drafting #engine #m3
 - [x] (P1) [Run frame](tasks/run-frame.md) — engine Phase 5 #engine #m3

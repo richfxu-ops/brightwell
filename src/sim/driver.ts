@@ -85,11 +85,16 @@ export const baselinePolicy: Policy = (state, ctx) => {
   return { kind: "end", camp: true };
 };
 
-/** Seed a Way's journey-cards into the pack (inert), like the toy's deck picker. */
+/**
+ * Seed a Way's STARTER cards into the pack (inert), like the toy's deck picker. Only cards tagged
+ * `starter` join the opening deck; a Way's other cards are Fair-only variety it drafts during the run
+ * (card-flow redesign Part 3 — keeps starting decks lean so the deeper pool is the source of "always
+ * something new to wake", and so draft choices, not a fixed deck, drive run-to-run diversity).
+ */
 function seedDeck(state: GameState, archetype: Archetype): GameState {
   if (archetype === "apprentice") return state;
   for (const card of POOL.values()) {
-    if (card.archetype === archetype) mintPiece(state, card.id, "pack");
+    if (card.archetype === archetype && card.tags?.includes("starter")) mintPiece(state, card.id, "pack");
   }
   return state;
 }

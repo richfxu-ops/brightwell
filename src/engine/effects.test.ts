@@ -230,14 +230,14 @@ describe("the working core", () => {
   });
   it("a mega-dump diminishes past the band", () => {
     const { state: s } = resolveEffect(withCapstone(18), fx("rest", { target: "held:capstone", amount: 18 }), ctx);
-    expect(gleamGained(s)).toBe(FULL_RATE_BAND + 2);   // excess 10: 6 full + floor(4*0.5)
+    expect(gleamGained(s)).toBe(FULL_RATE_BAND + 1);   // D-018: excess 10 → 3 full + floor(7*0.25)=1
   });
   it("REGRESSION: splitting one big rest into two cannot bypass the diminishing band", () => {
     const oneDump = resolveEffect(withCapstone(18), fx("rest", { target: "self", amount: 18 }), capCtx);
     const twoStep0 = withCapstone(18);
     const twoStep1 = resolveEffect(twoStep0, fx("rest", { target: "self", amount: 13 }), capCtx);   // excess 5
     const twoStep2 = resolveEffect(twoStep1.state, fx("rest", { target: "self", amount: 5 }), capCtx); // excess 10
-    expect(gleamGained(twoStep2.state)).toBe(gleamGained(oneDump.state));   // both 8
+    expect(gleamGained(twoStep2.state)).toBe(gleamGained(oneDump.state));   // both 4 (D-018)
   });
   it("rest spends only what the room holds", () => {
     const s0 = state(s => { s.turn.room = 2; });
@@ -248,7 +248,7 @@ describe("the working core", () => {
 
   it("brim widens the band and recovers the diminished share, in the overkill piece's grain", () => {
     const first = resolveEffect(withCapstone(18), fx("rest", { target: "self", amount: 18 }), capCtx);
-    expect(gleamGained(first.state)).toBe(8);   // excess 10 → 6 + 2
+    expect(gleamGained(first.state)).toBe(4);   // D-018: excess 10 → 3 + floor(7*0.25)=1
     const { state: s, events } = resolveEffect(first.state,
       fx("brim", { band: { do: "read", source: "over-ceiling" } }, "on-overkill"), capCtx);
     expect(events.some(e => e.type === "brimmed")).toBe(true);

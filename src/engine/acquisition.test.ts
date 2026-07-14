@@ -190,20 +190,21 @@ describe("rollFair", () => {
 });
 
 describe("draftFair — the hybrid cost", () => {
-  it("bands 1–2 are bought with handsels; the take mints an inert piece and caps at 2/morning", () => {
+  it("bands 1–2 are bought with handsels; the take mints an inert piece and caps at 3/morning", () => {
     const s = testState(x => {
       x.turn.dawned = true;
-      x.player.handsels = [1, 2, 3].map(() => ({ brightness: 2 as const, idleMornings: 0 }));
+      x.player.handsels = [1, 2, 3, 4].map(() => ({ brightness: 2 as const, idleMornings: 0 }));
     });
-    const t1 = JOURNEY_POOL.filter(c => c.tier === 1).slice(0, 3).map(c => c.id);
+    const t1 = JOURNEY_POOL.filter(c => c.tier === 1).slice(0, 4).map(c => c.id);
     s.turn.fairOffers = [...t1];
     expect(draftFair(s, t1[0])).toBe(true);
     expect(s.pieces.some(p => p.cardId === t1[0] && !p.fired && p.zone === "pack")).toBe(true);
-    expect(s.player.handsels).toHaveLength(2);              // paid 1
+    expect(s.player.handsels).toHaveLength(3);              // paid 1
     expect(s.turn.fairOffers).not.toContain(t1[0]);        // drafted offers leave the row
     expect(draftFair(s, t1[1])).toBe(true);
-    expect(draftFair(s, t1[2])).toBe(false);               // capped at DRAFT_PER_MORNING (2)
-    expect(s.turn.draftedThisMorning).toBe(2);
+    expect(draftFair(s, t1[2])).toBe(true);
+    expect(draftFair(s, t1[3])).toBe(false);               // capped at DRAFT_PER_MORNING (3)
+    expect(s.turn.draftedThisMorning).toBe(3);
   });
 
   it("refuses a handsel take you can't afford, and one that isn't on offer", () => {
@@ -232,9 +233,9 @@ describe("draftFair — the hybrid cost", () => {
 });
 
 describe("ACQUISITION_TUNABLES", () => {
-  it("caps release at one a morning and drafts at two (D-013 draft-2 / release-1)", () => {
+  it("release 1/morning; the wider Fair drafts 3 of 7 (D-019 flow bump)", () => {
     expect(ACQUISITION_TUNABLES.RELEASE_PER_MORNING).toBe(1);
-    expect(ACQUISITION_TUNABLES.DRAFT_PER_MORNING).toBe(2);
-    expect(ACQUISITION_TUNABLES.OFFER_N).toBe(5);
+    expect(ACQUISITION_TUNABLES.DRAFT_PER_MORNING).toBe(3);
+    expect(ACQUISITION_TUNABLES.OFFER_N).toBe(7);
   });
 });

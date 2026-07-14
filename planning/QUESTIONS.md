@@ -34,8 +34,10 @@ starting stock 2 pending §D3) are recorded in that task's Decisions.
   audience-thing** contributes `2 × 0.8^(n−1)` (plateau ≈ 10) — a decaying-seat law, not a hard
   room ceiling. Code: hard cap on gather at 10. Close in effect, wrong in mechanism; matters
   once Phase 3 makes dawn seat the fired audience.
-- **A6 · DIMINISH_RATE is locked, not a placeholder.** L6 §4: full rate 1.0 for 6 past the
-  ceiling, **then 0.5**. The code's value is right; its PLACEHOLDER label is wrong.
+- **A6 · DIMINISH_RATE was L6 §4's locked value; TIGHTENED by D-018 (2026-07-14).** L6 §4 set
+  full rate 1.0 for 6 past the ceiling, then 0.5. Playtesting showed Standing ballooned (fail-state
+  toothless), so D-018 tightened it to **3 past ceiling, then 0.25** — a sanctioned tuning; final
+  value set with competent bots in Phase 8.
 
 ## B · Phase 3 — the worked morning
 

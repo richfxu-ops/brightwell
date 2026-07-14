@@ -19,9 +19,14 @@ import { currentNode } from "./state.js";
 import { countsAs, evaluateRead } from "./reads.js";
 import { nextInt } from "./rng.js";
 
-// ----- constants (all locked L6 values; see planning/QUESTIONS.md §A for the alignment) -----
-export const FULL_RATE_BAND = 6;      // overkill→gleam at full rate for the first 6 (L6 §4)
-export const DIMINISH_RATE = 0.5;     // LOCKED: "then 0.5 beyond" (L6 §4, overkill-band)
+// ----- constants (L6 §4/§5 values; see planning/QUESTIONS.md §A. Most are locked; the overkill→gleam
+// band was tightened by D-018 — a sanctioned tuning, not a placeholder) -----
+// D-018: tightened from L6 §4's 6 / 0.5 — playtesting showed Standing ballooned to ~200 with the
+// fail-state never threatening (quiet-walks 0/350), worsened when fills went on-play (their self-pour
+// fires every play). A harsher overkill→gleam curve makes Standing meaningful again (a resource to
+// keep lit, a real fail-state). Tunable — final value set with competent bots in Phase 8.
+export const FULL_RATE_BAND = 3;      // overkill→gleam at full rate for the first 3 past ceiling
+export const DIMINISH_RATE = 0.25;    // then a quarter beyond
 export const SEAT_FIRST = 2;          // the nth seat contributes 2 × 0.8^(n-1) room…
 export const SEAT_DECAY = 0.8;        // …plateauing ~10 (gathered-room-softcap)
 export const SOOTHE_MEND_CAP = 2;     // soothe mends min(requested, rings, 2) (last-red-cap)
