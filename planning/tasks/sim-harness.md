@@ -17,10 +17,16 @@ them into the watch-item verdicts (I-006/014/020/022, crown-stand spread, domina
 The two backlog lines — "bot players for all six archetypes" and "simulation harness emitting
 the 57 keys" — are the two halves of this task.
 
-## The blocker (why this can't start yet)
+## The blocker — RESOLVED 2026-07-14 (Phases 4–6 are all real in the engine)
 
-**The harness measures a full run; the engine can't yet play one.** Today's engine (Phase 3)
-does exactly one worked morning: `dawn → (playPiece | stallAction)* → dusk`. It has no
+> **Unblocked.** Phase 4 (asking lifecycle, D-012), Phase 5 (run frame, D-014), and Phase 6
+> (acquisition — the Fair, D-013/D-015) have all landed. The engine now plays a whole wander-year
+> that begins, escalates, ends three ways, and grows the deck — so the 57 run-level keys below are
+> populatable and this task can start. The historical framing that follows records *why* it was
+> blocked; the sequencing decision (option 1) was taken and executed.
+
+**Originally: the harness measures a full run; the engine couldn't yet play one.** The Phase-3
+engine did exactly one worked morning: `dawn → (playPiece | stallAction)* → dusk`. It had no
 run-level structure — which is precisely what the toy had to stub with FIDELITY shims (an
 auto-refreshing asking, no map, no acquisition, an endless sandbox that never ends, wins, or
 loses).
@@ -60,8 +66,8 @@ The honest options:
    land. Risk: it hard-codes the FIDELITY stubs' shape and gets rewritten anyway; low balance
    value until the run exists.
 
-My recommendation is **(1)** — this task file stays parked at To Do as the M3 capstone, and the
-next task we scope is **Phase 4: the asking lifecycle**.
+**Decided: option (1), and executed** — Phases 4 → 5 → 6 were built and merged in that order
+(D-012/D-014/D-015). This task is now the next up: a real full-run engine exists to measure.
 
 ## Approach (sketch — for when it's unblocked)
 
@@ -77,5 +83,6 @@ next task we scope is **Phase 4: the asking lifecycle**.
 
 ## Plan
 
-*(Deferred until sequencing is decided — the blocker above is the open question.)*
-- [ ] Decide sequencing with the user (build Phases 4–6 first, or partial harness now)
+- [x] Decide sequencing (chose option 1: build Phases 4–6 first) — done
+- [x] Build Phases 4–6 so the engine plays a full run (D-012/D-014/D-015) — done, unblocking this
+- [ ] Scope the harness proper (bots + the 57 keys) via `/task` when picked up

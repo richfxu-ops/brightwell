@@ -16,9 +16,9 @@
 ## Next
 
 ## In Progress
-- [ ] (P1) [Acquisition (the Fair)](tasks/acquisition.md) — engine Phase 6, drafting #engine #m3 #review
 
 ## Done
+- [x] (P1) [Acquisition (the Fair)](tasks/acquisition.md) — engine Phase 6, drafting #engine #m3
 - [x] (P1) [Run frame](tasks/run-frame.md) — engine Phase 5 #engine #m3
 - [x] (P1) [Asking lifecycle](tasks/asking-lifecycle.md) — engine Phase 4 #engine #m3
 - [x] (P2) [Toy morning](tasks/toy-morning.md) #prototype #m3
