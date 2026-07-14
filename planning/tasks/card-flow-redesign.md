@@ -1,5 +1,5 @@
 ---
-status: In Progress
+status: In Review
 size: Large
 created: 2026-07-14
 title: Card flow redesign
@@ -39,7 +39,7 @@ we can now measure whether the crown is standable-but-hard, and whether builds s
   honoring each Way's identity. The biggest content effort; could leverage the `game-architect` /
   card-smith tooling. Re-balance with the harness afterward (no dominant cards, builds stay diverse).
 
-## Decisions (direction set; details in Proposal)
+## Decisions
 
 - **Only `fill` moves to `on-play`; other effects may stay `on-wake` (user-decided).** The hoarding
   gotcha was specifically about *filling*, so only the `fill` primitive becomes repeatable. One-shot
@@ -82,7 +82,7 @@ Large — three parts, each its own branch + harness validation before the next.
 - [x] Harness: **winnability proven** — on-play fills alone took wins 0/350 → ~11/350 (gleaners 5/50);
       gleam faucet tightening cut gleam_peak median 196 → 105 (still generous — residual traces to
       fill cards' self-pour, a Part-3 card-design issue). `npm run check` green (135).
-- [ ] Log D-017 + D-018 in DECISIONS.md; Review Card
+- [x] Log D-017 + D-018 in DECISIONS.md; Review Card
 - [ ] *(Deferred to Phase 8)* final crown/gleam difficulty tuning with competent bots
 
 ### Part 2 — more flow
@@ -93,8 +93,24 @@ Large — three parts, each its own branch + harness validation before the next.
       deferred; the Fair widening was enough flow for now.)*
 
 ### Part 3 — more cards
-- [ ] Expand the pool (per-Way + shared) over the vocabulary, honoring archetype identities
-- [ ] Re-balance with the harness (no dominant cards, builds diverse); `npm run check` green; Review Card
+- [x] **`starter` tag + tag-aware seedDeck** (D-020): tagged the 42 Way cards `starter`; seedDeck now
+      seeds only starter-tagged cards, so new cards are Fair-only variety. Behavior-preserving (all
+      existing cards are starters → identical harness numbers). Lean-start-deep-Fair chosen over
+      seed-everything so draft choices, not a fixed deck, drive run-to-run diversity.
+- [x] **Doubled the pool 49 → 97** (8 new cards/Way) via per-Way card-smith subagents over the locked
+      14 primitives; all pass validate.ts. Added Fair-only EXCEPT eveners' *the-dusk-gift* + fairwrights'
+      *feed-the-crown*, seeded as `starter` fillers — the fix for those two Ways' 0-win trap (no fill
+      card → crown unstandable). Every Way now has a starter filler + a mid-cost fill route + a proud
+      alternate capstone. Rebalanced 3 new eveners cards to thread (dance-primary/thread-secondary) so
+      doubling two dance Ways didn't over-skew the pool grain balance. New test guards the starter-filler
+      invariant per Way.
+- [x] Harness re-validated: wins **6/350 → 106/350**, every Way now wins (eveners 0→37, fairwrights
+      0→8, kilnfast 0→19). **Build diversity strong** — 80-91 distinct cards played/Way, top card only
+      7-10% (no dominant card, incl. the new fillers at ~8%). `npm run check` green (135).
+- [x] Log D-020 in DECISIONS.md; Review Card
+- [ ] *(Watch, Phase 8)* the greedy-bot win rate jumped high (eveners 74%); absolute crown/gleam
+      difficulty tuning stays **deferred to Phase 8** (competent bots) per D-018 — the spread mirrors
+      canon identity (eveners = consistency, fairwrights = variance), not a degenerate card.
 
 ## Tunables (set empirically during implementation via the harness; starting points)
 

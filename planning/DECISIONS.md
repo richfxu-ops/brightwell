@@ -1,5 +1,30 @@
 # DECISIONS.md — pipeline-test-02
 
+## D-020 · Card pool doubled (49→97) + lean-start/deep-Fair — card-flow Part 3 (2026-07-14, user-decided)
+Part 3 of the card-flow redesign: **more cards** so a woken deck doesn't plateau and every Way can
+stand the crown. Two decisions:
+- **Lean start, deep Fair (user-decided over seed-everything).** New cards are Fair-only *draftable
+  variety*, not dealt into the opening deck. Implemented as a `starter` tag: the 42 existing Way cards
+  are tagged `starter`, and the sim's `seedDeck` seeds only starter-tagged cards (a ~1-line harness
+  change, behavior-preserving — all existing cards are starters, so numbers held identical). This keeps
+  starting decks lean (~14) so *draft choices*, not a fixed deck, drive run-to-run diversity, and makes
+  the deeper pool the source of "always something new to wake". Rejected: seed-every-Way-card (starting
+  decks balloon to ~21, the Fair matters less, every run of a Way plays out the same).
+- **Pool generated via per-Way card-smith subagents (user-decided over hand-authoring).** Six subagents
+  (one per Way) each drafted 8 cards to an identity brief over the locked 14 primitives; all pass
+  validate.ts. Added Fair-only EXCEPT **eveners' the-dusk-gift + fairwrights' feed-the-crown**, seeded as
+  `starter` fillers — the fix for those two Ways carrying **no `fill` card** (crown unstandable from their
+  deck → 0 wins). Every Way now has a starter filler + a mid fill route + a proud alternate capstone. 3
+  new eveners cards set to thread grain (dance-primary/thread-secondary, canon) so doubling two dance
+  Ways didn't over-skew the pool (would have broken the glad-load grain-weight test — a real balance
+  signal, not a brittle test). A new test guards the per-Way starter-filler invariant.
+- **Harness:** wins **6/350 → 106/350**, every Way wins (eveners 0→37, fairwrights 0→8). **Build
+  diversity strong** — 80-91 distinct cards played/Way, top card only 7-10% (no dominant card). The high
+  greedy-bot win rate (eveners 74%) is a simple-bot artifact; **absolute crown/gleam difficulty tuning
+  stays deferred to Phase 8** (competent bots, per D-018). The eveners/fairwrights spread mirrors canon
+  identity (consistency vs variance). `npm run check` green (135). No locked canon or engine primitive
+  touched — new behavior is card DATA + one harness deck-construction tweak.
+
 ## D-018 · Overkill→gleam faucet tightened — the fail-state gets teeth (2026-07-14, user-decided)
 Playtesting + the harness showed Standing balloons to ~200 (gleam_peak median 196, **quiet-walks
 0/350**) — the safety resource is trivially maxed and the fail-state never threatens; D-017 worsened
