@@ -17,9 +17,9 @@
 ## Next
 
 ## In Progress
-- [ ] (P2) [Toy morning](tasks/toy-morning.md) #prototype #m3 #review
 
 ## Done
+- [x] (P2) [Toy morning](tasks/toy-morning.md) #prototype #m3
 - [x] (P2) [Toy Morning redesign](tasks/toy-morning-redesign.md) #prototype #ui
 - [x] Stage 1 (world-architect): WORLD.md, ledger, terms — all layers locked #m1
 - [x] Stage 2 (game-architect): GDD.md layers 1–7 locked #m2

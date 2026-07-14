@@ -1,9 +1,15 @@
 ---
-status: In Review
+status: Complete
 size: Medium
 created: 2026-07-14
+completed: 2026-07-14
 title: Toy morning
 ---
+
+> **Superseded by [Toy Morning redesign](toy-morning-redesign.md) (merged 2026-07-14).**
+> This first cut proved the loop is fun and produced the findings below; its UI was then
+> rewritten into the single-screen dashboard. The findings stand as the record of what the
+> toy taught us — that's why this task closes Complete rather than being discarded.
 
 ## Context
 
