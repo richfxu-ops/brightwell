@@ -537,7 +537,7 @@ function HandCard({ run, id, selected, onPick }: {
             <span className="tm-when">{g.whenLabel}</span>
             <span className={`tm-fxtext${g.zero ? " zero" : ""}`}>
               {g.text}
-              {g.live && <i className="tm-live">  ·  {g.zero ? `${g.live} — nothing to feed yet` : g.live}</i>}
+              {g.live && <i className="tm-live"> · {g.zero ? `${g.live} — nothing to feed yet` : g.live}</i>}
             </span>
           </div>
         ))}
