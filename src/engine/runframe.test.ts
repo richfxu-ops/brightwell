@@ -82,6 +82,40 @@ describe("drifted — the year runs out without the crown", () => {
   });
 });
 
+describe("a concluded run is inert", () => {
+  it("dawn / playPiece / stallAction / dusk are no-ops once runEnded is set", () => {
+    const base = testState(x => {
+      x.calendar = { morning: 10, leg: 1 }; x.turn.dawned = true; x.turn.room = 5;
+      x.runEnded = { reason: "quiet-walk", peakStanding: 6, crownDemand: 10 };
+      x.pieces = [testPiece("sprig-trestle", { instanceId: "a1", zone: "hand" })];
+    });
+    for (const call of [
+      () => dawn(base, noCtx),
+      () => playPiece(base, "a1", 2, poolCtx),
+      () => dusk(base, noCtx),
+    ]) {
+      const r = call();
+      expect(r.events).toEqual([]);                       // nothing emitted
+      expect(r.state.calendar.morning).toBe(10);          // calendar not advanced
+      expect(r.state.runEnded?.reason).toBe("quiet-walk");
+    }
+  });
+});
+
+describe("a dawn that spills to zero does not hang a doomed asking (finding #2)", () => {
+  it("a stale-spill quiet-walk at dawn leaves no fresh asking and emits no 'accepted'", () => {
+    const s = testState(x => {
+      x.calendar = { morning: 10, leg: 1 }; x.turn.dawned = true;
+      x.player.gleam = 4; x.player.peakGleam = 6;   // a stale great costs 7 → floored to 0
+      x.asking = { tier: "great", needFill: 7, progress: 0, acceptedMorning: 5, acceptedLeg: 1, staleAfterMornings: 99, touched: false };
+    });
+    const r = dawn(s, noCtx);   // crosses into leg 2 → the great goes stale → spill to 0
+    expect(r.state.runEnded?.reason).toBe("quiet-walk");
+    expect(r.state.asking).toBeNull();                    // no fresh asking hung on a dead run
+    expect(r.events.some(e => e.type === "accepted")).toBe(false);
+  });
+});
+
 describe("the static-deck-must-lose invariant", () => {
   it("a pure apprentice deck has no fill card, so it can never stand the crown", () => {
     // the seven-card apprentice hand carries gather/steady/keep/warm — but no `fill`.

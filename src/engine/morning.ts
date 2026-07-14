@@ -112,6 +112,7 @@ function refillHand(state: GameState): string[] {
 
 export function dawn(stateIn: GameState, ctx: MorningContext): MorningResult {
   const state = structuredClone(stateIn);
+  if (state.runEnded) return { state, events: [] };   // a concluded run is inert (Phase 5)
   const before = state.events.length;
 
   if (state.turn.dawned) state.calendar.morning += 1;
@@ -159,14 +160,15 @@ export function dawn(stateIn: GameState, ctx: MorningContext): MorningResult {
   runCascade(state, ctx, before);
 
   // the asking lifecycle (Phase 4): a contract held past its accepting leg goes stale (spills
-  // Standing, chalks a ring). Then hang the next asking — the crown in the Wintering (Phase 5),
-  // an ordinary doorstep asking otherwise — unless the year is over or the crown is already stood.
+  // Standing, chalks a ring) — which can gut Standing to zero, so resolve the run's end FIRST.
+  // Then hang the next asking — the crown in the Wintering (Phase 5), an ordinary doorstep asking
+  // otherwise — but never onto a run that has already concluded.
   checkStaleAtDawn(state);
-  if (!state.asking && !state.crownStood && !yearOver(state)) {
+  checkRunEnd(state);
+  if (!state.runEnded && !state.asking && !state.crownStood && !yearOver(state)) {
     if (isWintering(state)) acceptCrown(state);
     else acceptAsking(state);
   }
-  checkRunEnd(state);
 
   return { state, events: state.events.slice(before) };
 }
@@ -182,6 +184,7 @@ export function playPiece(
   stateIn: GameState, instanceId: string, pour: number, ctx: MorningContext,
 ): MorningResult {
   const state = structuredClone(stateIn);
+  if (state.runEnded) return { state, events: [] };   // a concluded run is inert (Phase 5)
   const before = state.events.length;
   const piece = state.pieces.find(p => p.instanceId === instanceId);
   if (!piece || piece.zone !== "hand") {
@@ -214,6 +217,7 @@ export function playPiece(
 /** Any morning action that isn't a play: braced ? absorbed : the room halves, the chain breaks. */
 export function stallAction(stateIn: GameState, ctx: MorningContext, kind = "errand"): MorningResult {
   const state = structuredClone(stateIn);
+  if (state.runEnded) return { state, events: [] };   // a concluded run is inert (Phase 5)
   const before = state.events.length;
   if (state.turn.braced) {
     state.turn.braced = false;
@@ -237,6 +241,7 @@ export interface DuskChoice {
 
 export function dusk(stateIn: GameState, ctx: MorningContext, choice: DuskChoice = {}): MorningResult {
   const state = structuredClone(stateIn);
+  if (state.runEnded) return { state, events: [] };   // a concluded run is inert (Phase 5)
   const before = state.events.length;
 
   // at-dusk effects (same eligibility as dawn: fired pieces only)
