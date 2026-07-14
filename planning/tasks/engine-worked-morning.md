@@ -1,7 +1,8 @@
 ---
-status: In Review
+status: Complete
 size: Medium
 created: 2026-07-14
+completed: 2026-07-14
 title: The worked morning
 ---
 
@@ -22,9 +23,9 @@ from the GDD: the Kilnfast chain wakes in order and under-fills out of order.
   draw (zero if the node is soothed), and ⅔ of the local table if camped; reset the morning
   flags and cold pieces' set (D-010 B1); refill the hand to 5 (reshuffling the discard only
   when the pack runs dry, B4); then fire on-dawn effects of fired pieces (B5) in a B3 cascade.
-- **`playPiece(state, instanceId)`** — the one exchange gate: move the piece in-play, count
-  the chain link, resolve its on-play effects in played order, cascade any triggered
-  listeners (B3, fire-once), track played order for future cascades.
+- **`playPiece(state, instanceId, pour)`** — the one exchange gate: move the piece in-play,
+  count the chain link, pour `pour` attention onto it (the play IS the pour; 0 banks it
+  cold), resolve its on-play effects, cascade any triggered listeners (B3, fire-once).
 - **`stallAction(state, kind)`** — any non-play action: braced ? consume the brace : halve
   the room and break the chain (B2).
 - **`dusk(state)`** — the B1 sweep (unspent room + cold pieces' set → this node's table);

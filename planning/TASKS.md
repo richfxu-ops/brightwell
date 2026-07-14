@@ -18,7 +18,6 @@
 - [ ] (P2) Toy morning: playable single-turn slice over the engine — the "is it fun?" check (after Phase 3) #prototype #m3
 
 ## In Progress
-- [ ] (P1) [The worked morning](tasks/engine-worked-morning.md) #engine #m3 #review
 
 ## Done
 - [x] Stage 1 (world-architect): WORLD.md, ledger, terms — all layers locked #m1
@@ -32,3 +31,4 @@
 - [x] (P0) Decide stage-3 approach: hand-build the engine via /task (D-008); game-loop skill re-evaluated at M4 #m3
 - [x] (P1) [Effects resolvers](tasks/engine-effects-resolvers.md) #engine #m3
 - [x] (P1) [Align resolvers to L6](tasks/align-resolvers-l6.md) #engine #m3
+- [x] (P1) [The worked morning](tasks/engine-worked-morning.md) #engine #m3
