@@ -48,25 +48,24 @@ starting stock 2 pending §D3) are recorded in that task's Decisions.
 - Starting deck spread: 2 joinery + 1 each thread/dough (mark 1) and song/glaze/dance (mark 2).
 
 **[OPEN] to decide in the Phase-3 proposal:**
-- **B1 · The SET/RETURN split.** L1: a play "splits with nothing lost" — SET works the piece,
-  RETURN seeps to this node's table. Never quantified. What exactly is RETURN: (a) room left
-  unspent at dusk, (b) a fixed share of every spend, (c) attention on pieces that stayed cold?
-  *Recommendation: (a) + (c) — dusk sweeps unspent room and cold pieces' set to the local
-  table; a rest that wakes keeps its attention in the piece. Simple, conserving, matches
-  "unplayed pieces RETURN".*
-- **B2 · Stall and brace.** What breaks a chain (a morning pause? playing a no-combo card?),
-  and how much does an unbraced stall cool the room? *Recommendation: a stall = any morning
-  action that isn't a play (or an explicit pass); cooling = room ×0.5 rounded down; brace
-  negates exactly one stall. Numbers M4-tunable.*
-- **B3 · Trigger cascade order.** When a wake fires several listeners (`on-wake` on other
-  cards), what order? *Recommendation: played-order (the chain's own order), depth-first,
-  with a per-morning fire-once rule per effect instance to prevent loops.*
-- **B4 · "Unplayed pieces RETURN" reading.** Do unplayed hand cards go back to the pack
-  (pieces conserved) while only *attention* seeps? *Recommendation: yes — pieces to pack,
-  cold set to the table; nothing to a void.*
-- **B5 · on-dawn eligibility.** Do on-dawn effects (the utility draws) fire from hand only,
-  or also from pack/fired? *Recommendation: fired pieces only — a woken Dovetail Draw works
-  every dawn; an unwoken one is inert paper. Matches "wakes fire permanently into your deck".*
+- **B1 · The SET/RETURN split — DECIDED 2026-07-14 (user): the dusk sweep.** At dusk, unspent
+  room + attention on pieces that stayed cold seep to THIS node's table (cold pieces reset to
+  0 set at dawn — no slow-cook waking); woken pieces keep their attention permanently. Camping
+  recovers up to ⅔ (locked); leaving abandons the table. Goes into D-010 with B2–B5.
+- **B2 · Stall and brace — DECIDED 2026-07-14 (user, "try for now"):** a stall = any morning
+  action that isn't playing a card; an unbraced stall halves the room (round down); a brace
+  absorbs exactly one stall and is consumed. The halving rate is an explicit M4 dial.
+- **B3 · Trigger cascade order — DECIDED 2026-07-14 (user): chain order.** Listeners fire in
+  the order their cards were played this morning, cascading naturally; each effect instance
+  fires at most once per morning (loops structurally impossible).
+- **B4 · Unplayed cards — DECIDED 2026-07-14 (user, against the straight-back recommendation):
+  a cycling discard.** At dusk, unplayed hand cards and resolved cold pieces go to a discard
+  zone; the discard reshuffles into the pack only when the pack runs dry mid-draw — players
+  can count on seeing every card once per rotation. Adds a "discard" Zone to state. Attention
+  still seeps per B1; nothing to a void.
+- **B5 · on-dawn eligibility — DECIDED 2026-07-14 (user): fired pieces only.** A woken
+  utility piece serves every dawn for the rest of the run; an unwoken one is inert paper.
+  Woken things attend; dawn power is built, never dealt.
 
 ## C · Phases 4–5 — askings, the year, the endings
 

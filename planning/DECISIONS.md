@@ -1,5 +1,20 @@
 # DECISIONS.md — pipeline-test-02
 
+## D-010 · The worked morning's five rules (2026-07-14, user-decided one by one)
+The QUESTIONS.md §B calls that shape engine Phase 3:
+- **B1 · The dusk sweep.** Unspent room + attention on cold pieces seep to THIS node's table
+  at dusk (recoverable up to ⅔ by camping, locked); woken pieces keep their attention
+  permanently; cold pieces reset to 0 at dawn — no slow-cook waking. Printed marks stay honest.
+- **B2 · Stalls ("try for now").** Any non-play morning action stalls; an unbraced stall
+  halves the room (round down); a brace absorbs exactly one stall. Halving rate = M4 dial.
+- **B3 · Chain-order cascades.** Trigger listeners fire in played order this morning; each
+  effect instance fires at most once per morning (loops structurally impossible).
+- **B4 · A cycling discard** (user chose over straight-back-to-pack): unplayed hand + resolved
+  cold pieces go to a discard zone at dusk; it reshuffles into the pack only when the pack
+  runs dry — rotation you can count on. Adds a "discard" Zone.
+- **B5 · Dawn effects fire from fired pieces only.** Woken things attend; an unwoken utility
+  card is inert paper until woken once, then serves every dawn.
+
 ## D-009 · read(grain:<suit>) scope ruling (2026-07-13, user-approved)
 **`grain:<suit>` counts this morning's working** (pieces waking or stamped `<suit>` today; resets at
 dawn); **`woken:<suit>` counts the cross-turn fired audience** (pieces fired on earlier mornings).
