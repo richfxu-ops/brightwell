@@ -1,5 +1,5 @@
 ---
-status: In Progress
+status: In Review
 size: Large
 created: 2026-07-14
 title: Simulation harness
@@ -38,10 +38,9 @@ API**, never its internals), pure and seeded like the engine so a record replays
 
 ### The 57 keys — three buckets (all present in every record)
 
-The keys are not uniform; the emitter maps each into one bucket, and **finalizing that manifest is
-step 1** (it pins exactly which key is which):
+The keys are not uniform; the manifest (`keys.ts`) maps each into one bucket — **37 / 7 / 13**:
 
-- **Per-run, real now (~35):** everything the run/deck/gleam/asking/chain/acquisition/room systems
+- **Per-run, real now (37):** everything the run/deck/gleam/asking/chain/acquisition/room systems
   produce — `run_won`, `run_end_reason`, `crown_stood`, `deck_size_by_leg`, `gleam_*`, `chain_*`,
   `fair_drafts_taken`, `acquisition_source_shares`, `need_fill_clear_rate_by_leg`,
   `paling_rings_accrued`, `combo_*`, `soothe_applications`, `handsels_whittled_total`, … Read off the
@@ -50,7 +49,7 @@ step 1** (it pins exactly which key is which):
   `gleanings_taken`, `handsels_idle_lapsed_total`, `glad_price_net_ev`, the `untold_*` trio. Emitted
   as `0`/`null` **tagged with the system each awaits**, so the record shape is stable and the values
   fill in as those systems land (per the agreed "all 57 present, honest zeros" gate).
-- **Cross-run aggregate (~15) → Phase 8, NOT per-run:** `archetype_win_rate`,
+- **Cross-run aggregate (13) → Phase 8, NOT per-run:** `archetype_win_rate`,
   `archetype_crown_stand_rate`, the six `axis_*`, `dominated_archetype_pairs`, `power_band_width`,
   `crown_stand_spread`, … These are computed *over the record set*, so they are **not** fields of a
   single record — Phase 8 derives them. The completeness gate covers per-run keys only.
@@ -84,15 +83,15 @@ step 1** (it pins exactly which key is which):
 
 ## Technical detail
 
-**Location & output.** `src/sim/{policies.ts, driver.ts, metrics.ts, keys.ts}` + a `sim.test.ts`
-(the completeness gate) and an `npm run sim` script that writes `sim/out/records.json` (N seeded runs
-× 6 archetypes) for Phase 8. N small in Phase 7 (prove the pipeline); Phase 8 scales it.
+**Location & output.** `src/sim/{policies.ts, driver.ts, metrics.ts, keys.ts, run.ts}` + `sim.test.ts`
++ `policies.test.ts`, and an `npm run sim` script that writes `sim/out/records.json` (N seeded runs ×
+7 archetypes — apprentice + the 6 Ways) for Phase 8. N small in Phase 7 (prove the pipeline); Phase 8 scales it.
 
-**Shapes (sketch — firmed in step 1):**
+**Shapes (as built):**
 - `type Action = { kind: "play"; instanceId; pour } | { kind: "stall" } | { kind: "draft"; cardId }
   | { kind: "release"; instanceId } | { kind: "end"; camp? }`
 - `type Policy = (state: GameState, ctx: MorningContext) => Action`
-- `interface RunRecord extends RoundMetricsPerRun { seed: number }` — the per-run keys only.
+- the written record is `RoundMetricsPerRun & { seed: number }` — the per-run keys plus the seed.
 - `keys.ts` — the manifest: the three buckets as typed key lists, the single source the emitter and
   the gate both read (so "a key exists" is checked in one place).
 
