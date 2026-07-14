@@ -5,7 +5,6 @@
 > and a `[Title](tasks/<name>.md)` link to the task's file in `tasks/` (worked via the `/task` skill).
 
 ## Backlog
-- [ ] (P1) Engine Phase 6: acquisition — build "the Fair" drafting (direction set in D-013; toy prototype exists) #engine #m3
 - [ ] (P1) [Simulation harness](tasks/sim-harness.md) — bot players + the 57 round_metrics keys (blocked on Phase 6) #sim #m3
 - [ ] (P2) Balance pass: I-022 Untold per-leg count coefficients #balance #m4
 - [ ] (P2) Balance pass: I-044 glad-price brightening bounded below tempo cost #balance #m4
@@ -17,6 +16,7 @@
 ## Next
 
 ## In Progress
+- [ ] (P1) [Acquisition (the Fair)](tasks/acquisition.md) — engine Phase 6, drafting #engine #m3
 
 ## Done
 - [x] (P1) [Run frame](tasks/run-frame.md) — engine Phase 5 #engine #m3

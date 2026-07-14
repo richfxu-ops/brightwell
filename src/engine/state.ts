@@ -76,6 +76,7 @@ export interface TurnState {
   pouredThisMorning: number;   // room spent on pours this morning — provenance + the flop check (C2)
   playedOrder: string[];       // instanceIds in played order — cascade order (D-010 B3)
   firedEffectKeys: string[];   // "<instanceId>#<effectIndex>" — fire-once per morning (B3)
+  releasedThisMorning: number; // last-lit pieces this morning — capped (acquisition, Phase 6)
 }
 
 export interface GameEvent {
@@ -111,6 +112,7 @@ export interface GameState {
     soothesUsed: number;                 // max 4/run — 1 node / 1 knack / 1 season (L6)
   };
   pieces: PieceInstance[];
+  nextPieceOrdinal: number;    // monotonic mint counter for acquired-piece ids (Phase 6)
   asking: Asking | null;
   crownStood: boolean;         // the Wintering crown was stood — the bright win (Phase 5)
   runEnded: RunEnd | null;     // set once the run concludes; the toy/bots stop here
@@ -183,6 +185,8 @@ export function createInitialState(seed: number): GameState {
       soothesUsed: 0,
     },
     pieces,
+    // acquired-piece ids start past the apprentice deck's `#0..#(n-1)` so they never collide
+    nextPieceOrdinal: pieces.length,
     asking: null,
     crownStood: false,
     runEnded: null,
@@ -190,6 +194,7 @@ export function createInitialState(seed: number): GameState {
       room: 0, chainLinks: 0, braced: false, stalled: false,
       overCeiling: 0, overkillPieceId: null, seatedCount: 0, whittledThisMorning: false,
       dawned: false, pouredThisMorning: 0, playedOrder: [], firedEffectKeys: [],
+      releasedThisMorning: 0,
     },
     events: [],
   };

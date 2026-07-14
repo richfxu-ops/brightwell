@@ -142,6 +142,7 @@ export function dawn(stateIn: GameState, ctx: MorningContext): MorningResult {
     overCeiling: 0, overkillPieceId: null,
     seatedCount: seats, whittledThisMorning: false,
     dawned: true, pouredThisMorning: 0, playedOrder: [], firedEffectKeys: [],
+    releasedThisMorning: 0,
   };
 
   const drawn = refillHand(state);

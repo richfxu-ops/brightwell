@@ -13,6 +13,7 @@ import {
   type MorningContext, type MorningResult,
 } from "../engine/morning.js";
 import { chainMultiplier, SEAT_DECAY, SEAT_FIRST } from "../engine/effects.js";
+import { ACQUISITION_TUNABLES, releaseCard } from "../engine/acquisition.js";
 import { evaluateRead } from "../engine/reads.js";
 import starterPool from "../content/cards/starter-pool.json" with { type: "json" };
 
@@ -58,7 +59,6 @@ let nextDraftId = 0;
 const DRAFT_TUNABLES = {
   OFFER_N: 3,             // cards shown in the row each morning
   TAKE_PER_MORNING: 2,    // how many you may draft before the row locks until next dawn
-  RELEASE_PER_MORNING: 1, // how many un-woken cards you may last-light out of the deck per morning
   START_PURSE: 3,         // FIDELITY: a small starting stipend so drafting is feelable from morning 1
   // Standing GATES the market (canon: "widens as gleam rises"): current Standing unlocks richer
   // cards, keyed to a card's woken_delight tier. Bands mirror the stock-vouch ladder (6·12).
@@ -114,7 +114,6 @@ interface Run {
   duskData: DuskData | null;
   offers: string[];    // this morning's draft offer row (cardIds) — FIDELITY prototype
   drafted: number;     // how many drafted this morning (locks the row at TAKE_PER_MORNING)
-  released: number;    // how many cards last-lit out of the deck this morning
 }
 
 const MOMENT_CAP = 12;
@@ -166,7 +165,7 @@ function makeRun(seed: number, deck: string): Run {
     moments: [dawnMoment(r.state, r.events)],
     seen: markers(r.events),
     income: dawnIncomeOf(r.events), poured: 0, duskData: null,
-    offers: rollOffers(r.state), drafted: 0, released: 0,
+    offers: rollOffers(r.state), drafted: 0,
   };
 }
 
@@ -196,7 +195,9 @@ function eventBadge(s: GameState, e: GameEvent): Badge | null {
       text: d.complete ? "need filled 🌼" : `+${d.amount} into the need`,
       big: d.complete === true,
     };
-    case "fulfilled": return { tone: "moss", text: `the town is re-made — glad-load: +${d.gladLoad} to the purse${(d.rings as number) > 0 ? ` (${d.rings} rings paid out)` : ""} + a taught card`, big: true };
+    case "fulfilled": return { tone: "moss", text: `the town is re-made — glad-load: +${d.gladLoad} to the purse${(d.rings as number) > 0 ? ` (${d.rings} rings paid out)` : ""}`, big: true };
+    case "taught": return { tone: "moss", text: `taught ${CARDS.get(d.cardId as string)?.name ?? d.cardId} — joins the pack, un-woken`, big: true };
+    // "released" carries its own hand-built moment header (see the release action), so no badge here
     case "spilled": return (d.amount as number) > 0
       ? { tone: "warn", text: `the spilling — ${d.reason}: −${r1(d.amount as number)} Standing`, big: true }
       : null;
@@ -636,7 +637,7 @@ function PourPanel({ run, selected, pour, onPour, onPlay, onCancel, onRelease }:
         <div className="tm-pour-btns">
           <button type="button" className="tm-btn primary" onClick={onPlay}>{pv.banks ? "Bank it cold" : "Pour it"}</button>
           <button type="button" className="tm-btn" onClick={onCancel}>Never mind</button>
-          {!piece.fired && run.released < DRAFT_TUNABLES.RELEASE_PER_MORNING && (
+          {!piece.fired && run.s.turn.releasedThisMorning < ACQUISITION_TUNABLES.RELEASE_PER_MORNING && (
             <button type="button" className="tm-btn release" onClick={onRelease}
               title="Last-light this card out of your deck (un-woken cards only)">Release ✕</button>
           )}
@@ -976,21 +977,19 @@ function App() {
     setRun({
       ...advance(run, r, dawnMoment(r.state, r.events)),
       phase: "morning", income: dawnIncomeOf(r.events), poured: 0, duskData: null,
-      offers: rollOffers(r.state), drafted: 0, released: 0,   // a fresh offer row each dawn (prototype)
+      offers: rollOffers(r.state), drafted: 0,   // a fresh offer row each dawn (prototype)
     });
   };
   const release = (instanceId: string) => {
-    const piece = s.pieces.find(p => p.instanceId === instanceId);
-    if (!piece || piece.fired || run.released >= DRAFT_TUNABLES.RELEASE_PER_MORNING) return;
-    const card = cardOf(piece.cardId);
+    // the engine owns the rule now: releaseCard removes an un-woken piece and caps it per morning
     const clone = structuredClone(s);
-    clone.pieces = clone.pieces.filter(p => p.instanceId !== instanceId);
-    const moment: Moment = {
-      id: nextMomentId++, kind: "stall", accent: "var(--pale)",
-      title: `Last-lit ${card.name}`, sub: "released from your deck",
-      badges: [{ tone: "pale", text: "gone from the run — the deck thins" }],
-    };
-    setRun({ ...run, s: clone, moments: [moment, ...run.moments].slice(0, MOMENT_CAP), released: run.released + 1 });
+    const before = clone.events.length;
+    if (!releaseCard(clone, instanceId)) return;
+    const r: MorningResult = { state: clone, events: clone.events.slice(before) };
+    const card = cardOf(pieceOf(s, instanceId).cardId);
+    setRun(advance(run, r, buildMoment(clone, r.events, {
+      kind: "stall", accent: "var(--pale)", title: `Last-lit ${card.name}`, sub: "released from your deck",
+    })));
     setSelected(null);
   };
   const draft = (cardId: string) => {
