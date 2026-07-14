@@ -86,3 +86,29 @@ export const FIREWALLS = {
 } as const;
 
 export const INTERACTION_DENSITY = 12 / 14; // 0.857
+
+// ---- shared firewall machinery (single source of truth for validate.ts + effects.ts) ----
+
+/** The only surfaces a brim band may read (FIREWALLS.gleamFirewall). */
+export const BRIM_BAND_SOURCES: readonly ReadSource[] = ["room", "chain", "over-ceiling"];
+
+/** Board surfaces: may feed gather/whittle/fill amounts (and soothe's board-to-board
+ *  mend scale) — never anything on a gleam path (FIREWALLS.gleamFirewall). */
+export const BOARD_READ_SOURCES: readonly ReadSource[] = ["season", "spiral"];
+
+/** Runtime guard for the one ReadExpr shape, shared by the static and runtime firewalls. */
+export function isReadExpr(v: unknown): v is ReadExpr {
+  return !!v && typeof v === "object" && (v as ReadExpr).do === "read"
+    && typeof (v as ReadExpr).source === "string";
+}
+
+/** Is this string a member of the closed ReadSource enum? */
+export function isReadSource(s: string): s is ReadSource {
+  const PLAIN = ["room", "chain", "fill", "season", "spiral", "handsels", "over-ceiling"];
+  const GRAINS = ["joinery", "thread", "song", "glaze", "dance", "dough"];
+  if (PLAIN.includes(s)) return true;
+  for (const prefix of ["grain:", "woken:"]) {
+    if (s.startsWith(prefix)) return GRAINS.includes(s.slice(prefix.length));
+  }
+  return false;
+}

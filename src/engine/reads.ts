@@ -4,9 +4,10 @@
 
 import type { Grain, ReadSource } from "./vocabulary.js";
 import type { GameState, PieceInstance } from "./state.js";
-import { SEASON_SEEP_BY_LEG } from "./state.js";
+import { SEASON_SEEP_BY_LEG, currentNode } from "./state.js";
 
-function countsAs(piece: PieceInstance, grain: Grain, printedGrain: Grain): boolean {
+/** Does a piece count as this grain — printed suit or a mark-grain stamp? */
+export function countsAs(piece: PieceInstance, grain: Grain, printedGrain: Grain): boolean {
   return printedGrain === grain || piece.stampedGrains.includes(grain);
 }
 
@@ -42,10 +43,8 @@ export function evaluateRead(source: ReadSource, state: GameState, ctx: ReadCont
       return state.asking?.progress ?? 0;
     case "season":
       return SEASON_SEEP_BY_LEG[state.calendar.leg];
-    case "spiral": {
-      const here = state.board.nodes.find(n => n.id === state.board.hereId);
-      return here?.rings ?? 0;
-    }
+    case "spiral":
+      return currentNode(state).rings;
     case "handsels":
       return state.player.handsels.reduce((sum, h) => sum + h.brightness, 0);
     case "over-ceiling":

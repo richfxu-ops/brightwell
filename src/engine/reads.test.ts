@@ -1,7 +1,8 @@
 import { describe, it, expect } from "vitest";
 import type { Grain } from "./vocabulary.js";
-import { createInitialState, type GameState, type PieceInstance } from "./state.js";
+import { createInitialState, type PieceInstance } from "./state.js";
 import { evaluateRead, type ReadContext } from "./reads.js";
+import { testPiece, testState } from "./test-helpers.js";
 
 // A tiny content table for tests, so reads stay independent of the real card pool.
 const TEST_GRAINS: Record<string, Grain> = {
@@ -11,29 +12,9 @@ const TEST_GRAINS: Record<string, Grain> = {
 };
 const ctx: ReadContext = { grainOf: id => TEST_GRAINS[id] ?? "dough" };
 
-let nextId = 0;
-function piece(cardId: string, over: Partial<PieceInstance> = {}): PieceInstance {
-  return {
-    instanceId: `${cardId}#t${nextId++}`,
-    cardId,
-    zone: "pack",
-    fired: false,
-    set: 0,
-    stampedGrains: [],
-    wokeThisMorning: false,
-    stampedThisMorning: false,
-    playedThisMorning: false,
-    freshness: 2,
-    ...over,
-  };
-}
-
-function state(over: (s: GameState) => void): GameState {
-  const s = createInitialState(1);
-  s.pieces = [];
-  over(s);
-  return s;
-}
+const piece = (cardId: string, over: Partial<PieceInstance> = {}): PieceInstance =>
+  testPiece(cardId, { zone: "pack", ...over });
+const state = testState;
 
 describe("simple surfaces", () => {
   it("room / chain / over-ceiling read the turn", () => {

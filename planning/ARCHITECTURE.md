@@ -23,7 +23,7 @@
 
 - **Vocabulary (exists):** `src/engine/vocabulary.ts` + `design/vocabulary.json` — the closed set of 14 effect primitives, read-sources, triggers, play-events, and the cross-channel firewall (writers may bind only to `PLAY_EVENTS`). Cards never bypass this.
 - **State & reads (exists):** `src/engine/state.ts` (the one JSON-serializable `GameState` + `createInitialState`), `rng.ts` (seeded dice carried in state), `reads.ts` (the nine `read(...)` sources; grain/woken scope per D-009).
-- **Effects resolver (M3, planned):** `src/engine/effects.ts` — one resolver per primitive; deterministic, pure state-in/state-out so bots and sims can drive it.
+- **Effects resolvers (exists):** `src/engine/effects.ts` — one pure resolver per primitive plus the engine automatics (`applyWake`, `applyOverkill`) and the single gleam door (`creditGleam`, provenance-checked). `validate.ts` — the static "fails to compile" firewall over card data.
 - **Content (exists):** `src/content/` — cards and contract tiers as data over the vocabulary. Generated at DESIGN_COMPLETE from GDD layers 6–7.
 - **Simulation harness (M3, planned):** bot players + runner emitting the `round_metrics.json` telemetry keys; feeds M4 balance tuning.
 

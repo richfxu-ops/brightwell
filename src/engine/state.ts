@@ -20,6 +20,12 @@ export interface PieceInstance {
   stampedThisMorning: boolean; // dawn-reset; feeds read(grain:) per D-009
   playedThisMorning: boolean;  // dawn-reset
   freshness: number;           // seasons before an inert piece fades (semantics land in Phase 3/6)
+  delightBonus: number;        // flat additions from `warm` on top of the printed woken_delight
+  // the overkill ledger: gleam already credited for this piece's excess, and any band
+  // widening from brim. credited = convert(excess, band) always, so cumulative gleam
+  // can never exceed the measured overflow no matter how rests and brims are split.
+  overkillCredited: number;
+  brimBand: number;
 }
 
 export interface Handsel {
@@ -60,6 +66,7 @@ export interface TurnState {
   braced: boolean;
   stalled: boolean;
   overCeiling: number;         // measured genuine overkill of the current play
+  overkillPieceId: string | null; // the piece whose excess overCeiling measures (brim's target)
 }
 
 export interface GameEvent {
@@ -116,8 +123,11 @@ export function createInitialState(seed: number): GameState {
     stampedGrains: [],
     wokeThisMorning: false,
     stampedThisMorning: false,
-    playedThisMorning: false,
+    playedThisMorning: false,   // owned by the Phase-3 turn loop (set on play, dawn-reset)
     freshness: 2,
+    delightBonus: 0,
+    overkillCredited: 0,
+    brimBand: 0,
   }));
 
   const startNode: NodeState = {
@@ -142,7 +152,14 @@ export function createInitialState(seed: number): GameState {
     },
     pieces,
     asking: null,
-    turn: { room: 0, chainLinks: 0, braced: false, stalled: false, overCeiling: 0 },
+    turn: { room: 0, chainLinks: 0, braced: false, stalled: false, overCeiling: 0, overkillPieceId: null },
     events: [],
   };
+}
+
+/** The node the maker is standing at. One lookup, one missing-node policy. */
+export function currentNode(state: GameState): NodeState {
+  const node = state.board.nodes.find(n => n.id === state.board.hereId);
+  if (!node) throw new Error(`no node ${state.board.hereId}`);
+  return node;
 }
