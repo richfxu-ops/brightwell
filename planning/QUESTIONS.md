@@ -128,3 +128,32 @@ watch · dominated-pairs = ∅ and crown-stand spread .70–.99 against the axis
   fun-risk assessment).
 - **F3 · M4 orchestration.** Hand-rolled balance loop vs the game-loop skill (token budget
   decision) — decide when Phase 8's harness prints its first balance sheet.
+
+## G · Meta progression & across-run difficulty (decide post-M4 / with M5)
+
+Within-run difficulty is fully locked (the weather floor 1·3·5·7 × S(t), the one-way
+peak-gleam lantern ratchet, rings/combing, the calendar-floored crown). Across runs, canon
+leaves exactly three crumbs: **"the Wintering persists 1 bead to the meta-layer"** (L6,
+bead undefined), **`quiet-walk-runend-meta`** (losing is survivable and hands the verse on),
+and the Ways' **starter / second-wave** split (an implied unlock order). Everything else:
+
+- **G1 · What is the bead? [OPEN]** *Recommendation: a keepsake card — at run's end choose
+  one piece from your deck; it arrives inert, carrying the old maker's name, in the next
+  run's starting pack. The deck-autobiography extends across generations; power-light
+  (it must still be woken), meaning-heavy.*
+- **G2 · What does the Quiet Walk hand on? [OPEN]** *Recommendation: a bead too, chosen for
+  you (the last piece you woke) — failure that still passes the verse on matches the
+  world's register ("not death, the world going shy").*
+- **G3 · Unlocking the second-wave Ways. [OPEN]** *Recommendation: unlock a Way by
+  accidentally playing like it once — Fairwrights: overflow 6+ in one morning; Mannerly:
+  land a courtship; Gleaners: soothe a town. "The country teaches you into the maker you
+  are being."*
+- **G4 · Across-run difficulty. [OPEN]** *Recommendation: "deeper Rounds" — an opt-in
+  ladder where every town starts pre-paled (+1/+2/+3 rings per depth). Because
+  rings-in = load-out is locked law, one dial raises askings, dawns, harvests, and
+  combing pace together — harder AND richer, diegetically ("this Round hasn't seen a
+  maker in years"). No bolted-on ascension modifiers.*
+- **G5 · The philosophy underneath. [OPEN]** *Recommendation: thin-power meta — no
+  permanent stat inheritance (it would let players turtle past "growth is forced by the
+  weather"); the meta carries meaning (beads, names, unlocked temperaments, a map of
+  brightened Rounds) and opt-in depth (G4), never strength.*
