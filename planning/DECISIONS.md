@@ -9,6 +9,12 @@ Cut gleam_peak median 196→105 (still generous; the residual is the fill cards'
 matter for the card-flow redesign Part 3). **Crown demand held at 10** (user-decided — simple bots win
 only ~5-10%, so it's non-trivial; final crown/gleam tuning deferred to Phase-8 competent bots). Tunable.
 
+## D-019 · More Fair flow — wider row, higher take cap (2026-07-14, user-decided)
+Card-flow redesign Part 2: to ease the "all-woken is boring" plateau, more cards flow in each dawn.
+**`OFFER_N` 5→7, `DRAFT_PER_MORNING` 2→3** (`ACQUISITION_TUNABLES`, tunable). Harness: drafts/run
+roughly doubled (turnover up, plateau eases); a small win dip (8→6/350) from deck dilution — offset by
+Part 3's larger filler pool + the release valve, final tuning Phase 8. Hand size held at 5.
+
 ## D-017 · `fill` fires on-play, not on-wake — repeatable fills, no hoarding (2026-07-14, user-decided)
 Playtesting surfaced two fun-killers with one root cause: fills fired **on-wake** (one-shot), so a
 mature deck went passive AND standing the crown degenerated into *hoarding* a fill card unwoken until

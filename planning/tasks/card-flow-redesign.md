@@ -86,8 +86,11 @@ Large — three parts, each its own branch + harness validation before the next.
 - [ ] *(Deferred to Phase 8)* final crown/gleam difficulty tuning with competent bots
 
 ### Part 2 — more flow
-- [ ] Widen the Fair (`OFFER_N`), raise `DRAFT_PER_MORNING`, add draw/cycling as needed
-- [ ] Harness: deck turnover up, plateau reduced, no runaway; `npm run check` green; Review Card
+- [x] Widen the Fair `OFFER_N` 5→7, raise `DRAFT_PER_MORNING` 2→3 (D-019); 2 tests updated
+- [x] Harness: turnover up (drafts/run roughly doubled — apprentice 3.5→7.4, gleaners 5.5→11.9), the
+      plateau eases; slight win dip (8→6) from deck dilution (offset by Part 3's fillers + the release
+      valve; final tuning Phase 8). `npm run check` green (135). *(Held hand size at 5 — draw bump
+      deferred; the Fair widening was enough flow for now.)*
 
 ### Part 3 — more cards
 - [ ] Expand the pool (per-Way + shared) over the vocabulary, honoring archetype identities

@@ -32,8 +32,10 @@ export const ACQUISITION_TUNABLES = {
   GLAD_GRAIN_WEIGHT: 3,
 
   // --- the Fair (draft k=2 of N=5, QUESTIONS.md §D [CANON]) ---
-  OFFER_N: 5,               // cards shown in the row each dawn
-  DRAFT_PER_MORNING: 2,     // takes allowed before the row locks until next dawn
+  // D-019 (card-flow Part 2): more flow — a wider Fair and a higher take cap keep new cards arriving,
+  // so a small woken deck doesn't plateau (the "all-woken is boring" playtest finding). Tunable.
+  OFFER_N: 7,               // cards shown in the row each dawn (was 5)
+  DRAFT_PER_MORNING: 3,     // takes allowed before the row locks until next dawn (was 2)
   // Standing GATES which tier is offered — "the market widens as gleam rises" (gleam read, never
   // spent). Bands mirror the vouch/peak-gleam ladder anchors (6·12) for one consistent Standing scale.
   STANDING_TIER_BANDS: [{ atLeast: 0, tier: 1 }, { atLeast: 6, tier: 2 }, { atLeast: 12, tier: 3 }],
