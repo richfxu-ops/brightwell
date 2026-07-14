@@ -5,7 +5,7 @@
 > and a `[Title](tasks/<name>.md)` link to the task's file in `tasks/` (worked via the `/task` skill).
 
 ## Backlog
-- [ ] (P1) [Simulation harness](tasks/sim-harness.md) — bot players + the 57 round_metrics keys (blocked on Phase 6) #sim #m3
+- [ ] (P1) [Balance sheet](tasks/balance-sheet.md) — engine Phase 8, reduce records → watch-item verdicts (blocked on Phase 7) #sim #m3
 - [ ] (P2) Balance pass: I-022 Untold per-leg count coefficients #balance #m4
 - [ ] (P2) Balance pass: I-044 glad-price brightening bounded below tempo cost #balance #m4
 - [ ] (P2) Balance pass: I-045 last-red/red-thread double-tool sizing #balance #m4
@@ -16,6 +16,7 @@
 ## Next
 
 ## In Progress
+- [ ] (P1) [Simulation harness](tasks/sim-harness.md) — engine Phase 7, bots + run-driver + the 57-key emitter #sim #m3
 
 ## Done
 - [x] (P1) [Acquisition (the Fair)](tasks/acquisition.md) — engine Phase 6, drafting #engine #m3

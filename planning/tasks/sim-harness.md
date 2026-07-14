@@ -1,5 +1,5 @@
 ---
-status: To Do
+status: In Progress
 size: Large
 created: 2026-07-14
 title: Simulation harness
@@ -7,82 +7,113 @@ title: Simulation harness
 
 ## Context
 
-The balance "thermometer": a harness that runs bot games over many seeded runs and emits the
-**57 `round_metrics` telemetry keys** (`design/round_metrics.json`) per run, so the M4 balance
-work can derive real numbers instead of the napkin shape-checks game-architect committed. This
-is **Phase 7–8** of the 8-phase engine plan (`docs/engine-plan.html`): Phase 7 is the
-completeness check that every run emits all 57 keys; Phase 8 is the balance sheet that turns
-them into the watch-item verdicts (I-006/014/020/022, crown-stand spread, dominated pairs).
+Engine **Phase 7** of the 8-phase plan: the balance "thermometer". A harness that plays bot games
+over many seeded runs and emits a **per-run `round_metrics` record** (`design/round_metrics.json`,
+57 keys) so the M4 balance work can derive real numbers instead of the napkin shape-checks
+game-architect committed. Unblocked as of 2026-07-14 — Phases 4–6 (asking lifecycle, run frame,
+acquisition) are all real, so the engine now plays a whole wander-year that begins, escalates, ends
+three ways, and grows the deck.
 
-The two backlog lines — "bot players for all six archetypes" and "simulation harness emitting
-the 57 keys" — are the two halves of this task.
+**Phase 8 (the balance sheet) is split into its own task** — [balance-sheet.md](balance-sheet.md).
+The seam between them is the **per-run records** this task writes: Phase 7 produces them; Phase 8
+reduces them into the watch-item verdicts (I-006/014/020/022, crown-stand spread, dominated pairs).
 
-## The blocker — RESOLVED 2026-07-14 (Phases 4–6 are all real in the engine)
+## Approach
 
-> **Unblocked.** Phase 4 (asking lifecycle, D-012), Phase 5 (run frame, D-014), and Phase 6
-> (acquisition — the Fair, D-013/D-015) have all landed. The engine now plays a whole wander-year
-> that begins, escalates, ends three ways, and grows the deck — so the 57 run-level keys below are
-> populatable and this task can start. The historical framing that follows records *why* it was
-> blocked; the sequencing decision (option 1) was taken and executed.
+A new `src/sim/` module (kept out of `src/engine/` — the sim only drives the engine's **public
+API**, never its internals), pure and seeded like the engine so a record replays exactly. Four pieces:
 
-**Originally: the harness measures a full run; the engine couldn't yet play one.** The Phase-3
-engine did exactly one worked morning: `dawn → (playPiece | stallAction)* → dusk`. It had no
-run-level structure — which is precisely what the toy had to stub with FIDELITY shims (an
-auto-refreshing asking, no map, no acquisition, an endless sandbox that never ends, wins, or
-loses).
+1. **Bot policies** — one `chooseAction(state) → Action` per archetype (Kilnfast · Eveners · Untold ·
+   Fairwrights · Mannerly · Gleaners). `Action` is a discriminated union over the public surface:
+   `play(instanceId, pour)` · `stall` · `draft(cardId)` · `release(instanceId)` · `endMorning`
+   (dusk, with a camp choice). Baseline-competent: a shared sensible default plus a per-archetype
+   tilt toward that Way's core loop — enough to exercise the archetype, **not** deeply tuned (tuning
+   is Phase 8's concern, and the harness only proves *balanced+deep*, never *fun*).
+2. **The run-driver** — `runGame(seed, archetype) → RunRecord`: loop `dawn → (bot morning actions) →
+   dusk` until `state.runEnded`, accumulating the event log + final state. Deterministic.
+3. **The metrics emitter** — `collectMetrics(events, finalState, archetype) → RoundMetrics`: the
+   57-key record, read off the event log + final state.
+4. **The completeness gate** — a test asserting every record carries all per-run keys (Phase 7's
+   definition of done).
 
-But a *round* is a whole wander-year, and most of the 57 keys are run-level and meaningless
-without the systems that don't exist yet:
+### The 57 keys — three buckets (all present in every record)
 
-- `run_won`, `run_end_reason`, `crown_stood`, `crown_tier_reached` → the **win gate** (winter
-  telling) and the **run frame** that ends the year. **Phase 5.**
-- `standing_zero_season`, `gleam_spilled_total` → the **fail-state** (Standing-zero → Quiet
-  Walk) and **the spilling** (outcome-only Standing loss). Needs the run frame + asking
-  staleness. **Phase 4–5.**
-- `need_fill_clear_rate_by_leg`, escalation metrics → the **asking lifecycle** (accept · work ·
-  fulfil · escalate · go-stale). **Phase 4.**
-- `acquisition_source_shares`, `fair_drafts_taken`, `courtings_landed`, `gleanings_taken`,
-  `deck_size_by_leg`, `cards_gifted_total` → **acquisition / the growth curve** (deck ~7 → ~20,
-  acquired pieces arrive inert). **Phase 6.**
-- `paling_rings_accrued`, `combing_events`, `difficulty_by_ring`, `last_red_used`,
-  `soothe_applications` → the **Paling clock**, **combing boss**, and **last-red** board
-  systems. **Phase 4–6.**
+The keys are not uniform; the emitter maps each into one bucket, and **finalizing that manifest is
+step 1** (it pins exactly which key is which):
 
-Only a minority (chain length, overkill→gleam, room peak, decisions-per-turn) are derivable
-from the current single-morning loop. A harness built now could emit maybe a fifth of the
-contract and could not answer a single balance question — the thermometer would be reading a
-system with no temperature.
+- **Per-run, real now (~35):** everything the run/deck/gleam/asking/chain/acquisition/room systems
+  produce — `run_won`, `run_end_reason`, `crown_stood`, `deck_size_by_leg`, `gleam_*`, `chain_*`,
+  `fair_drafts_taken`, `acquisition_source_shares`, `need_fill_clear_rate_by_leg`,
+  `paling_rings_accrued`, `combo_*`, `soothe_applications`, `handsels_whittled_total`, … Read off the
+  event log + final state.
+- **Per-run, structural zero (~7):** keys whose system is still deferred — `combing_events`,
+  `gleanings_taken`, `handsels_idle_lapsed_total`, `glad_price_net_ev`, the `untold_*` trio. Emitted
+  as `0`/`null` **tagged with the system each awaits**, so the record shape is stable and the values
+  fill in as those systems land (per the agreed "all 57 present, honest zeros" gate).
+- **Cross-run aggregate (~15) → Phase 8, NOT per-run:** `archetype_win_rate`,
+  `archetype_crown_stand_rate`, the six `axis_*`, `dominated_archetype_pairs`, `power_band_width`,
+  `crown_stand_spread`, … These are computed *over the record set*, so they are **not** fields of a
+  single record — Phase 8 derives them. The completeness gate covers per-run keys only.
 
-## Sequencing (the real decision for the user)
+## Decisions
 
-The engine plan already anticipated this: Phases 4–6 build the run before Phase 7 measures it.
-The honest options:
+- **`src/sim/` drives the public API only.** Bots and driver call `dawn`/`playPiece`/`stallAction`/
+  `dusk`/`draftFair`/`releaseCard` exactly as the toy does — never reach into engine internals.
+  Archetype identity lives in *policy*, not engine special-casing (a locked ground rule).
+- **Per-run vs aggregate is the real key split** (not run-real vs derived): a single record can't
+  hold a cross-run aggregate like `archetype_win_rate`. The manifest (step 1) tags each of the 57 as
+  per-run-real / per-run-zero / Phase-8-aggregate; the gate validates the per-run set.
+- **Simple bots now, tuning later (user-decided).** Baseline policies are greedy-but-competent —
+  wake-and-fill, draft-when-affordable, court-when-the-chain-is-up — enough to read each Way's core
+  loop, but they won't hunt degenerate lines. So Phase 7's numbers are a **floor** ("*at least* this
+  balanced"), explicitly not to be over-trusted; bot quality is iterated in/with Phase 8, where the
+  balance actually gets read.
+- **N ≈ 50 runs per archetype in Phase 7 (user-decided).** Enough to smoke-test the pipeline and see
+  the shapes; Phase 8 scales N up for statistically solid win-rates.
+- **Two Parts (Large):** the pipeline can stand up and pass the completeness gate with a single
+  generic bot before the six archetype policies exist — so Part A de-risks the harness, Part B makes
+  the records archetype-real.
 
-1. **Build the run first (recommended).** Take Phase 4 (asking lifecycle) as the next `/task`,
-   then Phase 5 (win/fail gate + run frame), then Phase 6 (acquisition/growth). *Then* this
-   harness has a real game to run and all 57 keys are populatable. This is the plan of record.
-2. **Build a partial harness now.** Stand up the bot-driver + metrics-emitter skeleton against
-   the single-morning loop, emitting only the morning-derivable keys, and grow it as Phases 4–6
-   land. Risk: it hard-codes the FIDELITY stubs' shape and gets rewritten anyway; low balance
-   value until the run exists.
+## Technical detail
 
-**Decided: option (1), and executed** — Phases 4 → 5 → 6 were built and merged in that order
-(D-012/D-014/D-015). This task is now the next up: a real full-run engine exists to measure.
+**Location & output.** `src/sim/{policies.ts, driver.ts, metrics.ts, keys.ts}` + a `sim.test.ts`
+(the completeness gate) and an `npm run sim` script that writes `sim/out/records.json` (N seeded runs
+× 6 archetypes) for Phase 8. N small in Phase 7 (prove the pipeline); Phase 8 scales it.
 
-## Approach (sketch — for when it's unblocked)
+**Shapes (sketch — firmed in step 1):**
+- `type Action = { kind: "play"; instanceId; pour } | { kind: "stall" } | { kind: "draft"; cardId }
+  | { kind: "release"; instanceId } | { kind: "end"; camp? }`
+- `type Policy = (state: GameState, ctx: MorningContext) => Action`
+- `interface RunRecord extends RoundMetricsPerRun { seed: number }` — the per-run keys only.
+- `keys.ts` — the manifest: the three buckets as typed key lists, the single source the emitter and
+  the gate both read (so "a key exists" is checked in one place).
 
-- **Bot players:** one policy per archetype (Kilnfast/Eveners/Untold/Fairwrights/Mannerly/
-  Gleaners), each a pure `chooseAction(state) → play|stall|end` function over the same public
-  engine API the toy drives — never reaching into internals. Archetype identity comes from
-  policy, not engine special-casing.
-- **Harness:** run N seeded runs per archetype through the full run loop, accumulate a
-  `round_metrics` record per run, validate all 57 keys are present (Phase 7 completeness gate),
-  write results as JSON for the Phase 8 balance sheet.
-- **Balance sheet:** reduce the per-run records into the watch-item verdicts and the codex
-  Reports tab's first real output.
+**Determinism.** `runGame(seed, archetype)` is pure over the seeded engine — same inputs → identical
+record. A test asserts replay equality.
 
 ## Plan
 
-- [x] Decide sequencing (chose option 1: build Phases 4–6 first) — done
-- [x] Build Phases 4–6 so the engine plays a full run (D-012/D-014/D-015) — done, unblocking this
-- [ ] Scope the harness proper (bots + the 57 keys) via `/task` when picked up
+Two parts; each its own branch + review.
+
+### Part A — the pipeline: driver + emitter + completeness gate  *(branch: `phase7-part-a-harness`)*
+- [x] `keys.ts` — the 57-key manifest partitioned 37 real / 7 zero / 13 Phase-8-aggregate; deferred
+      keys tagged (`DEFERRED_REASON`); a test asserts the buckets partition exactly the 57 canonical keys
+- [x] `driver.ts` — `runGame(seed, archetype)`: the full `dawn → actions → dusk` loop to `runEnded`,
+      driven by one generic baseline `Policy` (public API only); per-morning leg samples for the emitter
+- [x] `metrics.ts` — `collectMetrics` producing every per-run key (37 real off events+state, 7 honest zeros)
+- [x] `sim.test.ts` — the completeness gate (record keys === per-run manifest; nothing undefined; zeros
+      are 0; runs terminate with a reason; replay determinism); `npm run sim` writes `sim/out/records.json`
+- [x] `npm run check` green (131 pass, +5); `npm run sim` runs 350 records; code-review pass; Review Card
+
+Verified (2026-07-14): `npm run check` green — typecheck + lint + 131 tests. `npm run sim` writes 350
+records (7 archetypes × 50); every run completes the 27-morning year (all `drifted` — the simple bot
+grows the deck but doesn't deliver the crown, the documented floor), decks grow for the Ways
+(kilnfast ~20, untold ~25), apprentice stays flat (~10, no fillers → static-deck-drifts). Records are
+varied and honest; the 0 wins are a baseline-strength artifact for Part B / Phase 8, not a pipeline bug.
+
+### Part B — the six archetype policies  *(branch: `phase7-part-b-bots`)*
+- [ ] `policies.ts` — one baseline-competent `Policy` per archetype (Kilnfast/Eveners/Untold/
+      Fairwrights/Mannerly/Gleaners), each tilted toward its Way's core loop
+- [ ] Driver runs all six; `records.json` covers the archetype matrix
+- [ ] Tests: each policy produces legal actions and completes a run; per-archetype records validate
+- [ ] `npm run check` green; Review Card
