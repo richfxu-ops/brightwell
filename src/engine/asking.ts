@@ -101,6 +101,7 @@ export function payGladLoad(state: GameState): void {
   node.remade = true;
   emit(state, "fulfilled", { tier: asking.tier, gladLoad, rings: ringsCleared, taughtCard: true });
   state.asking = null;   // the town is re-made; the next gate hangs the next asking
+  if (asking.tier === "crown") state.crownStood = true;   // the bright win (Phase 5)
 }
 
 /**

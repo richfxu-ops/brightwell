@@ -1,7 +1,7 @@
 // Behavior suite: every verb's documented outcomes, on hand-built states.
 import { describe, it, expect } from "vitest";
 import type { Card } from "./vocabulary.js";
-import type { GameState, PieceInstance } from "./state.js";
+import { type GameState, type PieceInstance, STARTING_STANDING } from "./state.js";
 import { resolveEffect, type EffectContext, FULL_RATE_BAND, SEAT_FIRST, SEAT_DECAY } from "./effects.js";
 import { testPiece, testState, fx } from "./test-helpers.js";
 
@@ -27,7 +27,7 @@ function withCapstone(room: number): GameState {
     s.pieces.push(piece("capstone", { instanceId: "cap#1" }));
   });
 }
-const gleamGained = (s: GameState) => s.player.gleam - 1;   // initial state starts at 1
+const gleamGained = (s: GameState) => s.player.gleam - STARTING_STANDING;   // delta from the opening Standing
 
 describe("the honest floor", () => {
   it("warm adds to the piece's own delight", () => {

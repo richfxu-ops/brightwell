@@ -7,6 +7,7 @@ import type { GameEvent, GameState, PieceInstance } from "./state.js";
 import { MORNINGS_PER_LEG, currentNode } from "./state.js";
 import { applyEffect, emit, pourAttention, SEAT_FIRST, SEAT_DECAY } from "./effects.js";
 import { acceptAsking, checkFlopAtDusk, checkStaleAtDawn, payGladLoad } from "./asking.js";
+import { acceptCrown, checkRunEnd, isWintering, yearOver } from "./runframe.js";
 import { nextInt } from "./rng.js";
 
 // ----- locked L6 constants + the one D-010 dial -----
@@ -158,9 +159,14 @@ export function dawn(stateIn: GameState, ctx: MorningContext): MorningResult {
   runCascade(state, ctx, before);
 
   // the asking lifecycle (Phase 4): a contract held past its accepting leg goes stale (spills
-  // Standing, chalks a ring); then the doorstep always hangs a fresh one if none is carried.
+  // Standing, chalks a ring). Then hang the next asking — the crown in the Wintering (Phase 5),
+  // an ordinary doorstep asking otherwise — unless the year is over or the crown is already stood.
   checkStaleAtDawn(state);
-  if (!state.asking) acceptAsking(state);
+  if (!state.asking && !state.crownStood && !yearOver(state)) {
+    if (isWintering(state)) acceptCrown(state);
+    else acceptAsking(state);
+  }
+  checkRunEnd(state);
 
   return { state, events: state.events.slice(before) };
 }
@@ -200,6 +206,7 @@ export function playPiece(
     .slice(before)
     .some(e => e.type === "filled" && (e.data as { complete?: boolean } | undefined)?.complete === true);
   if (completed && state.asking) payGladLoad(state);
+  checkRunEnd(state);   // standing the crown wins here (Phase 5)
 
   return { state, events: state.events.slice(before) };
 }
@@ -218,6 +225,7 @@ export function stallAction(stateIn: GameState, ctx: MorningContext, kind = "err
     emit(state, "stalled", { kind, room: state.turn.room });
   }
   runCascade(state, ctx, before);
+  checkRunEnd(state);
   return { state, events: state.events.slice(before) };
 }
 
@@ -269,5 +277,6 @@ export function dusk(stateIn: GameState, ctx: MorningContext, choice: DuskChoice
 
   state.board.camped = choice.camp !== false;
   emit(state, "dusk", { sweep, unspent, coldSet, table: node.localTable, camped: state.board.camped });
+  checkRunEnd(state);   // an unmoved-room flop may have gutted Standing to zero → the Quiet Walk
   return { state, events: state.events.slice(before) };
 }

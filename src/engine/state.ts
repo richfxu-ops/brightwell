@@ -84,6 +84,13 @@ export interface GameEvent {
   data?: Record<string, unknown>;
 }
 
+export type RunEndReason = "won" | "quiet-walk" | "drifted";
+export interface RunEnd {
+  reason: RunEndReason;
+  peakStanding: number;   // brightest Standing reached — sizes the (deferred) meta-reward
+  crownDemand: number;    // the crown's demand this run
+}
+
 export interface GameState {
   rng: RngState;
   calendar: CalendarState;
@@ -105,9 +112,15 @@ export interface GameState {
   };
   pieces: PieceInstance[];
   asking: Asking | null;
+  crownStood: boolean;         // the Wintering crown was stood — the bright win (Phase 5)
+  runEnded: RunEnd | null;     // set once the run concludes; the toy/bots stop here
   turn: TurnState;
   events: GameEvent[];
 }
+
+// Opening Standing (Phase 5 run frame; RUN_TUNABLES mirrors it). Kept here beside
+// createInitialState to avoid a state↔runframe import cycle.
+export const STARTING_STANDING = 5;
 
 // Season-clock constants, straight from the locked tiers.json.
 export const LEGS: readonly string[] = tiers.season_clock.legs;
@@ -156,10 +169,10 @@ export function createInitialState(seed: number): GameState {
     calendar: { morning: 1, leg: 0 },
     board: { nodes: [startNode], hereId: startNode.id, offers: [], camped: false },
     player: {
-      // Starting gleam is a placeholder inside the kettle band (1-5); the true
-      // opening value is fixed in Phase 5 with the run frame.
-      gleam: 1,
-      peakGleam: 1,
+      // Opening Standing — fixed by the run frame (Phase 5) inside the kettle band, high
+      // enough that one flop doesn't end the run. Tunable; mirrored in RUN_TUNABLES.
+      gleam: STARTING_STANDING,
+      peakGleam: STARTING_STANDING,
       gleamGrain: { ...NO_GRAIN_GLEAM },
       handsels: [],
       // PLACEHOLDER count pending QUESTIONS.md §D3 — whittle consumes these
@@ -171,6 +184,8 @@ export function createInitialState(seed: number): GameState {
     },
     pieces,
     asking: null,
+    crownStood: false,
+    runEnded: null,
     turn: {
       room: 0, chainLinks: 0, braced: false, stalled: false,
       overCeiling: 0, overkillPieceId: null, seatedCount: 0, whittledThisMorning: false,

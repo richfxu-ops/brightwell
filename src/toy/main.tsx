@@ -189,6 +189,8 @@ function eventBadge(s: GameState, e: GameEvent): Badge | null {
       ? { tone: "warn", text: `the spilling — ${d.reason}: −${r1(d.amount as number)} Standing`, big: true }
       : null;
     case "accepted": return { tone: "pale", text: `a new ${d.tier} need hangs (fill ${d.needFill})` };
+    case "crown-hung": return { tone: "gold", text: `👑 the crown hangs — the year's finale (fill ${d.demand})`, big: true };
+    case "run-ended": return { tone: d.reason === "won" ? "gold" : "warn", text: `the year ends — ${d.reason}`, big: true };
     case "overkilled": return null; // covered by the gleam badge
     case "gleam": return { tone: "gleam", text: `+${d.amount} Standing (${d.grain}-tinged)`, big: true };
     case "brimmed": return { tone: "gleam", text: `the brim widens — +${d.extra} more Standing` };
@@ -224,9 +226,10 @@ function dawnMoment(state: GameState, events: GameEvent[]): Moment {
   if (inc.tableDraw > 0) badges.push({ tone: "moss", text: `table returns +${r1(inc.tableDraw)}` });
   const drew = (events.find(e => e.type === "dawn")?.data?.drew as string[]) ?? [];
   if (drew.length) badges.push({ tone: "pale", text: `drew ${drew.length} to hand` });
-  // a held asking may have gone stale at this dawn (spill), and a fresh one is accepted
+  // a held asking may have gone stale at this dawn (spill); a fresh asking or the crown hangs;
+  // and the year may reach its still dawn (run-ended)
   for (const e of events) {
-    if (e.type === "spilled" || e.type === "accepted") {
+    if (["spilled", "accepted", "crown-hung", "run-ended"].includes(e.type)) {
       const b = eventBadge(state, e);
       if (b) badges.push(b);
     }
@@ -839,6 +842,44 @@ function DuskScreen({ run, onNext }: { run: Run; onNext: () => void }) {
   );
 }
 
+const ENDINGS: Record<string, { eyebrow: string; title: string; blurb: string }> = {
+  won: {
+    eyebrow: "The winter-telling", title: "You stood the crown 👑",
+    blurb: "Still lit at the first still dawn, the crown stood — you winter at one fire as the honored teller. The year is told; one bead goes on walking into the next verse.",
+  },
+  "quiet-walk": {
+    eyebrow: "The Quiet Walk", title: "The light goes shy",
+    blurb: "Standing guttered to zero and the country went quiet — not a death, a dimming. You walk on, fed and warmed and asked for nothing. One woken work follows you into the next verse.",
+  },
+  drifted: {
+    eyebrow: "The first still dawn", title: "The year runs out",
+    blurb: "Winter's first still dawn came with the crown unstood. No telling this year — you drift on, quieter than you hoped. What you reached still sizes what you carry forward.",
+  },
+};
+
+function RunEndScreen({ run, onRestart }: { run: Run; onRestart: () => void }) {
+  const end = run.s.runEnded!;
+  const copy = ENDINGS[end.reason] ?? ENDINGS.drifted;
+  const fired = run.s.pieces.filter(p => p.fired).length;
+  return (
+    <div className="tm-duskwrap">
+      <div className={`tm-dusk tm-end tm-end-${end.reason}`}>
+        <div className="tm-lbl" style={{ letterSpacing: ".22em" }}>{copy.eyebrow}</div>
+        <h2 className="tm-dusk-title">{copy.title}</h2>
+        <p className="tm-dusk-blurb">{copy.blurb}</p>
+        <div className="tm-dusk-tab">
+          <div className="tm-lbl">the year you walked</div>
+          <div className="tm-drow"><span>morning reached</span><b>{run.s.calendar.morning} · {LEG_NAMES[run.s.calendar.leg]}</b></div>
+          <div className="tm-drow"><span>brightest Standing</span><b className="tm-t-gleam">✦ {end.peakStanding}</b></div>
+          <div className="tm-drow"><span>woken pieces</span><b className="tm-t-gold">{fired}</b></div>
+          <div className="tm-drow total"><span>the crown</span><b className={end.reason === "won" ? "tm-t-gold" : "tm-t-pale"}>{end.reason === "won" ? "stood 👑" : `unstood (demand ${end.crownDemand})`}</b></div>
+        </div>
+        <button type="button" className="tm-btn primary wide" onClick={onRestart}>Begin the next verse →</button>
+      </div>
+    </div>
+  );
+}
+
 function App() {
   const [deck, setDeck] = useState<string>("apprentice");
   const [seed, setSeed] = useState(1);
@@ -940,10 +981,12 @@ function App() {
       <Masthead run={run} deck={deck} seed={seed} guideOn={guideOn}
         onDeck={d => reset(d, seed)} onSeed={n => reset(deck, n)}
         onGuide={() => setGuideOn(!guideOn)} />
-      {guideOn && (
+      {guideOn && !run.s.runEnded && (
         <div className="tm-guide"><span className="tm-guide-ic">🧭</span><span>{guideNext ? guideNext.text : GRADUATED}</span></div>
       )}
-      {run.phase === "morning" ? (
+      {run.s.runEnded ? (
+        <RunEndScreen run={run} onRestart={() => reset(deck, seed + 1)} />
+      ) : run.phase === "morning" ? (
         <main className="tm-main">
           <StatusStrip run={run} />
           <div className="tm-body">
