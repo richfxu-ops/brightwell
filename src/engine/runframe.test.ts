@@ -2,7 +2,7 @@
 import { describe, it, expect } from "vitest";
 import type { Card } from "./vocabulary.js";
 import { createInitialState, WORKED_MORNINGS_TOTAL } from "./state.js";
-import { dawn, dusk, playPiece } from "./morning.js";
+import { dawn, dusk, playPiece, stallAction } from "./morning.js";
 import { RUN_TUNABLES, isWintering } from "./runframe.js";
 import { testState, testPiece } from "./test-helpers.js";
 import starterPool from "../content/cards/starter-pool.json" with { type: "json" };
@@ -92,6 +92,7 @@ describe("a concluded run is inert", () => {
     for (const call of [
       () => dawn(base, noCtx),
       () => playPiece(base, "a1", 2, poolCtx),
+      () => stallAction(base, noCtx),
       () => dusk(base, noCtx),
     ]) {
       const r = call();

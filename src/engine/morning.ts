@@ -164,8 +164,8 @@ export function dawn(stateIn: GameState, ctx: MorningContext): MorningResult {
   // Then hang the next asking — the crown in the Wintering (Phase 5), an ordinary doorstep asking
   // otherwise — but never onto a run that has already concluded.
   checkStaleAtDawn(state);
-  checkRunEnd(state);
-  if (!state.runEnded && !state.asking && !state.crownStood && !yearOver(state)) {
+  checkRunEnd(state);   // sets runEnded on a stale-spill-to-zero, or the year running out
+  if (!state.runEnded && !state.asking) {   // runEnded already covers crownStood / gleam-0 / yearOver
     if (isWintering(state)) acceptCrown(state);
     else acceptAsking(state);
   }
