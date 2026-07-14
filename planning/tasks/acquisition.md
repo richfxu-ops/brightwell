@@ -47,8 +47,8 @@ Standing GATES which tier is offered (canon: "the market widens as gleam rises" 
 never spent). *How you pay to take it* splits by tier, respecting canon's own R2 line ("handsels
 buy jars, apprentice-stuffs, and low taught pieces — never proud/courted stock"):
 
-- **Bands 1–2 (apprentice-floor) → bought with handsels.** Pay `PRICE_BY_TIER` handsels (dullest
-  first). Canon-legal: handsels *may* buy low taught pieces.
+- **Bands 1–2 (apprentice-floor) → bought with handsels.** Pay `PRICE_BY_TIER` handsels from the
+  purse. Canon-legal: handsels *may* buy low taught pieces.
 - **Band 3 (proud) → courted, never bought.** No handsels. To take it you must have **performed the
   term** this morning (default: chain ≥ 3) — the `court` verb's "a performable micro-condition"
   applied to the Fair. *A key that turns, never a coin that leaves.*
@@ -128,7 +128,7 @@ Verified (2026-07-14): `npm run check` green — typecheck + lint + 118 tests. I
 releasing an un-woken card removes it (hand 5 → 4) with a "released from your deck" moment, and the
 Release button correctly disappears after one release (the 1/morning cap); no console errors. The
 taught-card growth path is covered by the payGladLoad integration test (fulfil grows the deck by one
-inert piece; the crown does not teach). Part 2 (the Fair draft) is next.
+inert piece; the crown does not teach).
 
 ### Part 2 — the Fair draft (2 of 5) + the hybrid cost  *(branch: `phase6-part2-fair`)*
 - [x] State: `fairOffers` + `draftedThisMorning` (TurnState, dawn-reset)

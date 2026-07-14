@@ -102,16 +102,19 @@ rings accrue 1 per skipped season per node.
 < tempo 2 (I-044); idle-lapse −1 step/morning, gone after 3; twice-benched wakes at 0.9× SET,
 terminal; red-thread unlock 1/run, ≤2 red-thread-days; handsels never buy proud stock.
 
-**[OPEN]:**
-- **D1 · What the glad-load teaches.** Which taught piece arrives (from whose pool, biased
-  how by the town's grain)? *Recommendation: drawn from the answering asking's grain pool,
-  weighted toward the player's dominant gleam-grain — the country teaches you into your Way.*
+**[OPEN]:** *(D1/D4 CLOSED by D-015 — Phase 6 built; the Fair draft k=2/N=5 [CANON] is engine-real. D2/D3 remain deferred.)*
+- **D1 · What the glad-load teaches.** *(CLOSED by D-015 — weighted toward the maker's dominant
+  gleam-grain. The "answering asking's grain pool" half is deferred (FIDELITY): askings carry no
+  grain field yet.)*
 - **D2 · The bench.** When/how does courted stock become a piece (off-turn action, cost)?
+  *(Still deferred — the courting→bench R6→R5 pipeline is out of Phase 6 scope. The Fair's proud
+  tier applies the two-gate spirit directly to the draft instead.)*
 - **D3 · Apprentice-stuff inventory.** Whittle consumes one (A1) — how are they acquired
-  and held? *Recommendation: a small stock item, bought at the glad-price, start with 2.*
-- **D4 · What handsels buy in v1.** Jars + taught pieces + apprentice-stuffs + hearth-goods
-  per canon — which subset does the engine model before M4? *Recommendation: jars +
-  apprentice-stuffs only; taught pieces stay glad-load-only until the Fair exists.*
+  and held? *(Still deferred. Start-with-2 placeholder stands.) Recommendation: a small stock item,
+  bought at the glad-price, start with 2.*
+- **D4 · What handsels buy in v1.** *(CLOSED by D-015 — handsels buy the Fair's apprentice-floor
+  cards (canon-legal, R2); the proud tier is courted, never bought. Jars/hearth-goods stay out;
+  the glad-load also teaches a piece free.)*
 
 ## E · M4 — the dials (tuned by simulation, shapes locked)
 
