@@ -7,7 +7,7 @@ import type { RngState } from "./rng.js";
 import shared from "../content/cards/shared.json" with { type: "json" };
 import tiers from "../content/contracts/tiers.json" with { type: "json" };
 
-export type Zone = "pack" | "hand" | "in-play";
+export type Zone = "pack" | "hand" | "in-play" | "discard";   // discard cycles (D-010 B4)
 
 export interface PieceInstance {
   instanceId: string;          // unique within a run: "<cardId>#<n>"
@@ -70,6 +70,9 @@ export interface TurnState {
   overkillPieceId: string | null; // the piece whose excess overCeiling measures (brim's target)
   seatedCount: number;         // audience seats this morning — drives the decaying seat law
   whittledThisMorning: boolean; // whittle is capped at 1 dull per morning (L6 §5)
+  dawned: boolean;             // this turn's dawn has run (dawn() advances the calendar after)
+  playedOrder: string[];       // instanceIds in played order — cascade order (D-010 B3)
+  firedEffectKeys: string[];   // "<instanceId>#<effectIndex>" — fire-once per morning (B3)
 }
 
 export interface GameEvent {
@@ -87,6 +90,7 @@ export interface GameState {
     nodes: NodeState[];
     hereId: string;
     offers: string[];
+    camped: boolean;   // stayed the night — dawn recovers ⅔ of this node's table (L6)
   };
   player: {
     gleam: number;
@@ -146,7 +150,7 @@ export function createInitialState(seed: number): GameState {
   return {
     rng: { seed, counter: 0 },
     calendar: { morning: 1, leg: 0 },
-    board: { nodes: [startNode], hereId: startNode.id, offers: [] },
+    board: { nodes: [startNode], hereId: startNode.id, offers: [], camped: false },
     player: {
       // Starting gleam is a placeholder inside the kettle band (1-5); the true
       // opening value is fixed in Phase 5 with the run frame.
@@ -165,6 +169,7 @@ export function createInitialState(seed: number): GameState {
     turn: {
       room: 0, chainLinks: 0, braced: false, stalled: false,
       overCeiling: 0, overkillPieceId: null, seatedCount: 0, whittledThisMorning: false,
+      dawned: false, playedOrder: [], firedEffectKeys: [],
     },
     events: [],
   };

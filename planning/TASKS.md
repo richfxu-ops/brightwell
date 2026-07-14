@@ -15,10 +15,10 @@
 - [ ] (P3) Decide prototype form (web/terminal) and sketch UI #prototype #m5
 
 ## Next
-- [ ] (P1) Engine Phase 3: the worked morning — decide QUESTIONS.md §B opens in its proposal #engine #m3
 - [ ] (P2) Toy morning: playable single-turn slice over the engine — the "is it fun?" check (after Phase 3) #prototype #m3
 
 ## In Progress
+- [ ] (P1) [The worked morning](tasks/engine-worked-morning.md) #engine #m3 #review
 
 ## Done
 - [x] Stage 1 (world-architect): WORLD.md, ledger, terms — all layers locked #m1

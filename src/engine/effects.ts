@@ -26,6 +26,11 @@ export const SEAT_FIRST = 2;          // the nth seat contributes 2 × 0.8^(n-1)
 export const SEAT_DECAY = 0.8;        // …plateauing ~10 (gathered-room-softcap)
 export const SOOTHE_MEND_CAP = 2;     // soothe mends min(requested, rings, 2) (last-red-cap)
 export const SOOTHE_RUN_MAX = 4;      // 1 node / 1 knack / 1 season (napkin SOOTHE_PER_RUN_MAX)
+
+/** The chain multiplier: m = 1 + 0.25×(links−1), capped 2.0 (locked, napkin CHAIN_M_BY_LEG). */
+export function chainMultiplier(links: number): number {
+  return Math.min(2.0, 1 + 0.25 * Math.max(0, links - 1));
+}
 // the vouching: which stock grades answer at which gleam band (gleam-bands, L6 §4).
 // Proud opens at 6 ("proud stalls begin to lean in"); the 13+ full-width nuance is Phase 6.
 export const GRADE_VOUCH: Record<string, number> = { apprentice: 0, mid: 6, proud: 6, capstone: 21 };
@@ -68,7 +73,8 @@ function resolveTarget(
     case "self":
       return pieceById(state, ctx.selfId) ?? null;
     case "held:capstone":
-      return pieces.find(p => p.zone === "hand" &&
+      // "held" = not yet fired (canon fired-vs-held) — in hand OR banked cold in play
+      return pieces.find(p => !p.fired && (p.zone === "hand" || p.zone === "in-play") &&
         (ctx.cardOf(p.cardId).tags ?? []).some(t => t === "capstone" || t === "proud")) ?? null;
     case "hand:offgrain":
       return pieces.find(p => p.zone === "hand" && suit !== undefined &&
@@ -87,7 +93,7 @@ function resolveTarget(
   }
 }
 
-function emit(state: GameState, type: string, data?: Record<string, unknown>): void {
+export function emit(state: GameState, type: string, data?: Record<string, unknown>): void {
   state.events.push({ morning: state.calendar.morning, type, ...(data ? { data } : {}) });
 }
 
@@ -135,6 +141,30 @@ export function applyWake(state: GameState, piece: PieceInstance, ctx: EffectCon
 }
 
 /**
+ * Pour attention onto a piece: spend from the room at face value, land it multiplied
+ * by the chain, and run the wake/overkill automatics. Shared by the `rest` verb and
+ * the act of playing itself (L1: the play spends the room as a multiplier). Returns
+ * what landed (0 = nothing to spend).
+ */
+export function pourAttention(
+  state: GameState, piece: PieceInstance, requested: number, ctx: EffectContext,
+): number {
+  const spend = Math.min(requested, state.turn.room);
+  if (spend <= 0) return 0;
+  const landed = spend * chainMultiplier(state.turn.chainLinks);
+  const card = ctx.cardOf(piece.cardId);
+  state.turn.room -= spend;
+  piece.set += landed;
+  emit(state, "rested", { piece: piece.instanceId, spend, landed, set: piece.set });
+  if (!piece.fired && piece.set >= card.mark) applyWake(state, piece, ctx);
+  const excess = Math.max(0, piece.set - card.ceiling);
+  state.turn.overCeiling = excess;
+  state.turn.overkillPieceId = excess > 0 ? piece.instanceId : null;
+  settleOverkill(state, piece, ctx);
+  return landed;
+}
+
+/**
  * Settle a piece's overkill ledger: credit exactly the gap between what its total
  * measured excess is worth (under its current band) and what was already credited.
  * Splitting rests or repeating brims can therefore never mint more than one
@@ -148,6 +178,7 @@ export function settleOverkill(state: GameState, piece: PieceInstance, ctx: Effe
   const delta = worth - piece.overkillCredited;
   if (delta <= 0) return;
   piece.overkillCredited = worth;
+  emit(state, "overkilled", { piece: piece.instanceId, excess });   // raises on-overkill
   creditGleam(state, delta, card.grain, { overkillExcess: excess });
 }
 
@@ -312,18 +343,9 @@ const RESOLVERS: Record<PrimitiveId, Resolver> = {
   rest(state, effect, ctx) {
     const target = resolveTarget(state, effect.params?.target, ctx);
     if (!target) return refuse(state, effect, "no piece to rest on");
-    const card = ctx.cardOf(target.cardId);
     const requested = amountOf(effect.params?.amount, state, ctx);
-    const spend = Math.min(requested, state.turn.room);
-    if (spend < 1) return refuse(state, effect, "the room is empty");
-    state.turn.room -= spend;
-    target.set += spend;
-    emit(state, "rested", { piece: target.instanceId, spend, set: target.set });
-    if (!target.fired && target.set >= card.mark) applyWake(state, target, ctx);
-    const excess = Math.max(0, target.set - card.ceiling);
-    state.turn.overCeiling = excess;
-    state.turn.overkillPieceId = excess > 0 ? target.instanceId : null;
-    settleOverkill(state, target, ctx);
+    if (Math.min(requested, state.turn.room) < 1) return refuse(state, effect, "the room is empty");
+    pourAttention(state, target, requested, ctx);
   },
 
   brim(state, effect, ctx) {
@@ -358,12 +380,17 @@ function isTermExpr(v: unknown): v is TermExpr {
   return !!v && typeof v === "object" && isReadExpr((v as TermExpr).if);
 }
 
-/** Resolve one effect. Pure: the input state is untouched. */
-export function resolveEffect(state: GameState, effect: Effect, ctx: EffectContext): Resolution {
+/** Mutating core — for the turn loop (morning.ts), which owns its own clone boundary. */
+export function applyEffect(state: GameState, effect: Effect, ctx: EffectContext): void {
   const resolver = RESOLVERS[effect.do];
   if (!resolver) throw new Error(`unknown primitive "${effect.do}"`);
+  resolver(state, effect, ctx);
+}
+
+/** Resolve one effect. Pure: the input state is untouched. */
+export function resolveEffect(state: GameState, effect: Effect, ctx: EffectContext): Resolution {
   const next = structuredClone(state);
   const before = next.events.length;
-  resolver(next, effect, ctx);
+  applyEffect(next, effect, ctx);
   return { state: next, events: next.events.slice(before) };
 }
