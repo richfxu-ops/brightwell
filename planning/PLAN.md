@@ -1,10 +1,10 @@
-# Plan — Roundelay
+# Plan — Brightwell
 
 > What we're building and the plan for getting there. The "why" and "what"; `ARCHITECTURE.md` is the "how".
 
 ## Purpose
 
-**Roundelay** is a single-player roguelike economy deckbuilder where **attention is a physical force**. A turn is one *worked morning*: gather **the room** (attention pool), play **journey-pieces** (cards) in an unbroken chain; a card resting attention past its *waking-mark* **wakes** (fires permanently into your deck); overflow past a card's ceiling **brims** to **Standing** (gleam — the never-spent gate + fail-resource). Contracts are **askings** taken off town lanterns; escalation is the seasonal **Paling** plus a calendar-floored **crown** finale. Six archetypes from the six Walking Ways (Kilnfast, Eveners, Untold, Fairwrights, Mannerly, Gleaners).
+**Brightwell** (title per D-011; set in the land of Roundelay) is a single-player roguelike economy deckbuilder where **attention is a physical force**. A turn is one *worked morning*: gather **the room** (attention pool), play **journey-pieces** (cards) in an unbroken chain; a card resting attention past its *waking-mark* **wakes** (fires permanently into your deck); overflow past a card's ceiling **brims** to **Standing** (gleam — the never-spent gate + fail-resource). Contracts are **askings** taken off town lanterns; escalation is the seasonal **Paling** plus a calendar-floored **crown** finale. Six archetypes from the six Walking Ways (Kilnfast, Eveners, Untold, Fairwrights, Mannerly, Gleaners).
 
 Full design: `GDD.md` (7 locked layers) traces to `WORLD.md` (locked world bible). Aesthetic target: wonder, fantasy, whimsy, elegance (D-002).
 

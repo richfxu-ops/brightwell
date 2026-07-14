@@ -1,5 +1,16 @@
 # DECISIONS.md — pipeline-test-02
 
+## D-011 · The game is titled BRIGHTWELL (2026-07-14, user-decided)
+"Roundelay" stays the locked name of the LAND and its round-song (WORLD.md L1 untouched);
+the GAME's title becomes **Brightwell** — chosen for sound ("Roundelay doesn't roll off the
+tongue"), from a shortlist riffing softer on "Brightwork". Diegetic anchor, added to
+terms.json (additive, layer 2-adjacent): a **brightwell** is the folk name for a town's pool
+of kept light — the node's local table where swept attention waits for dawn
+(`the-returning-table` / `gloaming-table` ledger ids unchanged). The Paling dims brightwells;
+makers refill them; the title is what a maker leaves behind. Sweep: title surfaces only
+(codex masthead/title, toy UI strings, package.json, PLAN.md) — file names and locked prose
+untouched.
+
 ## D-010 · The worked morning's five rules (2026-07-14, user-decided one by one)
 The QUESTIONS.md §B calls that shape engine Phase 3:
 - **B1 · The dusk sweep.** Unspent room + attention on cold pieces seep to THIS node's table

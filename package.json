@@ -1,7 +1,7 @@
 {
-  "name": "roundelay",
+  "name": "brightwell",
   "version": "0.1.0",
-  "description": "Roundelay — a roguelike economy deckbuilder (engine + content)",
+  "description": "Brightwell — a roguelike economy deckbuilder set in the land of Roundelay (engine + content)",
   "private": true,
   "type": "module",
   "scripts": {

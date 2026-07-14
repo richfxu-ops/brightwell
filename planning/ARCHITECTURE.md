@@ -1,4 +1,4 @@
-# Architecture — Roundelay
+# Architecture — Brightwell
 
 > How the repo is organized and how to work it. Keep commands accurate — mark anything unverified as TODO.
 

@@ -109,7 +109,7 @@ function glossOne(s: GameState, e: GameEvent): string | null {
     case "stalled": return `⚠ The errand stalls the chain — the room cools to ${r1(d.room as number)}`;
     case "brace-held": return `The brace holds — no harm done`;
     case "refused": return `(refused: ${d.why})`;
-    case "dusk": return `— Dusk. ${r1(d.sweep as number)} attention seeps to the town's table${d.camped ? "; you camp" : ""} —`;
+    case "dusk": return `— Dusk. ${r1(d.sweep as number)} attention seeps into the town's brightwell${d.camped ? "; you camp" : ""} —`;
     default: return null;
   }
 }
@@ -158,7 +158,7 @@ const GUIDE: GuideStep[] = [
   { done: r => r.seen.includes("chain2"),
     text: "Play a second card right away — an unbroken chain multiplies your next pour (×1.25 per link, up to ×2)." },
   { done: r => r.seen.includes("dusk"),
-    text: "When the room runs low, End the Morning. Unspent attention isn't lost — it seeps to the town's table." },
+    text: "When the room runs low, End the Morning. Unspent attention isn't lost — it seeps into the town's brightwell." },
   { done: r => r.s.calendar.morning >= 2,
     text: "Take the next dawn. Your woken pieces come back and SEAT the room — this snowball is the whole game." },
   { done: r => r.seen.includes("gleam"),
@@ -342,7 +342,7 @@ function App() {
       ) : (
         <div className="tdusk">
           <h3>Dusk settles</h3>
-          <p>{r1(node.localTable)} attention waits on the town's table (camped: ⅔ returns at dawn).</p>
+          <p>{r1(node.localTable)} attention rests in the town's brightwell (camped: ⅔ returns at dawn).</p>
           <p>Your audience: {firedCount} woken piece{firedCount === 1 ? "" : "s"} will seat tomorrow's room.</p>
           <div className="tbtns">
             <button type="button" className="tdo" onClick={() => {
