@@ -8,6 +8,7 @@
 import type { GameState, Asking } from "./state.js";
 import { SEASON_SEEP_BY_LEG, currentNode } from "./state.js";
 import { emit, spillGleam } from "./effects.js";
+import { teachGladLoad } from "./acquisition.js";
 
 type Tier = Asking["tier"];
 
@@ -99,7 +100,11 @@ export function payGladLoad(state: GameState): void {
   const ringsCleared = node.rings;
   node.rings = 0;
   node.remade = true;
-  emit(state, "fulfilled", { tier: asking.tier, gladLoad, rings: ringsCleared, taughtCard: true });
+  // the glad-load teaches one journey-piece (GDD §3) — but not the crown, whose stand ends the run
+  // this play (Phase 5), so a piece taught into a concluded run would be inert paper.
+  const taught = asking.tier !== "crown";
+  if (taught) teachGladLoad(state);
+  emit(state, "fulfilled", { tier: asking.tier, gladLoad, rings: ringsCleared, taught });
   state.asking = null;   // the town is re-made; the next gate hangs the next asking
   if (asking.tier === "crown") state.crownStood = true;   // the bright win (Phase 5)
 }

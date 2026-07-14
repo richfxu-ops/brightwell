@@ -1,5 +1,33 @@
 # DECISIONS.md — pipeline-test-02
 
+## D-015 · Acquisition (engine Phase 6) — the Fair + hybrid cost; D-013's cost question resolved (2026-07-14, user-decided)
+The deck can now **grow** (~7 → ~20), so a run can build an engine big enough to stand the crown
+(Phase 5's win gate). Built + tested (126 pass), merged. New `src/engine/acquisition.ts`; every
+number an `ACQUISITION_TUNABLES` entry (feel-it-out, M4-tunable); all acquired pieces arrive **inert**;
+all rolls seeded via `state.rng`. Three channels:
+- **The glad-load taught card** — fulfilling a need teaches one journey-piece (retired the
+  `taughtCard: true` stub). Drawn weighted to the maker's **dominant gleam-grain** (D1); the crown
+  doesn't teach (its stand ends the run).
+- **The Fair** — a per-morning offer row, **draft k=2 of N=5** ([CANON]), rolled fresh each dawn,
+  Standing-gated to unowned cards. The row stays **within** the Standing gate (short/empty when
+  drafted out — no backdoor to higher stock; a code-review pass fixed a fallback that leaked one).
+- **The release** — last-light 1 un-woken piece/morning, the thinning valve so the deck can grow
+  past ~20 (D-013 draft-2 / release-1).
+
+**D-013's open cost question → resolved: option (c), hybrid tiered.** Standing **gates** which tier
+is offered ("the market widens as gleam rises" — gleam read, never spent). *How you pay* splits by
+tier, respecting canon's R2 line: **apprentice-floor tiers are BOUGHT with handsels** (canon-legal —
+R2 buys low taught pieces); **the proud tier is COURTED** — a performed chain-term wins it, no coin
+("a key that turns, never a coin that leaves"). This edits **no locked canon** (options (a) ratify-
+handsels-buy-cards and (b) courting-only were rejected — (a) amends R2/R3, (b) strips handsels of a
+card-sink). Built in two reviewed parts (deck-growth, then the Fair).
+
+**FIDELITY deferred:** the proud term is a single flat knob (`chain ≥ 3`; per-card terms later);
+D1's "answering-asking's-grain-pool" half (askings carry no grain field yet); the full R2/R6 economy
+(introduction-jars, idle-lapse, twice-benched, courting→bench D2, gleanings, apprentice-stuff D3).
+Map/routing + the meta-layer stay out. **Closes QUESTIONS.md §D D1 + D4** (D2/D3 still deferred).
+**Unblocks the sim harness** — with Phases 4–6 all real in the engine, Phase 7–8 can run a full run.
+
 ## D-014 · Run frame (engine Phase 5) — the year ends three ways; C5 adopted (2026-07-14, user-decided)
 The run now concludes (was an endless sandbox). Built + tested (108 pass), merged. `runframe.ts`,
 every value a `RUN_TUNABLES` entry (adopted-but-tunable, per the "feel it out" stance):
