@@ -44,6 +44,7 @@
 - **Closed enums:** grains, read-sources, triggers, and play-events are closed sets (see `vocabulary.ts`). Extending them means re-opening locked GDD Layer 3 — a logged decision, not an edit.
 - **Naming:** in-world (diegetic) terms come from `planning/terms.json`; no literal commerce vocabulary ("market", "stalls") in player-facing strings.
 - **Docs style:** decisions logged as `D-00N · title (date)` entries in `DECISIONS.md`; design-pipeline issue ids (`I-0NN`) referenced where obligations carry forward.
+- **Codex snapshots:** after committing planning changes (board, decisions, questions, task proposals), run `python3 scripts/bake-codex.py` — the codex's Project section fetches these files live when served, but the baked snapshots are what a double-clicked file shows.
 
 ## Gotchas / notes
 

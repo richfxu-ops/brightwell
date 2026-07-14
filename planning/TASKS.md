@@ -15,9 +15,9 @@
 - [ ] (P3) Decide prototype form (web/terminal) and sketch UI #prototype #m5
 
 ## Next
-- [ ] (P2) Toy morning: playable single-turn slice over the engine — the "is it fun?" check (after Phase 3) #prototype #m3
 
 ## In Progress
+- [ ] (P2) [Toy morning](tasks/toy-morning.md) #prototype #m3 #proposal
 
 ## Done
 - [x] Stage 1 (world-architect): WORLD.md, ledger, terms — all layers locked #m1
