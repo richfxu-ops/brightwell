@@ -73,6 +73,14 @@ step 1** (it pins exactly which key is which):
 - **Two Parts (Large):** the pipeline can stand up and pass the completeness gate with a single
   generic bot before the six archetype policies exist — so Part A de-risks the harness, Part B makes
   the records archetype-real.
+- **Canon-accurate empty purse (user-decided).** The sim starts a run with 0 handsels (no toy
+  stipend) — the sim measures the real economy where handsels are earned (glad-load / whittle), not a
+  UX crutch. Consequence surfaced in Part A: buying is secondary to the free court path.
+- **Bots play their own Way's cards honestly; the harness lets weakness show.** Part A surfaced that
+  eveners/fairwrights (and the apprentice base) carry **no `fill` card** — they can't fulfil a need
+  from their starting deck, so they never earn glad-load and grow only via court/whittle. Part B's
+  tilts lean each Way into its real strengths rather than papering the gap; "can this Way stand the
+  crown?" is a genuine Phase-8 balance signal to preserve, not hide.
 
 ## Technical detail
 
@@ -112,8 +120,15 @@ grows the deck but doesn't deliver the crown, the documented floor), decks grow 
 varied and honest; the 0 wins are a baseline-strength artifact for Part B / Phase 8, not a pipeline bug.
 
 ### Part B — the six archetype policies  *(branch: `phase7-part-b-bots`)*
-- [ ] `policies.ts` — one baseline-competent `Policy` per archetype (Kilnfast/Eveners/Untold/
-      Fairwrights/Mannerly/Gleaners), each tilted toward its Way's core loop
-- [ ] Driver runs all six; `records.json` covers the archetype matrix
-- [ ] Tests: each policy produces legal actions and completes a run; per-archetype records validate
-- [ ] `npm run check` green; Review Card
+- [x] `policies.ts` — one `Policy` per archetype via `makePolicy` (a `PREFERRED_DO` tilt over the
+      baseline shape); `POLICIES` exhaustive, `runArchetype(seed, archetype)` the entry
+- [x] `run.ts` + the completeness gate now drive `runArchetype`; `records.json` covers the 7-way matrix
+- [x] Tests: `policies.test.ts` — policies exhaustive, every Way terminates across seeds, and the tilt
+      demonstrably diverges from the generic baseline on the same seed+deck
+- [x] `npm run check` green (134 pass, +3); `npm run sim` runs; Review Card
+
+Verified (2026-07-14): `npm run check` green — typecheck + lint + 134 tests. The records are now
+archetype-*distinct* and each Way's identity is legible: eveners retires most (12.6/run — cycles the
+deck), mannerly courts most (11.4) + longest chains (10.7), untold wakes most (23.5 — draws wide),
+fairwrights peaks gleam+room highest (256 / 17.1 — the gather→brim spike), gleaners whittles most.
+Still 0 wins (the documented simple-bot floor); fairwrights' gleam spike is a Phase-8 signal to watch.

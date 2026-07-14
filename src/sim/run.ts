@@ -3,7 +3,8 @@
 // esbuild runner: `npm run sim`. N is small in Phase 7 (smoke-test the pipeline); Phase 8 scales it.
 
 import { mkdirSync, writeFileSync } from "node:fs";
-import { ARCHETYPES, runGame } from "./driver.js";
+import { ARCHETYPES } from "./driver.js";
+import { runArchetype } from "./policies.js";
 import { collectMetrics, type RoundMetricsPerRun } from "./metrics.js";
 
 const RUNS_PER_ARCHETYPE = 50;
@@ -11,7 +12,7 @@ const RUNS_PER_ARCHETYPE = 50;
 const records: (RoundMetricsPerRun & { seed: number })[] = [];
 for (const archetype of ARCHETYPES) {
   for (let seed = 0; seed < RUNS_PER_ARCHETYPE; seed++) {
-    records.push({ seed, ...collectMetrics(runGame(seed, archetype)) });
+    records.push({ seed, ...collectMetrics(runArchetype(seed, archetype)) });
   }
 }
 
