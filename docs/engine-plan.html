@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Roundelay — Engine Plan</title>
+<style>
+  :root{
+    --bg:#f6f1e7; --panel:#fffdf8; --panel2:#fbf6ea; --ink:#2a2622; --muted:#6f6656;
+    --line:#e2d9c6; --gold:#b8862e; --teal:#2f8387; --need:#b5552e; --pale:#8f989b; --moss:#5f7f3f;
+    --shadow:0 1px 2px rgba(60,45,20,.05),0 10px 30px rgba(60,45,20,.07);
+    --serif:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;
+    --sans:ui-sans-serif,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  }
+  @media (prefers-color-scheme:dark){:root{
+    --bg:#151920; --panel:#1e222b; --panel2:#262c37; --ink:#ece6d9; --muted:#a8a090;
+    --line:#2f3540; --gold:#e4bd6b; --teal:#5ec6cb; --need:#e0895e; --pale:#828c96; --moss:#9ab86a;
+    --shadow:0 1px 2px rgba(0,0,0,.3),0 12px 34px rgba(0,0,0,.4);
+  }}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:17.5px;line-height:1.6;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:880px;margin:0 auto;padding:40px 22px 90px}
+  header{text-align:center;margin-bottom:8px}
+  .kick{letter-spacing:.24em;text-transform:uppercase;font-size:12.5px;color:var(--muted);margin-bottom:10px}
+  h1{font-family:var(--serif);font-weight:600;font-size:clamp(30px,5.5vw,46px);margin:0;
+     background:linear-gradient(180deg,var(--ink),var(--gold));-webkit-background-clip:text;background-clip:text;color:transparent}
+  .sub{font-family:var(--serif);font-style:italic;color:var(--muted);font-size:19px;margin:12px auto 0;max-width:52ch}
+
+  .sec{font-family:var(--serif);font-size:13.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);
+       font-weight:600;margin:46px 4px 4px}
+  h2{font-family:var(--serif);font-size:clamp(22px,3.6vw,28px);font-weight:600;margin:2px 0 14px}
+  p{margin:12px 0}
+  b{color:var(--ink)}
+  .muted{color:var(--muted)}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow);padding:22px 26px;margin:16px 0}
+  .callout{border-left:3px solid var(--gold);background:var(--panel2);padding:12px 18px;border-radius:0 12px 12px 0;margin:16px 0;font-size:16px;color:var(--muted)}
+  .callout b{color:var(--gold)}
+  code{font-family:var(--mono);font-size:14px;background:var(--panel2);border:1px solid var(--line);padding:1px 6px;border-radius:6px}
+
+  /* the stack diagram */
+  .stack{display:flex;flex-direction:column;gap:6px;margin:18px 0}
+  .lay{display:flex;align-items:baseline;gap:14px;background:var(--panel);border:1px solid var(--line);
+       border-left:5px solid var(--ac,var(--gold));border-radius:12px;padding:10px 18px;box-shadow:var(--shadow)}
+  .lay .n{font-family:var(--mono);font-size:12px;color:var(--ac,var(--gold));min-width:26px;font-weight:700}
+  .lay .t{font-family:var(--serif);font-size:18px;font-weight:600;min-width:200px}
+  .lay .d{color:var(--muted);font-size:15px}
+  .arrow{text-align:center;color:var(--muted);font-size:13px;margin:-2px 0}
+
+  /* phases */
+  .phase{background:var(--panel);border:1px solid var(--line);border-radius:18px;box-shadow:var(--shadow);padding:24px 28px;margin:18px 0}
+  .phead{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+  .pnum{display:inline-flex;align-items:center;justify-content:center;min-width:40px;height:40px;border-radius:50%;
+        background:var(--gold);color:var(--bg);font-family:var(--serif);font-size:19px;font-weight:700}
+  .phase h3{font-family:var(--serif);font-size:23px;margin:0;font-weight:600}
+  .psize{margin-left:auto;font-family:var(--mono);font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;
+         color:var(--muted);border:1px solid var(--line);border-radius:999px;padding:4px 12px}
+  .rows{margin-top:14px;display:flex;flex-direction:column;gap:9px}
+  .row{display:flex;gap:12px;font-size:16px}
+  .row .k{color:var(--gold);font-weight:700;min-width:96px;flex:0 0 auto;font-size:13px;letter-spacing:.06em;text-transform:uppercase;padding-top:3px}
+  .row .v{color:var(--ink)}
+  .row .v .q{color:var(--muted);font-style:italic}
+
+  table{border-collapse:collapse;width:100%;font-size:15px;margin:14px 0}
+  th,td{text-align:left;padding:8px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+  th{color:var(--muted);font-weight:600;font-size:12px;letter-spacing:.05em;text-transform:uppercase}
+  td b{color:var(--gold)}
+  .scroll{overflow-x:auto}
+
+  ul{margin:10px 0;padding-left:22px}
+  li{margin:7px 0}
+  footer{text-align:center;color:var(--muted);font-size:13.5px;margin-top:40px}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <div class="kick">Roundelay · milestone 3</div>
+    <h1>The Engine Plan</h1>
+    <p class="sub">How we turn the locked design into a running game — in eight small, testable steps, each one provable before the next begins.</p>
+  </header>
+
+  <div class="sec">The one idea</div>
+  <h2>The engine is a careful bookkeeper</h2>
+  <div class="card">
+    <p>Everything in Roundelay's design is ultimately <b>numbers moving between pots</b>: attention pours from the dawn into the room, from the room onto pieces, spills over ceilings into Standing, seeps back to the town's table. The engine's whole job is to move those numbers around <b>exactly</b> as the locked design says, and never any other way.</p>
+    <p>So we build it as a <b>pure state machine</b>: one plain data object holds the entire game (<span class="q muted">"the table"</span>), and the only way anything changes is a function that takes the current state plus one action and returns the next state. No hidden variables, no side effects. Cards stay <b>data</b> — the 49 starter cards are JSON we already have; the engine just knows the fourteen verbs they're written in.</p>
+    <p>Why this shape matters: it makes the engine <b>equally drivable by a test, a bot, or (later) a UI</b> — all three just feed it actions and read the result. That's exactly what M4's balance simulations need.</p>
+  </div>
+
+  <div class="sec">The shape</div>
+  <h2>Nine layers, built bottom-up</h2>
+  <p class="muted">Each layer only depends on the ones below it — which is also the build order, and (not by accident) the order of the GDD's own layers.</p>
+  <div class="stack">
+    <div class="lay" style="--ac:var(--teal)"><span class="n">1</span><span class="t">The table (state)</span><span class="d">one data object: the run, the board, your deck, hand, room, gleam, purse</span></div>
+    <div class="lay" style="--ac:var(--teal)"><span class="n">2</span><span class="t">Reads</span><span class="d">the "amounts are references" rule — read(room), read(grain:joinery), read(spiral)…</span></div>
+    <div class="lay" style="--ac:var(--gold)"><span class="n">3</span><span class="t">The fourteen verbs</span><span class="d">one resolver per primitive, with the firewalls enforced</span></div>
+    <div class="lay" style="--ac:var(--gold)"><span class="n">4</span><span class="t">The worked morning</span><span class="d">dawn → draw → chain of plays → wake/spill → dusk settle</span></div>
+    <div class="lay" style="--ac:var(--need)"><span class="n">5</span><span class="t">The askings</span><span class="d">contracts off the lantern: sizes, fills, staleness, the glad-load payout</span></div>
+    <div class="lay" style="--ac:var(--need)"><span class="n">6</span><span class="t">The year</span><span class="d">27 mornings, 5 legs, the Paling's spiral rings, the combing, the crown</span></div>
+    <div class="lay" style="--ac:var(--moss)"><span class="n">7</span><span class="t">Growing the deck</span><span class="d">glad-load bundles, the Round-Fair, courting — how new cards arrive</span></div>
+    <div class="lay" style="--ac:var(--pale)"><span class="n">8</span><span class="t">The thermometer</span><span class="d">the 57 telemetry numbers every run must report</span></div>
+    <div class="lay" style="--ac:var(--pale)"><span class="n">9</span><span class="t">Bots &amp; the harness</span><span class="d">six archetype players + thousands of seeded runs → hands off to balance</span></div>
+  </div>
+
+  <div class="sec">Three ground rules</div>
+  <h2>Decisions to agree on before we start</h2>
+
+  <div class="card">
+    <p><b>1 · Same seed, same run — always.</b> All randomness (shuffles, lantern offers, table draws) comes from one seeded random-number generator stored in the state. Run the engine twice with seed 42 and you get the identical game, morning by morning. This is what makes bugs findable ("run seed 8871, morning 14, watch the spill"), tests trustworthy, and balance statistics honest.</p>
+    <p><b>2 · The engine narrates everything it does.</b> Every state change also appends a small plain-English-able event to a log: <code>{woke: "the-fired-beam", overkill: 1}</code>. Tests read the log to assert what happened; telemetry (layer 8) is just arithmetic over it; and when we build the playable prototype, the UI simply animates the log. We get replays for free.</p>
+    <p><b>3 · A fidelity ladder, not silent shortcuts.</b> Version 1 deliberately simplifies two world-rich systems — the <b>map</b> (full road-memory graph → for now, each dusk offers 2–3 next towns to choose from) and <b>acquisition's outer reaches</b> (full courting web and Fair economy → for now, the glad-load bundle plus a simple Fair pick and the courting <em>terms</em> the Mannerly cards need). Every simplification gets a <code>// FIDELITY:</code> marker and a line in the task file, so nothing quietly contradicts canon — we're deferring detail, never changing the rules.</p>
+  </div>
+  <div class="callout"><b>What we are NOT building in M3:</b> graphics or UI, the full illustrated map, save files, sound, meta-progression. The deliverable is an engine a bot can play a complete, honest run of — that's what M4's balancing needs.</div>
+
+  <div class="sec">The steps</div>
+  <h2>Eight phases, each one testable</h2>
+
+  <div class="phase">
+    <div class="phead"><span class="pnum">1</span><h3>The table — state &amp; reads</h3><span class="psize">Small</span></div>
+    <div class="rows">
+      <div class="row"><span class="k">We build</span><span class="v">The <code>GameState</code> type — calendar, board nodes (with their paling rings and local tables), deck (fired vs held), hand, the room, chain, gleam, handsels, courted stock — plus the <code>read()</code> evaluator that turns any <code>read(...)</code> source into a number from that state.</span></div>
+      <div class="row"><span class="k">Why first</span><span class="v">Every other layer speaks in reads. <span class="q">"A card's payoff isn't a fixed number — it reads what earlier cards built"</span> is the game's one clever idea; it has to be rock-solid.</span></div>
+      <div class="row"><span class="k">Done when</span><span class="v">Tests build small states by hand and every read source returns the documented number — including the closed-enum rule (an unknown source is a compile error, not a zero).</span></div>
+    </div>
+  </div>
+
+  <div class="phase">
+    <div class="phead"><span class="pnum">2</span><h3>The fourteen verbs</h3><span class="psize">Medium</span></div>
+    <div class="rows">
+      <div class="row"><span class="k">We build</span><span class="v">One resolver per primitive — <code>gather, rest, steady, fill, brim, mark-grain, draw, retire, whittle, court, soothe, read, warm, keep</code> — each a pure function: state + effect in, state + events out.</span></div>
+      <div class="row"><span class="k">The teeth</span><span class="v">The five locked firewalls become runtime assertions <em>and</em> tests: brim is the only gleam-writer; season/spiral reads never feed gleam; no verb lowers a waking-mark; gleam gates but is never spent; the Paling touches only the board.</span></div>
+      <div class="row"><span class="k">Done when</span><span class="v">Table-driven tests cover every verb (including <code>rest</code>'s three outcomes: wakes / stays cold / overkills past ceiling), and a "firewall suite" proves each forbidden move is impossible.</span></div>
+    </div>
+  </div>
+
+  <div class="phase">
+    <div class="phead"><span class="pnum">3</span><h3>The worked morning</h3><span class="psize">Medium</span></div>
+    <div class="rows">
+      <div class="row"><span class="k">We build</span><span class="v">The turn loop: dawn income (base + local-table draw + yesterday's returned surplus), draw to a hand of five, then a chain of plays — each spending room, holding or cooling on stalls, triggering <code>on-play / on-wake / on-chain / on-overkill</code> — and a dusk settle (unspent attention RETURNs to this node's table, freshness ticks, idle handsels dim).</span></div>
+      <div class="row"><span class="k">The proof</span><span class="v">A golden test straight from the GDD: the Kilnfast's documented three-card chain (Setterby Trestle → Calipers → The Fired Beam) played in order wakes the capstone; played out of order, it under-fills — <span class="q">the reach that falls short</span>.</span></div>
+      <div class="row"><span class="k">Done when</span><span class="v">A scripted sequence of plays runs a full legal morning, and the conservation law holds: every drop of dawn attention is accounted for as SET, overflow, or RETURN — nothing minted, nothing lost.</span></div>
+    </div>
+  </div>
+
+  <div class="phase">
+    <div class="phead"><span class="pnum">4</span><h3>The askings</h3><span class="psize">Medium</span></div>
+    <div class="rows">
+      <div class="row"><span class="k">We build</span><span class="v">Contracts from <code>tiers.json</code>: the four tiers (kettle 1 → plea 3 → poem 5 → great 7), lantern offers gated by gleam band, accepting an asking, <code>fill</code> completing it, staleness past its season becoming <b>the spilling</b> (the only way gleam falls), and the <b>glad-load</b> payout that touches every economy at once.</span></div>
+      <div class="row"><span class="k">Done when</span><span class="v">Tests: fulfil pays the documented bundle and resets the node's rings ("rings-in = load-out"); a stale asking costs gleam exactly once; a deliberate flop is EV-negative.</span></div>
+    </div>
+  </div>
+
+  <div class="phase">
+    <div class="phead"><span class="pnum">5</span><h3>The year</h3><span class="psize">Medium</span></div>
+    <div class="rows">
+      <div class="row"><span class="k">We build</span><span class="v">The run frame: 27 worked mornings across the five legs (4·6·7·7·3), the Paling accreting spiral rings on skipped nodes (3 = plea, 5 = poem, 7 births a great asking + the combing), the simplified travel choice each dusk, the calendar-floored <b>crown</b> (need 10) at the Wintering, and the two endings — stand the crown and win, or gleam-zero into the Quiet Walk.</span></div>
+      <div class="row"><span class="k">Done when</span><span class="v">A scripted full run plays start to finish; the season multipliers match tiers.json; and the key design assertion holds in a test: a static 7-card apprentice deck <b>cannot</b> stand the crown — growth is forced by the weather.</span></div>
+    </div>
+  </div>
+
+  <div class="phase">
+    <div class="phead"><span class="pnum">6</span><h3>Growing the deck</h3><span class="psize">Medium</span></div>
+    <div class="rows">
+      <div class="row"><span class="k">We build</span><span class="v">Acquisition, at ladder-rung one: the glad-load's taught piece + introduction-jar + bright handsels + map hint; a simple Round-Fair pick when you route through one; courting <em>terms</em> (so the Mannerly's <code>court</code> cards work as printed); and the drains — retire, gifting, freshness lapse — so the deck stays a garden, not a hoard.</span></div>
+      <div class="row"><span class="k">Done when</span><span class="v">A run's deck actually grows ~7 → ~20 as L6 says; every acquired piece arrives <b>inert</b> (the room still has to wake it); handsels never buy proud stock.</span></div>
+    </div>
+  </div>
+
+  <div class="phase">
+    <div class="phead"><span class="pnum">7</span><h3>The thermometer</h3><span class="psize">Small</span></div>
+    <div class="rows">
+      <div class="row"><span class="k">We build</span><span class="v">The telemetry module: every run emits the <b>57 keys</b> in <code>design/round_metrics.json</code> (win/loss, decisions per turn, deck curve, gleam economy, the Untold's pace ratios, the six axis magnitudes…) — computed from the event log, not sprinkled through the engine. Plus the first <b>greedy bot</b>: no strategy, just "make a legal good-ish move," to smoke-test that whole runs complete unattended.</span></div>
+      <div class="row"><span class="k">Done when</span><span class="v">1,000 seeded greedy runs finish without an illegal state, and every one of the 57 keys is populated (no silent nulls).</span></div>
+    </div>
+  </div>
+
+  <div class="phase">
+    <div class="phead"><span class="pnum">8</span><h3>Six temperaments — bots &amp; the harness</h3><span class="psize">Large · split later</span></div>
+    <div class="rows">
+      <div class="row"><span class="k">We build</span><span class="v">One policy bot per Walking Way (the Kilnfast snowballs, the Fairwright hoards-then-dumps, the Gleaner routes into the grey…), plus the harness: run N×6 seeded games, aggregate the telemetry, and print the balance sheet the GDD's watch-items ask for — crown-stand spread, glad-load power share, dominated pairs, the Untold's tempo ratios.</span></div>
+      <div class="row"><span class="k">Done when</span><span class="v">The harness produces its first honest balance report. That report — not this phase — is M4's starting gun; tuning numbers is the <em>next</em> milestone's job (and where we decide whether the game-loop skill runs the loop).</span></div>
+    </div>
+  </div>
+
+  <div class="sec">The safety net</div>
+  <h2>How we know we haven't broken canon</h2>
+  <div class="scroll"><table>
+    <tr><th>Locked rule (from the GDD)</th><th>Where it's enforced</th></tr>
+    <tr><td>Amounts are references (<b>read</b>)</td><td>Phase 1 — the evaluator + closed enum</td></tr>
+    <tr><td>The five firewalls (gleam, play-gate, fixed marks…)</td><td>Phase 2 — assertions + the firewall test suite</td></tr>
+    <tr><td>Attention conservation (<span class="q">nothing minted, nothing lost</span>)</td><td>Phase 3 — the conservation check every dusk</td></tr>
+    <tr><td>Rings-in = load-out; spilling is outcome-only</td><td>Phase 4 — asking lifecycle tests</td></tr>
+    <tr><td>The crown is un-standable without growth</td><td>Phase 5 — the static-deck-must-lose test</td></tr>
+    <tr><td>Deck ~7 → ~20; acquired pieces arrive inert</td><td>Phase 6 — growth-curve tests</td></tr>
+    <tr><td>The 57-key telemetry contract</td><td>Phase 7 — completeness check on every run</td></tr>
+    <tr><td>Balance watch-items (I-006/014/020/022…)</td><td>Phase 8 — the harness's balance sheet</td></tr>
+  </table></div>
+
+  <div class="callout"><b>Working rhythm:</b> each phase is its own <code>/task</code> file (scoped → designed → signed off → built on a side branch → reviewed → merged), so you approve each step's design before its code exists — and any phase can pause without leaving the engine broken.</div>
+
+  <footer>Roundelay · engine plan for M3 · drafted 2026-07-13 · pairs with planning/PLAN.md</footer>
+</div>
+</body>
+</html>

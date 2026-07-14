@@ -28,3 +28,4 @@
 - [x] Init git repository #infra
 - [x] Build roundelay-codex.html — single-file codex site, Daylight watercolor design #docs
 - [x] (P1) [TS toolchain setup](tasks/set-up-ts-toolchain.md) #infra #m3
+- [x] (P1) [Engine state & reads](tasks/engine-state-and-reads.md) #engine #m3

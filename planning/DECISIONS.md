@@ -1,5 +1,23 @@
 # DECISIONS.md — pipeline-test-02
 
+## D-009 · read(grain:<suit>) scope ruling (2026-07-13, user-approved)
+**`grain:<suit>` counts this morning's working** (pieces waking or stamped `<suit>` today; resets at
+dawn); **`woken:<suit>` counts the cross-turn fired audience** (pieces fired on earlier mornings).
+A canon *clarification*, not a change: the executable napkin Layer 7 was locked against
+(`design/napkin/layer-07.py`, check 4) validates archetype chains by "C3 reads a surface C1/C2
+wrote this chain" — which only holds under the this-morning reading — and the L7 cards use
+`woken:` wherever they mean cross-turn compounding. The contrary "+1 room per joinery already
+woken" comment in GDD L3 §3's illustrative example is a known doc slip (contradicted by that
+example's own narration); the locked GDD text stays untouched.
+
+## D-008 · Engine ground rules (2026-07-13, user-approved)
+M3 engine architecture per `docs/engine-plan.html` (8 phases, bottom-up): (1) **pure & deterministic** —
+one plain GameState, pure transition functions, all randomness from a seeded RNG carried in state;
+(2) **event log** — every state change appends an event; tests/telemetry/UI read the log;
+(3) **fidelity ladder** — v1 simplifies the map (2–3 offered next towns per dusk) and the outer
+acquisition economy; every simplification carries a `FIDELITY:` marker + task-file line. Rules are
+never changed by shortcuts, only detail deferred.
+
 ## D-007 · TS toolchain (2026-07-13)
 Node 24 LTS via nvm (pinned in `.nvmrc`; the machine's system Node was EOL v12), TypeScript strict
 ESM with `tsc --noEmit` as checker only, vitest as test runner, no bundler and no linter yet

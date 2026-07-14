@@ -29,7 +29,7 @@ Full design: `GDD.md` (7 locked layers) traces to `WORLD.md` (locked world bible
 
 - **M1 — World (stage 1, world-architect):** ✅ DONE — `WORLD.md`, 55-mechanic ledger, ~169-term canon, all 7 layers locked.
 - **M2 — Game design (stage 2, game-architect):** ✅ DONE — `GDD.md` layers 1–7 locked; seam files emitted (`design/vocabulary.json`, `design/round_metrics.json`, `src/content/`, `src/engine/vocabulary.ts`).
-- **M3 — Engine + simulation (stage 3, game-loop):** playable rules engine (`effects.ts` resolvers per primitive), bot players, simulation harness emitting the 57 round-metric telemetry keys.
+- **M3 — Engine + simulation (stage 3, game-loop):** playable rules engine (`effects.ts` resolvers per primitive), bot players, simulation harness emitting the 57 round-metric telemetry keys. Detailed 8-phase plan: `docs/engine-plan.html` (ground rules in D-008).
 - **M4 — Balance:** tune numbers via bot sims until the GDD's calibration targets hold (see Constraints); resolve the open numeric obligations handed forward from stage 2.
 - **M5 — Playable prototype:** a human-playable interface over the balanced engine. *(Shape TBD — see Open questions.)*
 
