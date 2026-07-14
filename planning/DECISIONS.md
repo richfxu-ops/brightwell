@@ -1,5 +1,26 @@
 # DECISIONS.md — pipeline-test-02
 
+## D-016 · Simulation harness (engine Phase 7) — the balance thermometer, built (2026-07-14, user-decided)
+The M3 capstone: `src/sim/` plays bot games over seeded runs and emits per-run `round_metrics`
+records so M4 balance can derive real numbers (not napkin shape-checks). Built + tested (134 pass),
+merged. Drives the engine's **public API only** (never internals); pure and seeded (a record replays
+exactly). Split into two reviewed parts (the pipeline, then the six archetype policies).
+- **The 57 keys partition three ways** (`keys.ts`, self-validating): **37 per-run-real** (off the
+  event log + final state), **7 per-run structural-zero** (deferred systems — combing, gleanings,
+  idle-lapse, glad-price, the untold trio — emitted as honest zeros tagged with what each awaits),
+  **13 cross-run aggregates** (win rates, the six axes, spreads, dominated pairs) that a single record
+  can't hold → **Phase 8** derives them. The completeness gate covers per-run keys.
+- **User-decided:** **simple bots** (greedy tilts, not optimizers — the numbers are a **floor**, not
+  to be over-trusted); **N ≈ 50** runs/archetype (Phase 8 scales); **canon-accurate empty purse** (no
+  toy stipend — the sim measures the real earned-handsel economy).
+- **The harness surfaced real signals (preserved, not papered)** for Phase 8: eveners/fairwrights (+
+  the apprentice base) carry **no `fill` card** → can't fulfil from the starting deck; `soothe` needs
+  a last-red never sourced; the free **court** path dominates deck-growth; fairwrights spikes gleam
+  highest. Under the simple bots every run drifts (0 wins) — expected of a floor.
+- **Phase 8 (the balance sheet)** is [balance-sheet.md](tasks/balance-sheet.md); it consumes these
+  records. Its orchestration (hand-rolled vs the `game-loop` skill) is QUESTIONS.md §F3, to decide
+  when the first records land — now.
+
 ## D-015 · Acquisition (engine Phase 6) — the Fair + hybrid cost; D-013's cost question resolved (2026-07-14, user-decided)
 The deck can now **grow** (~7 → ~20), so a run can build an engine big enough to stand the crown
 (Phase 5's win gate). Built + tested (126 pass), merged. New `src/engine/acquisition.ts`; every

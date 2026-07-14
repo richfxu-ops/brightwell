@@ -13,6 +13,7 @@
 - `src/engine/` — the rules engine. `vocabulary.ts` holds the 14 locked effect primitives as typed data; `effects.ts` (to be written in M3) implements a resolver per primitive.
 - `src/content/cards/` — starter pool as data: one JSON per archetype (`kilnfast`, `eveners`, `untold`, `fairwrights`, `mannerly`, `gleaners`) plus `shared.json` and the combined `starter-pool.json`.
 - `src/content/contracts/` — `tiers.json`: per-tier contract (asking) numbers.
+- `src/sim/` — the balance simulation harness (Phase 7): bot policies, the run-driver, and the metrics emitter over the engine's public API. `npm run sim` writes `sim/out/records.json` (gitignored) for Phase 8.
 - `design/` — the game-architect pipeline's machine state: `vocabulary.json` (canonical primitive definitions — source of truth for `vocabulary.ts`), `round_metrics.json` (57 telemetry keys the sim must emit), `state.json`/`config.json`/`layers/` (layer lock records), `napkin/` (executable balance checks).
 - `world/` — the world-architect pipeline's machine state (stage 1 equivalent of `design/`).
 - `planning/` — project docs + task dashboard: `PLAN.md`, `TASKS.md`, `DECISIONS.md`, this file, plus the locked design docs (`GDD.md`, `WORLD.md`, `terms.json`, `ledger.json`) and rendered HTML views (`world.html`, `brightwell-*.html`).
@@ -26,7 +27,7 @@
 - **Effects resolvers (exists):** `src/engine/effects.ts` — one pure resolver per primitive plus the engine automatics (`applyWake`, `settleOverkill`, `pourAttention`) and the single gleam door (`creditGleam`, provenance-checked). `validate.ts` — the static "fails to compile" firewall over card data.
 - **The worked morning (exists):** `src/engine/morning.ts` — the turn conductor: `dawn → (playPiece | stallAction)* → dusk`, the D-010 rules (dusk sweep, stalls, chain-order cascades, cycling discard, fired-only dawns), and the trigger cascade.
 - **Content (exists):** `src/content/` — cards and contract tiers as data over the vocabulary. Generated at DESIGN_COMPLETE from GDD layers 6–7.
-- **Simulation harness (M3, planned):** bot players + runner emitting the `round_metrics.json` telemetry keys; feeds M4 balance tuning.
+- **Simulation harness (exists, Phase 7):** `src/sim/` — bot players + run-driver emitting per-run `round_metrics` records; feeds Phase 8 / M4 balance. Drives the engine's **public API only** (never internals). `keys.ts` (the 57-key manifest: 37 per-run-real / 7 per-run-zero / 13 Phase-8-aggregate), `driver.ts` (`runGame` + baseline), `policies.ts` (the 6 archetype tilts), `metrics.ts` (`collectMetrics`), `run.ts` (`npm run sim` → `sim/out/records.json`). Bots are deliberately simple — the numbers are a floor.
 
 ## Build / test / run
 
@@ -34,6 +35,7 @@
 - Install: `npm install`
 - Test: `npm test` (vitest)
 - Typecheck: `npm run typecheck` (`tsc --noEmit`)
+- Simulation: `npm run sim` (esbuild-bundles `src/sim/run.ts` and runs it → `sim/out/records.json`)
 - Build / run / dev: none yet — engine-only; no lint/format configured (deferred until there's engine code)
 - Napkin sims (pipeline-era, working): `python3 design/napkin/layer-0N.py`
 - Task dashboard: `cd planning && python3 -m http.server 8000` → http://localhost:8000/dashboard.html
