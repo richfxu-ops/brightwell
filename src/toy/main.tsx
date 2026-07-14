@@ -38,6 +38,37 @@ interface Moment { id: number; kind: "play" | "stall" | "dawn"; title: string; s
 // stable, monotonic ids so the moments feed keys don't shift when the list caps and
 // drops its oldest entry (a positional key would remount every card each action)
 let nextMomentId = 0;
+let nextDraftId = 0;
+
+// FIDELITY PROTOTYPE (toy-only, NOT engine/canon): a per-morning draft — an Ascension-style
+// "offer row" you draft from once each dawn, to feel out whether frequent drafting belongs in
+// the design's Phase-6 acquisition. Tunable; the engine and GDD are untouched.
+const DRAFT_TUNABLES = {
+  OFFER_N: 3,           // cards shown in the row each morning
+  TAKE_PER_MORNING: 1,  // how many you may draft before the row locks until next dawn
+};
+const ALL_CARDS = starterPool.cards as unknown as Card[];
+
+/** A fresh un-woken (inert) piece — acquired pieces always arrive cold. */
+function newPiece(cardId: string, instanceId: string, zone: "pack" | "hand"): GameState["pieces"][number] {
+  return {
+    instanceId, cardId, zone, fired: false, set: 0, stampedGrains: [],
+    wokeThisMorning: false, stampedThisMorning: false, playedThisMorning: false,
+    freshness: 2, delightBonus: 0, overkillCredited: 0, brimBand: 0,
+  };
+}
+
+/** Roll OFFER_N random cards not already in the deck (a simple stand-in for the Fair's pool). */
+function rollOffers(s: GameState): string[] {
+  const owned = new Set(s.pieces.map(p => p.cardId));
+  const pool = ALL_CARDS.filter(c => !owned.has(c.id));
+  const out: string[] = [];
+  const bag = [...pool];
+  while (out.length < DRAFT_TUNABLES.OFFER_N && bag.length) {
+    out.push(bag.splice(Math.floor(Math.random() * bag.length), 1)[0].id);
+  }
+  return out;
+}
 
 // provenance of this morning's room, read from the emitted dawn event
 interface DawnIncome { room: number; seats: number; seatRoom: number; ringDraw: number; tableDraw: number }
@@ -51,6 +82,8 @@ interface Run {
   income: DawnIncome;
   poured: number;      // attention taken from the room this morning (sum of rested spends)
   duskData: DuskData | null;
+  offers: string[];    // this morning's draft offer row (cardIds) — FIDELITY prototype
+  drafted: number;     // how many drafted this morning (locks the row at TAKE_PER_MORNING)
 }
 
 const MOMENT_CAP = 12;
@@ -99,6 +132,7 @@ function makeRun(seed: number, deck: string): Run {
     moments: [dawnMoment(r.state, r.events)],
     seen: markers(r.events),
     income: dawnIncomeOf(r.events), poured: 0, duskData: null,
+    offers: rollOffers(r.state), drafted: 0,
   };
 }
 
@@ -606,6 +640,42 @@ function HandCard({ run, id, selected, onPick }: {
   );
 }
 
+function OfferRow({ run, onDraft }: { run: Run; onDraft: (cardId: string) => void }) {
+  const locked = run.drafted >= DRAFT_TUNABLES.TAKE_PER_MORNING;
+  const left = DRAFT_TUNABLES.TAKE_PER_MORNING - run.drafted;
+  return (
+    <div className="tm-offer">
+      <div className="tm-sechead">
+        The Fair — {locked ? "drafted for today · fresh offers at next dawn" : `draft ${left} into your deck`}
+      </div>
+      <div className="tm-offerrow">
+        {run.offers.map(cardId => {
+          const c = CARDS.get(cardId)!;
+          return (
+            <button key={cardId} type="button"
+              className={`tm-offercard${locked ? " locked" : ""}`}
+              style={{ ["--gr" as string]: grainVar(c.grain) }}
+              disabled={locked} onClick={() => onDraft(cardId)}>
+              <div className="tm-crow1">
+                <span className="tm-gdot" />
+                <span className="tm-cname">{c.name}</span>
+                <span className="tm-cgrain">{c.grain}</span>
+              </div>
+              <div className="tm-crow2">
+                <span className="tm-cchip">wake {c.mark}</span>
+                <span className="tm-cchip">ceil {c.ceiling}</span>
+                <span className="tm-cchip">gift {c.woken_delight}</span>
+              </div>
+              <div className="tm-offerfx">{c.effects.map(e => glossEffect(e, run.s).text).join(" · ")}</div>
+              <div className="tm-offertake">{locked ? "—" : "＋ take"}</div>
+            </button>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
+
 function TableRow({ run }: { run: Run }) {
   const s = run.s;
   const inPlay = s.pieces.filter(p => p.zone === "in-play");
@@ -793,7 +863,19 @@ function App() {
     setRun({
       ...advance(run, r, dawnMoment(r.state, r.events)),
       phase: "morning", income: dawnIncomeOf(r.events), poured: 0, duskData: null,
+      offers: rollOffers(r.state), drafted: 0,   // a fresh offer row each dawn (prototype)
     });
+  };
+  const draft = (cardId: string) => {
+    const card = CARDS.get(cardId)!;
+    const clone = structuredClone(s);
+    clone.pieces.push(newPiece(cardId, `${cardId}#d${nextDraftId++}`, "pack"));
+    const moment: Moment = {
+      id: nextMomentId++, kind: "stall", accent: grainVar(card.grain),
+      title: `Drafted ${card.name}`, sub: "into your deck — arrives cold",
+      badges: [{ tone: "pale", text: "joins the pack, un-woken" }],
+    };
+    setRun({ ...run, s: clone, moments: [moment, ...run.moments].slice(0, MOMENT_CAP), drafted: run.drafted + 1 });
   };
 
   const guideNext = GUIDE.find(g => !g.done(run, selected));
@@ -817,6 +899,7 @@ function App() {
                   <PourPanel run={run} selected={selected} pour={pour}
                     onPour={setPour} onPlay={play} onCancel={() => setSelected(null)} />
                 )}
+                <OfferRow run={run} onDraft={draft} />
                 <div>
                   <div className="tm-sechead">Your hand — pick a card to pour the room into it</div>
                   {hand.length === 0 && <p className="tm-empty">Your hand is empty — end the morning.</p>}
