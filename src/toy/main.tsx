@@ -675,13 +675,18 @@ function OfferRow({ run, onDraft }: { run: Run; onDraft: (cardId: string) => voi
   const purse = run.s.player.handsels.length;
   const tier = unlockedTier(run.s.player.gleam);
   const tierWord = ["", "apprentice", "mid", "capstone"][tier];
+  const canAffordAny = run.offers.some(id => purse >= priceOf(CARDS.get(id)!));
   return (
     <div className="tm-offer">
-      <div className="tm-sechead">
-        The Fair — {capped
+      <div className="tm-offerhead">
+        <span className="tm-lbl">The Fair — {capped
           ? "drafted for today · fresh offers at next dawn"
-          : `draft ${left} · your Standing opens ${tierWord}-tier · purse ${purse}`}
+          : `draft ${left} · your Standing opens ${tierWord}-tier`}</span>
+        <span className={`tm-purse${purse === 0 ? " empty" : ""}`}>💰 {purse} handsel{purse === 1 ? "" : "s"}</span>
       </div>
+      {!capped && !canAffordAny && (
+        <div className="tm-offernote">Can't afford these — earn handsels by filling a town's need (or come back at next dawn).</div>
+      )}
       <div className="tm-offerrow">
         {run.offers.map(cardId => {
           const c = CARDS.get(cardId)!;
@@ -693,7 +698,7 @@ function OfferRow({ run, onDraft }: { run: Run; onDraft: (cardId: string) => voi
               className={`tm-offercard${disabled ? " locked" : ""}`}
               style={{ ["--gr" as string]: grainVar(c.grain) }}
               disabled={disabled} onClick={() => onDraft(cardId)}
-              title={unaffordable && !capped ? `needs ${price} handsels` : ""}>
+              title={unaffordable && !capped ? `costs ${price} handsels — you have ${purse}` : ""}>
               <div className="tm-crow1">
                 <span className="tm-gdot" />
                 <span className="tm-cname">{c.name}</span>
@@ -705,8 +710,8 @@ function OfferRow({ run, onDraft }: { run: Run; onDraft: (cardId: string) => voi
                 <span className="tm-cchip">gift {c.woken_delight}</span>
               </div>
               <div className="tm-offerfx">{c.effects.map(e => glossEffect(e, run.s).text).join(" · ")}</div>
-              <div className="tm-offertake">
-                {capped ? "—" : unaffordable ? `need ${price}` : `＋ take · ${price} handsel${price === 1 ? "" : "s"}`}
+              <div className={`tm-offertake${unaffordable && !capped ? " short" : ""}`}>
+                {capped ? "drafted this morning" : unaffordable ? `costs ${price} · you have ${purse}` : `＋ take · ${price} handsel${price === 1 ? "" : "s"}`}
               </div>
             </button>
           );
