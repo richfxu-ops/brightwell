@@ -1,7 +1,8 @@
 ---
-status: In Review
+status: Complete
 size: Medium
 created: 2026-07-14
+completed: 2026-07-14
 title: Toy Morning redesign
 ---
 
@@ -69,9 +70,18 @@ engine finding to flag, not a UI workaround.
 - [x] Progress-aware guide ported to the new milestone markers
 - [x] Motion polish (vessel fill, ghost pulse, wake glow) + reduced-motion
 - [x] `npm run build:toy` clean; typecheck; play mornings through the DOM to verify
-- [ ] Board + docs sync (on merge)
+- [x] Code review (high effort) + both findings fixed
+- [x] Board + docs sync; merged to main
 
 Verified in-browser (2026-07-14): pour → wake → chain ×1.25 → overkill (+2 Standing) →
 errand (chain breaks) → dusk itemization → next dawn (room 6.9 from 3 seats) all match the
 engine's own events; deck switch to Kilnfast flags The Fired Beam as a need-filler; all 92
 engine tests pass unchanged except the enriched dusk event (additive).
+
+**Code review (high effort) fixed two findings:** (1) `previewPlay` computed `setAfter` as
+`before.set + landed` — the direct pour only — so cards whose on-play effect rests more onto
+the piece (The Fired Beam, Even the Rim, Seasoned Timber) showed a too-short vessel ghost and
+an understated "past the ceiling" badge that contradicted the engine-derived +Standing badge;
+now reads `played.set` from the engine result. (2) The Moments feed keyed on `length - i`,
+which shifts once the feed caps and drops its oldest entry, remounting every card and replaying
+the rise-in animation each action; each moment now carries a stable monotonic `id`.
