@@ -1,0 +1,32 @@
+{
+  "$schema_note": "The game-loop seam: the 14 LOCKED L3 effect primitives as data. Cards (src/content/cards) are declarative data over these. Compile-time firewalls: cross-channel writers (brim/fill/court/whittle/soothe/rest-overkill) bind only to play events; brim is the sole gleam-writer and its band reads only room/chain/over-ceiling; read(season|spiral) feeds gather/whittle/fill, never gleam; marks/ceilings are fixed. Emitted at DESIGN_COMPLETE from GDD Layer 3 (+ L6 numbers).",
+  "engine_version_source": "game-architect stage-2, GDD L3 (locked) + L6 numbers (locked)",
+  "read_sources": ["room", "chain", "fill", "season", "spiral", "grain:<suit>", "woken:<suit>", "handsels", "over-ceiling"],
+  "triggers": ["on-play", "on-wake", "on-chain", "on-stall", "on-overkill", "on-fulfil", "on-court", "on-dawn", "at-dusk"],
+  "play_events": ["on-play", "on-wake", "on-overkill", "on-fulfil", "on-court"],
+  "grains": ["joinery", "thread", "song", "glaze", "dance", "dough"],
+  "primitives": [
+    {"id": "gather", "params": ["amount", "source?"], "reads": ["woken:<suit>", "venue", "grain"], "writes": ["room"], "interacts": true, "channel": "current", "note": "seat present audience into the room (soft-capped, plateau ~10)"},
+    {"id": "rest", "params": ["target", "amount"], "reads": ["room", "chain"], "writes": ["piece-set", "room", "gleam(via overkill)", "woken-audience(on wake)"], "interacts": true, "channel": "current->thing/people", "play_gated": true, "note": "spend room to rest attention on a piece x the chain; at/above fixed mark it wakes, past ceiling it overkills"},
+    {"id": "steady", "params": ["links?", "brace?"], "reads": ["chain"], "writes": ["chain"], "interacts": true, "channel": "current", "note": "count extra links and/or brace so the next stall does not cool the room"},
+    {"id": "fill", "params": ["amount"], "reads": ["piece delight", "fill", "grain", "room", "chain"], "writes": ["fill"], "interacts": true, "channel": "thing->places", "play_gated": true, "note": "pour woken delight into the accepted need's fill; amount may read room/grain/chain"},
+    {"id": "brim", "params": ["band"], "reads": ["piece-set over ceiling", "over-ceiling", "room", "chain"], "writes": ["gleam"], "interacts": true, "channel": "current->people", "play_gated": true, "gleam_writer": true, "band_legal": ["room", "chain", "over-ceiling"], "note": "THE ONLY card gleam-writer; widens overkill->gleam band on genuine excess; full rate 1.0 for +6 past ceiling then 0.5; firewalled from board surfaces"},
+    {"id": "mark-grain", "params": ["target", "suit"], "reads": [], "writes": ["grain", "tags"], "interacts": true, "channel": "within things-wake", "note": "stamp a craft-suit; flows to seated-audience type, grain-of-gleam, and court terms"},
+    {"id": "draw", "params": ["n", "suit?", "tag?"], "reads": ["pack", "grain"], "writes": ["hand"], "interacts": true, "channel": "within things-wake", "note": "draw pieces; with a suit/tag filter it searches the pack"},
+    {"id": "retire", "params": ["target", "to?"], "reads": [], "writes": ["pack(thin)", "room/local-table(node-bound)"], "interacts": true, "channel": "within things-wake/current", "note": "last-light a piece to destruction; RETURN worth to this node's table or the room; residual-only (retire-cycle net-negative)"},
+    {"id": "whittle", "params": ["amount"], "reads": ["RETURN share", "season"], "writes": ["handsels"], "interacts": true, "channel": "current-RETURN->handsels", "play_gated": true, "note": "carve the-shavings-share (0.333 of RETURN) into handsels; read(season) may scale (yield, never gleam)"},
+    {"id": "court", "params": ["stock", "term"], "reads": ["gleam(GATE, never spent)", "grain", "chain"], "writes": ["courted-stock"], "interacts": true, "channel": "gleam gates", "play_gated": true, "note": "perform a courting term; gleam is read as a pure gate, never spent; a stamped suit or chain-state satisfies the term"},
+    {"id": "soothe", "params": ["amount", "scale?", "cap?"], "reads": ["node", "spiral", "season"], "writes": ["node/Paling"], "interacts": true, "channel": "places-pale", "play_gated": true, "note": "the ONE board-writer; node-local; slows this node's paling; capped to the last-red (1 node/1 knack/1 season); NEVER touches gleam"},
+    {"id": "read", "params": ["source"], "reads": ["<the named surface>"], "writes": [], "interacts": true, "channel": "reference", "note": "amount-syntax (per/by), never printed on a card face; the single reference primitive; source in the closed enum"},
+    {"id": "warm", "params": ["n"], "reads": [], "writes": ["this piece delight"], "interacts": false, "channel": "self", "note": "flat +delight on its own card; no combo (legible baseline)"},
+    {"id": "keep", "params": [], "reads": [], "writes": ["this piece freshness"], "interacts": false, "channel": "self", "note": "resist the Paling one extra season; no combo (legible baseline)"}
+  ],
+  "interaction_density": 0.857,
+  "firewalls": {
+    "gleam_firewall": "read(season|spiral) feeds gather/whittle/fill only, never gleam; brim band reads room/chain/over-ceiling only, never season/spiral/paling",
+    "play_is_the_only_gate": "cross-channel writers bind only to play events (on-play/on-wake/on-overkill/on-fulfil/on-court)",
+    "fixed_marks": "no primitive lowers a waking-mark or ceiling; the only lever is bringing more room",
+    "gleam_never_spent": "court reads gleam as a gate; no card spends or decrements gleam",
+    "paling_soothe_only": "the Paling is board-only; read(season|spiral) reads it, soothe writes it, it never touches the gleam meter"
+  }
+}

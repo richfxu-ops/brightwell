@@ -1,0 +1,253 @@
+{
+  "archetype": "gleaners",
+  "cards": [
+    {
+      "id": "walk-the-pale",
+      "name": "Walk the Pale",
+      "grain": "glaze",
+      "mark": 3,
+      "ceiling": 5,
+      "woken_delight": 2,
+      "tags": [
+        "chain:C1"
+      ],
+      "archetype": "gleaners",
+      "combo": true,
+      "effects": [
+        {
+          "when": "on-play",
+          "do": "gather",
+          "params": {
+            "amount": {
+              "do": "read",
+              "source": "spiral"
+            }
+          }
+        },
+        {
+          "when": "on-play",
+          "do": "whittle",
+          "params": {
+            "amount": {
+              "do": "read",
+              "source": "season"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "glean-the-ground",
+      "name": "Glean the Ground",
+      "grain": "glaze",
+      "mark": 3,
+      "ceiling": 5,
+      "woken_delight": 2,
+      "tags": [
+        "chain:C2"
+      ],
+      "archetype": "gleaners",
+      "combo": true,
+      "effects": [
+        {
+          "when": "on-play",
+          "do": "rest",
+          "params": {
+            "target": "held:capstone",
+            "amount": {
+              "do": "read",
+              "source": "room"
+            }
+          }
+        },
+        {
+          "when": "on-play",
+          "do": "gather",
+          "params": {
+            "amount": {
+              "do": "read",
+              "source": "spiral"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "ripe-mending",
+      "name": "Ripe Mending",
+      "grain": "glaze",
+      "mark": 7,
+      "ceiling": 9,
+      "woken_delight": 3,
+      "tags": [
+        "chain:C3",
+        "capstone"
+      ],
+      "archetype": "gleaners",
+      "combo": true,
+      "effects": [
+        {
+          "when": "on-play",
+          "do": "rest",
+          "params": {
+            "target": "self",
+            "amount": {
+              "do": "read",
+              "source": "room"
+            }
+          }
+        },
+        {
+          "when": "on-wake",
+          "do": "fill",
+          "params": {
+            "amount": {
+              "do": "read",
+              "source": "room"
+            }
+          }
+        },
+        {
+          "when": "on-fulfil",
+          "do": "soothe",
+          "params": {
+            "amount": 1,
+            "scale": {
+              "do": "read",
+              "source": "spiral"
+            },
+            "cap": "last-red"
+          }
+        }
+      ]
+    },
+    {
+      "id": "grey-gleaning",
+      "name": "Grey-Gleaning",
+      "grain": "glaze",
+      "mark": 3,
+      "ceiling": 5,
+      "woken_delight": 2,
+      "tags": [
+        "support:second-line",
+        "grain-writer"
+      ],
+      "archetype": "gleaners",
+      "combo": true,
+      "effects": [
+        {
+          "when": "on-play",
+          "do": "gather",
+          "params": {
+            "amount": {
+              "do": "read",
+              "source": "spiral"
+            }
+          }
+        },
+        {
+          "when": "on-play",
+          "do": "mark-grain",
+          "params": {
+            "target": "hand:offgrain",
+            "suit": "glaze"
+          }
+        }
+      ]
+    },
+    {
+      "id": "mend-the-verge",
+      "name": "Mend the Verge",
+      "grain": "glaze",
+      "mark": 5,
+      "ceiling": 6,
+      "woken_delight": 2,
+      "tags": [
+        "support:on-ramp-soothe"
+      ],
+      "archetype": "gleaners",
+      "combo": true,
+      "effects": [
+        {
+          "when": "on-play",
+          "do": "rest",
+          "params": {
+            "target": "self",
+            "amount": {
+              "do": "read",
+              "source": "room"
+            }
+          }
+        },
+        {
+          "when": "on-fulfil",
+          "do": "soothe",
+          "params": {
+            "amount": 1,
+            "scale": {
+              "do": "read",
+              "source": "spiral"
+            },
+            "cap": "last-red"
+          }
+        }
+      ]
+    },
+    {
+      "id": "slow-the-grey",
+      "name": "Slow the Grey",
+      "grain": "glaze",
+      "mark": 2,
+      "ceiling": 3,
+      "woken_delight": 1,
+      "tags": [
+        "support:on-ramp-room"
+      ],
+      "archetype": "gleaners",
+      "combo": true,
+      "effects": [
+        {
+          "when": "on-play",
+          "do": "gather",
+          "params": {
+            "amount": {
+              "do": "read",
+              "source": "grain:glaze"
+            }
+          }
+        },
+        {
+          "when": "on-chain",
+          "do": "steady",
+          "params": {
+            "links": 1
+          }
+        }
+      ]
+    },
+    {
+      "id": "pale-harvest",
+      "name": "Pale Harvest",
+      "grain": "glaze",
+      "mark": 3,
+      "ceiling": 5,
+      "woken_delight": 2,
+      "tags": [
+        "support:draw-fix",
+        "utility"
+      ],
+      "archetype": "gleaners",
+      "combo": false,
+      "effects": [
+        {
+          "when": "on-dawn",
+          "do": "draw",
+          "params": {
+            "n": 1,
+            "suit": "glaze"
+          }
+        }
+      ]
+    }
+  ]
+}

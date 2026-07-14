@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Roundelay — Stage 1 Run Recap</title>
+<style>
+:root{
+  --bg:#f6efe1;--bg2:#efe4cf;--ink:#2c2318;--soft:#6a5b46;--line:#e0cfae;
+  --card:#fffaf0;--cardline:#e7d4ad;--gold:#c9962f;--goldd:#a9781a;
+  --ember:#c65a2e;--glaze:#3d6d86;--moss:#5c7148;--violet:#6a5a86;
+  --lock:#5c7148;--shadow:0 1px 2px rgba(80,60,20,.06),0 8px 30px rgba(120,90,30,.09);
+  --serif:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;
+  --sans:"Avenir Next","Segoe UI",system-ui,-apple-system,sans-serif;
+}
+@media (prefers-color-scheme:dark){:root{
+  --bg:#161310;--bg2:#1e1a14;--ink:#ece2d0;--soft:#b3a488;--line:#33291d;
+  --card:#211c15;--cardline:#3a2f20;--gold:#e4b552;--goldd:#f0c96b;
+  --ember:#e8804f;--glaze:#6fa7c4;--moss:#8fae6f;--violet:#a996c8;--lock:#8fae6f;
+  --shadow:0 1px 2px rgba(0,0,0,.3),0 10px 40px rgba(0,0,0,.35);}}
+:root[data-theme="dark"]{--bg:#161310;--bg2:#1e1a14;--ink:#ece2d0;--soft:#b3a488;--line:#33291d;--card:#211c15;--cardline:#3a2f20;--gold:#e4b552;--goldd:#f0c96b;--ember:#e8804f;--glaze:#6fa7c4;--moss:#8fae6f;--violet:#a996c8;--lock:#8fae6f;--shadow:0 1px 2px rgba(0,0,0,.3),0 10px 40px rgba(0,0,0,.35);}
+:root[data-theme="light"]{--bg:#f6efe1;--bg2:#efe4cf;--ink:#2c2318;--soft:#6a5b46;--line:#e0cfae;--card:#fffaf0;--cardline:#e7d4ad;--gold:#c9962f;--goldd:#a9781a;--ember:#c65a2e;--glaze:#3d6d86;--moss:#5c7148;--violet:#6a5a86;--lock:#5c7148;--shadow:0 1px 2px rgba(80,60,20,.06),0 8px 30px rgba(120,90,30,.09);}
+*{box-sizing:border-box}
+body{margin:0;font-family:var(--serif);color:var(--ink);line-height:1.6;font-size:17px;
+  -webkit-font-smoothing:antialiased;overflow-x:hidden;
+  background:radial-gradient(1100px 560px at 82% -12%,rgba(201,150,47,.11),transparent 60%),
+    radial-gradient(860px 460px at -5% 108%,rgba(61,109,134,.08),transparent 55%),var(--bg);}
+.wrap{max-width:920px;margin:0 auto;padding:0 22px 90px}
+.themebtn{position:fixed;top:16px;right:18px;font-family:var(--sans);font-size:12px;border:1px solid var(--line);
+  background:var(--card);color:var(--soft);border-radius:20px;padding:7px 13px;cursor:pointer;z-index:9}
+.themebtn:hover{border-color:var(--gold)}
+header{text-align:center;padding:60px 0 26px;border-bottom:1px solid var(--line)}
+.eyebrow{font-family:var(--sans);letter-spacing:.3em;text-transform:uppercase;font-size:11px;color:var(--goldd);font-weight:600}
+h1{font-size:clamp(40px,8vw,76px);margin:.1em 0 .04em;font-weight:600;letter-spacing:.02em;
+  background:linear-gradient(180deg,var(--ink),var(--goldd));-webkit-background-clip:text;background-clip:text;color:transparent}
+.tag{color:var(--soft);font-size:18px;max-width:640px;margin:.35em auto 0}
+.donebadge{display:inline-block;margin-top:16px;font-family:var(--sans);font-weight:700;font-size:12px;letter-spacing:.08em;
+  text-transform:uppercase;color:var(--lock);background:color-mix(in srgb,var(--lock) 18%,transparent);padding:6px 15px;border-radius:20px}
+h2{font-family:var(--sans);font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--goldd);
+  font-weight:700;margin:44px 0 14px}
+h2::after{content:"";display:block;height:1px;background:var(--line);margin-top:10px}
+p{margin:.6em 0}
+.lead{font-size:19px}
+em{color:var(--goldd);font-style:italic}
+.tiles{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:22px 0 4px}
+@media(max-width:640px){.tiles{grid-template-columns:repeat(2,1fr)}}
+.tile{background:var(--card);border:1px solid var(--cardline);border-radius:13px;padding:15px 16px;box-shadow:var(--shadow)}
+.tile .big{font-size:27px;font-weight:700}
+.tile .lbl{font-family:var(--sans);font-size:10.5px;letter-spacing:.07em;text-transform:uppercase;color:var(--soft);margin-top:3px}
+table{width:100%;border-collapse:collapse;font-family:var(--sans);font-size:13.5px;margin-top:6px}
+th{text-align:left;font-size:10.5px;letter-spacing:.09em;text-transform:uppercase;color:var(--soft);font-weight:600;padding:6px 9px;border-bottom:1px solid var(--line)}
+td{padding:9px 9px;border-bottom:1px solid var(--line);vertical-align:top}
+tr:last-child td{border-bottom:0}
+.ln{color:var(--goldd);font-weight:700;white-space:nowrap}
+.lname{font-family:var(--serif);font-weight:600;font-size:15px}
+.metric{color:var(--soft);font-variant-numeric:tabular-nums}
+.pill{font-size:10.5px;font-weight:700;padding:3px 9px;border-radius:20px;background:color-mix(in srgb,var(--lock) 18%,transparent);color:var(--lock);white-space:nowrap}
+.card{background:var(--card);border:1px solid var(--cardline);border-radius:15px;padding:6px 22px;box-shadow:var(--shadow);margin-top:8px}
+.card.edge{position:relative;overflow:hidden}
+.card.edge::before{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;background:linear-gradient(180deg,var(--gold),transparent 82%)}
+ul{padding-left:1.15em;margin:.5em 0}
+li{margin:.4em 0}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media(max-width:640px){.two{grid-template-columns:1fr}}
+.mini{font-family:var(--sans);font-size:11px;letter-spacing:.05em;text-transform:uppercase;color:var(--ember);font-weight:700;margin-bottom:2px;display:block}
+.glz{color:var(--glaze)}.emb{color:var(--ember)}.vlt{color:var(--violet)}
+code{font-family:"SF Mono",ui-monospace,Menlo,monospace;font-size:.82em;background:color-mix(in srgb,var(--gold) 13%,transparent);color:var(--goldd);padding:1px 5px;border-radius:5px}
+.next{background:linear-gradient(180deg,color-mix(in srgb,var(--gold) 8%,var(--card)),var(--card));
+  border:1px solid var(--cardline);border-radius:15px;padding:18px 22px;box-shadow:var(--shadow);margin-top:8px}
+footer{text-align:center;color:var(--soft);font-family:var(--sans);font-size:12px;margin-top:40px;padding-top:20px;border-top:1px solid var(--line)}
+</style>
+</head>
+<body>
+<button class="themebtn" id="tb" onclick="tt()">☾ dark</button>
+<div class="wrap">
+<header>
+  <div class="eyebrow">Game-design pipeline · Stage 1 of 3</div>
+  <h1>Roundelay</h1>
+  <p class="tag">A luminous, hand-made world where <em>attention is a physical force</em> — built to become a roguelike economy deckbuilder.</p>
+  <div class="donebadge">✦ Stage 1 complete — all 7 layers locked</div>
+</header>
+
+<h2>What got built</h2>
+<p class="lead">The <strong>world-architect</strong> skill developed a distinctive fictional world from a locked premise (roguelike economy deckbuilder with escalating contracts + a depletable Standing fail-resource), gating every layer on an <em>anti-generic</em> guard and a <em>load-bearing-for-mechanics</em> rule.</p>
+<p>In Roundelay, things made while truly <strong>attended</strong> "wake" and outlast the <strong>Paling</strong> (the slow forgetting-tide). A maker's <strong>gleam</strong> — visible trust worn as light — <em>is</em> Standing. <strong>Askings</strong> (needs towns craft into little objects and hang on lantern-gates) are the escalating contracts. The six <strong>Walking Ways</strong> are the player archetypes, and a run is one <strong>wander-year</strong> across a living map, ending in the gentle <strong>Quiet Walk</strong>.</p>
+
+<div class="tiles">
+  <div class="tile"><div class="big">7 / 7</div><div class="lbl">layers locked</div></div>
+  <div class="tile"><div class="big">55</div><div class="lbl">candidate mechanics</div></div>
+  <div class="tile"><div class="big">121</div><div class="lbl">canon terms</div></div>
+  <div class="tile"><div class="big">~5.8M</div><div class="lbl">subagent tokens</div></div>
+</div>
+
+<h2>The seven layers</h2>
+<table>
+<thead><tr><th>Layer</th><th>What it is</th><th>Blind-audit result</th><th></th></tr></thead>
+<tbody>
+<tr><td class="ln">L1</td><td class="lname">Thematic Spine</td><td class="metric">trope 0/10 · anchors 2 · hooks &amp; legible 12/12</td><td><span class="pill">locked</span></td></tr>
+<tr><td class="ln">L2</td><td class="lname">Cosmology</td><td class="metric">att. 2 — P1 fixed &amp; verified; mechanism-first spine</td><td><span class="pill">locked</span></td></tr>
+<tr><td class="ln">L3</td><td class="lname">Factions</td><td class="metric">6 Walking Ways = distinct archetypes</td><td><span class="pill">locked</span></td></tr>
+<tr><td class="ln">L4</td><td class="lname">Economy &amp; Materials</td><td class="metric"><strong>6 interacting systems</strong> · panel unanimous</td><td><span class="pill">locked</span></td></tr>
+<tr><td class="ln">L5</td><td class="lname">Geography &amp; the Run</td><td class="metric">3 carried laws stated · panel unanimous</td><td><span class="pill">locked</span></td></tr>
+<tr><td class="ln">L6</td><td class="lname">Aesthetic &amp; Naming</td><td class="metric">visual bible + naming; P1 fixed; 4 renames ratified</td><td><span class="pill">locked</span></td></tr>
+<tr><td class="ln">L7</td><td class="lname">Ludic-Hook Ledger</td><td class="metric"><strong>55 mechanics</strong> (gate ≥12) · seam validated</td><td><span class="pill">locked</span></td></tr>
+</tbody>
+</table>
+
+<h2>How it was judged — not vibes</h2>
+<div class="two">
+  <div class="card edge"><p><span class="mini">Blind audits</span>Every gated metric (trope density, ludic coverage, legibility, depth) was set by a <strong>fresh auditor reading the file</strong>, never self-scored. L4–L7 used <strong>3-auditor majority panels</strong> so borderline elements can't flip on one reader's taste.</p></div>
+  <div class="card edge"><p><span class="mini">Adversarial loop</span>Each layer ran <strong>diverge → red-team critics → synthesize → blind audit</strong> via a journaled Workflow engine. Issues persist by id until a verifier confirms the fix against the artifact — silence never closes one.</p></div>
+  <div class="card edge"><p><span class="mini">Two human gates</span>You approved the <strong>L1–3 identity batch</strong>, and you <strong>ratified the L6 renames</strong> that edited locked canon (the Paling, the guild-word retirements, turn→verse).</p></div>
+  <div class="card edge"><p><span class="mini">Canon is checked, not trusted</span>Renames route through a <code>renamed_from</code> registry and a case-sensitive scan; generated views are hash-pinned. Final scan: <strong>0 retired aliases, 0 stale views</strong>.</p></div>
+</div>
+
+<h2>Deliverables (all consistent on disk)</h2>
+<div class="card">
+<ul>
+<li><code>planning/WORLD.md</code> — the world bible, 1,327 lines · 82 element cards · 77 ludic hooks</li>
+<li><code>planning/ledger.json</code> — the machine seam game-architect consumes: <strong>55 mechanics</strong>, all interacting, independently validated (unique ids, 0 broken references)</li>
+<li><code>planning/terms.json</code> — 121 canon terms · <code>planning/DECISIONS.md</code> — full decision log</li>
+<li><code>planning/world.html</code> — the luminous reader (registered &amp; hash-pinned)</li>
+</ul>
+</div>
+
+<h2>Honest notes</h2>
+<div class="two">
+  <div class="card"><p><span class="mini glz">Cost</span>~5.8M subagent tokens — hotter than the 2.5–4M estimate. The overage came from the L2 revise cycle, the majority-vote panels, and a ~15-minute platform outage near the end that forced retries. Logged to memory for next time.</p></div>
+  <div class="card"><p><span class="mini glz">Open issues</span><strong>68 open — all P2/P3, none blocking.</strong> The load-bearing ones are handed forward to game-architect as binding obligations (prove-or-clamp the Untold's tempo escalation; ten non-diegetic L5 items; three napkin-sim bounds; a couple of ledger overlaps to confirm once numbers exist).</p></div>
+</div>
+
+<h2>Next — Stage 2</h2>
+<div class="next">
+<p style="margin-top:.4em"><strong>game-architect</strong> is the next stage. It validates and pins this world→GDD seam, then designs the game itself — resource types, the effect-primitive vocabulary cards compile to, the contract schema, the six archetypes, numbers, and a starter card pool — pressure-testing the economy with <strong>executable napkin models</strong>, not self-reported guesses. Then <strong>game-loop</strong> (stage 3) balances it in simulation.</p>
+<p style="margin-bottom:.5em;color:var(--soft);font-family:var(--sans);font-size:13.5px">It's comparably token-heavy, so it won't start without your go-ahead — say the word and I'll lay out the layer plan, gates, and a rough budget first.</p>
+</div>
+
+<footer>world → game-architect → game-loop · stage 1 complete · pipeline-test-02 · 2026-07-10</footer>
+</div>
+<script>
+const r=document.documentElement,s=localStorage.getItem('rl-recap-th');if(s)r.setAttribute('data-theme',s);
+function cur(){return r.getAttribute('data-theme')||(matchMedia('(prefers-color-scheme:dark)').matches?'dark':'light')}
+function tt(){const n=cur()==='dark'?'light':'dark';r.setAttribute('data-theme',n);localStorage.setItem('rl-recap-th',n);document.getElementById('tb').textContent=n==='dark'?'☀ light':'☾ dark'}
+addEventListener('DOMContentLoaded',()=>{document.getElementById('tb').textContent=cur()==='dark'?'☀ light':'☾ dark'});
+</script>
+</body>
+</html>

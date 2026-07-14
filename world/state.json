@@ -1,0 +1,147 @@
+{
+  "layers": [
+    {
+      "id": 1,
+      "name": "thematic_spine",
+      "gated": true,
+      "status": "locked",
+      "attempts": 1,
+      "last": {
+        "action": "GATE_DEFER",
+        "reason": "gated layer cleared all checks — approval DEFERRED (gate_mode=batch). Continue to layer 2 (cosmology); the consolidated review comes when this gated run ends.",
+        "detail": {},
+        "metrics": {
+          "trope_density": 0.0,
+          "anchor_share": 0.1667,
+          "ludic_coverage": 1.0,
+          "intuitiveness": 1.0
+        }
+      }
+    },
+    {
+      "id": 2,
+      "name": "cosmology",
+      "gated": true,
+      "status": "locked",
+      "attempts": 2,
+      "last": {
+        "action": "GATE_DEFER",
+        "reason": "gated layer cleared all checks — approval DEFERRED (gate_mode=batch). Continue to layer 3 (factions); the consolidated review comes when this gated run ends.",
+        "detail": {},
+        "metrics": {
+          "trope_density": 0.0,
+          "anchor_share": 0.0769,
+          "ludic_coverage": 1.0,
+          "intuitiveness": 1.0
+        }
+      }
+    },
+    {
+      "id": 3,
+      "name": "factions",
+      "gated": true,
+      "status": "locked",
+      "attempts": 1,
+      "last": {
+        "action": "GATE_BATCH",
+        "reason": "consolidated gate review: 3 gated layer(s) cleared all checks and await approval together. Present them decision-shaped (diff vs previous, 2-3 options, critic disagreements, ONE question each), then `lock` each in order.",
+        "detail": {
+          "awaiting_approval": [
+            {
+              "id": 1,
+              "name": "thematic_spine"
+            },
+            {
+              "id": 2,
+              "name": "cosmology"
+            },
+            {
+              "id": 3,
+              "name": "factions"
+            }
+          ]
+        },
+        "metrics": {
+          "trope_density": 0.0,
+          "anchor_share": 0.25,
+          "ludic_coverage": 1.0,
+          "intuitiveness": 1.0
+        }
+      }
+    },
+    {
+      "id": 4,
+      "name": "economy_materials",
+      "gated": false,
+      "status": "locked",
+      "attempts": 1,
+      "last": {
+        "action": "LOCK_OK",
+        "reason": "auto-layer cleared all checks — locked. Advance to the next layer.",
+        "detail": {},
+        "metrics": {
+          "interacting_systems": 6,
+          "trope_density": 0.0,
+          "anchor_share": 0.0714,
+          "ludic_coverage": 1.0,
+          "intuitiveness": 1.0
+        }
+      }
+    },
+    {
+      "id": 5,
+      "name": "geography_run_fiction",
+      "gated": false,
+      "status": "locked",
+      "attempts": 1,
+      "last": {
+        "action": "LOCK_OK",
+        "reason": "auto-layer cleared all checks — locked. Advance to the next layer.",
+        "detail": {},
+        "metrics": {
+          "trope_density": 0.0,
+          "anchor_share": 0.25,
+          "ludic_coverage": 1.0,
+          "intuitiveness": 1.0
+        }
+      }
+    },
+    {
+      "id": 6,
+      "name": "aesthetic_naming",
+      "gated": false,
+      "status": "locked",
+      "attempts": 1,
+      "last": {
+        "action": "LOCK_OK",
+        "reason": "auto-layer cleared all checks — locked. Advance to the next layer.",
+        "detail": {},
+        "metrics": {
+          "trope_density": 0.0,
+          "anchor_share": 0.1667,
+          "ludic_coverage": 1.0,
+          "intuitiveness": 1.0
+        }
+      }
+    },
+    {
+      "id": 7,
+      "name": "ludic_hook_ledger",
+      "gated": false,
+      "status": "locked",
+      "attempts": 1,
+      "last": {
+        "action": "LOCK_OK",
+        "reason": "auto-layer cleared all checks — locked. Advance to the next layer.",
+        "detail": {},
+        "metrics": {
+          "candidate_mechanics": 55,
+          "trope_density": 0.0,
+          "anchor_share": 0.0,
+          "ludic_coverage": 1.0,
+          "intuitiveness": 1.0
+        }
+      }
+    }
+  ]
+}

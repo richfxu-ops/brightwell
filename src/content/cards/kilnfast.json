@@ -1,0 +1,232 @@
+{
+  "archetype": "kilnfast",
+  "cards": [
+    {
+      "id": "setterby-trestle",
+      "name": "Setterby Trestle",
+      "grain": "joinery",
+      "mark": 2,
+      "ceiling": 4,
+      "woken_delight": 1,
+      "tags": [
+        "chain:C1"
+      ],
+      "archetype": "kilnfast",
+      "combo": true,
+      "effects": [
+        {
+          "when": "on-play",
+          "do": "gather",
+          "params": {
+            "amount": {
+              "do": "read",
+              "source": "woken:joinery"
+            }
+          }
+        },
+        {
+          "when": "on-chain",
+          "do": "steady",
+          "params": {
+            "links": 1,
+            "brace": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "calipers-at-the-bench",
+      "name": "Calipers at the Bench",
+      "grain": "joinery",
+      "mark": 3,
+      "ceiling": 5,
+      "woken_delight": 2,
+      "tags": [
+        "chain:C2"
+      ],
+      "archetype": "kilnfast",
+      "combo": true,
+      "effects": [
+        {
+          "when": "on-play",
+          "do": "rest",
+          "params": {
+            "target": "held:capstone",
+            "amount": {
+              "do": "read",
+              "source": "room"
+            }
+          }
+        },
+        {
+          "when": "on-wake",
+          "do": "mark-grain",
+          "params": {
+            "target": "hand:offgrain",
+            "suit": "joinery"
+          }
+        }
+      ]
+    },
+    {
+      "id": "the-fired-beam",
+      "name": "The Fired Beam",
+      "grain": "joinery",
+      "mark": 7,
+      "ceiling": 8,
+      "woken_delight": 3,
+      "tags": [
+        "chain:C3",
+        "capstone"
+      ],
+      "archetype": "kilnfast",
+      "combo": true,
+      "effects": [
+        {
+          "when": "on-play",
+          "do": "rest",
+          "params": {
+            "target": "self",
+            "amount": {
+              "do": "read",
+              "source": "room"
+            }
+          }
+        },
+        {
+          "when": "on-wake",
+          "do": "fill",
+          "params": {
+            "amount": {
+              "do": "read",
+              "source": "grain:joinery"
+            }
+          }
+        },
+        {
+          "when": "on-chain",
+          "do": "steady",
+          "params": {
+            "brace": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "bank-the-coals",
+      "name": "Bank the Coals",
+      "grain": "joinery",
+      "mark": 3,
+      "ceiling": 5,
+      "woken_delight": 2,
+      "tags": [
+        "support:room-floor"
+      ],
+      "archetype": "kilnfast",
+      "combo": true,
+      "effects": [
+        {
+          "when": "on-play",
+          "do": "gather",
+          "params": {
+            "amount": {
+              "do": "read",
+              "source": "grain:joinery"
+            }
+          }
+        },
+        {
+          "when": "on-chain",
+          "do": "steady",
+          "params": {
+            "links": 1
+          }
+        }
+      ]
+    },
+    {
+      "id": "seasoned-timber",
+      "name": "Seasoned Timber",
+      "grain": "joinery",
+      "mark": 3,
+      "ceiling": 5,
+      "woken_delight": 2,
+      "tags": [
+        "support:second-line"
+      ],
+      "archetype": "kilnfast",
+      "combo": true,
+      "effects": [
+        {
+          "when": "on-play",
+          "do": "rest",
+          "params": {
+            "target": "self",
+            "amount": {
+              "do": "read",
+              "source": "room"
+            }
+          }
+        },
+        {
+          "when": "on-wake",
+          "do": "mark-grain",
+          "params": {
+            "target": "hand:offgrain",
+            "suit": "joinery"
+          }
+        }
+      ]
+    },
+    {
+      "id": "keep-the-kiln",
+      "name": "Keep the Kiln",
+      "grain": "joinery",
+      "mark": 2,
+      "ceiling": 3,
+      "woken_delight": 1,
+      "tags": [
+        "support:chain-holder"
+      ],
+      "archetype": "kilnfast",
+      "combo": true,
+      "effects": [
+        {
+          "when": "on-chain",
+          "do": "steady",
+          "params": {
+            "brace": true
+          }
+        },
+        {
+          "when": "on-play",
+          "do": "keep"
+        }
+      ]
+    },
+    {
+      "id": "dovetail-draw",
+      "name": "Dovetail Draw",
+      "grain": "joinery",
+      "mark": 3,
+      "ceiling": 5,
+      "woken_delight": 2,
+      "tags": [
+        "support:draw-fix",
+        "utility"
+      ],
+      "archetype": "kilnfast",
+      "combo": false,
+      "effects": [
+        {
+          "when": "on-dawn",
+          "do": "draw",
+          "params": {
+            "n": 1,
+            "suit": "joinery"
+          }
+        }
+      ]
+    }
+  ]
+}

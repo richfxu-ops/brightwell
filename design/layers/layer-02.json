@@ -1,0 +1,138 @@
+{
+  "layer": 2,
+  "audit": {
+    "auditor": "blind 3-panel (no-schema); all legible; system_count unanimous 4",
+    "artifact": "planning/GDD.md#layer-2",
+    "elements": [
+      {
+        "id": "the-resource-square",
+        "legible": true
+      },
+      {
+        "id": "R1-attention-the-room",
+        "legible": true
+      },
+      {
+        "id": "R2-handsels-the-held",
+        "legible": true
+      },
+      {
+        "id": "R3-gleam-standing",
+        "legible": true
+      },
+      {
+        "id": "R4-the-paling-season-seep",
+        "legible": true
+      },
+      {
+        "id": "R5-journey-pieces-deck",
+        "legible": true
+      },
+      {
+        "id": "R6-courted-stock",
+        "legible": true
+      },
+      {
+        "id": "the-shavings-share",
+        "legible": true
+      },
+      {
+        "id": "system-A-the-bench-engine",
+        "legible": true
+      },
+      {
+        "id": "system-B-the-handsel-round",
+        "legible": true
+      },
+      {
+        "id": "system-C-the-courting-web",
+        "legible": true
+      },
+      {
+        "id": "system-D-the-paling-market",
+        "legible": true
+      },
+      {
+        "id": "S1-the-breath-substrate",
+        "legible": true
+      }
+    ],
+    "metrics": {
+      "system_count": 4
+    }
+  },
+  "issues": [
+    {
+      "severity": "P2",
+      "kind": "grammar-of-light-inconsistency",
+      "what": "§3 transfer table asserts 'gleam->board never happens', but §1 R3-sink and §4 have spilled gleam re-color the node as lane-glimmers (a lossy board residue) — matching locked L1 §4 the-spilling and WORLD.md mint-ban ('a glimmer returns what was spilled less the loss'). The §3 wording overstates and contradicts §1/§4.",
+      "fix": "Soften §3 to: gleam is never spent/converted cleanly to the board; a spill leaks a LOSSY residue (most regard destroyed) that composts onto the node — consistent with §1/§4 and the mint-ban.",
+      "raised_by": "blind-panel-1"
+    },
+    {
+      "severity": "P2",
+      "kind": "over-categorical-claim",
+      "what": "§5(a) states categorically 'handsels can't buy proud/courted stock (courting is gleam-gated + play-gated)'. True for proud stock, but handsels DO buy jars/taught-pieces/apprentice-stuffs/hearth-goods — the categorical phrasing reads as broader than intended.",
+      "fix": "Scope §5(a) explicitly: handsels never buy PROUD/courted stock (two-gated); they do buy the introduction-jars/taught-pieces/apprentice tier.",
+      "raised_by": "blind-panel-2"
+    },
+    {
+      "severity": "P2",
+      "kind": "gleam-couples-widely",
+      "what": "Standing (gleam) touches more systems than any other resource (gates Courting Web, sizes lantern tier, is the fail-resource). Advisory: coupling breadth is not output-dominance (gleam is never-spent), and the napkin's no_dominant_resource check tests actual output share — but flag for game-loop to confirm gleam-centrality does not flatten build diversity.",
+      "fix": "game-loop confirms gleam-centrality does not make all builds gleam-first; if it does, distribute some gating to other resources.",
+      "raised_by": "blind-panel-3"
+    },
+    {
+      "severity": "P3",
+      "kind": "numeric-deferral",
+      "what": "Three carried napkin obligations remain numeric-only for L6/game-loop: glad-price brightening-per-trade bounded below its cost (I-044); last-red+red-thread double-tool sizing (I-045); Untold count-and-pace escalation (I-022).",
+      "fix": "Discharge with exact numbers in numbers_curves (L6) / game-loop per D-005.3.",
+      "raised_by": "synthesizer+panels"
+    }
+  ],
+  "summary": "Layer 2 resource types. Built on proposal C's lean two-currency/specialization spine, grafting A's per-resource-clock non-substitution + play-gated cross-channel table and B's harvest->court->wake->weather->seep making-cycle. Resource set: 4 primary coupled resources — attention (the room, tactical spend), handsels (the held, strategic spend), gleam (Standing, gate + fail, never-spent), the Paling (season-seep, board pressure, never-paid) — plus 2 substrates (journey-pieces = deck; courted-stock = ONE graded materials class) + non-currency taps. 4 named interacting systems (Bench Engine, Handsel Round, Courting Web, Paling Market) over 'the Breath' conservation substrate; system_count gate met unanimously (3/3 auditors = 4). All critic P1s resolved (handsels never buy proud stock; bright-shavings re-modelled as the-shavings-share, a carved sub-portion of the bench RETURN not minted on top, closing the mint-ban violation). All 12-13 elements legible (intuitiveness > 0.9). Napkin model executable + engine-run. Three P2s (grammar-of-light §3 wording, over-categorical §5a, gleam couples widely) + numeric-deferral P3 (I-044/045/022 to game-loop). Gated — awaiting human approval.",
+  "tokens_spent": 1096225,
+  "executed": {
+    "napkin_flags": {
+      "script": "napkin/layer-02.py",
+      "result": {
+        "model": "roundelay-layer2-resource-economy",
+        "checks": [
+          {
+            "name": "no_dominant_resource",
+            "pass": true,
+            "detail": "balanced crown-stood=1.00; single-axis dominators=[]; output shares={'attention': 0.44, 'courted_stock': 0.32, 'standing': 0.23, 'handsels': 0.0} (max attention=0.44<=0.60). Four resources non-substitutable: no one-axis strategy clears the year, no resource a runaway output share."
+          },
+          {
+            "name": "on_curve_clearable",
+            "pass": true,
+            "detail": "per-season clear ratios={'green_going': 0.93, 'long_light': 0.71, 'deep_gold': 0.92, 'red_walk': 0.62} (band [0.60,1.05]); crown-stood=1.00; reach-short frac=0.148 (live risk, not trivially ahead). Output climbs with the weather; static engines are out-grown -> clearable only by growing."
+          },
+          {
+            "name": "no_degenerate_loop",
+            "pass": true,
+            "detail": "engine-value late/early per-turn growth ratio=-0.26 (<=1.5 -> decelerating, soft-caps bind: room soft-cap, overkill band, node-local RETURN, idle-handsel dim); max conservation err=3.55e-15."
+          },
+          {
+            "name": "conservation_mint_ban",
+            "pass": true,
+            "detail": "max per-turn split-vs-pool error across all policies=3.55e-15 (<1e-6). the-shavings-share is a bound sub-portion of RETURN (competes with the local-table dawn), not an additive faucet -> mint-ban holds."
+          },
+          {
+            "name": "spilling_ev_negative",
+            "pass": true,
+            "detail": "spill events: every glimmer < Standing lost (violations=0); aggregate glimmer/lost=0.30<1 and glimmers seed the node for LATER visitors, never the spiller -> the spilling is EV-negative."
+          },
+          {
+            "name": "handsels_cant_buy_win",
+            "pass": true,
+            "detail": "handsel-hoard (never courts) crown-stood=0.00 (<0.5); avg proud stock M=1.17<2.3. Handsels buy only jars/apprentice/hearth-goods; proud stock needs gleam-vouch + performed term. No buy-the-win."
+          }
+        ],
+        "flags": []
+      },
+      "failed_checks": []
+    }
+  }
+}

@@ -1,0 +1,170 @@
+{
+  "archetype": "shared",
+  "cards": [
+    {
+      "id": "sprig-trestle",
+      "name": "Sprig Trestle",
+      "grain": "joinery",
+      "mark": 1,
+      "ceiling": 2,
+      "woken_delight": 1,
+      "tags": [
+        "apprentice"
+      ],
+      "archetype": "shared",
+      "combo": true,
+      "effects": [
+        {
+          "when": "on-play",
+          "do": "gather",
+          "params": {
+            "amount": {
+              "do": "read",
+              "source": "grain:joinery"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "pegged-bench",
+      "name": "Pegged Bench",
+      "grain": "joinery",
+      "mark": 1,
+      "ceiling": 2,
+      "woken_delight": 1,
+      "tags": [
+        "apprentice"
+      ],
+      "archetype": "shared",
+      "combo": true,
+      "effects": [
+        {
+          "when": "on-chain",
+          "do": "steady",
+          "params": {
+            "links": 1
+          }
+        }
+      ]
+    },
+    {
+      "id": "loose-thread",
+      "name": "Loose Thread",
+      "grain": "thread",
+      "mark": 1,
+      "ceiling": 2,
+      "woken_delight": 1,
+      "tags": [
+        "apprentice",
+        "baseline"
+      ],
+      "archetype": "shared",
+      "combo": false,
+      "effects": [
+        {
+          "when": "on-play",
+          "do": "keep"
+        }
+      ]
+    },
+    {
+      "id": "kettle-loaf",
+      "name": "Kettle-Loaf",
+      "grain": "dough",
+      "mark": 1,
+      "ceiling": 2,
+      "woken_delight": 1,
+      "tags": [
+        "apprentice",
+        "baseline"
+      ],
+      "archetype": "shared",
+      "combo": false,
+      "effects": [
+        {
+          "when": "on-play",
+          "do": "warm",
+          "params": {
+            "n": 1
+          }
+        }
+      ]
+    },
+    {
+      "id": "hearth-hum",
+      "name": "Hearth-Hum",
+      "grain": "song",
+      "mark": 2,
+      "ceiling": 3,
+      "woken_delight": 1,
+      "tags": [
+        "apprentice"
+      ],
+      "archetype": "shared",
+      "combo": true,
+      "effects": [
+        {
+          "when": "on-play",
+          "do": "gather",
+          "params": {
+            "amount": {
+              "do": "read",
+              "source": "grain:song"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "grey-bowl",
+      "name": "Grey Bowl",
+      "grain": "glaze",
+      "mark": 2,
+      "ceiling": 3,
+      "woken_delight": 1,
+      "tags": [
+        "apprentice"
+      ],
+      "archetype": "shared",
+      "combo": true,
+      "effects": [
+        {
+          "when": "on-play",
+          "do": "gather",
+          "params": {
+            "amount": {
+              "do": "read",
+              "source": "grain:glaze"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "first-step",
+      "name": "First Step",
+      "grain": "dance",
+      "mark": 2,
+      "ceiling": 3,
+      "woken_delight": 1,
+      "tags": [
+        "apprentice"
+      ],
+      "archetype": "shared",
+      "combo": true,
+      "effects": [
+        {
+          "when": "on-play",
+          "do": "gather",
+          "params": {
+            "amount": {
+              "do": "read",
+              "source": "grain:dance"
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

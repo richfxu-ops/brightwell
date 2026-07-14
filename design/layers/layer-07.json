@@ -1,0 +1,317 @@
+{
+  "layer": 7,
+  "audit": {
+    "auditor": "blind 3-panel (no-schema); combo_density=0.837 unanimous (independently recounted 41/49 participants, 8 legible standalones); all 18 L5 signatures verbatim; L3-legal; no dead archetype",
+    "artifact": "planning/GDD.md#layer-7",
+    "elements": [
+      {
+        "id": "sprig-trestle",
+        "legible": true,
+        "combo": true
+      },
+      {
+        "id": "pegged-bench",
+        "legible": true,
+        "combo": true
+      },
+      {
+        "id": "loose-thread",
+        "legible": true,
+        "combo": false
+      },
+      {
+        "id": "kettle-loaf",
+        "legible": true,
+        "combo": false
+      },
+      {
+        "id": "hearth-hum",
+        "legible": true,
+        "combo": true
+      },
+      {
+        "id": "grey-bowl",
+        "legible": true,
+        "combo": true
+      },
+      {
+        "id": "first-step",
+        "legible": true,
+        "combo": true
+      },
+      {
+        "id": "setterby-trestle",
+        "legible": true,
+        "combo": true
+      },
+      {
+        "id": "calipers-at-the-bench",
+        "legible": true,
+        "combo": true
+      },
+      {
+        "id": "the-fired-beam",
+        "legible": true,
+        "combo": true
+      },
+      {
+        "id": "bank-the-coals",
+        "legible": true,
+        "combo": true
+      },
+      {
+        "id": "seasoned-timber",
+        "legible": true,
+        "combo": true
+      },
+      {
+        "id": "keep-the-kiln",
+        "legible": true,
+        "combo": true
+      },
+      {
+        "id": "dovetail-draw",
+        "legible": true,
+        "combo": false
+      },
+      {
+        "id": "the-last-lighting",
+        "legible": true,
+        "combo": true
+      },
+      {
+        "id": "bright-hand-to-hand",
+        "legible": true,
+        "combo": true
+      },
+      {
+        "id": "even-the-rim",
+        "legible": true,
+        "combo": true
+      },
+      {
+        "id": "waymeet-gift",
+        "legible": true,
+        "combo": true
+      },
+      {
+        "id": "the-turning-purse",
+        "legible": true,
+        "combo": true
+      },
+      {
+        "id": "even-fuel",
+        "legible": true,
+        "combo": true
+      },
+      {
+        "id": "quick-feet",
+        "legible": true,
+        "combo": false
+      },
+      {
+        "id": "paper-bird",
+        "legible": true,
+        "combo": true
+      },
+      {
+        "id": "quick-hand",
+        "legible": true,
+        "combo": true
+      },
+      {
+        "id": "the-standing-count",
+        "legible": true,
+        "combo": true
+      },
+      {
+        "id": "thread-the-needle",
+        "legible": true,
+        "combo": true
+      },
+      {
+        "id": "swift-tally",
+        "legible": true,
+        "combo": true
+      },
+      {
+        "id": "keep-the-pace",
+        "legible": true,
+        "combo": true
+      },
+      {
+        "id": "morning-flock",
+        "legible": true,
+        "combo": false
+      },
+      {
+        "id": "raise-the-wain-stage",
+        "legible": true,
+        "combo": true
+      },
+      {
+        "id": "pitch-the-ring",
+        "legible": true,
+        "combo": true
+      },
+      {
+        "id": "the-whole-fair-turn",
+        "legible": true,
+        "combo": true
+      },
+      {
+        "id": "bunting-and-banners",
+        "legible": true,
+        "combo": true
+      },
+      {
+        "id": "call-the-crowd",
+        "legible": true,
+        "combo": true
+      },
+      {
+        "id": "string-the-bunting",
+        "legible": true,
+        "combo": true
+      },
+      {
+        "id": "the-ringmasters-draw",
+        "legible": true,
+        "combo": false
+      },
+      {
+        "id": "keep-the-silver-singing",
+        "legible": true,
+        "combo": true
+      },
+      {
+        "id": "court-the-singing-silver",
+        "legible": true,
+        "combo": true
+      },
+      {
+        "id": "the-silver-refrain",
+        "legible": true,
+        "combo": true
+      },
+      {
+        "id": "tune-the-strings",
+        "legible": true,
+        "combo": true
+      },
+      {
+        "id": "the-standing-introduction",
+        "legible": true,
+        "combo": true
+      },
+      {
+        "id": "grace-note",
+        "legible": true,
+        "combo": true
+      },
+      {
+        "id": "silver-warm-up",
+        "legible": true,
+        "combo": false
+      },
+      {
+        "id": "walk-the-pale",
+        "legible": true,
+        "combo": true
+      },
+      {
+        "id": "glean-the-ground",
+        "legible": true,
+        "combo": true
+      },
+      {
+        "id": "ripe-mending",
+        "legible": true,
+        "combo": true
+      },
+      {
+        "id": "grey-gleaning",
+        "legible": true,
+        "combo": true
+      },
+      {
+        "id": "mend-the-verge",
+        "legible": true,
+        "combo": true
+      },
+      {
+        "id": "slow-the-grey",
+        "legible": true,
+        "combo": true
+      },
+      {
+        "id": "pale-harvest",
+        "legible": true,
+        "combo": false
+      }
+    ],
+    "metrics": {
+      "combo_density": 0.837
+    }
+  },
+  "issues": [
+    {
+      "severity": "P3",
+      "kind": "grain-reader-writer-pairing",
+      "what": "A few cards read grain:<suit> (e.g. grain:glaze/song) whose count is grown mainly by naturally-suited pieces in play rather than an explicit mark-grain writer of that exact suit; participants via room/chain regardless.",
+      "fix": "game-loop confirms each mark-grain suit has a live reader and each grain-read has a writer; cosmetic, non-blocking.",
+      "raised_by": "critic+panel"
+    },
+    {
+      "severity": "P2",
+      "kind": "balance-of-pool-to-game-loop",
+      "what": "The starter pool realizes the L5 chains + L6 numbers; whether the six starter decks are balanced in actual play (win-rate, combo reliability) is asserted structurally, not simulated.",
+      "fix": "game-loop derives per-archetype balance from bot sims over this pool and tunes card numbers within the locked shapes (D-005.3).",
+      "raised_by": "blind-panel"
+    }
+  ],
+  "summary": "Layer 7 starter_pool: 49 concrete starter cards as data (7 shared apprentice + 6 archetypes x ~7). Every card composes from the 14 L3 primitives with every read in the closed enum; the six L5 signature chains reproduced VERBATIM under L6 numbers (Silver Refrain wd5, Ripe Mending ceiling9, Eveners C2 thread/wd1, the four m2/c4 signatures) with no mark lowered or raised; exactly one brim (Fairwright capstone, band over-ceiling); court gates on chain never spends gleam; soothe cap:last-red node-local. combo_density=0.837 (41/49 participants; 8 legible standalones = 2 warm/keep + 6 on-dawn draw-fixers), clearing >=0.5. Each archetype opens from the shared deck + supports (all C1 marks <=3; Mannerly links:2+links:2 -> court, Gleaner mark-5 soothe on-ramp); no dead archetype. Blind 3-auditor panel unanimous PASS. AUTO layer -> LOCK_OK on clean napkin -> DESIGN_COMPLETE. Per-archetype play balance -> game-loop (D-005.3).",
+  "tokens_spent": 625000,
+  "executed": {
+    "napkin_flags": {
+      "script": "napkin/layer-07.py",
+      "result": {
+        "model": "layer-07-starter_pool",
+        "checks": [
+          {
+            "name": "combo_density_ge_half",
+            "pass": true,
+            "detail": "participants=41/49=0.837>=0.5; standalone(legible floor)=['loose-thread', 'kettle-loaf', 'dovetail-draw', 'quick-feet', 'morning-flock', 'the-ringmasters-draw', 'silver-warm-up', 'pale-harvest']"
+          },
+          {
+            "name": "all_reads_in_enum",
+            "pass": true,
+            "detail": "out-of-enum read sources=none (enum closed)"
+          },
+          {
+            "name": "firewall_and_fixed_marks",
+            "pass": true,
+            "detail": "brim owners=['the-whole-fair-turn'] (<=1); violations=none (no unknown primitive, no cross-channel writer off a play event, brim band in-channel, court gleam-gate not spent, soothe cap:last-red)"
+          },
+          {
+            "name": "every_archetype_chain_ge_3_authored",
+            "pass": true,
+            "detail": "kilnfast:C1C2C3=True,C3-authored=True; eveners:C1C2C3=True,C3-authored=True; untold:C1C2C3=True,C3-authored=True; fairwrights:C1C2C3=True,C3-authored=True; mannerly:C1C2C3=True,C3-authored=True; gleaners:C1C2C3=True,C3-authored=True"
+          },
+          {
+            "name": "starter_playable_from_opening",
+            "pass": true,
+            "detail": "kilnfast:C1 mark=2<=3=True; eveners:C1 mark=3<=3=True; untold:C1 mark=1<=3=True; fairwrights:C1 mark=2<=3=True; mannerly:C1 mark=2<=3=True; gleaners:C1 mark=3<=3=True"
+          },
+          {
+            "name": "pool_size_sane",
+            "pass": true,
+            "detail": "total=49 in [40,55]=True; real archetypes=6==6; shared deck present=True; per-archetype counts={ kilnfast:7, eveners:7, untold:7, fairwrights:7, mannerly:7, gleaners:7 }>=3=True"
+          }
+        ],
+        "flags": []
+      },
+      "failed_checks": []
+    }
+  }
+}

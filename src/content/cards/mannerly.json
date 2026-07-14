@@ -1,0 +1,227 @@
+{
+  "archetype": "mannerly",
+  "cards": [
+    {
+      "id": "keep-the-silver-singing",
+      "name": "Keep the Silver Singing",
+      "grain": "song",
+      "mark": 2,
+      "ceiling": 4,
+      "woken_delight": 1,
+      "tags": [
+        "chain:C1"
+      ],
+      "archetype": "mannerly",
+      "combo": true,
+      "effects": [
+        {
+          "when": "on-play",
+          "do": "steady",
+          "params": {
+            "links": 2,
+            "brace": true
+          }
+        },
+        {
+          "when": "on-play",
+          "do": "mark-grain",
+          "params": {
+            "target": "hand:cheapest",
+            "suit": "song"
+          }
+        }
+      ]
+    },
+    {
+      "id": "court-the-singing-silver",
+      "name": "Court the Singing-Silver",
+      "grain": "song",
+      "mark": 3,
+      "ceiling": 5,
+      "woken_delight": 2,
+      "tags": [
+        "chain:C2"
+      ],
+      "archetype": "mannerly",
+      "combo": true,
+      "effects": [
+        {
+          "when": "on-play",
+          "do": "court",
+          "params": {
+            "stock": "singing-silver",
+            "term": {
+              "if": {
+                "do": "read",
+                "source": "chain"
+              },
+              "at_least": 3
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "the-silver-refrain",
+      "name": "The Silver Refrain",
+      "grain": "song",
+      "mark": 6,
+      "ceiling": 8,
+      "woken_delight": 5,
+      "tags": [
+        "chain:C3",
+        "proud"
+      ],
+      "archetype": "mannerly",
+      "combo": true,
+      "effects": [
+        {
+          "when": "on-play",
+          "do": "rest",
+          "params": {
+            "target": "self",
+            "amount": {
+              "do": "read",
+              "source": "room"
+            }
+          }
+        },
+        {
+          "when": "on-wake",
+          "do": "fill",
+          "params": {
+            "amount": {
+              "do": "read",
+              "source": "chain"
+            }
+          }
+        },
+        {
+          "when": "on-fulfil",
+          "do": "draw",
+          "params": {
+            "n": 1,
+            "suit": "song"
+          }
+        }
+      ]
+    },
+    {
+      "id": "tune-the-strings",
+      "name": "Tune the Strings",
+      "grain": "song",
+      "mark": 2,
+      "ceiling": 3,
+      "woken_delight": 1,
+      "tags": [
+        "support:on-ramp-chain"
+      ],
+      "archetype": "mannerly",
+      "combo": true,
+      "effects": [
+        {
+          "when": "on-chain",
+          "do": "steady",
+          "params": {
+            "links": 2,
+            "brace": true
+          }
+        },
+        {
+          "when": "on-play",
+          "do": "mark-grain",
+          "params": {
+            "target": "hand:cheapest",
+            "suit": "song"
+          }
+        }
+      ]
+    },
+    {
+      "id": "the-standing-introduction",
+      "name": "The Standing Introduction",
+      "grain": "song",
+      "mark": 3,
+      "ceiling": 5,
+      "woken_delight": 2,
+      "tags": [
+        "support:on-ramp-court",
+        "introduction-jar"
+      ],
+      "archetype": "mannerly",
+      "combo": true,
+      "effects": [
+        {
+          "when": "on-play",
+          "do": "court",
+          "params": {
+            "stock": "singing-silver",
+            "term": {
+              "if": {
+                "do": "read",
+                "source": "chain"
+              },
+              "at_least": 1
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "grace-note",
+      "name": "Grace-Note",
+      "grain": "song",
+      "mark": 2,
+      "ceiling": 3,
+      "woken_delight": 1,
+      "tags": [
+        "support:room-feed"
+      ],
+      "archetype": "mannerly",
+      "combo": true,
+      "effects": [
+        {
+          "when": "on-play",
+          "do": "gather",
+          "params": {
+            "amount": {
+              "do": "read",
+              "source": "grain:song"
+            }
+          }
+        },
+        {
+          "when": "on-chain",
+          "do": "steady",
+          "params": {
+            "links": 1
+          }
+        }
+      ]
+    },
+    {
+      "id": "silver-warm-up",
+      "name": "Silver Warm-Up",
+      "grain": "song",
+      "mark": 3,
+      "ceiling": 5,
+      "woken_delight": 2,
+      "tags": [
+        "support:draw-fix",
+        "utility"
+      ],
+      "archetype": "mannerly",
+      "combo": false,
+      "effects": [
+        {
+          "when": "on-dawn",
+          "do": "draw",
+          "params": {
+            "n": 1,
+            "suit": "song"
+          }
+        }
+      ]
+    }
+  ]
+}

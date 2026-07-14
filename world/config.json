@@ -1,0 +1,138 @@
+{
+  "workspace": "world",
+  "stage_name": "world-architect",
+  "skill_version": "2.3.0",
+  "complexity_target": "high",
+  "checks": [
+    {
+      "metric": "trope_density",
+      "op": "<=",
+      "threshold": 0.15,
+      "fail": "REVISE_DISTINCT",
+      "source": "audit",
+      "derive": {
+        "field": "trope",
+        "agg": "fraction",
+        "exempt": "anchor"
+      },
+      "msg": "too generic — trope_density (excluding declared anchors) above ceiling; these are unchosen clichés, not deliberate anchors. Re-voice toward specificity."
+    },
+    {
+      "metric": "anchor_share",
+      "op": "<=",
+      "threshold": 0.4,
+      "fail": "REVISE_ANCHOR",
+      "source": "audit",
+      "derive": {
+        "field": "anchor",
+        "agg": "fraction"
+      },
+      "msg": "too much of this layer leans on declared anchors — conventions are a budget, not a loophole. Keep the anchors that carry the player; make the rest distinctive."
+    },
+    {
+      "metric": "ludic_coverage",
+      "op": ">=",
+      "threshold": 0.8,
+      "fail": "REVISE_LUDIC",
+      "source": "audit",
+      "derive": {
+        "field": "hook",
+        "agg": "fraction"
+      },
+      "msg": "too much pure flavor — elements lack a mechanical hook; tie them to candidate mechanics"
+    },
+    {
+      "metric": "intuitiveness",
+      "op": ">=",
+      "threshold": 0.8,
+      "fail": "REVISE_INTUITIVE",
+      "source": "audit",
+      "derive": {
+        "field": "legible",
+        "agg": "fraction"
+      },
+      "msg": "too counterintuitive — the fiction implies one thing but the mechanic does another, or the world-logic is confusing. Re-map so fiction and mechanic agree (legible, not generic)."
+    }
+  ],
+  "block_severities": [
+    "P0",
+    "P1"
+  ],
+  "max_revises": 3,
+  "gate_mode": "batch",
+  "layers": [
+    {
+      "id": 1,
+      "name": "thematic_spine",
+      "gated": true
+    },
+    {
+      "id": 2,
+      "name": "cosmology",
+      "gated": true
+    },
+    {
+      "id": 3,
+      "name": "factions",
+      "gated": true
+    },
+    {
+      "id": 4,
+      "name": "economy_materials",
+      "gated": false,
+      "checks": [
+        {
+          "metric": "interacting_systems",
+          "op": ">=",
+          "threshold": 4,
+          "fail": "REVISE_DEPTH",
+          "source": "audit",
+          "msg": "economy too thin — seed >=4 INTERACTING systems (materials that transform/feed/sink into each other), not a flat list of resources (complexity_target)."
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "name": "geography_run_fiction",
+      "gated": false
+    },
+    {
+      "id": 6,
+      "name": "aesthetic_naming",
+      "gated": false
+    },
+    {
+      "id": 7,
+      "name": "ludic_hook_ledger",
+      "gated": false,
+      "checks": [
+        {
+          "metric": "candidate_mechanics",
+          "op": ">=",
+          "threshold": 12,
+          "fail": "REVISE_DEPTH",
+          "source": "audit",
+          "msg": "ludic-hook ledger too sparse — surface >=12 distinct candidate mechanics, many of them interacting, so the GDD has deep material to draw on."
+        }
+      ]
+    }
+  ],
+  "complete_verdict": "WORLD_COMPLETE",
+  "complete_msg": "All world layers locked. WORLD.md + the ludic-hook ledger are ready to seed game-architect.",
+  "record_hint": "run the layer's diverge→critique→synthesize micro-loop, then `record` it",
+  "terms_file": "planning/terms.json",
+  "artifacts_file": "planning/artifacts.json",
+  "canon_scan": [
+    "planning",
+    "src"
+  ],
+  "stale_on_reopen": {
+    "any": [
+      "planning/WORLD.md — this layer's section and every downstream layer's section",
+      "planning/ledger.json — the L7 element→mechanic table (regenerate after L7 rebuilds)",
+      "generated views of the world (e.g. world.html) — check planning/artifacts.json",
+      "the ENTIRE game-architect stage (design/) — the GDD was seeded by this world (its pinned WORLD.md hash will flag stale)"
+    ]
+  },
+  "engine_version": "2.7.0"
+}

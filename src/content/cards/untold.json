@@ -1,0 +1,235 @@
+{
+  "archetype": "untold",
+  "cards": [
+    {
+      "id": "paper-bird",
+      "name": "Paper-Bird",
+      "grain": "thread",
+      "mark": 1,
+      "ceiling": 2,
+      "woken_delight": 1,
+      "tags": [
+        "chain:C1",
+        "one-shot"
+      ],
+      "archetype": "untold",
+      "combo": true,
+      "effects": [
+        {
+          "when": "on-play",
+          "do": "fill",
+          "params": {
+            "amount": {
+              "do": "read",
+              "source": "grain:thread"
+            }
+          }
+        },
+        {
+          "when": "on-play",
+          "do": "draw",
+          "params": {
+            "n": 1,
+            "suit": "thread"
+          }
+        }
+      ]
+    },
+    {
+      "id": "quick-hand",
+      "name": "Quick-Hand",
+      "grain": "thread",
+      "mark": 2,
+      "ceiling": 3,
+      "woken_delight": 1,
+      "tags": [
+        "chain:C2"
+      ],
+      "archetype": "untold",
+      "combo": true,
+      "effects": [
+        {
+          "when": "on-play",
+          "do": "draw",
+          "params": {
+            "n": 1,
+            "suit": "thread"
+          }
+        },
+        {
+          "when": "on-chain",
+          "do": "steady",
+          "params": {
+            "links": 1,
+            "brace": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "the-standing-count",
+      "name": "The Standing Count",
+      "grain": "thread",
+      "mark": 4,
+      "ceiling": 6,
+      "woken_delight": 2,
+      "tags": [
+        "chain:C3",
+        "capstone"
+      ],
+      "archetype": "untold",
+      "combo": true,
+      "effects": [
+        {
+          "when": "on-play",
+          "do": "rest",
+          "params": {
+            "target": "self",
+            "amount": {
+              "do": "read",
+              "source": "chain"
+            }
+          }
+        },
+        {
+          "when": "on-wake",
+          "do": "fill",
+          "params": {
+            "amount": {
+              "do": "read",
+              "source": "grain:thread"
+            }
+          }
+        },
+        {
+          "when": "on-fulfil",
+          "do": "draw",
+          "params": {
+            "n": 2,
+            "suit": "thread"
+          }
+        }
+      ]
+    },
+    {
+      "id": "thread-the-needle",
+      "name": "Thread the Needle",
+      "grain": "thread",
+      "mark": 2,
+      "ceiling": 3,
+      "woken_delight": 1,
+      "tags": [
+        "support:count-writer"
+      ],
+      "archetype": "untold",
+      "combo": true,
+      "effects": [
+        {
+          "when": "on-play",
+          "do": "mark-grain",
+          "params": {
+            "target": "hand:offgrain",
+            "suit": "thread"
+          }
+        },
+        {
+          "when": "on-play",
+          "do": "draw",
+          "params": {
+            "n": 1,
+            "suit": "thread"
+          }
+        }
+      ]
+    },
+    {
+      "id": "swift-tally",
+      "name": "Swift Tally",
+      "grain": "thread",
+      "mark": 1,
+      "ceiling": 2,
+      "woken_delight": 1,
+      "tags": [
+        "support:second-line",
+        "one-shot"
+      ],
+      "archetype": "untold",
+      "combo": true,
+      "effects": [
+        {
+          "when": "on-play",
+          "do": "fill",
+          "params": {
+            "amount": {
+              "do": "read",
+              "source": "grain:thread"
+            }
+          }
+        },
+        {
+          "when": "on-play",
+          "do": "draw",
+          "params": {
+            "n": 1,
+            "suit": "thread"
+          }
+        }
+      ]
+    },
+    {
+      "id": "keep-the-pace",
+      "name": "Keep the Pace",
+      "grain": "thread",
+      "mark": 2,
+      "ceiling": 3,
+      "woken_delight": 1,
+      "tags": [
+        "support:tempo"
+      ],
+      "archetype": "untold",
+      "combo": true,
+      "effects": [
+        {
+          "when": "on-chain",
+          "do": "steady",
+          "params": {
+            "links": 1,
+            "brace": true
+          }
+        },
+        {
+          "when": "on-play",
+          "do": "draw",
+          "params": {
+            "n": 1,
+            "suit": "thread"
+          }
+        }
+      ]
+    },
+    {
+      "id": "morning-flock",
+      "name": "Morning Flock",
+      "grain": "thread",
+      "mark": 1,
+      "ceiling": 2,
+      "woken_delight": 1,
+      "tags": [
+        "support:draw-fix",
+        "utility"
+      ],
+      "archetype": "untold",
+      "combo": false,
+      "effects": [
+        {
+          "when": "on-dawn",
+          "do": "draw",
+          "params": {
+            "n": 1,
+            "suit": "thread"
+          }
+        }
+      ]
+    }
+  ]
+}

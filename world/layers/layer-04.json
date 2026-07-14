@@ -1,0 +1,255 @@
+{
+  "layer": 4,
+  "metrics": {},
+  "audit": {
+    "auditor": "3-auditor-majority-panel (unanimous on all elements; systems counts 6/6/6)",
+    "artifact": "planning/WORLD.md#layer-4",
+    "elements": [
+      {
+        "id": "the-apprentice-stuffs",
+        "trope": false,
+        "anchor": false,
+        "hook": true,
+        "legible": true
+      },
+      {
+        "id": "singing-silver",
+        "trope": false,
+        "anchor": false,
+        "hook": true,
+        "legible": true
+      },
+      {
+        "id": "laughing-riverwood",
+        "trope": false,
+        "anchor": false,
+        "hook": true,
+        "legible": true
+      },
+      {
+        "id": "festival-glass",
+        "trope": false,
+        "anchor": false,
+        "hook": true,
+        "legible": true
+      },
+      {
+        "id": "bright-shavings",
+        "trope": false,
+        "anchor": false,
+        "hook": true,
+        "legible": true
+      },
+      {
+        "id": "the-open-purse",
+        "trope": false,
+        "anchor": false,
+        "hook": true,
+        "legible": true
+      },
+      {
+        "id": "the-glad-price",
+        "trope": false,
+        "anchor": true,
+        "hook": true,
+        "legible": true
+      },
+      {
+        "id": "the-glad-load",
+        "trope": false,
+        "anchor": false,
+        "hook": true,
+        "legible": true
+      },
+      {
+        "id": "the-waymeet-table",
+        "trope": false,
+        "anchor": false,
+        "hook": true,
+        "legible": true
+      },
+      {
+        "id": "the-twice-benched",
+        "trope": false,
+        "anchor": false,
+        "hook": true,
+        "legible": true
+      },
+      {
+        "id": "last-red",
+        "trope": false,
+        "anchor": false,
+        "hook": true,
+        "legible": true
+      },
+      {
+        "id": "lane-glimmers",
+        "trope": false,
+        "anchor": false,
+        "hook": true,
+        "legible": true
+      },
+      {
+        "id": "the-walking-light",
+        "trope": false,
+        "anchor": false,
+        "hook": true,
+        "legible": true
+      },
+      {
+        "id": "the-stilled-summer",
+        "trope": false,
+        "anchor": false,
+        "hook": true,
+        "legible": true
+      }
+    ],
+    "metrics": {
+      "interacting_systems": 6
+    }
+  },
+  "issues": [
+    {
+      "severity": "P2",
+      "kind": "canon-tension",
+      "what": "`the-walking-light` states tales walk at a hearth's pace 'and that is the only pace at which gleam moves and lantern-readings rise, full stop.' This contradicts locked Layer 2 canon at the Moth Fair / gleam-runoff, where overflow runs to the pourer instantly in the same scene (Immy Ash's gleam 'doubling before the reel ended'). As written, a careful newcomer gets two different answers to 'when does Standing tick after a big public play.'",
+      "fix": "Scope the sentence to light traveling between places: e.g. 'that is the only pace at which gleam travels the roads' — same-scene overflow stays instant per L2, only remote arrivals walk.",
+      "raised_by": "panel-1"
+    },
+    {
+      "severity": "P3",
+      "kind": "canon-drift",
+      "what": "`the-open-purse` visual: floorboards beneath the strongbox 'perceptibly warmer in color than the rest of the room.' L2 rules the lapsed coin's light 'seeps downhill to the gloaming-table like any unregarded wash' — it does not say it colors the room in passing; wash-that-stains-on-the-way-out is a small unstated extension of the seep rule (the-spilling covers spilled gleam, not lapsed held light).",
+      "fix": "Either cut the floorboard detail or add half a sentence to the fiction (lapsing light passes as wash and briefly lies where it lapsed) so the visual is lawful rather than a drift an artist could generalize wrongly.",
+      "raised_by": "panel-1"
+    },
+    {
+      "severity": "P3",
+      "kind": "legibility-overload",
+      "what": "`last-red` carries three separable mechanics under one heading: the gleaning (pale-route harvest action), last-red pigment (re-making catalyst), and red thread (knack-bookmark, contract-token carrier, combing tie-off). Red thread in particular is load-bearing for the whole pack/contract UI yet is buried in the back half of a pigment entry.",
+      "fix": "Split red thread into its own named element (or a clearly marked sub-element) so game-architect and Layer 6 naming can reference it directly; keep the pigment→thread derivation chain intact.",
+      "raised_by": "panel-1"
+    },
+    {
+      "severity": "P3",
+      "kind": "banned-world-adjacency-managed",
+      "what": "`the-twice-benched` and the gleaning at `last-red` are the layer's two approaches to Cantle's salvage-from-collapse economy. Both are defused in fiction (chosen festival-lit retirement; glean the left-behind, never the lived-in) and both defusals are converted into binding mechanical constraints in the handoff — this is adequate as written, but the resemblance pressure returns if any later layer sources yield from ruin.",
+      "fix": "No text change needed in L4; ensure the Salvage guard register ban (already added) is enforced as a canon-scan term for Layers 5-7 so plenty is never re-sourced from misfortune.",
+      "raised_by": "panel-1"
+    },
+    {
+      "severity": "P3",
+      "kind": "internal-consistency",
+      "what": "Coin-origin wording conflict: the-apprentice-stuffs claims 'every coin in circulation began as somebody's glad afternoon of small work,' while bright-shavings claims 'the finest coins in circulation began as the floor-sweepings of famous work.' The systems map correctly lists both faucets, but the two element texts contradict on 'every.'",
+      "fix": "Soften the apprentice-stuffs claim ('most coins' / 'nearly every coin') or fold the shavings-coin explicitly into the whittling-night frame so both origins read as one custom.",
+      "raised_by": "panel-2"
+    },
+    {
+      "severity": "P3",
+      "kind": "structure-legibility",
+      "what": "last-red is triple-loaded: pigment, the gleaning (a craft/verb with its own manners), and red thread (the literal carrier of contract tokens in the pack UI) all live under one heading. Red thread is load-bearing enough for Layer 6 naming and the pack UI that burying it third-in-line risks it being missed in enumeration, canon scans, and art handoff.",
+      "fix": "Promote red thread (and possibly the gleaning) to its own #### element, cross-referenced from last-red; carry the existing caps (one node, one knack, one season) with it.",
+      "raised_by": "panel-2"
+    },
+    {
+      "severity": "P3",
+      "kind": "banned-resemblance-watch",
+      "what": "The gleaning is the layer's closest approach to Cantle's salvage economy: harvesting value from left-behind, faded country. As written it does NOT resemble — harvest keys to gentle fading and never to collapse or failure, the lived-in is never gleaned, and handoff item 4 makes the anti-salvage framing mechanical — but the visual (a lone figure scraping color from abandoned doorways on grey roads) could drift scavenger-melancholy in art direction.",
+      "fix": "Carry an explicit L6 note that gleaner imagery stays 'yawning happily, rich in red' (the text's own register) — harvest-of-lag, never picker-of-ruins; keep the ember-red jar, not the grey road, as the shot's subject.",
+      "raised_by": "panel-2"
+    },
+    {
+      "severity": "P3",
+      "kind": "canon-hygiene",
+      "what": "The pervasive idiom 'states its terms' / 'shy stock states terms' for materials sits one step from the materials-never-speak rule (I-003, routed to Layer 6). The layer's register note handles it well (terms read like a cat's, nothing talks), but the idiom itself uses a speech verb throughout the diegetic prose.",
+      "fix": "Flag for the L6 canon scan: either bless 'state terms' as sanctioned dead metaphor or supply a non-speech verb ('shows its terms,' 'sets its terms out') consistently.",
+      "raised_by": "panel-2"
+    },
+    {
+      "severity": "P3",
+      "kind": "systems-map-honesty",
+      "what": "S2 (Bench Chain) is substantially a zoom of S1's bench segment (S1 already contains attention → bench → sets/overflows/returns). The six-system count is defensible because S2 adds audience inputs and Standing-gating outputs, but a strict reading merges them to 5 — still above the ≥4 gate.",
+      "fix": "Add one line to the systems map acknowledging S2 nests inside S1's middle arc, so downstream gates don't inherit an inflated count.",
+      "raised_by": "panel-2"
+    },
+    {
+      "severity": "P3",
+      "kind": "conservation-derivation-gap",
+      "what": "The layer's own mint ban says no flow may create regard, but the fiction never states the source of trade-brightening: at the-glad-price, change 'comes back a shade brighter' and a good haggle 'leaves both purses more awake than either arrived,' with no account of what correspondingly dims (presumably the room's loose wash being bound). The napkin-sim bound (Handed item 2) caps the exploit mechanically but the fiction-level ledgerless economy still lacks its one visible balancing line.",
+      "fix": "Add one light-followers' sentence at the-glad-price, e.g. that a brightening coin binds the square's own loose wash — chalked and confirmed: the stall's flagstones run a shade plainer on a good market day — closing the mint ban in-fiction.",
+      "raised_by": "panel-3"
+    },
+    {
+      "severity": "P3",
+      "kind": "canon-tension",
+      "what": "the-walking-light rules 'the murmur of woken things is not a second courier; it is the same net felt locally,' while locked L2 text says askings aim at hands 'heard through the murmur-net of woken things and hearth-tales' — treating the murmur as a co-equal carrier of hearing. Reconcilable (murmur locally relays what tellings brought) but as written it reads like a quiet correction of locked canon rather than a derivation from it.",
+      "fix": "Add a harmonizing clause (or terms.json note) stating explicitly that L2's murmur-net was always the local felt edge of the hearth-tale net, so the L4 courier law is a sharpening, not a retcon.",
+      "raised_by": "panel-3"
+    },
+    {
+      "severity": "P3",
+      "kind": "element-overload",
+      "what": "last-red packs three separable mechanics under one id: the pigment (paling harvest), the gleaning (a scouting/gathering craft with its own manners), and the red thread (knack-bookmark consumable AND the literal contract-token carrier in the pack UI). The thread is load-bearing for the spine's contract presentation and is buried in the tail of another element's fiction, weakening hook-ledger traceability downstream.",
+      "fix": "Split red-thread into its own named element (or sub-heading with its own hook line) so game-architect can cite it independently; keep the pigment→thread derivation chain intact.",
+      "raised_by": "panel-3"
+    },
+    {
+      "severity": "P3",
+      "kind": "banned-world-proximity-watchlist",
+      "what": "Three separate harvest-from-loss loops land in one layer (twice-benched retirement yield, the gleaning of left-behind country, lane-glimmers from failure). Each is individually and explicitly defused against the Cantle salvage-from-collapse ban, with mechanical guards handed to game-architect — but the aggregate silhouette is salvage-adjacent, and later art or L6 naming could re-collapse the distinctions the prose maintains.",
+      "fix": "Carry a one-line watchlist item to the L6 naming/aesthetic pass: no ruin, wreck, scrap, or scavenge vocabulary or imagery near the gleaning, the twice-benched, or lane-glimmers; retirement and left-behind framing only.",
+      "raised_by": "panel-3"
+    },
+    {
+      "severity": "P3",
+      "kind": "fiction-hook-mismatch",
+      "what": "the-stilled-summer's fiction says stillings are rarer than a new-found closed round and 'most makers walk every Round of a long life without crossing one,' while its hook proposes 'roughly once per several runs' — a maker's life contains many runs, so the suggested game frequency contradicts the stated world frequency by an order of magnitude.",
+      "fix": "Either soften the fiction ('a maker may cross one or two in a walking life') or mark the hook's frequency as an explicit gameplay-sampling license for game-architect to set, decoupled from world rarity.",
+      "raised_by": "panel-3"
+    },
+    {
+      "severity": "P3",
+      "kind": "napkin-sim-pending",
+      "what": "The glad-price brightening kicker (change returned a shade brighter) remains a potential money-brightening loop until game-architect's napkin-sim proves brightening-per-trade is bounded below its tempo/attention cost.",
+      "fix": "Obligation recorded verbatim in the-glad-price hook and in 'Handed to game-architect' item 2; enforce at the L4/GDD napkin-sim gate.",
+      "raised_by": "synthesizer"
+    },
+    {
+      "severity": "P3",
+      "kind": "napkin-sim-pending",
+      "what": "Red thread + last-red stacking could still damp Fade-compounding pressure at the margins despite the new in-fiction caps (one thread per node/one season; catalyst only on woken re-makings).",
+      "fix": "Napkin-sim flag recorded in the last-red hook: verify peak-gleam sizing carries the D-001 pressure curve when both tools are maxed.",
+      "raised_by": "synthesizer"
+    },
+    {
+      "severity": "P3",
+      "kind": "canon-residue",
+      "what": "Locked L2 canon (the-spilling) still contains the I-021-flagged stage-death slang ('everyone who ever died out there'); this layer adopted the 'goes dark' remedy and banned the pun forward, but cannot edit locked text.",
+      "fix": "Keep I-021 open in issues.json for the Layer 6 canon scan/rename pass alongside I-002/I-003.",
+      "raised_by": "synthesizer"
+    },
+    {
+      "severity": "P3",
+      "kind": "canon-residue",
+      "what": "'guild-town' (I-025) and 'guild-hall' remain in locked L1/L2 text; Layer 4 routes around the word entirely but does not close the rename.",
+      "fix": "Close via I-025's rename at Layer 6 naming (terms.json renamed_from + canon scan), per D-005 routing.",
+      "raised_by": "synthesizer"
+    },
+    {
+      "severity": "P3",
+      "kind": "material-identity-partial",
+      "what": "Element-budget merges (14 cap): bell-bronze and hearth-slate live as one-line temperaments in the market's-grammar subsection rather than full elements, and the gleaning + red thread are folded inside last-red — each has its own term, temperament, and visual line, but not a standalone visual block.",
+      "fix": "Layer 6 should give bell-bronze and hearth-slate full visual signatures, and may promote the gleaning's kneeling-gleaner frame to a signature illustration; no canon change needed.",
+      "raised_by": "synthesizer"
+    },
+    {
+      "severity": "P3",
+      "kind": "gate-procedure",
+      "what": "The synthesis chassis is substantially B-derived, and B's trope density (0.14) was threshold-adjacent to the 0.15 gate; the leaks were purged word-for-word here, but D-004 says advancing B-derived text should trigger the 3-auditor majority panel.",
+      "fix": "Run the L4 audit as a 3-auditor majority panel (already the D-004 default for L4+), attending specifically to exchange-register diction.",
+      "raised_by": "synthesizer"
+    }
+  ],
+  "summary": "THE MAKINGS AND THE MEANS — a timing economy where scarcity is manners, not tonnage: attention, coin (handsels whittled from apprentice-stuffs), consent (two-gate courting: vouching then terms), crowd, and season are all flows, none hoardable; 'what stops moving, dims' replaces enforcement. 14 elements incl. singing-silver (unbroken-song pour), laughing-riverwood, festival-glass, last-red, the-glad-price (declared anchor: market pricing kept familiar), introduction-jars, the-stilled-summer (I-014 answered), the-walking-light (I-015 answered). Systems map: 6 interacting systems, counted 6/6/6 by an independent 3-auditor panel. All four carried L4 obligations (I-012 spill-boon principle, I-013 between-runs forgetting decided, I-014 stilled-region rarity, I-015 in-transit visibility) answered in-fiction. Panel unanimous: trope 0/13 non-anchor, anchor 1/14, hooks 14/14, legible 14/14.",
+  "tokens_spent": 941281
+}

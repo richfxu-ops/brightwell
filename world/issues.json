@@ -1,0 +1,760 @@
+{
+  "next_id": 74,
+  "issues": [
+    {
+      "id": "I-001",
+      "layer": 1,
+      "status": "open",
+      "severity": "P2",
+      "kind": "coherence",
+      "what": "Escalation law stated two incompatible ways: the-askings insists sizing is strictly one-directional ('never scale down', 'rumor does not un-travel'), yet makers-gleam/dimming passage shows lanterns offering progressively SMALLER askings as gleam falls. The reconciliation (world-side need escalates one-way; lantern DISPLAY gates by current gleam) is implied but never stated as one law.",
+      "fix": "State the two-filter rule explicitly once, inside the-askings: the town's need never decreases, but the lantern only lowers what current gleam can hold — a dimmed maker walks past rafters they know are full.",
+      "raised_by": "blind-post-synthesis-2"
+    },
+    {
+      "id": "I-002",
+      "layer": 1,
+      "status": "open",
+      "severity": "P3",
+      "kind": "trope",
+      "what": "'The Fade' is a heavily pre-owned name (Dragon Age, Wheel of Time) — the only major element name reading as off-the-shelf fantasy vocabulary among otherwise distinctive coinages.",
+      "fix": "Rename in the world's own register at Layer 6 naming (e.g. 'the Paling', half-coined already by 'pale towns'); keep 'pale' as the adjective. Route through terms.json renamed_from + canon scan.",
+      "raised_by": "blind-post-synthesis-2"
+    },
+    {
+      "id": "I-003",
+      "layer": 1,
+      "status": "open",
+      "severity": "P3",
+      "kind": "trope",
+      "what": "shy-materials 'chatter with anyone' / 'state their terms' edges toward talking-object twee and smudges the attend-don't-act restraint law; the layer never says whether materials can literally speak.",
+      "fix": "One sentence clarifying materials never speak either — their 'terms' are read through behavior and temperament, the way a cat's terms are read.",
+      "raised_by": "blind-post-synthesis-2"
+    },
+    {
+      "id": "I-004",
+      "layer": 1,
+      "status": "open",
+      "severity": "P3",
+      "kind": "coherence",
+      "what": "unmarked-wonders are a permanent exception to the Fade with no mechanism — deliberately, as the game's long riddle — an open IOU on the world's one physical law.",
+      "fix": "Layer 2 (cosmology) must decide how much of the answer exists; the answer is hard-banned from being elder makers / ancient civilizations / gods. Carry into the L2 brief.",
+      "raised_by": "synthesizer, coherence-critic"
+    },
+    {
+      "id": "I-005",
+      "layer": 1,
+      "status": "open",
+      "severity": "P3",
+      "kind": "trope",
+      "what": "Residual do-not-resemble exposure one layer down: L4 economy could reintroduce fine-shaped penalties around askings or hearth nodes; card text could re-import promise/owed vocabulary or animate-furniture cuteness.",
+      "fix": "Inject the 'Register bans carried forward' section at the end of Layer 1 (vocabulary ban, channel ban, restraint ban, riddle ban) into every L2-L7 proposer/critic brief as binding constraints.",
+      "raised_by": "trope-critic, legibility-ludic-critic"
+    },
+    {
+      "id": "I-006",
+      "layer": 2,
+      "status": "resolved",
+      "severity": "P1",
+      "kind": "layer-1-canon-gap",
+      "what": "Great askings are cosmologically unsupported and arguably contradicted. Layer 1 canon says the land itself sometimes makes an asking (a mountain arranges antler and cloudmoss; a season sends a wrong-smelling morning), and great askings are the boss tier the whole Rounds exist for. Layer 2's floor says only the living want and aim regard, ground 'has no wanting and no use' and holds light only as a loose wash, and waking/making requires attentive regard setting into use. Under these laws an unliving mountain cannot make, wake, or aim an asking — yet Layer 2 grounds ordinary askings in detail ('an asking, itself a made and woken thing') and never mentions great askings at all.",
+      "fix": "Add a lawful mechanism for land-made askings (e.g., great askings as near-closure phenomena, or as the aggregated regard of many living things shaping the loose wash — dowsable, like the gloaming-table), or explicitly log it as a carried-forward open question with a guard, as Layer 1 did for the unmarked wonders.",
+      "raised_by": "blind-post-synthesis",
+      "resolution": {
+        "verified_by": "fresh-critic-verifier",
+        "evidence": "Layer 2 of /Users/richardxu/Documents/games/pipeline-test-02/planning/WORLD.md now contains a subsection \"The great askings — the land's voice, derived (mechanism first)\" (lines 250–256) plus named element `the-combing` (lines 344–349). It supplies a lawful mechanism: great askings are formed by aggregated living regard — \"three valleys of living wanting\" whose crossing currents \"comb the loose wash\" of a place into arrangement (\"the wash combs where currents cross\") — while explicitly holding the cosmological floor: \"The land had not spoken. Ground has no wanting — that floor holds, and no gr",
+        "attempt": 2
+      }
+    },
+    {
+      "id": "I-007",
+      "layer": 2,
+      "status": "resolved",
+      "severity": "P2",
+      "kind": "incoherence",
+      "what": "The 'one lawful clinging' taxonomy doesn't house held waking. The three-settlings section insists gleam is the single permitted seam ('not a fourth holding but the three settlings' one permitted seam'), then the-held-and-the-fired introduces held light that 'lies on a thing the way gleam lies on a maker: bound by ongoing regard' — structurally a second clinging, on an unliving object. Worse, held light on a boxed coin is loose-phase light lying still on the unliving, which the stated skim rule says is exactly what the Fade takes — yet the text attributes the dulling to 'lapse', a third, unnamed process.",
+      "fix": "Classify held light explicitly within the taxonomy (e.g., held = loose light bound by circulating regard, exempt from skim only while circulating, and the boxed coin's dulling IS the ordinary seep) and amend the 'one clinging' claim to cover both, or subordinate held waking under the gleam-clinging law.",
+      "raised_by": "blind-post-synthesis",
+      "resolution": {
+        "verified_by": "fresh-critic-verifier",
+        "evidence": "The Layer 2 text now does exactly what the fix asked, in the substance, not the label. (1) Held light is explicitly housed in the taxonomy: \"The three settlings — and the one binding\" (WORLD.md ~line 185) redefines the seam as \"one lawful **binding**, which is not a fourth holding but the three settlings' one permitted seam: *loose light held in place by ongoing regard*. The binding is worn in two homes\" — on a maker it is the clinging (gleam), \"On a handsel it is held light... loose light bound by the circulating regard of hand after delighted hand.\" So gleam and held waking are no longer one",
+        "attempt": 2
+      }
+    },
+    {
+      "id": "I-008",
+      "layer": 2,
+      "status": "resolved",
+      "severity": "P2",
+      "kind": "hook-contradiction",
+      "what": "Two elements specify incompatible dawn-income mechanics: the-round-of-light's hook says 'end-of-turn surplus seeds the next dawn's base income' (income responsive to player behavior), while the-unclaimed-morning's hook calls the per-turn income 'flat, universal, ungameable' — and then itself immediately modifies it by node paleness.",
+      "fix": "Define one rule: dawn income = flat universal base + local-table modifiers (pale nodes richer, prior surplus returned), and delete 'ungameable', or drop the surplus-seeding clause from the-round-of-light.",
+      "raised_by": "blind-post-synthesis",
+      "resolution": {
+        "verified_by": "fresh-critic-verifier",
+        "evidence": "The two hooks now state one explicit shared rule and the word \"ungameable\" is gone from WORLD.md entirely. In Layer 2, the `the-round-of-light` hook (WORLD.md ~line of \"This could become\" under that element) says: \"unspent attention is never wasted, only returned: end-of-turn surplus seeps to the local table and comes back in the next dawn's draw (one income rule, shared with `the-unclaimed-morning`: universal base + local-table share).\" The `the-unclaimed-morning` hook mirrors it exactly: \"the per-turn attention income... under one lawful rule: a flat universal base plus a draw from the local",
+        "attempt": 2
+      }
+    },
+    {
+      "id": "I-009",
+      "layer": 2,
+      "status": "resolved",
+      "severity": "P3",
+      "kind": "spine-timescale-ambiguity",
+      "what": "The fiction fires lantern sizing 'one-way, forever' on a maker's life, but the mechanic keys tier to 'peak-Standing-this-run'. This reconciles only if every run is a fresh maker — yet the Quiet Walk canon (Layer 1) allows the same maker to spark 'the next run'. The gleam-decay timescale got an explicit non-diegetic L4 clamp note; the sizing timescale did not.",
+      "fix": "Add a parallel non-diegetic note: fired sizings are per-maker; specify whether a returning (same-maker) run inherits its fired readings or the meta-layer treats each run as a new maker.",
+      "raised_by": "blind-post-synthesis",
+      "resolution": {
+        "verified_by": "fresh-critic-verifier",
+        "evidence": "Layer 2 of /Users/richardxu/Documents/games/pipeline-test-02/planning/WORLD.md now contains exactly the parallel non-diegetic clamp note the issue asked for, placed at the end of the ratchet subsection (line 248), explicitly mirroring the gleam-decay note at line 228: \"(Non-diegetic note for L4, parallel to the gleam-decay clamp above: fired sizings are per-maker and last that maker's lifetime — a lantern reads hands, not whoever holds the pack. Each run is a fresh maker by default, so asking tier lawfully keys to peak-gleam-this-run. If the meta-layer ever returns the same maker out of the Qu",
+        "attempt": 2
+      }
+    },
+    {
+      "id": "I-010",
+      "layer": 2,
+      "status": "resolved",
+      "severity": "P3",
+      "kind": "self-contradicting-restraint",
+      "what": "The layer's own transit-light restraint ('light moving between holders is visible only at peak overflow before a gathered crowd… No ambient light-in-transit anywhere') is strained by two of its own prescribed visuals: the gloaming-table's underground gold veins 'gather and run valleyward', and the-spilling's 'her light finds the stones' after a flop (which is regard withdrawn, not peak overflow).",
+      "fix": "Scope the restraint to surface/diegetic frames (naturalist cross-sections exempt) and reword the-spilling's visual so the alley shows only the resulting watercolor re-coloring, never the light in motion.",
+      "raised_by": "blind-post-synthesis",
+      "resolution": {
+        "verified_by": "fresh-critic-verifier",
+        "evidence": "Both prongs of I-010 are fixed in the Layer 2 text of /Users/richardxu/Documents/games/pipeline-test-02/planning/WORLD.md. (1) The restraint is now explicitly scoped and exempts the cutaway: under the Layer 2 constraints list — \"Transit-light restraint (scoped to scenes): in any in-world frame — playable scene, surface view, painted shot — light moving between holders is visible only at peak overflow before a gathered crowd (the Moth Fair condition). The spilling is never seen moving (the lane is found brighter, never watched brightening) and a combing is read with wands, never watched. Natura",
+        "attempt": 2
+      }
+    },
+    {
+      "id": "I-011",
+      "layer": 2,
+      "status": "open",
+      "severity": "P3",
+      "kind": "register-drift",
+      "what": "A few narration phrases lean toward the banned procedural/records register (Curature adjacency): 'the best-documented case the light-followers hold on lantern-law', lanterns' 'readings' framed as permanent records. It stays narrational rather than diegetic naming, and 'tally' is declared house-style, so this is minor — but 'documented case' plus 'lantern-law' together read faintly juridical.",
+      "fix": "Reword to folk register: 'the best-remembered case', 'lantern-lore' or 'lantern-craft'; keep 'reading' (instrument-like, acceptable) but avoid pairing it with case/law vocabulary.",
+      "raised_by": "blind-post-synthesis"
+    },
+    {
+      "id": "I-012",
+      "layer": 2,
+      "status": "open",
+      "severity": "P3",
+      "kind": "l4-balance-flag",
+      "what": "the-spilling meta-boons: fiction and hook now cap boons below gleam lost and lock them to future visitors/runs, but exact numbers (cap size, decay of boons) are undetermined and could still invite late-run flop-farming at the margin if L4 sets them too high.",
+      "fix": "L4 economy layer sets spill-boon values well below any Standing point's marginal run value and verifies with napkin-sim that deliberate failure is never EV-positive.",
+      "raised_by": "synthesizer"
+    },
+    {
+      "id": "I-013",
+      "layer": 2,
+      "status": "open",
+      "severity": "P3",
+      "kind": "l4-balance-flag",
+      "what": "Ambient forgetting (the long forgetting) is canonized as between-runs weather with an explicit non-diegetic adopt-or-clamp note; L4 must actually decide whether meta-layer Standing carries any decay or is clamped, or the cosmology's stated law has no mechanical home.",
+      "fix": "L4 picks one: a gentle between-runs Standing/reputation reset justified as the long forgetting (natural fit with the Quiet Walk reset), or clamp with the note that runs are shorter than the forgetting's clock.",
+      "raised_by": "synthesizer"
+    },
+    {
+      "id": "I-014",
+      "layer": 2,
+      "status": "open",
+      "severity": "P3",
+      "kind": "l4-balance-flag",
+      "what": "Stillsummer stilled-region anomaly (folded into the-gloaming-table hook) is a designed no-pressure/no-income pocket; frequency and reward burst are unspecified and could distort route strategy if common.",
+      "fix": "L4 makes it rare (roughly once per several runs), zero-income while active, with the Quill-Vale-Morning release burst sized as compensation not profit.",
+      "raised_by": "synthesizer"
+    },
+    {
+      "id": "I-015",
+      "layer": 2,
+      "status": "open",
+      "severity": "P3",
+      "kind": "l4-interaction-flag",
+      "what": "Delayed source-stamped gleam arrivals x peak-reading: text states delayed arrivals never raise a lantern's reading until seen landing, but the UI contract (preview a turn ahead? land only at town entry?) is undecided — an offscreen peak-raise would make the ratchet fire unpredictably.",
+      "fix": "L4/UI: incoming ticks visible in transit on the map (the tale walking), peak updates only on arrival, with the next asking-tier silhouette previewing before any accept decision.",
+      "raised_by": "synthesizer"
+    },
+    {
+      "id": "I-016",
+      "layer": 2,
+      "status": "open",
+      "severity": "P3",
+      "kind": "channel-legibility-watch",
+      "what": "Held vs fired waking gives the things-gold channel two persistences (breathing sheen vs burned-in line); if L6 art does not keep the two signatures distinct at a glance, handsels could read as ordinary woken objects and muddy the one-glance sort.",
+      "fix": "L6 style guide: fired = static thin line on the working edge; held = full-surface low sheen that visibly modulates with handling, never a crisp edge-line.",
+      "raised_by": "synthesizer"
+    },
+    {
+      "id": "I-017",
+      "layer": 2,
+      "status": "open",
+      "severity": "P2",
+      "kind": "incoherence",
+      "what": "Geometry tension between two derived income/pressure rules: the gloaming-table pools DOWNHILL under valley floors (hilltops pale first, 'high nodes pale faster'), yet the-unclaimed-morning grants richer dawns to pale nodes because 'their table is fuller.' A pale hilltop's seeped light has pooled in the valley below it, so whether the hilltop gets the rich dawn depends on an undefined locality radius for 'the local table.' As written, the two hooks (elevation Fade-rate modifiers; table-share dawn income) can pull apart when L4 formalizes them: valleys could double-benefit (slow Fade AND full table) while pale hills get neither, contradicting 'pale country gets the best mornings.'",
+      "fix": "Add one sentence to the-gloaming-table defining the table's catchment as regional — a vale and the hills that drain into it share one table and one dawn — so 'local' has a canonical scale before L4 keys income to it.",
+      "raised_by": "blind-post-synthesis-r2"
+    },
+    {
+      "id": "I-018",
+      "layer": 2,
+      "status": "open",
+      "severity": "P3",
+      "kind": "canon-tension",
+      "what": "Layer 1 the-askings states as plain canon narration that 'the land itself sometimes makes an asking — a great asking — using what it has: a mountain sends weathered antler and cloudmoss.' Layer 2 flatly rules the opposite mechanism: 'The land had not spoken. Ground has no wanting… The mountain sends nothing.' The phenomenon is preserved and the reframe is clearly intended as natural-philosophy correcting folk-speech, but Layer 1's sentence is not marked as folk-belief, so the two layers verbally contradict on agency.",
+      "fix": "One clause in the-combing (or a touch-up to Layer 1) marking the older phrasing as folk-speech: e.g. 'what the Rounds have always called the land making an asking is, read with wands, the combing.'",
+      "raised_by": "blind-post-synthesis-r2"
+    },
+    {
+      "id": "I-019",
+      "layer": 2,
+      "status": "open",
+      "severity": "P3",
+      "kind": "incoherence",
+      "what": "Small hole in an otherwise airtight conservation ledger: fired regard 'weathers, slow as stone,' but the text never says where weathered light goes. 'Nothing is noticed away' implies it returns loose to the wash/table, yet weathering is the one flow the round-of-light diagram omits — a light-follower with tally-chalk should be able to account for it.",
+      "fix": "One sentence in the-held-and-the-fired or the Fade section: weathering is the slow release of set light back to the loose wash, centuries where the seep takes seasons — closing the loop explicitly.",
+      "raised_by": "blind-post-synthesis-r2"
+    },
+    {
+      "id": "I-020",
+      "layer": 2,
+      "status": "open",
+      "severity": "P3",
+      "kind": "legibility",
+      "what": "The binding paragraph in 'The three settlings' (and its compressed restatement in the the-three-settlings element block) packs the binding, its two homes, the tide-shelter rule, the boxed-coin dulling, and the law-not-mercy claim into single very long sentences with multiple nested corrections ('which is not a fourth holding but…'). The law is coherent and the dew/riverboat figures do real work, but a newcomer must read it twice — the weakest legibility spot in an otherwise unusually predictable layer.",
+      "fix": "Break the binding exposition into three short declaratives (what binds, where it lives, what shelters it) or a compact three-line sub-list; keep the images, shorten the clause-chains.",
+      "raised_by": "blind-post-synthesis-r2"
+    },
+    {
+      "id": "I-021",
+      "layer": 2,
+      "status": "open",
+      "severity": "P3",
+      "kind": "register",
+      "what": "the-spilling: 'colored generation by generation by everyone who ever died out there' uses stage slang 'died' in a cosmology that elsewhere carefully firewalls death from the light-economy (reservoir ban: nothing living enters the gloaming-table). The joke lands for theater-literate readers but risks a momentary literal misread — spilled gleam as residue of the dead — in the exact element where that misread is most costly.",
+      "fix": "Swap for an in-register coinage: 'everyone who ever went dark out there' or 'every act the fair ever forgot,' preserving the wry warmth without the mortality pun.",
+      "raised_by": "blind-post-synthesis-r2"
+    },
+    {
+      "id": "I-022",
+      "layer": 3,
+      "status": "open",
+      "severity": "P2",
+      "kind": "spine-tension",
+      "what": "the-untold reinterprets D-001's escalating contracts as rising contract COUNT and PACE rather than stakes/size ('the ratchet arrives as tempo instead of tonnage'), plus rumor-silent between-roads that suppress the tale-network the ratchet runs on. The text argues escalation still finds them (fine-grained shine is shown more and sooner; the combing reads country-need regardless) and self-flags the question for the L4 napkin-sim, but as written this is the one place the locked pressure curve rests on an unverified claim: if count-and-tempo plateaus mid-run, the Untold archetype has a lawful way to stand still under a spine that forbids standing still.",
+      "fix": "Hold the existing in-text flag as binding: L4 napkin-sim must demonstrate the count/pace channel keeps aggregate run pressure monotonically rising through the mid-run (e.g., pace floor tied to peak-gleam, plus combing-clock acceleration from skipped hearths on between-roads). If it fails, amend the Untold creed so kettle-tier askings themselves compound in count per town, not merely in frequency.",
+      "raised_by": "blind-post-synthesis"
+    },
+    {
+      "id": "I-023",
+      "layer": 3,
+      "status": "open",
+      "severity": "P3",
+      "kind": "canon-mechanism-ambiguity",
+      "what": "the-round-fair / how-the-ways-meet: 'a fair retells everything at twice the size, so the Fairwrights can raise another maker's lantern-ladder simply by singing of them.' Layer 2 pins asking tier to peak-gleam-this-run 'read from grain, never a hidden counter' and rules that delayed gleam arrivals never raise a lantern's reading until seen landing. If a doubled retelling can raise a third party's sizing directly through rumor, tier has two competing keys (grain vs. tale-size); if it routes through the retelling's caused delight running overflow back to the original maker (lawful under gleam-runoff), the lever is fine but the text does not say so.",
+      "fix": "One clause in the-round-fair or the-fair lever text stating that the retelling raises the ladder only via the gleam it sends home along the lines of cause (arriving on the L2 seen-landing rule) — the tale walks, the light lands, then the lantern reads.",
+      "raised_by": "blind-post-synthesis"
+    },
+    {
+      "id": "I-024",
+      "layer": 3,
+      "status": "open",
+      "severity": "P3",
+      "kind": "anchor-declaration-hygiene",
+      "what": "The Layer 3 anchor summary claims all anchors are 'declared inline above,' but the-fairwrights' own heading carries no inline anchor tag — its declaration lives only at the-round-fair's heading ('declared jointly'). A reader auditing element-by-element could count the-fairwrights as an undeclared trope.",
+      "fix": "Add the same '(anchor — declared jointly with the-round-fair ...)' tag to the-fairwrights heading, or reword the summary to say 'declared at the-round-fair, jointly.'",
+      "raised_by": "blind-post-synthesis"
+    },
+    {
+      "id": "I-025",
+      "layer": 3,
+      "status": "open",
+      "severity": "P3",
+      "kind": "prior-canon-vocabulary-friction",
+      "what": "Layer 3's foundational claim — ways keep 'no hall and no roll,' you will never hear 'a house or an order' — sits against Layer 1's 'guild-town' (spine narrative) and Layer 2's 'guild-hall wall' (the-round-of-light visual). Not a contradiction if guild-halls are town buildings rather than way-holdings, but 'guild' vocabulary is exactly the Curature-adjacent register D-003 polices, and Layer 3 is the layer that establishes there are no guilds.",
+      "fix": "In a later pass, rename 'guild-town'/'guild-hall' in Layers 1-2 to Roundelay-native terms (waymeet-town, makers'-hall, song-hall), or add a Layer 3 line explicitly noting the old word survives on signboards while the thing it named never existed here.",
+      "raised_by": "blind-post-synthesis"
+    },
+    {
+      "id": "I-026",
+      "layer": 3,
+      "status": "open",
+      "severity": "P3",
+      "kind": "archetype-label-clarity",
+      "what": "the-eveners' hook is labeled the 'sacrifice-and-velocity archetype' while its own text insists exhausts are 'always for conversion, never for pace (the tempo exhausts belong to the Untold)' — 'velocity' here means handsel-circulation velocity, but the label reads as deck tempo and collides with the Untold's identity at exactly the seam the text works hardest to keep clean.",
+      "fix": "Rename the label to 'sacrifice-and-circulation' or 'composting-control archetype' so the Evener/Untold exhaust distinction survives into L4 without a footnote.",
+      "raised_by": "blind-post-synthesis"
+    },
+    {
+      "id": "I-027",
+      "layer": 3,
+      "status": "open",
+      "severity": "P3",
+      "kind": "canon-extension",
+      "what": "The Fairwright entry adopts a one-sentence extension of gleam-runoff: overflow splits along ALL lines of cause and the room's share walks home slowly at a hearth's pace. Canon's one worked exemplar (Moth Fair) showed only the fiddler's share; the extension is canon-compatible but unconfirmed.",
+      "fix": "Confirm at L4 that delayed venue-share Standing income is modelable and desirable; if not, re-ground Fairwright gleam solely in the town-scale askings they take directly (one-line edit).",
+      "raised_by": "synthesizer"
+    },
+    {
+      "id": "I-028",
+      "layer": 3,
+      "status": "open",
+      "severity": "P3",
+      "kind": "process",
+      "what": "Per D-004's threshold-adjacency rule, proposal A sat at trope density 0.14 (threshold 0.15) and the merged slate is A-based; although the merge applied every recommended silhouette/twee fix and dropped C's above-threshold material, the merged text has not itself been re-audited.",
+      "fix": "Run the 3-auditor majority panel on the merged Layer 3 section before closing the GATE_BATCH review, focusing on guild residue (walking-ways), fair-anchor share, and quarrel-register accumulation.",
+      "raised_by": "synthesizer"
+    },
+    {
+      "id": "I-029",
+      "layer": 3,
+      "status": "open",
+      "severity": "P3",
+      "kind": "coverage-note",
+      "what": "No dedicated information archetype exists on the slate by design (light-followers stay a canon-mandated practice); information play is distributed via road-marks with the Gleaner kit leaning hardest.",
+      "fix": "If game-architect (L5/GDD) wants a full scry archetype, build it on road-marks + the follower practice without institutionalizing the followers (folk-scale guard is binding); otherwise no action.",
+      "raised_by": "synthesizer"
+    },
+    {
+      "id": "I-030",
+      "layer": 4,
+      "status": "open",
+      "severity": "P2",
+      "kind": "canon-tension",
+      "what": "`the-walking-light` states tales walk at a hearth's pace 'and that is the only pace at which gleam moves and lantern-readings rise, full stop.' This contradicts locked Layer 2 canon at the Moth Fair / gleam-runoff, where overflow runs to the pourer instantly in the same scene (Immy Ash's gleam 'doubling before the reel ended'). As written, a careful newcomer gets two different answers to 'when does Standing tick after a big public play.'",
+      "fix": "Scope the sentence to light traveling between places: e.g. 'that is the only pace at which gleam travels the roads' — same-scene overflow stays instant per L2, only remote arrivals walk.",
+      "raised_by": "panel-1"
+    },
+    {
+      "id": "I-031",
+      "layer": 4,
+      "status": "open",
+      "severity": "P3",
+      "kind": "canon-drift",
+      "what": "`the-open-purse` visual: floorboards beneath the strongbox 'perceptibly warmer in color than the rest of the room.' L2 rules the lapsed coin's light 'seeps downhill to the gloaming-table like any unregarded wash' — it does not say it colors the room in passing; wash-that-stains-on-the-way-out is a small unstated extension of the seep rule (the-spilling covers spilled gleam, not lapsed held light).",
+      "fix": "Either cut the floorboard detail or add half a sentence to the fiction (lapsing light passes as wash and briefly lies where it lapsed) so the visual is lawful rather than a drift an artist could generalize wrongly.",
+      "raised_by": "panel-1"
+    },
+    {
+      "id": "I-032",
+      "layer": 4,
+      "status": "open",
+      "severity": "P3",
+      "kind": "legibility-overload",
+      "what": "`last-red` carries three separable mechanics under one heading: the gleaning (pale-route harvest action), last-red pigment (re-making catalyst), and red thread (knack-bookmark, contract-token carrier, combing tie-off). Red thread in particular is load-bearing for the whole pack/contract UI yet is buried in the back half of a pigment entry.",
+      "fix": "Split red thread into its own named element (or a clearly marked sub-element) so game-architect and Layer 6 naming can reference it directly; keep the pigment→thread derivation chain intact.",
+      "raised_by": "panel-1"
+    },
+    {
+      "id": "I-033",
+      "layer": 4,
+      "status": "open",
+      "severity": "P3",
+      "kind": "banned-world-adjacency-managed",
+      "what": "`the-twice-benched` and the gleaning at `last-red` are the layer's two approaches to Cantle's salvage-from-collapse economy. Both are defused in fiction (chosen festival-lit retirement; glean the left-behind, never the lived-in) and both defusals are converted into binding mechanical constraints in the handoff — this is adequate as written, but the resemblance pressure returns if any later layer sources yield from ruin.",
+      "fix": "No text change needed in L4; ensure the Salvage guard register ban (already added) is enforced as a canon-scan term for Layers 5-7 so plenty is never re-sourced from misfortune.",
+      "raised_by": "panel-1"
+    },
+    {
+      "id": "I-034",
+      "layer": 4,
+      "status": "open",
+      "severity": "P3",
+      "kind": "internal-consistency",
+      "what": "Coin-origin wording conflict: the-apprentice-stuffs claims 'every coin in circulation began as somebody's glad afternoon of small work,' while bright-shavings claims 'the finest coins in circulation began as the floor-sweepings of famous work.' The systems map correctly lists both faucets, but the two element texts contradict on 'every.'",
+      "fix": "Soften the apprentice-stuffs claim ('most coins' / 'nearly every coin') or fold the shavings-coin explicitly into the whittling-night frame so both origins read as one custom.",
+      "raised_by": "panel-2"
+    },
+    {
+      "id": "I-035",
+      "layer": 4,
+      "status": "open",
+      "severity": "P3",
+      "kind": "structure-legibility",
+      "what": "last-red is triple-loaded: pigment, the gleaning (a craft/verb with its own manners), and red thread (the literal carrier of contract tokens in the pack UI) all live under one heading. Red thread is load-bearing enough for Layer 6 naming and the pack UI that burying it third-in-line risks it being missed in enumeration, canon scans, and art handoff.",
+      "fix": "Promote red thread (and possibly the gleaning) to its own #### element, cross-referenced from last-red; carry the existing caps (one node, one knack, one season) with it.",
+      "raised_by": "panel-2"
+    },
+    {
+      "id": "I-036",
+      "layer": 4,
+      "status": "open",
+      "severity": "P3",
+      "kind": "banned-resemblance-watch",
+      "what": "The gleaning is the layer's closest approach to Cantle's salvage economy: harvesting value from left-behind, faded country. As written it does NOT resemble — harvest keys to gentle fading and never to collapse or failure, the lived-in is never gleaned, and handoff item 4 makes the anti-salvage framing mechanical — but the visual (a lone figure scraping color from abandoned doorways on grey roads) could drift scavenger-melancholy in art direction.",
+      "fix": "Carry an explicit L6 note that gleaner imagery stays 'yawning happily, rich in red' (the text's own register) — harvest-of-lag, never picker-of-ruins; keep the ember-red jar, not the grey road, as the shot's subject.",
+      "raised_by": "panel-2"
+    },
+    {
+      "id": "I-037",
+      "layer": 4,
+      "status": "open",
+      "severity": "P3",
+      "kind": "canon-hygiene",
+      "what": "The pervasive idiom 'states its terms' / 'shy stock states terms' for materials sits one step from the materials-never-speak rule (I-003, routed to Layer 6). The layer's register note handles it well (terms read like a cat's, nothing talks), but the idiom itself uses a speech verb throughout the diegetic prose.",
+      "fix": "Flag for the L6 canon scan: either bless 'state terms' as sanctioned dead metaphor or supply a non-speech verb ('shows its terms,' 'sets its terms out') consistently.",
+      "raised_by": "panel-2"
+    },
+    {
+      "id": "I-038",
+      "layer": 4,
+      "status": "open",
+      "severity": "P3",
+      "kind": "systems-map-honesty",
+      "what": "S2 (Bench Chain) is substantially a zoom of S1's bench segment (S1 already contains attention → bench → sets/overflows/returns). The six-system count is defensible because S2 adds audience inputs and Standing-gating outputs, but a strict reading merges them to 5 — still above the ≥4 gate.",
+      "fix": "Add one line to the systems map acknowledging S2 nests inside S1's middle arc, so downstream gates don't inherit an inflated count.",
+      "raised_by": "panel-2"
+    },
+    {
+      "id": "I-039",
+      "layer": 4,
+      "status": "open",
+      "severity": "P3",
+      "kind": "conservation-derivation-gap",
+      "what": "The layer's own mint ban says no flow may create regard, but the fiction never states the source of trade-brightening: at the-glad-price, change 'comes back a shade brighter' and a good haggle 'leaves both purses more awake than either arrived,' with no account of what correspondingly dims (presumably the room's loose wash being bound). The napkin-sim bound (Handed item 2) caps the exploit mechanically but the fiction-level ledgerless economy still lacks its one visible balancing line.",
+      "fix": "Add one light-followers' sentence at the-glad-price, e.g. that a brightening coin binds the square's own loose wash — chalked and confirmed: the stall's flagstones run a shade plainer on a good market day — closing the mint ban in-fiction.",
+      "raised_by": "panel-3"
+    },
+    {
+      "id": "I-040",
+      "layer": 4,
+      "status": "open",
+      "severity": "P3",
+      "kind": "canon-tension",
+      "what": "the-walking-light rules 'the murmur of woken things is not a second courier; it is the same net felt locally,' while locked L2 text says askings aim at hands 'heard through the murmur-net of woken things and hearth-tales' — treating the murmur as a co-equal carrier of hearing. Reconcilable (murmur locally relays what tellings brought) but as written it reads like a quiet correction of locked canon rather than a derivation from it.",
+      "fix": "Add a harmonizing clause (or terms.json note) stating explicitly that L2's murmur-net was always the local felt edge of the hearth-tale net, so the L4 courier law is a sharpening, not a retcon.",
+      "raised_by": "panel-3"
+    },
+    {
+      "id": "I-041",
+      "layer": 4,
+      "status": "open",
+      "severity": "P3",
+      "kind": "element-overload",
+      "what": "last-red packs three separable mechanics under one id: the pigment (paling harvest), the gleaning (a scouting/gathering craft with its own manners), and the red thread (knack-bookmark consumable AND the literal contract-token carrier in the pack UI). The thread is load-bearing for the spine's contract presentation and is buried in the tail of another element's fiction, weakening hook-ledger traceability downstream.",
+      "fix": "Split red-thread into its own named element (or sub-heading with its own hook line) so game-architect can cite it independently; keep the pigment→thread derivation chain intact.",
+      "raised_by": "panel-3"
+    },
+    {
+      "id": "I-042",
+      "layer": 4,
+      "status": "open",
+      "severity": "P3",
+      "kind": "banned-world-proximity-watchlist",
+      "what": "Three separate harvest-from-loss loops land in one layer (twice-benched retirement yield, the gleaning of left-behind country, lane-glimmers from failure). Each is individually and explicitly defused against the Cantle salvage-from-collapse ban, with mechanical guards handed to game-architect — but the aggregate silhouette is salvage-adjacent, and later art or L6 naming could re-collapse the distinctions the prose maintains.",
+      "fix": "Carry a one-line watchlist item to the L6 naming/aesthetic pass: no ruin, wreck, scrap, or scavenge vocabulary or imagery near the gleaning, the twice-benched, or lane-glimmers; retirement and left-behind framing only.",
+      "raised_by": "panel-3"
+    },
+    {
+      "id": "I-043",
+      "layer": 4,
+      "status": "open",
+      "severity": "P3",
+      "kind": "fiction-hook-mismatch",
+      "what": "the-stilled-summer's fiction says stillings are rarer than a new-found closed round and 'most makers walk every Round of a long life without crossing one,' while its hook proposes 'roughly once per several runs' — a maker's life contains many runs, so the suggested game frequency contradicts the stated world frequency by an order of magnitude.",
+      "fix": "Either soften the fiction ('a maker may cross one or two in a walking life') or mark the hook's frequency as an explicit gameplay-sampling license for game-architect to set, decoupled from world rarity.",
+      "raised_by": "panel-3"
+    },
+    {
+      "id": "I-044",
+      "layer": 4,
+      "status": "open",
+      "severity": "P3",
+      "kind": "napkin-sim-pending",
+      "what": "The glad-price brightening kicker (change returned a shade brighter) remains a potential money-brightening loop until game-architect's napkin-sim proves brightening-per-trade is bounded below its tempo/attention cost.",
+      "fix": "Obligation recorded verbatim in the-glad-price hook and in 'Handed to game-architect' item 2; enforce at the L4/GDD napkin-sim gate.",
+      "raised_by": "synthesizer"
+    },
+    {
+      "id": "I-045",
+      "layer": 4,
+      "status": "open",
+      "severity": "P3",
+      "kind": "napkin-sim-pending",
+      "what": "Red thread + last-red stacking could still damp Fade-compounding pressure at the margins despite the new in-fiction caps (one thread per node/one season; catalyst only on woken re-makings).",
+      "fix": "Napkin-sim flag recorded in the last-red hook: verify peak-gleam sizing carries the D-001 pressure curve when both tools are maxed.",
+      "raised_by": "synthesizer"
+    },
+    {
+      "id": "I-046",
+      "layer": 4,
+      "status": "open",
+      "severity": "P3",
+      "kind": "canon-residue",
+      "what": "Locked L2 canon (the-spilling) still contains the I-021-flagged stage-death slang ('everyone who ever died out there'); this layer adopted the 'goes dark' remedy and banned the pun forward, but cannot edit locked text.",
+      "fix": "Keep I-021 open in issues.json for the Layer 6 canon scan/rename pass alongside I-002/I-003.",
+      "raised_by": "synthesizer"
+    },
+    {
+      "id": "I-047",
+      "layer": 4,
+      "status": "open",
+      "severity": "P3",
+      "kind": "canon-residue",
+      "what": "'guild-town' (I-025) and 'guild-hall' remain in locked L1/L2 text; Layer 4 routes around the word entirely but does not close the rename.",
+      "fix": "Close via I-025's rename at Layer 6 naming (terms.json renamed_from + canon scan), per D-005 routing.",
+      "raised_by": "synthesizer"
+    },
+    {
+      "id": "I-048",
+      "layer": 4,
+      "status": "open",
+      "severity": "P3",
+      "kind": "material-identity-partial",
+      "what": "Element-budget merges (14 cap): bell-bronze and hearth-slate live as one-line temperaments in the market's-grammar subsection rather than full elements, and the gleaning + red thread are folded inside last-red — each has its own term, temperament, and visual line, but not a standalone visual block.",
+      "fix": "Layer 6 should give bell-bronze and hearth-slate full visual signatures, and may promote the gleaning's kneeling-gleaner frame to a signature illustration; no canon change needed.",
+      "raised_by": "synthesizer"
+    },
+    {
+      "id": "I-049",
+      "layer": 4,
+      "status": "open",
+      "severity": "P3",
+      "kind": "gate-procedure",
+      "what": "The synthesis chassis is substantially B-derived, and B's trope density (0.14) was threshold-adjacent to the 0.15 gate; the leaks were purged word-for-word here, but D-004 says advancing B-derived text should trigger the 3-auditor majority panel.",
+      "fix": "Run the L4 audit as a 3-auditor majority panel (already the D-004 default for L4+), attending specifically to exchange-register diction.",
+      "raised_by": "synthesizer"
+    },
+    {
+      "id": "I-050",
+      "layer": 5,
+      "status": "open",
+      "severity": "P2",
+      "kind": "canon-terminology",
+      "what": "'Turn' now carries two load-bearing meanings: L1/L2/L4 canon uses 'one turn of a Round' to mean an entire run (L2's binding Timescale Law is literally worded 'within one turn of a Round, gleam moves on outcomes only'), while Layer 5 defines 'a turn is one morning wide' as the game-turn unit. A reader applying the Timescale Law at L5's morning-scale materially misreads canon (no-ambient-decay-within-a-run becomes no-decay-within-a-morning). L5's register bans reserve 'stretch' but leave 'turn' unguarded.",
+      "fix": "Add a one-line vocabulary reservation in Layer 5 (parallel to the stretch reservation): 'a turn of the Round' always names the whole circuit; the run's smallest unit is 'a turn' only in non-diegetic text, or rename it 'a worked morning' diegetically — and restate L2's Timescale Law once in run-scale terms.",
+      "raised_by": "panel-1"
+    },
+    {
+      "id": "I-051",
+      "layer": 5,
+      "status": "open",
+      "severity": "P2",
+      "kind": "canon-coherence",
+      "what": "The travel-law of regard (I-030, and `the-two-paces-of-light`) makes in-room overflow land instantly, which is right per Layer 2's Moth Fair canon and Layer 4's own systems map — but it contradicts the letter of Layer 4 as written: the courier-law ban says 'tellings move at a hearth's pace, and only tellings move gleam or raise readings,' and `the-walking-light` says hearth-pace 'is the only pace at which gleam moves and lantern-readings rise, full stop.' Read literally, those sentences leave no lawful channel for the instant in-room landing that L5's whole same-turn Standing resolution (Handed #9) depends on. L5's register check papers over this with 'tellings alone move light... the room's instant overflow adds no third courier' — an assertion, not a reconciliation.",
+      "fix": "One clarifying amendment where the bans are restated for Layers 6–7: scope the courier law explicitly to light crossing distance ('beyond the room, only tellings move gleam or raise readings'), so downstream layers do not inherit two absolutes that conflict on their face.",
+      "raised_by": "panel-2"
+    },
+    {
+      "id": "I-052",
+      "layer": 5,
+      "status": "open",
+      "severity": "P3",
+      "kind": "canon-coherence",
+      "what": "In the elevation law (I-017), the claim that the old line 'the fuller the local table, the richer the return' was 'never wrong at any height' is overreached by the paragraph's own arithmetic: a kept floor over a full table gets the brief ordinary morning despite sitting on the fullest table, because distribution goes by room (greyness), not by table. The mechanics themselves cohere with Layer 2 (downhill seep, pale-country-best-mornings, kept-country-brief-dawns are all preserved exactly); only this one rhetorical sentence fails its own case.",
+      "fix": "Soften to 'never misleading where it was coined' or tie the saw explicitly to grey ground (the case where room and full table coincide), so game-architect doesn't treat table-fullness as an income dial independent of paleness — which Handed #2/#3 otherwise correctly prevent.",
+      "raised_by": "panel-2"
+    },
+    {
+      "id": "I-053",
+      "layer": 5,
+      "status": "open",
+      "severity": "P3",
+      "kind": "register",
+      "what": "'the great askings, boss tier' (Who hangs the need, item 2) drops non-diegetic game jargon into the layer's world-facing prose. Everywhere else in the layer, game-speak is quarantined in the 'This could become' hooks and the Handed section; this is the one leak.",
+      "fix": "Delete 'boss tier' from the body prose (the combing-grounds passage already says 'the finale... never a lair') or move it into a parenthetical marked non-diegetic.",
+      "raised_by": "panel-2"
+    },
+    {
+      "id": "I-054",
+      "layer": 5,
+      "status": "open",
+      "severity": "P3",
+      "kind": "fiction-vs-tuning",
+      "what": "Stilled-summer rarity: the fiction (coherent across L2, L4, and L5 — three stillings in living memory across many thousands of sheds, two seen by nobody now walking, most makers never stand in one) is an order of magnitude rarer than the carried spawn hook ('roughly once per several runs', L4's I-014 hook repeated in `the-still-bowls` and Handed #6). A maker at that spawn rate would have ~10 stillings within reach in one walking life versus three in all living memory. This is ordinary roguelike map-compression, but the abstraction is nowhere stated.",
+      "fix": "Add one sentence to Handed #6 acknowledging the compression (the game map samples rare terrain at gameplay rate; the songs' rarity is world-scale, not per-run), so game-architect doesn't read the fiction's rarity as a binding spawn constraint or vice versa.",
+      "raised_by": "panel-2"
+    },
+    {
+      "id": "I-055",
+      "layer": 5,
+      "status": "open",
+      "severity": "P3",
+      "kind": "ban-hygiene",
+      "what": "The new forward ban is named 'Almanac ban' but actually bans deadline/appointment/itinerary vocabulary — while Layer 3's `road-marks` uses 'almanac' approvingly and diegetically ('spiral-reading is their almanac') and Layer 2's paling-arithmetic hook calls route strategy 'almanac-reading in a warm way.' A Layer 6 naming pass could misread the ban's title as banning the word itself and scrub lawful prior usage.",
+      "fix": "Rename the ban ('Deadline ban' or 'Dates-owed ban') or add a clause noting the word 'almanac' itself is house-style per Layers 2–3; only owed-date vocabulary is banned.",
+      "raised_by": "panel-2"
+    },
+    {
+      "id": "I-056",
+      "layer": 5,
+      "status": "open",
+      "severity": "P3",
+      "kind": "internal-consistency",
+      "what": "Dawn-ladder wobble: I-017 and handoff 2 fix ONE income dial (paleness sets size at every height; height buys length/lateness only), yet crown-paths are called 'thin of dawn' and the lightshed hook lists 'thin dawns' as the crown-path trade-off — implying height reduces size. The reconciliation (crown dawns arrive after the worked morning, so they are thin-as-stood-in, not thin-as-issued) is implied by 'first-lit by the sun and last-left by the rise' but never stated as the reason.",
+      "fix": "One clarifying clause at `the-lightshed` or the Roads paragraph: crown dawns are large when pale but land late — a worked morning rarely catches them — so the path reads thin without a second size dial.",
+      "raised_by": "panel-3"
+    },
+    {
+      "id": "I-057",
+      "layer": 5,
+      "status": "open",
+      "severity": "P3",
+      "kind": "terminology",
+      "what": "`the-still-bowls`/I-043 describe the landform as 'a closed round vale' — colliding with the canon term 'closed round' (unmarked wonders) in the exact passage where a near-closed wonder stands in the throat. A reader can mistake the vale itself for a closed round.",
+      "fix": "Rename the topography: 'a close-rimmed vale' or rely solely on 'one-throat bowl,' reserving 'closed round' for the wonder canon-term.",
+      "raised_by": "panel-3"
+    },
+    {
+      "id": "I-058",
+      "layer": 5,
+      "status": "open",
+      "severity": "P3",
+      "kind": "citation-overreach",
+      "what": "The crown-guarantee handoff cites 'map-gen seeds pre-paled country (lawful under I-013),' but I-013 ruled on between-runs forgetting and gifts-only persistence — it never ruled that town ring-states/paling persist between verses. L5's own crown prose does establish the inheritance in-fiction ('rings other years opened, springs other makers trusted forward'), so the mechanism stands; the citation over-claims its source.",
+      "fix": "Cite the crown element's own in-fiction ruling, or append one line to the I-013 ledger entry stating that the country's paling arithmetic persists between verses as world-weather (not maker-decay).",
+      "raised_by": "panel-3"
+    },
+    {
+      "id": "I-059",
+      "layer": 5,
+      "status": "open",
+      "severity": "P2",
+      "kind": "downstream-sim-obligation",
+      "what": "Crown guarantee depends on inherited ring-states: one wander-year's skips lay at most ~3 rings, so a great-asking crown draws on pre-paled country seeded at map-gen (lawful under I-013). The finale-scheduler must produce a crown of some tier every completed year without manufacturing paling the player didn't route or inherit legibly.",
+      "fix": "game-architect: seed inherited ring-states at map-gen and napkin-sim the scheduler across early-mending, ripening, and skip-heavy playstyles (handed-off item 7).",
+      "raised_by": "synthesizer"
+    },
+    {
+      "id": "I-060",
+      "layer": 5,
+      "status": "open",
+      "severity": "P2",
+      "kind": "downstream-sim-obligation",
+      "what": "Doorstep tier is bounded by magnitude and sparseness rather than a physics exemption, so it can still leak into peak-gleam sizing in edge cases, and an always-available income valve risks flattening the early-run shy-market tutorial.",
+      "fix": "game-architect: sim that kettle-scale delight rarely sets a new peak mid-run and that doorstep income stays below the apprentice-stuff comeback loop (handed-off item 8).",
+      "raised_by": "synthesizer"
+    },
+    {
+      "id": "I-061",
+      "layer": 5,
+      "status": "open",
+      "severity": "P2",
+      "kind": "downstream-sim-obligation",
+      "what": "The seasonal seep curve doubles as the D-001 escalation clock; it must keep pressure rising through the mid-run for all six ways, including the Untold's count-and-pace variant (interacts with the standing I-022 obligation from D-005).",
+      "fix": "game-architect: season-curve napkin-sim per way, clamping the Untold to size-escalation if count-and-pace under-delivers (handed-off item 1).",
+      "raised_by": "synthesizer"
+    },
+    {
+      "id": "I-062",
+      "layer": 5,
+      "status": "open",
+      "severity": "P3",
+      "kind": "downstream-sim-obligation",
+      "what": "Dawn income's second dial (height buys length and lateness) is fictionally load-bearing but mechanically unspecified — if it ever pays income, high-camp dawn-farming could dominate Gleaner-style routes.",
+      "fix": "game-architect: keep size the only income dial; treat length/lateness as presentation or a bounded venue-window effect, and sim high-camp vs pale-floor vs kept-country baselines (handed-off item 2).",
+      "raised_by": "synthesizer"
+    },
+    {
+      "id": "I-063",
+      "layer": 5,
+      "status": "open",
+      "severity": "P3",
+      "kind": "downstream-sim-obligation",
+      "what": "The Fair's traveling lantern is a persistent, twice-met contract source whose fired sizings follow the player; stacked on town lanterns it could read as a second difficulty curve.",
+      "fix": "game-architect: verify the traveling lantern reads as a personal thread, not a double ratchet (handed-off item 5).",
+      "raised_by": "synthesizer"
+    },
+    {
+      "id": "I-064",
+      "layer": 5,
+      "status": "open",
+      "severity": "P3",
+      "kind": "downstream-free-parameter",
+      "what": "Turn-count-per-leg is deliberately unfixed: the fiction states that road-memory folds miles and only worked mornings are turns, but days-per-leg is a tuning knob, not canon.",
+      "fix": "game-architect: tune days-per-leg freely; the fiction absorbs any value (handed-off item 4).",
+      "raised_by": "synthesizer"
+    },
+    {
+      "id": "I-065",
+      "layer": 5,
+      "status": "open",
+      "severity": "P3",
+      "kind": "downstream-sim-obligation",
+      "what": "Still-bowl detours must be a genuine gamble at the once-per-several-runs spawn rate — the equinox windfall equals withheld seep exactly (mint ban), so EV hinges on the grey purse of the crossing.",
+      "fix": "game-architect: sim the detour as neither dominant nor trap (handed-off item 6).",
+      "raised_by": "synthesizer"
+    },
+    {
+      "id": "I-066",
+      "layer": 6,
+      "status": "open",
+      "severity": "P3",
+      "kind": "canon-record-mismatch",
+      "what": "WORLD.md section 6 opens 'Three renames, propagated...' and lists three items (I-002, I-047, run-scale turn). DECISIONS D-006 records that the synthesizer 'executed four renames' and enumerates four (the fourth being the grammar-of-light slogan change). WORLD.md bundles the slogan harmonization INSIDE I-002 rather than as a standalone item, so substance matches but the headline count contradicts the user-ratified record.",
+      "fix": "Reconcile the count: either state 'three renames (four edits: the I-002 noun rename carries the slogan harmonization as a flagged line-item)' in WORLD.md section 6, or split the slogan out as its own bolded item to mirror D-006's four.",
+      "raised_by": "panel-r1"
+    },
+    {
+      "id": "I-067",
+      "layer": 6,
+      "status": "open",
+      "severity": "P3",
+      "kind": "style-law-clarity",
+      "what": "The held-gold breathing sheen is described as 'swelling in company, dulling in a shut box toward matte' (the-two-golds). The four-sight ration depends on this being a found-between-looks amplitude (a state), not an on-screen ramp (which would be a fifth sight). The reconciliation is stated everywhere but this one phrase invites a VFX builder to author a watched swell/decay.",
+      "fix": "Add one clause confirming the sheen's amplitude tracks company/box-state as a found-between-looks level (sampled on cuts/returns like all other non-sight change), never an animated ramp — so it stays a standing state and the four-sight budget holds.",
+      "raised_by": "panel-r1"
+    },
+    {
+      "id": "I-068",
+      "layer": 6,
+      "status": "open",
+      "severity": "P3",
+      "kind": "palette-lifecycle-ambiguity",
+      "what": "Asking palette (1.2) declares 'Red thread the only saturate' for lantern objects, while an accepted asking 'flushes a slow breathing-gold warmer as its season shortens' (1.2, and the-lantern-dark: 'ripeness as breathing-gold warmth'). An artist could read these as conflicting (may an asking show gold or not?). It resolves as a lifecycle — on-lantern asking = red-thread-only; accepted/on-pack asking = held-gold ripeness tell — but the transition is not stated explicitly at the palette line.",
+      "fix": "State the lifecycle inline: breathing-gold ripeness appears only once an asking is accepted and rides the pack (held regard); the un-accepted lantern object keeps red thread as its only saturate.",
+      "raised_by": "panel-r1"
+    },
+    {
+      "id": "I-069",
+      "layer": 6,
+      "status": "open",
+      "severity": "P3",
+      "kind": "canon-artifact-bookkeeping",
+      "what": "DECISIONS D-006 records that the synthesizer 'executed four renames' and lists the grammar-of-light slogan change ('places pale, people gleam, things wake') as rename #2, but WORLD.md §6 headers 'Three renames' and folds that slogan change into I-002 as a sub-item ('And the grammar-of-light slogan is harmonized to match'). Substance is identical and the slogan wording is consistent everywhere; only the count differs, which can trip a rename-reconciliation / canon-count scan.",
+      "fix": "Harmonize the count language — e.g. have §6 state the slogan harmonization is the fourth ratified change (sub-item of I-002) so 'four' matches D-006, or annotate D-006 that item 2 is a sub-item of the Paling rename.",
+      "raised_by": "panel-r2"
+    },
+    {
+      "id": "I-070",
+      "layer": 6,
+      "status": "open",
+      "severity": "P3",
+      "kind": "typo",
+      "what": "`the-shoulder-candle` 'this could become' reads 'the meter quantized diegitically in showing-height and market-width bands' — 'diegitically' is a misspelling of 'diegetically.'",
+      "fix": "Correct to 'diegetically.'",
+      "raised_by": "panel-r2"
+    },
+    {
+      "id": "I-071",
+      "layer": 7,
+      "status": "open",
+      "severity": "P3",
+      "kind": "double-count",
+      "what": "glad-price-read overlaps handsel-currency-decay; paling-clock vs paling-arithmetic-compounding near-adjacent; dense 4-row boss cluster. All defensibly distinct per panels.",
+      "fix": "game-architect confirms whether any collapse once numbers are assigned; if so merge and re-pin ledger hash.",
+      "raised_by": "panel-1/2/3"
+    },
+    {
+      "id": "I-072",
+      "layer": 7,
+      "status": "open",
+      "severity": "P3",
+      "kind": "soft-presentation-hook",
+      "what": "Four rows are UI/UX constraints not pure mechanics (two-golds-read, diegetic-standing-readout, contract-preview-ui, deck-autobiography); even discounting all four count 51 clears gate >4x.",
+      "fix": "note for game-architect that these feed UI/UX, not the effect-primitive vocabulary.",
+      "raised_by": "panel-2"
+    },
+    {
+      "id": "I-073",
+      "layer": 7,
+      "status": "open",
+      "severity": "P3",
+      "kind": "napkin-obligations",
+      "what": "Three inline napkin-sim obligations for the GDD: glad-price trade-brightening bound (I-044), Untold count-and-pace (I-022), last-red/red-thread double-tool sizing (I-045).",
+      "fix": "game-architect proves or clamps each numerically via executable napkin models.",
+      "raised_by": "compiler"
+    }
+  ]
+}

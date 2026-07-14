@@ -1,0 +1,67 @@
+{
+  "$schema_note": "Per-tier contract (asking) numbers, compiled from GDD Layer 6 (locked). The asking is a named score on the engine the player already runs: wake a piece of a grain / raise the need's-fill past a line / hold the room to a peak. game-loop consumes these to instantiate contracts and the crown finale.",
+  "source": "game-architect stage-2, GDD L6 numbers_curves (locked)",
+  "season_clock": {
+    "legs": ["Green Going", "Long Light", "Deep Gold", "Red Walk", "Wintering"],
+    "mornings_per_leg": [4, 6, 7, 7, 3],
+    "worked_mornings_total": 27,
+    "size_multiplier_s_of_t": [1.0, 1.667, 2.333, 3.0],
+    "per_morning_need_floor": [1, 3, 5, 7],
+    "season_summed_need": [6, 18, 32, 50]
+  },
+  "asking_tiers": [
+    {"tier": "kettle",  "leg": "Green Going", "need_fill": 1, "example_fill": "1 apprentice (wd1)", "gleam_band_offerable": "1-5"},
+    {"tier": "plea",    "leg": "Long Light",  "need_fill": 3, "example_fill": "1 mid (wd2) + 1 apprentice, or a small chain", "spiral_rings": 3, "gleam_band_offerable": "1-12"},
+    {"tier": "poem",    "leg": "Deep Gold",   "need_fill": 5, "example_fill": "1 proud (wd3) + 1 mid (wd2), or 1 capstone (wd5)", "spiral_rings": 5, "gleam_band_offerable": "6-20"},
+    {"tier": "great",   "leg": "Red Walk",    "need_fill": 7, "example_fill": "1 capstone (wd5) + 1 mid (wd2)", "spiral_rings": 7, "combing": true, "gleam_band_offerable": "13-21+"}
+  ],
+  "waking_marks_by_card_tier": {
+    "apprentice": {"mark": [1, 2], "ceiling": [2, 3], "woken_delight": 1},
+    "mid":        {"mark": [3, 5], "ceiling": [5, 6], "woken_delight": 2},
+    "proud":      {"mark": [6, 7], "ceiling": 8,      "woken_delight": 3, "woken_delight_mannerly": 5},
+    "capstone":   {"mark": [7, 8], "ceiling": [8, 9], "woken_delight": [3, 5]},
+    "marks_fixed": true,
+    "twice_benched_discount": 0.9,
+    "twice_benched_terminal": true
+  },
+  "spiral_clock": {
+    "one_ring_per_skipped_season_per_node": true,
+    "schedule": {"3": "a plea (size 3)", "5": "a poem (size 5)", "7": "a great asking being born (size 7)"},
+    "combing_threshold": 7,
+    "difficulty_growth_per_ring": "1.0 * s(t)"
+  },
+  "crown_finale": {
+    "location": "Wintering, 3 mornings",
+    "floor_by_furthest_leg_reached": [3, 5, 7, 10],
+    "demand": 10,
+    "size_build_raw_delivery": 8.5,
+    "closed_by": "the whole engine (chain multiplier up to 2.0 + overkill-to-a-6-band + count-stack), never one card",
+    "pace_ceiling_clears": 6,
+    "routes": {
+      "kilnfast": "prepared-board/raw-burst (11.5)",
+      "eveners": "prepared-board (10.3)",
+      "untold": "count-stack, clamped (10.2)",
+      "fairwrights": "raw-burst/landed-ceiling (12.5)",
+      "mannerly": "landed-ceiling (12.0)",
+      "gleaners": "pale-fed room-burst (11.0)"
+    },
+    "crown_stand_rates": {"kilnfast": 0.95, "eveners": 0.99, "untold": 0.82, "fairwrights": 0.70, "mannerly": 0.85, "gleaners": 0.78}
+  },
+  "standing": {
+    "overkill_to_gleam_full_rate": 1.0,
+    "diminishing_band_points": 6,
+    "beyond_band_rate": 0.5,
+    "gathered_room_softcap": "nth seat = 2 * 0.8^(n-1), plateau ~10",
+    "gleam_bands": {"0": "Quiet Walk", "1-5": "dim", "6-12": "warm", "13-20": "bright", "21+": "singing"},
+    "standing_zero": "fail-state, any season; never touched by the Paling"
+  },
+  "handsels": {
+    "denominations": {"dull": 1, "warm": 2, "singing": 3},
+    "whittle_yield_dull": 1,
+    "whittle_cost": "1 play, cap 1/morning, consumes 1 apprentice-stuff",
+    "glad_price_brightening_per_trade": 0.5,
+    "trade_tempo_cost": 2,
+    "idle_lapse": "-1 denomination-step/idle morning, full lapse after 3 -> dawn (the only sink)",
+    "shavings_share_of_return": 0.333
+  }
+}

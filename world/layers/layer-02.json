@@ -1,0 +1,168 @@
+{
+  "layer": 2,
+  "metrics": {},
+  "audit": {
+    "auditor": "blind-post-synthesis-r2",
+    "artifact": "planning/WORLD.md#layer-2",
+    "elements": [
+      {
+        "id": "the-round-of-light",
+        "trope": false,
+        "anchor": true,
+        "hook": true,
+        "legible": true
+      },
+      {
+        "id": "the-three-settlings",
+        "trope": false,
+        "anchor": false,
+        "hook": true,
+        "legible": true
+      },
+      {
+        "id": "the-held-and-the-fired",
+        "trope": false,
+        "anchor": false,
+        "hook": true,
+        "legible": true
+      },
+      {
+        "id": "the-unclaimed-morning",
+        "trope": false,
+        "anchor": false,
+        "hook": true,
+        "legible": true
+      },
+      {
+        "id": "the-gloaming-table",
+        "trope": false,
+        "anchor": false,
+        "hook": true,
+        "legible": true
+      },
+      {
+        "id": "gleam-runoff",
+        "trope": false,
+        "anchor": false,
+        "hook": true,
+        "legible": true
+      },
+      {
+        "id": "the-grain-of-gleam",
+        "trope": false,
+        "anchor": false,
+        "hook": true,
+        "legible": true
+      },
+      {
+        "id": "the-spilling",
+        "trope": false,
+        "anchor": false,
+        "hook": true,
+        "legible": true
+      },
+      {
+        "id": "need-takes-aim",
+        "trope": false,
+        "anchor": false,
+        "hook": true,
+        "legible": true
+      },
+      {
+        "id": "the-paling-arithmetic",
+        "trope": false,
+        "anchor": false,
+        "hook": true,
+        "legible": true
+      },
+      {
+        "id": "the-combing",
+        "trope": false,
+        "anchor": false,
+        "hook": true,
+        "legible": true
+      },
+      {
+        "id": "the-noticing-game",
+        "trope": false,
+        "anchor": false,
+        "hook": true,
+        "legible": true
+      },
+      {
+        "id": "the-closed-round",
+        "trope": false,
+        "anchor": false,
+        "hook": true,
+        "legible": true
+      }
+    ],
+    "metrics": {}
+  },
+  "issues": [
+    {
+      "severity": "P2",
+      "kind": "incoherence",
+      "what": "Geometry tension between two derived income/pressure rules: the gloaming-table pools DOWNHILL under valley floors (hilltops pale first, 'high nodes pale faster'), yet the-unclaimed-morning grants richer dawns to pale nodes because 'their table is fuller.' A pale hilltop's seeped light has pooled in the valley below it, so whether the hilltop gets the rich dawn depends on an undefined locality radius for 'the local table.' As written, the two hooks (elevation Fade-rate modifiers; table-share dawn income) can pull apart when L4 formalizes them: valleys could double-benefit (slow Fade AND full table) while pale hills get neither, contradicting 'pale country gets the best mornings.'",
+      "fix": "Add one sentence to the-gloaming-table defining the table's catchment as regional — a vale and the hills that drain into it share one table and one dawn — so 'local' has a canonical scale before L4 keys income to it.",
+      "raised_by": "blind-post-synthesis-r2"
+    },
+    {
+      "severity": "P3",
+      "kind": "canon-tension",
+      "what": "Layer 1 the-askings states as plain canon narration that 'the land itself sometimes makes an asking — a great asking — using what it has: a mountain sends weathered antler and cloudmoss.' Layer 2 flatly rules the opposite mechanism: 'The land had not spoken. Ground has no wanting… The mountain sends nothing.' The phenomenon is preserved and the reframe is clearly intended as natural-philosophy correcting folk-speech, but Layer 1's sentence is not marked as folk-belief, so the two layers verbally contradict on agency.",
+      "fix": "One clause in the-combing (or a touch-up to Layer 1) marking the older phrasing as folk-speech: e.g. 'what the Rounds have always called the land making an asking is, read with wands, the combing.'",
+      "raised_by": "blind-post-synthesis-r2"
+    },
+    {
+      "severity": "P3",
+      "kind": "incoherence",
+      "what": "Small hole in an otherwise airtight conservation ledger: fired regard 'weathers, slow as stone,' but the text never says where weathered light goes. 'Nothing is noticed away' implies it returns loose to the wash/table, yet weathering is the one flow the round-of-light diagram omits — a light-follower with tally-chalk should be able to account for it.",
+      "fix": "One sentence in the-held-and-the-fired or the Fade section: weathering is the slow release of set light back to the loose wash, centuries where the seep takes seasons — closing the loop explicitly.",
+      "raised_by": "blind-post-synthesis-r2"
+    },
+    {
+      "severity": "P3",
+      "kind": "legibility",
+      "what": "The binding paragraph in 'The three settlings' (and its compressed restatement in the the-three-settlings element block) packs the binding, its two homes, the tide-shelter rule, the boxed-coin dulling, and the law-not-mercy claim into single very long sentences with multiple nested corrections ('which is not a fourth holding but…'). The law is coherent and the dew/riverboat figures do real work, but a newcomer must read it twice — the weakest legibility spot in an otherwise unusually predictable layer.",
+      "fix": "Break the binding exposition into three short declaratives (what binds, where it lives, what shelters it) or a compact three-line sub-list; keep the images, shorten the clause-chains.",
+      "raised_by": "blind-post-synthesis-r2"
+    },
+    {
+      "severity": "P3",
+      "kind": "register",
+      "what": "the-spilling: 'colored generation by generation by everyone who ever died out there' uses stage slang 'died' in a cosmology that elsewhere carefully firewalls death from the light-economy (reservoir ban: nothing living enters the gloaming-table). The joke lands for theater-literate readers but risks a momentary literal misread — spilled gleam as residue of the dead — in the exact element where that misread is most costly.",
+      "fix": "Swap for an in-register coinage: 'everyone who ever went dark out there' or 'every act the fair ever forgot,' preserving the wry warmth without the mortality pun.",
+      "raised_by": "blind-post-synthesis-r2"
+    }
+  ],
+  "resolutions": [
+    {
+      "id": "I-006",
+      "verified_by": "fresh-critic-verifier",
+      "evidence": "Layer 2 of /Users/richardxu/Documents/games/pipeline-test-02/planning/WORLD.md now contains a subsection \"The great askings — the land's voice, derived (mechanism first)\" (lines 250–256) plus named element `the-combing` (lines 344–349). It supplies a lawful mechanism: great askings are formed by aggregated living regard — \"three valleys of living wanting\" whose crossing currents \"comb the loose wash\" of a place into arrangement (\"the wash combs where currents cross\") — while explicitly holding the cosmological floor: \"The land had not spoken. Ground has no wanting — that floor holds, and no gr"
+    },
+    {
+      "id": "I-007",
+      "verified_by": "fresh-critic-verifier",
+      "evidence": "The Layer 2 text now does exactly what the fix asked, in the substance, not the label. (1) Held light is explicitly housed in the taxonomy: \"The three settlings — and the one binding\" (WORLD.md ~line 185) redefines the seam as \"one lawful **binding**, which is not a fourth holding but the three settlings' one permitted seam: *loose light held in place by ongoing regard*. The binding is worn in two homes\" — on a maker it is the clinging (gleam), \"On a handsel it is held light... loose light bound by the circulating regard of hand after delighted hand.\" So gleam and held waking are no longer one"
+    },
+    {
+      "id": "I-008",
+      "verified_by": "fresh-critic-verifier",
+      "evidence": "The two hooks now state one explicit shared rule and the word \"ungameable\" is gone from WORLD.md entirely. In Layer 2, the `the-round-of-light` hook (WORLD.md ~line of \"This could become\" under that element) says: \"unspent attention is never wasted, only returned: end-of-turn surplus seeps to the local table and comes back in the next dawn's draw (one income rule, shared with `the-unclaimed-morning`: universal base + local-table share).\" The `the-unclaimed-morning` hook mirrors it exactly: \"the per-turn attention income... under one lawful rule: a flat universal base plus a draw from the local"
+    },
+    {
+      "id": "I-009",
+      "verified_by": "fresh-critic-verifier",
+      "evidence": "Layer 2 of /Users/richardxu/Documents/games/pipeline-test-02/planning/WORLD.md now contains exactly the parallel non-diegetic clamp note the issue asked for, placed at the end of the ratchet subsection (line 248), explicitly mirroring the gleam-decay note at line 228: \"(Non-diegetic note for L4, parallel to the gleam-decay clamp above: fired sizings are per-maker and last that maker's lifetime — a lantern reads hands, not whoever holds the pack. Each run is a fresh maker by default, so asking tier lawfully keys to peak-gleam-this-run. If the meta-layer ever returns the same maker out of the Qu"
+    },
+    {
+      "id": "I-010",
+      "verified_by": "fresh-critic-verifier",
+      "evidence": "Both prongs of I-010 are fixed in the Layer 2 text of /Users/richardxu/Documents/games/pipeline-test-02/planning/WORLD.md. (1) The restraint is now explicitly scoped and exempts the cutaway: under the Layer 2 constraints list — \"Transit-light restraint (scoped to scenes): in any in-world frame — playable scene, surface view, painted shot — light moving between holders is visible only at peak overflow before a gathered crowd (the Moth Fair condition). The spilling is never seen moving (the lane is found brighter, never watched brightening) and a combing is read with wands, never watched. Natura"
+    }
+  ],
+  "summary": "Layer 2 attempt 2: all six targeted issues fixed and independently verified against the file (I-006 P1 great askings now lawful via THE COMBING — aggregated living regard combs the loose wash into the land's voice, a held waking with no single maker, mechanism-first from Wray Fell; I-007 taxonomy now one binding worn two ways; I-008 single dawn-income rule; I-009 sizing-timescale L4 note; I-010 transit-light restraint rescoped; I-011 fixed by reviser but its verifier died on an API error, so it stays open unverified — P3, non-blocking, re-verify opportunistically). Fresh blind re-audit: 13 elements, trope 0, anchor 1/13, hooks 13/13, legible 13/13. New non-blocking findings recorded (gloaming-table geometry P2 + 4 P3s).",
+  "tokens_spent": 1201388
+}

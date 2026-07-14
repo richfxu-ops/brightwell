@@ -1,0 +1,126 @@
+{
+  "layer": 3,
+  "audit": {
+    "auditor": "blind 3-panel (no-schema); interaction_density 0.857 unanimous",
+    "artifact": "planning/GDD.md#layer-3",
+    "elements": [
+      {
+        "id": "gather",
+        "interacts": true,
+        "legible": true
+      },
+      {
+        "id": "rest",
+        "interacts": true,
+        "legible": true
+      },
+      {
+        "id": "steady",
+        "interacts": true,
+        "legible": true
+      },
+      {
+        "id": "fill",
+        "interacts": true,
+        "legible": true
+      },
+      {
+        "id": "crown",
+        "interacts": true,
+        "legible": false
+      },
+      {
+        "id": "mark-grain",
+        "interacts": true,
+        "legible": true
+      },
+      {
+        "id": "draw",
+        "interacts": true,
+        "legible": true
+      },
+      {
+        "id": "retire",
+        "interacts": true,
+        "legible": true
+      },
+      {
+        "id": "whittle",
+        "interacts": true,
+        "legible": true
+      },
+      {
+        "id": "court",
+        "interacts": true,
+        "legible": true
+      },
+      {
+        "id": "soothe",
+        "interacts": true,
+        "legible": true
+      },
+      {
+        "id": "read",
+        "interacts": true,
+        "legible": false
+      },
+      {
+        "id": "warm",
+        "interacts": false,
+        "legible": true
+      },
+      {
+        "id": "keep",
+        "interacts": false,
+        "legible": true
+      }
+    ],
+    "metrics": {}
+  },
+  "issues": [
+    {
+      "severity": "P2",
+      "kind": "naming-collision",
+      "what": "primitive verb `crown` collides with LOCKED `the-rising-crown` (finale).",
+      "fix": "Rename verb -> brim. Apply at lock.",
+      "raised_by": "blind-panel-1/2/3"
+    },
+    {
+      "severity": "P2",
+      "kind": "locked-cap-tension",
+      "what": "`crown`/brim widens the anti-snowball soft-cap L1 locked.",
+      "fix": "Band only reduces diminishing penalty, never exceeds full-rate overkill; ceiling to game-loop.",
+      "raised_by": "blind-panel-2"
+    },
+    {
+      "severity": "P2",
+      "kind": "engineer-speak",
+      "what": "`read` flagged engineer-speak by 2/3.",
+      "fix": "State read is amount-syntax (per/by), never printed; add overkill source.",
+      "raised_by": "blind-panel-1/3"
+    },
+    {
+      "severity": "P3",
+      "kind": "redundant-primitive",
+      "what": "`warm` duplicates woken_delight stat.",
+      "fix": "Keep as no-combo baseline; drop metric rationale.",
+      "raised_by": "blind-panel-1/3"
+    },
+    {
+      "severity": "P3",
+      "kind": "canon-cap-ambiguity",
+      "what": "`soothe.amount` vs L2 last-red cap unstated.",
+      "fix": "State single once-per-season single-node within the cap.",
+      "raised_by": "blind-panel-3"
+    },
+    {
+      "severity": "P2",
+      "kind": "stale-canon-term",
+      "what": "terms.json still has `the-road-forgets`.",
+      "fix": "Delete from terms.json.",
+      "raised_by": "synthesizer"
+    }
+  ],
+  "summary": "Layer 3 effect vocabulary: 14 lean composition-first primitives; interaction_density 0.857 (unanimous), intuitiveness 0.857-0.929, no P0/P1. User approved. Fixes applied at lock: crown->brim + bound; read as amount-syntax; soothe cap; warm rationale dropped; stale the-road-forgets deleted.",
+  "tokens_spent": 929829
+}

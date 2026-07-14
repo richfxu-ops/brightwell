@@ -1,0 +1,211 @@
+{
+  "layer": 5,
+  "metrics": {},
+  "audit": {
+    "auditor": "3-auditor-majority-panel (unanimous on all 12 elements)",
+    "artifact": "planning/WORLD.md#layer-5",
+    "elements": [
+      {
+        "id": "the-wander-year",
+        "trope": false,
+        "anchor": true,
+        "hook": true,
+        "legible": true
+      },
+      {
+        "id": "the-four-lights",
+        "trope": false,
+        "anchor": false,
+        "hook": true,
+        "legible": true
+      },
+      {
+        "id": "the-lightshed",
+        "trope": false,
+        "anchor": false,
+        "hook": true,
+        "legible": true
+      },
+      {
+        "id": "the-inked-round",
+        "trope": false,
+        "anchor": true,
+        "hook": true,
+        "legible": true
+      },
+      {
+        "id": "the-remembering-roads",
+        "trope": false,
+        "anchor": false,
+        "hook": true,
+        "legible": true
+      },
+      {
+        "id": "the-lantern-mile",
+        "trope": false,
+        "anchor": false,
+        "hook": true,
+        "legible": true
+      },
+      {
+        "id": "the-two-paces-of-light",
+        "trope": false,
+        "anchor": false,
+        "hook": true,
+        "legible": true
+      },
+      {
+        "id": "a-week-ahead-of-autumn",
+        "trope": false,
+        "anchor": false,
+        "hook": true,
+        "legible": true
+      },
+      {
+        "id": "the-doorstep-askings",
+        "trope": false,
+        "anchor": false,
+        "hook": true,
+        "legible": true
+      },
+      {
+        "id": "the-still-bowls",
+        "trope": false,
+        "anchor": false,
+        "hook": true,
+        "legible": true
+      },
+      {
+        "id": "the-crown-of-the-year",
+        "trope": false,
+        "anchor": false,
+        "hook": true,
+        "legible": true
+      },
+      {
+        "id": "the-winter-telling",
+        "trope": false,
+        "anchor": true,
+        "hook": true,
+        "legible": true
+      }
+    ],
+    "metrics": {}
+  },
+  "issues": [
+    {
+      "severity": "P2",
+      "kind": "canon-terminology",
+      "what": "'Turn' now carries two load-bearing meanings: L1/L2/L4 canon uses 'one turn of a Round' to mean an entire run (L2's binding Timescale Law is literally worded 'within one turn of a Round, gleam moves on outcomes only'), while Layer 5 defines 'a turn is one morning wide' as the game-turn unit. A reader applying the Timescale Law at L5's morning-scale materially misreads canon (no-ambient-decay-within-a-run becomes no-decay-within-a-morning). L5's register bans reserve 'stretch' but leave 'turn' unguarded.",
+      "fix": "Add a one-line vocabulary reservation in Layer 5 (parallel to the stretch reservation): 'a turn of the Round' always names the whole circuit; the run's smallest unit is 'a turn' only in non-diegetic text, or rename it 'a worked morning' diegetically — and restate L2's Timescale Law once in run-scale terms.",
+      "raised_by": "panel-1"
+    },
+    {
+      "severity": "P2",
+      "kind": "canon-coherence",
+      "what": "The travel-law of regard (I-030, and `the-two-paces-of-light`) makes in-room overflow land instantly, which is right per Layer 2's Moth Fair canon and Layer 4's own systems map — but it contradicts the letter of Layer 4 as written: the courier-law ban says 'tellings move at a hearth's pace, and only tellings move gleam or raise readings,' and `the-walking-light` says hearth-pace 'is the only pace at which gleam moves and lantern-readings rise, full stop.' Read literally, those sentences leave no lawful channel for the instant in-room landing that L5's whole same-turn Standing resolution (Handed #9) depends on. L5's register check papers over this with 'tellings alone move light... the room's instant overflow adds no third courier' — an assertion, not a reconciliation.",
+      "fix": "One clarifying amendment where the bans are restated for Layers 6–7: scope the courier law explicitly to light crossing distance ('beyond the room, only tellings move gleam or raise readings'), so downstream layers do not inherit two absolutes that conflict on their face.",
+      "raised_by": "panel-2"
+    },
+    {
+      "severity": "P3",
+      "kind": "canon-coherence",
+      "what": "In the elevation law (I-017), the claim that the old line 'the fuller the local table, the richer the return' was 'never wrong at any height' is overreached by the paragraph's own arithmetic: a kept floor over a full table gets the brief ordinary morning despite sitting on the fullest table, because distribution goes by room (greyness), not by table. The mechanics themselves cohere with Layer 2 (downhill seep, pale-country-best-mornings, kept-country-brief-dawns are all preserved exactly); only this one rhetorical sentence fails its own case.",
+      "fix": "Soften to 'never misleading where it was coined' or tie the saw explicitly to grey ground (the case where room and full table coincide), so game-architect doesn't treat table-fullness as an income dial independent of paleness — which Handed #2/#3 otherwise correctly prevent.",
+      "raised_by": "panel-2"
+    },
+    {
+      "severity": "P3",
+      "kind": "register",
+      "what": "'the great askings, boss tier' (Who hangs the need, item 2) drops non-diegetic game jargon into the layer's world-facing prose. Everywhere else in the layer, game-speak is quarantined in the 'This could become' hooks and the Handed section; this is the one leak.",
+      "fix": "Delete 'boss tier' from the body prose (the combing-grounds passage already says 'the finale... never a lair') or move it into a parenthetical marked non-diegetic.",
+      "raised_by": "panel-2"
+    },
+    {
+      "severity": "P3",
+      "kind": "fiction-vs-tuning",
+      "what": "Stilled-summer rarity: the fiction (coherent across L2, L4, and L5 — three stillings in living memory across many thousands of sheds, two seen by nobody now walking, most makers never stand in one) is an order of magnitude rarer than the carried spawn hook ('roughly once per several runs', L4's I-014 hook repeated in `the-still-bowls` and Handed #6). A maker at that spawn rate would have ~10 stillings within reach in one walking life versus three in all living memory. This is ordinary roguelike map-compression, but the abstraction is nowhere stated.",
+      "fix": "Add one sentence to Handed #6 acknowledging the compression (the game map samples rare terrain at gameplay rate; the songs' rarity is world-scale, not per-run), so game-architect doesn't read the fiction's rarity as a binding spawn constraint or vice versa.",
+      "raised_by": "panel-2"
+    },
+    {
+      "severity": "P3",
+      "kind": "ban-hygiene",
+      "what": "The new forward ban is named 'Almanac ban' but actually bans deadline/appointment/itinerary vocabulary — while Layer 3's `road-marks` uses 'almanac' approvingly and diegetically ('spiral-reading is their almanac') and Layer 2's paling-arithmetic hook calls route strategy 'almanac-reading in a warm way.' A Layer 6 naming pass could misread the ban's title as banning the word itself and scrub lawful prior usage.",
+      "fix": "Rename the ban ('Deadline ban' or 'Dates-owed ban') or add a clause noting the word 'almanac' itself is house-style per Layers 2–3; only owed-date vocabulary is banned.",
+      "raised_by": "panel-2"
+    },
+    {
+      "severity": "P3",
+      "kind": "internal-consistency",
+      "what": "Dawn-ladder wobble: I-017 and handoff 2 fix ONE income dial (paleness sets size at every height; height buys length/lateness only), yet crown-paths are called 'thin of dawn' and the lightshed hook lists 'thin dawns' as the crown-path trade-off — implying height reduces size. The reconciliation (crown dawns arrive after the worked morning, so they are thin-as-stood-in, not thin-as-issued) is implied by 'first-lit by the sun and last-left by the rise' but never stated as the reason.",
+      "fix": "One clarifying clause at `the-lightshed` or the Roads paragraph: crown dawns are large when pale but land late — a worked morning rarely catches them — so the path reads thin without a second size dial.",
+      "raised_by": "panel-3"
+    },
+    {
+      "severity": "P3",
+      "kind": "terminology",
+      "what": "`the-still-bowls`/I-043 describe the landform as 'a closed round vale' — colliding with the canon term 'closed round' (unmarked wonders) in the exact passage where a near-closed wonder stands in the throat. A reader can mistake the vale itself for a closed round.",
+      "fix": "Rename the topography: 'a close-rimmed vale' or rely solely on 'one-throat bowl,' reserving 'closed round' for the wonder canon-term.",
+      "raised_by": "panel-3"
+    },
+    {
+      "severity": "P3",
+      "kind": "citation-overreach",
+      "what": "The crown-guarantee handoff cites 'map-gen seeds pre-paled country (lawful under I-013),' but I-013 ruled on between-runs forgetting and gifts-only persistence — it never ruled that town ring-states/paling persist between verses. L5's own crown prose does establish the inheritance in-fiction ('rings other years opened, springs other makers trusted forward'), so the mechanism stands; the citation over-claims its source.",
+      "fix": "Cite the crown element's own in-fiction ruling, or append one line to the I-013 ledger entry stating that the country's paling arithmetic persists between verses as world-weather (not maker-decay).",
+      "raised_by": "panel-3"
+    },
+    {
+      "severity": "P2",
+      "kind": "downstream-sim-obligation",
+      "what": "Crown guarantee depends on inherited ring-states: one wander-year's skips lay at most ~3 rings, so a great-asking crown draws on pre-paled country seeded at map-gen (lawful under I-013). The finale-scheduler must produce a crown of some tier every completed year without manufacturing paling the player didn't route or inherit legibly.",
+      "fix": "game-architect: seed inherited ring-states at map-gen and napkin-sim the scheduler across early-mending, ripening, and skip-heavy playstyles (handed-off item 7).",
+      "raised_by": "synthesizer"
+    },
+    {
+      "severity": "P2",
+      "kind": "downstream-sim-obligation",
+      "what": "Doorstep tier is bounded by magnitude and sparseness rather than a physics exemption, so it can still leak into peak-gleam sizing in edge cases, and an always-available income valve risks flattening the early-run shy-market tutorial.",
+      "fix": "game-architect: sim that kettle-scale delight rarely sets a new peak mid-run and that doorstep income stays below the apprentice-stuff comeback loop (handed-off item 8).",
+      "raised_by": "synthesizer"
+    },
+    {
+      "severity": "P2",
+      "kind": "downstream-sim-obligation",
+      "what": "The seasonal seep curve doubles as the D-001 escalation clock; it must keep pressure rising through the mid-run for all six ways, including the Untold's count-and-pace variant (interacts with the standing I-022 obligation from D-005).",
+      "fix": "game-architect: season-curve napkin-sim per way, clamping the Untold to size-escalation if count-and-pace under-delivers (handed-off item 1).",
+      "raised_by": "synthesizer"
+    },
+    {
+      "severity": "P3",
+      "kind": "downstream-sim-obligation",
+      "what": "Dawn income's second dial (height buys length and lateness) is fictionally load-bearing but mechanically unspecified — if it ever pays income, high-camp dawn-farming could dominate Gleaner-style routes.",
+      "fix": "game-architect: keep size the only income dial; treat length/lateness as presentation or a bounded venue-window effect, and sim high-camp vs pale-floor vs kept-country baselines (handed-off item 2).",
+      "raised_by": "synthesizer"
+    },
+    {
+      "severity": "P3",
+      "kind": "downstream-sim-obligation",
+      "what": "The Fair's traveling lantern is a persistent, twice-met contract source whose fired sizings follow the player; stacked on town lanterns it could read as a second difficulty curve.",
+      "fix": "game-architect: verify the traveling lantern reads as a personal thread, not a double ratchet (handed-off item 5).",
+      "raised_by": "synthesizer"
+    },
+    {
+      "severity": "P3",
+      "kind": "downstream-free-parameter",
+      "what": "Turn-count-per-leg is deliberately unfixed: the fiction states that road-memory folds miles and only worked mornings are turns, but days-per-leg is a tuning knob, not canon.",
+      "fix": "game-architect: tune days-per-leg freely; the fiction absorbs any value (handed-off item 4).",
+      "raised_by": "synthesizer"
+    },
+    {
+      "severity": "P3",
+      "kind": "downstream-sim-obligation",
+      "what": "Still-bowl detours must be a genuine gamble at the once-per-several-runs spawn rate — the equinox windfall equals withheld seep exactly (mint ban), so EV hinges on the grey purse of the crossing.",
+      "fix": "game-architect: sim the detour as neither dominant nor trap (handed-off item 6).",
+      "raised_by": "synthesizer"
+    }
+  ],
+  "summary": "THE WALKED YEAR ON THE LIVING MAP — a run is one wander-year over a living map: turns are worked mornings, legs run between high days, four seasonal lights retune one map. Two endings: Quiet Walk on Standing-zero (walking out of season) or the crown-gated bright ending. Map grammar split node/road/country; route choice is arc-committed threading at waymeets; pressure readable on the land (spirals, dawn-color, crown-grey rims, red thread). Contract issuers: town lanterns, the combing (boss), material terms, doorstep askings (one nail per hamlet). Carried issues answered as one-line laws: I-017 dawn climbs the seep's channels and settles where the wash runs thinnest; I-030 light is quick in the room and on foot on the road; I-043 stillings shed-bound, dozen-odd across all Rounds. Panel unanimous: trope 0/9 non-anchor, anchors 3/12 declared, hooks/legible 12/12. Ten binding non-diegetic items handed to game-architect. Remaining P2s are locked-text wording residue (L4 'full stop' sentence vs the two-paces law; 'turn' terminology collision) — canon-hygiene, routed to the L6 naming pass alongside I-002.",
+  "tokens_spent": 1114926
+}

@@ -1,0 +1,151 @@
+{
+  "layer": 6,
+  "metrics": {},
+  "audit": {
+    "auditor": "3-auditor panel (initial) + 2-auditor blind re-audit after revise; unanimous on all 12 elements",
+    "artifact": "planning/WORLD.md#layer-6",
+    "elements": [
+      {
+        "id": "the-three-brushes",
+        "trope": false,
+        "anchor": false,
+        "hook": true,
+        "legible": true
+      },
+      {
+        "id": "the-two-golds",
+        "trope": false,
+        "anchor": false,
+        "hook": true,
+        "legible": true
+      },
+      {
+        "id": "found-not-watched",
+        "trope": false,
+        "anchor": false,
+        "hook": true,
+        "legible": true
+      },
+      {
+        "id": "the-settling-tilt",
+        "trope": false,
+        "anchor": false,
+        "hook": true,
+        "legible": true
+      },
+      {
+        "id": "chalk-thread-and-gold",
+        "trope": false,
+        "anchor": false,
+        "hook": true,
+        "legible": true
+      },
+      {
+        "id": "dusk-reads-dawn-gives",
+        "trope": false,
+        "anchor": false,
+        "hook": true,
+        "legible": true
+      },
+      {
+        "id": "the-shoulder-candle",
+        "trope": false,
+        "anchor": false,
+        "hook": true,
+        "legible": true
+      },
+      {
+        "id": "the-lantern-dark",
+        "trope": false,
+        "anchor": false,
+        "hook": true,
+        "legible": true
+      },
+      {
+        "id": "the-worked-word",
+        "trope": false,
+        "anchor": false,
+        "hook": true,
+        "legible": true
+      },
+      {
+        "id": "the-work-names-of-things",
+        "trope": false,
+        "anchor": false,
+        "hook": true,
+        "legible": true
+      },
+      {
+        "id": "named-from-things",
+        "trope": false,
+        "anchor": true,
+        "hook": true,
+        "legible": true
+      },
+      {
+        "id": "the-giving-line",
+        "trope": false,
+        "anchor": true,
+        "hook": true,
+        "legible": true
+      }
+    ],
+    "metrics": {}
+  },
+  "issues": [
+    {
+      "severity": "P3",
+      "kind": "canon-record-mismatch",
+      "what": "WORLD.md section 6 opens 'Three renames, propagated...' and lists three items (I-002, I-047, run-scale turn). DECISIONS D-006 records that the synthesizer 'executed four renames' and enumerates four (the fourth being the grammar-of-light slogan change). WORLD.md bundles the slogan harmonization INSIDE I-002 rather than as a standalone item, so substance matches but the headline count contradicts the user-ratified record.",
+      "fix": "Reconcile the count: either state 'three renames (four edits: the I-002 noun rename carries the slogan harmonization as a flagged line-item)' in WORLD.md section 6, or split the slogan out as its own bolded item to mirror D-006's four.",
+      "raised_by": "panel-r1"
+    },
+    {
+      "severity": "P3",
+      "kind": "style-law-clarity",
+      "what": "The held-gold breathing sheen is described as 'swelling in company, dulling in a shut box toward matte' (the-two-golds). The four-sight ration depends on this being a found-between-looks amplitude (a state), not an on-screen ramp (which would be a fifth sight). The reconciliation is stated everywhere but this one phrase invites a VFX builder to author a watched swell/decay.",
+      "fix": "Add one clause confirming the sheen's amplitude tracks company/box-state as a found-between-looks level (sampled on cuts/returns like all other non-sight change), never an animated ramp — so it stays a standing state and the four-sight budget holds.",
+      "raised_by": "panel-r1"
+    },
+    {
+      "severity": "P3",
+      "kind": "palette-lifecycle-ambiguity",
+      "what": "Asking palette (1.2) declares 'Red thread the only saturate' for lantern objects, while an accepted asking 'flushes a slow breathing-gold warmer as its season shortens' (1.2, and the-lantern-dark: 'ripeness as breathing-gold warmth'). An artist could read these as conflicting (may an asking show gold or not?). It resolves as a lifecycle — on-lantern asking = red-thread-only; accepted/on-pack asking = held-gold ripeness tell — but the transition is not stated explicitly at the palette line.",
+      "fix": "State the lifecycle inline: breathing-gold ripeness appears only once an asking is accepted and rides the pack (held regard); the un-accepted lantern object keeps red thread as its only saturate.",
+      "raised_by": "panel-r1"
+    },
+    {
+      "severity": "P3",
+      "kind": "canon-artifact-bookkeeping",
+      "what": "DECISIONS D-006 records that the synthesizer 'executed four renames' and lists the grammar-of-light slogan change ('places pale, people gleam, things wake') as rename #2, but WORLD.md §6 headers 'Three renames' and folds that slogan change into I-002 as a sub-item ('And the grammar-of-light slogan is harmonized to match'). Substance is identical and the slogan wording is consistent everywhere; only the count differs, which can trip a rename-reconciliation / canon-count scan.",
+      "fix": "Harmonize the count language — e.g. have §6 state the slogan harmonization is the fourth ratified change (sub-item of I-002) so 'four' matches D-006, or annotate D-006 that item 2 is a sub-item of the Paling rename.",
+      "raised_by": "panel-r2"
+    },
+    {
+      "severity": "P3",
+      "kind": "typo",
+      "what": "`the-shoulder-candle` 'this could become' reads 'the meter quantized diegitically in showing-height and market-width bands' — 'diegitically' is a misspelling of 'diegetically.'",
+      "fix": "Correct to 'diegetically.'",
+      "raised_by": "panel-r2"
+    }
+  ],
+  "resolutions": [
+    {
+      "id": "L6-P1-motion",
+      "verified_by": "independent-verifier + blind re-audit panel-r1/r2",
+      "evidence": "found-not-watched now defines a 'sight' as a discrete light-in-transit event and explicitly exempts the held breathing sheen (the-two-golds) and settling sway (the-settling-tilt) as standing surface properties, not sights: 'four discrete light-in-transit effects, plus two always-on surface states that never resolve because they never begin.' Verifier confirmed one coherent VFX rule; re-audit found no residual contradiction."
+    },
+    {
+      "id": "L6-P2-wash-count",
+      "verified_by": "orchestrator edit aligning prose to the audited law",
+      "evidence": "Reconciled §1.4/§1.1 to found-not-watched's four-sight law: '(§1.4) one lawful sight of the wash in motion — the re-making bloom, the single wash event in the four'; Quill-Vale Morning burst mapped to 'that same re-making bloom at landscape scale ... not a separate effect'; §1.1 peak-overflow cling annotated as 'the Moth Fair overflow, sight #2'. Canon scan clean; no element verdicts changed by the prose alignment."
+    },
+    {
+      "id": "L6-P2-twee",
+      "verified_by": "blind re-audit panel-r1/r2 (both trope:false on all 12; no twee P2 re-raised)",
+      "evidence": "Reviser regrounded 6/8 giving-lines to concrete occasion-bound craft instructions (capped 1 aphorism), added the mug-test voice-guard, and reseeded town/given-name samples toward opaque + craft-stock per the naming law's own mix. Re-audit raised no twee-drift issue."
+    }
+  ],
+  "summary": "Layer 6 (aesthetic_naming) — THE VISUAL MOTIF BIBLE + naming language + card voice. 12 named style-laws, all derived from locked L1-L5 physics (grammar of light, two persistences, transit-light restraint) rather than stock iconography. Executes I-016 (the-two-golds: fired=working-edge line, held=breathing sheen) and I-003 (the-work-names-of-things: nothing made is christened). Two declared anchors (named-from-things pigment-naming; the-giving-line gift-provenance flavor), share 0.17. Initial 3-auditor panel + 2-auditor blind re-audit after revise: trope 0/10 non-anchor, anchors 2/12, hooks & legible 12/12. P1 (found-not-watched vs the-two-golds light-in-motion contradiction) fixed and verified; residual P2 wash-count prose mismatch reconciled by orchestrator to the audited law; P2 twee-drift regrounded. Four sanctioned renames (D-006, user-ratified) executed and propagated; canon scan clean, world.html regenerated + re-pinned.",
+  "tokens_spent": 917690
+}

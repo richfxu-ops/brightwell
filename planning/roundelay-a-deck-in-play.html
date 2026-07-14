@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Roundelay — A Deck in Play</title>
+<style>
+  :root{
+    --bg:#f6f1e7; --panel:#fffdf8; --panel2:#fbf6ea; --ink:#2a2622; --muted:#6f6656;
+    --line:#e2d9c6; --gold:#b8862e; --flow:#2f8387; --gleam:#d9971f; --need:#b5552e;
+    --shadow:0 1px 2px rgba(60,45,20,.05),0 12px 36px rgba(60,45,20,.08);
+    --serif:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;
+    --sans:ui-sans-serif,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    --joinery:#a9702f; --thread:#3d7fb5; --song:#8a5cc0; --glaze:#3f8f8a; --dance:#bb4f86; --dough:#b79246;
+  }
+  @media (prefers-color-scheme:dark){:root{
+    --bg:#151920; --panel:#1e222b; --panel2:#242a35; --ink:#ece6d9; --muted:#a8a090;
+    --line:#2f3540; --gold:#e4bd6b; --flow:#5ec6cb; --gleam:#f2c65e; --need:#e0895e;
+    --shadow:0 1px 2px rgba(0,0,0,.3),0 14px 40px rgba(0,0,0,.45);
+    --joinery:#cf9a56; --thread:#77a8de; --song:#b088e0; --glaze:#5fb8b2; --dance:#dd7aa8; --dough:#d4b16a;
+  }}
+  :root[data-theme="dark"]{
+    --bg:#151920; --panel:#1e222b; --panel2:#242a35; --ink:#ece6d9; --muted:#a8a090;
+    --line:#2f3540; --gold:#e4bd6b; --flow:#5ec6cb; --gleam:#f2c65e; --need:#e0895e;
+    --shadow:0 1px 2px rgba(0,0,0,.3),0 14px 40px rgba(0,0,0,.45);
+    --joinery:#cf9a56; --thread:#77a8de; --song:#b088e0; --glaze:#5fb8b2; --dance:#dd7aa8; --dough:#d4b16a;
+  }
+  :root[data-theme="light"]{
+    --bg:#f6f1e7; --panel:#fffdf8; --panel2:#fbf6ea; --ink:#2a2622; --muted:#6f6656;
+    --line:#e2d9c6; --gold:#b8862e; --flow:#2f8387; --gleam:#d9971f; --need:#b5552e;
+    --shadow:0 1px 2px rgba(60,45,20,.05),0 12px 36px rgba(60,45,20,.08);
+    --joinery:#a9702f; --thread:#3d7fb5; --song:#8a5cc0; --glaze:#3f8f8a; --dance:#bb4f86; --dough:#b79246;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:18px;line-height:1.6;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:960px;margin:0 auto;padding:34px 22px 90px}
+  .nav{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;font-size:15px;margin-bottom:24px}
+  .nav a{color:var(--muted);text-decoration:none;border:1px solid var(--line);background:var(--panel);padding:7px 15px;border-radius:999px;box-shadow:var(--shadow)}
+  .nav a:hover{color:var(--gold);border-color:var(--gold)}
+  header{text-align:center;margin-bottom:8px}
+  .kick{letter-spacing:.24em;text-transform:uppercase;font-size:13px;color:var(--muted);margin-bottom:10px}
+  h1{font-family:var(--serif);font-weight:600;font-size:clamp(30px,5.5vw,46px);margin:0;line-height:1.1;
+     background:linear-gradient(180deg,var(--ink),var(--gold));-webkit-background-clip:text;background-clip:text;color:transparent}
+  .sub{font-family:var(--serif);font-style:italic;color:var(--muted);font-size:clamp(17px,2.5vw,21px);margin:12px auto 0;max-width:40ch}
+  .note{background:var(--panel);border:1px dashed var(--gold);border-radius:14px;padding:12px 18px;margin:20px auto 0;max-width:720px;text-align:center;font-size:15px;color:var(--muted)}
+  .note b{color:var(--gold)}
+
+  .sec{font-family:var(--serif);font-size:14px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);font-weight:600;margin:46px 4px 4px;text-align:center}
+  .sech{font-family:var(--serif);font-size:clamp(23px,4vw,30px);font-weight:600;text-align:center;margin:2px 4px 8px}
+  .lead{text-align:center;max-width:64ch;margin:0 auto 20px;color:var(--muted);font-size:17px}
+
+  /* deck */
+  .decklabel{font-family:var(--serif);font-size:15px;color:var(--muted);margin:18px 2px 8px;font-style:italic}
+  .deck{display:grid;grid-template-columns:repeat(auto-fill,minmax(212px,1fr));gap:12px}
+  .c{background:var(--panel);border:1px solid var(--line);border-top:5px solid var(--gr,var(--gold));border-radius:13px;
+     padding:12px 14px;box-shadow:var(--shadow);display:flex;flex-direction:column;min-height:132px}
+  .c .cn{font-family:var(--serif);font-size:17px;font-weight:600;line-height:1.2}
+  .c .meta{display:flex;gap:6px;flex-wrap:wrap;margin:7px 0 8px}
+  .pip{font-size:11px;font-weight:700;letter-spacing:.02em;padding:2px 7px;border-radius:999px;background:var(--panel2);border:1px solid var(--line);color:var(--muted)}
+  .pip.g{color:var(--gr)}
+  .c .eff{font-size:13.5px;color:var(--muted);line-height:1.45;margin-top:auto}
+  .c .role{font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--gr);font-weight:700;margin-bottom:3px}
+
+  /* walkthrough */
+  .board{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;position:sticky;top:0;z-index:5;
+         background:var(--bg);padding:14px 0 10px;margin-bottom:6px}
+  .stat{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:8px 16px;box-shadow:var(--shadow);text-align:center;min-width:120px}
+  .stat .l{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+  .stat .v{font-family:var(--serif);font-size:26px;font-weight:700;line-height:1.1}
+  .stat.room .v{color:var(--flow)} .stat.need .v{color:var(--need)} .stat.stand .v{color:var(--gleam)} .stat.fired .v{color:var(--joinery)}
+
+  .play{background:var(--panel);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow);padding:16px 20px;margin:12px 0;display:flex;gap:16px;align-items:flex-start}
+  .play .step{width:34px;height:34px;border-radius:50%;background:var(--gold);color:var(--bg);font-family:var(--serif);font-weight:700;font-size:18px;display:flex;align-items:center;justify-content:center;flex:0 0 auto;margin-top:2px}
+  .play .step.dawn{background:var(--flow)} .play .step.win{background:var(--need)}
+  .play h4{margin:0 0 4px;font-family:var(--serif);font-size:19px}
+  .play h4 .cardname{color:var(--joinery)}
+  .play p{margin:0;font-size:16px;color:var(--muted)}
+  .play .delta{margin-top:8px;display:flex;gap:8px;flex-wrap:wrap;font-size:13.5px}
+  .tag{padding:3px 10px;border-radius:999px;font-weight:600;border:1px solid var(--line);background:var(--panel2)}
+  .tag.room{color:var(--flow)} .tag.stand{color:var(--gleam)} .tag.need{color:var(--need)} .tag.wake{color:var(--joinery)} .tag.chain{color:var(--muted)}
+
+  .snow{background:var(--panel);border:1px solid var(--line);border-radius:18px;box-shadow:var(--shadow);padding:22px 24px;margin-top:22px}
+  .snowrow{display:grid;grid-template-columns:120px 1fr 60px;gap:12px;align-items:center;margin:9px 0;font-size:15px}
+  .snowrow .leg{color:var(--muted)}
+  .bar{height:20px;border-radius:6px;background:var(--line);overflow:hidden}
+  .bar i{display:block;height:100%;background:var(--joinery);border-radius:6px}
+  .snowrow .cap{color:var(--flow);font-weight:600;font-size:13px}
+
+  .big{background:var(--panel);border:1px solid var(--line);border-radius:18px;box-shadow:var(--shadow);padding:22px 26px;margin-top:26px;font-family:var(--serif);font-size:clamp(18px,2.5vw,22px);line-height:1.5;text-align:center}
+  .big b{color:var(--gold)}
+  footer{text-align:center;color:var(--muted);font-size:14px;margin-top:30px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <nav class="nav">
+    <a href="roundelay-how-it-works.html">← How it works</a>
+    <a href="roundelay-the-six-ways.html">The six Ways</a>
+    <a href="roundelay-gdd.html">Full design doc</a>
+  </nav>
+
+  <header>
+    <div class="kick">Roundelay · a deck in play</div>
+    <h1>The Kilnfast starter deck</h1>
+    <p class="sub">Twelve cards, and one morning watched all the way through.</p>
+  </header>
+  <div class="note">We're playing <b>the Kilnfast</b> — the patient snowball. Numbers here are <b>illustrative</b> (the exact tuning is what the balance stage decides), but the moves are the real cards and the shapes are real.</div>
+
+  <!-- THE DECK -->
+  <div class="sec">Step one</div>
+  <div class="sech">The deck — 12 cards</div>
+  <p class="lead">Every run opens with 7 plain <b>apprentice</b> cards everyone shares, plus your Way's 5 signature cards. The Kilnfast's five are all <span style="color:var(--joinery);font-weight:600">joinery</span> (woodwork) — because its trick is stacking one craft so every piece feeds the next.</p>
+
+  <div class="decklabel">— the 7 shared apprentice cards —</div>
+  <div class="deck">
+    <div class="c" style="--gr:var(--joinery)"><div class="cn">Prentice Trestle</div><div class="meta"><span class="pip g">joinery</span><span class="pip">wake 1</span><span class="pip">ceil 2</span></div><div class="eff">Gather a small crowd — one for each joinery piece already in play.</div></div>
+    <div class="c" style="--gr:var(--joinery)"><div class="cn">The Bench-Blank</div><div class="meta"><span class="pip g">joinery</span><span class="pip">wake 1</span><span class="pip">ceil 2</span></div><div class="eff">Add a link to your chain, so a pause won't cool the room.</div></div>
+    <div class="c" style="--gr:var(--thread)"><div class="cn">Prentice Skein</div><div class="meta"><span class="pip g">thread</span><span class="pip">wake 1</span><span class="pip">ceil 2</span></div><div class="eff">Gather a crowd — one for each thread piece you've woken before.</div></div>
+    <div class="c" style="--gr:var(--dough)"><div class="cn">Prentice Loaf</div><div class="meta"><span class="pip g">dough</span><span class="pip">wake 1</span><span class="pip">ceil 2</span></div><div class="eff">A plain piece: just +1 delight. No combo — your safe baseline.</div></div>
+    <div class="c" style="--gr:var(--song)"><div class="cn">A Prentice Air</div><div class="meta"><span class="pip g">song</span><span class="pip">wake 2</span><span class="pip">ceil 3</span></div><div class="eff">Stays fresh one extra season. No combo — a gentle hold.</div></div>
+    <div class="c" style="--gr:var(--glaze)"><div class="cn">Prentice Wash</div><div class="meta"><span class="pip g">glaze</span><span class="pip">wake 2</span><span class="pip">ceil 3</span></div><div class="eff">Gather a crowd — one for each glaze piece in play.</div></div>
+    <div class="c" style="--gr:var(--dance)"><div class="cn">Prentice Step</div><div class="meta"><span class="pip g">dance</span><span class="pip">wake 2</span><span class="pip">ceil 3</span></div><div class="eff">Brace your chain against a stall.</div></div>
+  </div>
+
+  <div class="decklabel">— the 5 Kilnfast signature cards (all joinery) —</div>
+  <div class="deck">
+    <div class="c" style="--gr:var(--joinery)"><div class="role">the engine · C1</div><div class="cn">Setterby Trestle</div><div class="meta"><span class="pip g">joinery</span><span class="pip">wake 3</span><span class="pip">ceil 5</span><span class="pip">delight 2</span></div><div class="eff">Gather a crowd equal to <b>every joinery piece you fired on past mornings</b>, and start a chain. This is the snowball.</div></div>
+    <div class="c" style="--gr:var(--joinery)"><div class="role">the pointer · C2</div><div class="cn">Calipers at the Bench</div><div class="meta"><span class="pip g">joinery</span><span class="pip">wake 3</span><span class="pip">ceil 5</span><span class="pip">delight 2</span></div><div class="eff">Pour the room onto your capstone-in-waiting, and stamp a spare card <b>“joinery”</b> so it counts too.</div></div>
+    <div class="c" style="--gr:var(--joinery)"><div class="role">the payoff · C3 · capstone</div><div class="cn">The Fired Beam</div><div class="meta"><span class="pip g">joinery</span><span class="pip">wake 7</span><span class="pip">ceil 8</span><span class="pip">delight 3</span></div><div class="eff">Pour the whole room onto it to wake; then <b>fill the need by your joinery count.</b> Wakes into your deck forever.</div></div>
+    <div class="c" style="--gr:var(--joinery)"><div class="role">support</div><div class="cn">The Dovetail Draw</div><div class="meta"><span class="pip g">joinery</span><span class="pip">wake 3</span><span class="pip">ceil 5</span></div><div class="eff">Search your deck for the joinery piece you need, and add a chain link.</div></div>
+    <div class="c" style="--gr:var(--joinery)"><div class="role">support</div><div class="cn">The Jointer's Rally</div><div class="meta"><span class="pip g">joinery</span><span class="pip">wake 4</span><span class="pip">ceil 6</span></div><div class="eff">Gather by your joinery count; add a link when it wakes.</div></div>
+  </div>
+
+  <!-- THE MORNING -->
+  <div class="sec">Step two</div>
+  <div class="sech">One morning, played out</div>
+  <p class="lead">It's <b>Deep Gold</b> (late summer, mid-run). You've been at it a while, so you've already fired <b>4 joinery pieces</b> on past mornings — they show up today as a standing crowd. The town's lantern asks for a <b>need of 4</b>. Watch the <span style="color:var(--flow);font-weight:600">room</span>.</p>
+
+  <div class="board">
+    <div class="stat room"><div class="l">🔦 room</div><div class="v" id="s-room">3</div></div>
+    <div class="stat fired"><div class="l">🪵 fired joinery</div><div class="v">4</div></div>
+    <div class="stat need"><div class="l">🎯 need</div><div class="v">4</div></div>
+    <div class="stat stand"><div class="l">✦ Standing</div><div class="v">6</div></div>
+  </div>
+
+  <div class="play"><div class="step dawn">☀</div><div>
+    <h4>Dawn — the morning issues attention</h4>
+    <p>A flat base of 2 + a draw from this pale town's table (2) fills your pool. You draw a hand of five: Setterby Trestle, The Bench-Blank, Calipers at the Bench, The Fired Beam, and The Dovetail Draw.</p>
+    <div class="delta"><span class="tag room">room → 3</span></div>
+  </div></div>
+
+  <div class="play"><div class="step">1</div><div>
+    <h4>Play <span class="cardname">Setterby Trestle</span> — call your standing crowd</h4>
+    <p>It gathers a crowd equal to every joinery you've fired before — that's <b>4</b>. Your room jumps. It also starts your chain (link 1).</p>
+    <div class="delta"><span class="tag room">room 3 → 7</span><span class="tag chain">chain: 1 link</span></div>
+  </div></div>
+
+  <div class="play"><div class="step">2</div><div>
+    <h4>Play <span class="cardname">The Bench-Blank</span> — hold the room</h4>
+    <p>Add a chain link so the setup pause won't let the crowd drift away. The room stays full.</p>
+    <div class="delta"><span class="tag room">room = 7</span><span class="tag chain">chain: 2 links</span></div>
+  </div></div>
+
+  <div class="play"><div class="step">3</div><div>
+    <h4>Play <span class="cardname">Calipers at the Bench</span> — aim the capstone</h4>
+    <p>Pour <b>4</b> of the room onto The Fired Beam sitting in your hand (it now holds 4 — not yet its wake-mark of 7). And stamp a spare card <b>“joinery,”</b> so your joinery count for the fill ticks up to <b>5</b>.</p>
+    <div class="delta"><span class="tag room">room 7 → 3</span><span class="tag wake">Fired Beam: 4 / 7</span><span class="tag wake">joinery count → 5</span></div>
+  </div></div>
+
+  <div class="play"><div class="step win">4</div><div>
+    <h4>Play <span class="cardname">The Fired Beam</span> — the payoff</h4>
+    <p>Pour the rest of the room (3) onto it, multiplied by your 2-link chain (+2) = <b>+5</b>. The Beam now holds <b>9</b>.</p>
+    <p style="margin-top:8px">→ 9 is past its wake-mark of 7, so it <b style="color:var(--joinery)">WAKES ✦</b> — fired into your deck forever, and it seats as your <b>5th</b> joinery in the crowd.<br>
+    → 9 is <b>1 past</b> its ceiling of 8, so that <b style="color:var(--gleam)">1 overflows to Standing</b>.<br>
+    → On waking it <b>fills the need by your joinery count (5)</b> — the need was 4, so it's <b style="color:var(--need)">cleared with 1 to spare</b>. The town blooms back into colour and pays you a taught card, bright coins, and a map hint.</p>
+    <div class="delta"><span class="tag wake">Beam 9/7 → woken</span><span class="tag stand">Standing 6 → 7</span><span class="tag need">need 4 → filled (5)</span></div>
+  </div></div>
+
+  <div class="big">
+    Notice what did the work: <b>the 4 pieces you fired on earlier mornings.</b><br>
+    They were today's crowd — and you just fired a 5th. Tomorrow starts even bigger.
+  </div>
+
+  <!-- SNOWBALL -->
+  <div class="sec">Why it wins</div>
+  <div class="sech">The same deck, getting stronger every day</div>
+  <p class="lead">The Kilnfast barely changes its cards — it just accumulates fired joinery, and each one makes the room a little bigger. Early on you can only wake small pieces; by autumn your <em>ordinary</em> morning wakes the capstone. That rising floor is the whole strategy.</p>
+  <div class="snow">
+    <div class="snowrow"><span class="leg">Green Going</span><div class="bar"><i style="width:12%"></i></div><span class="cap">room ~3</span></div>
+    <div class="snowrow"><span class="leg">Long Light</span><div class="bar"><i style="width:32%"></i></div><span class="cap">room ~5</span></div>
+    <div class="snowrow"><span class="leg">Deep Gold</span><div class="bar"><i style="width:58%"></i></div><span class="cap">room ~7 ✦</span></div>
+    <div class="snowrow"><span class="leg">Red Walk</span><div class="bar"><i style="width:82%"></i></div><span class="cap">room ~9</span></div>
+    <div class="snowrow"><span class="leg">the Crown</span><div class="bar"><i style="width:100%"></i></div><span class="cap">towers over it</span></div>
+  </div>
+  <p class="lead" style="margin-top:16px">Bar = fired joinery pieces (your standing crowd). It never shrinks — so your worst morning next week beats your best morning today. That's how a deck that never spikes still out-scales the winter boss.</p>
+
+  <div class="big">
+    A different Way would play the very same rules to a different tune —<br>
+    the <b>Fairwrights</b> would hoard all that room for one giant turn; the <b>Untold</b> would clear four tiny needs instead of one big one.
+  </div>
+
+  <footer>Roundelay · the Kilnfast starter deck, watched through one morning · cards from the design's starter pool</footer>
+</div>
+
+<script>
+  // tiny touch: animate the room counter as you scroll through the plays (illustrative)
+  (function(){
+    var el=document.getElementById('s-room');
+    var seq=[{y:0,v:3},{y:1,v:7},{y:2,v:7},{y:3,v:3},{y:4,v:0}];
+    var plays=document.querySelectorAll('.play');
+    function upd(){
+      var mid=window.innerHeight*0.4, best=0;
+      plays.forEach(function(p,i){ if(p.getBoundingClientRect().top<mid) best=i; });
+      var v=seq[Math.min(best,seq.length-1)].v;
+      if(el.textContent!=String(v)) el.textContent=v;
+    }
+    window.addEventListener('scroll',upd,{passive:true}); upd();
+  })();
+</script>
+</body>
+</html>

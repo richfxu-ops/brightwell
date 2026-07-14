@@ -1,0 +1,345 @@
+{
+  "next_id": 35,
+  "issues": [
+    {
+      "id": "I-001",
+      "layer": 1,
+      "status": "open",
+      "severity": "P3",
+      "kind": "deferred-proof-I022",
+      "what": "Count/pace claim (Untold tonnage-light variant) asserted; numeric equivalence deferred to game-architect (D-005.3 / I-022).",
+      "fix": "BINDING downstream: game-architect shows count/pace matches size-escalation via napkin, or clamp.",
+      "raised_by": "blind-panel-1"
+    },
+    {
+      "id": "I-002",
+      "layer": 1,
+      "status": "open",
+      "severity": "P3",
+      "kind": "spatial-tension",
+      "what": "Travel is free of calendar and Standing cost; dawn-scarcity not geography is the real constraint, weakening route tension.",
+      "fix": "Confirm with L5 geography; if spatial friction wanted, gate repositioning.",
+      "raised_by": "blind-panel-1"
+    },
+    {
+      "id": "I-003",
+      "layer": 1,
+      "status": "open",
+      "severity": "P3",
+      "kind": "naming-register-drift",
+      "what": "'the-two-filter-lantern' and 'escalation-is-the-weather' read as engineer-speak in an otherwise diegetic id set.",
+      "fix": "Cosmetic: consider a diegetic label. Non-blocking.",
+      "raised_by": "blind-panel-2"
+    },
+    {
+      "id": "I-004",
+      "layer": 2,
+      "status": "open",
+      "severity": "P2",
+      "kind": "grammar-of-light-inconsistency",
+      "what": "§3 transfer table asserts 'gleam->board never happens', but §1 R3-sink and §4 have spilled gleam re-color the node as lane-glimmers (a lossy board residue) — matching locked L1 §4 the-spilling and WORLD.md mint-ban ('a glimmer returns what was spilled less the loss'). The §3 wording overstates and contradicts §1/§4.",
+      "fix": "Soften §3 to: gleam is never spent/converted cleanly to the board; a spill leaks a LOSSY residue (most regard destroyed) that composts onto the node — consistent with §1/§4 and the mint-ban.",
+      "raised_by": "blind-panel-1"
+    },
+    {
+      "id": "I-005",
+      "layer": 2,
+      "status": "open",
+      "severity": "P2",
+      "kind": "over-categorical-claim",
+      "what": "§5(a) states categorically 'handsels can't buy proud/courted stock (courting is gleam-gated + play-gated)'. True for proud stock, but handsels DO buy jars/taught-pieces/apprentice-stuffs/hearth-goods — the categorical phrasing reads as broader than intended.",
+      "fix": "Scope §5(a) explicitly: handsels never buy PROUD/courted stock (two-gated); they do buy the introduction-jars/taught-pieces/apprentice tier.",
+      "raised_by": "blind-panel-2"
+    },
+    {
+      "id": "I-006",
+      "layer": 2,
+      "status": "open",
+      "severity": "P2",
+      "kind": "gleam-couples-widely",
+      "what": "Standing (gleam) touches more systems than any other resource (gates Courting Web, sizes lantern tier, is the fail-resource). Advisory: coupling breadth is not output-dominance (gleam is never-spent), and the napkin's no_dominant_resource check tests actual output share — but flag for game-loop to confirm gleam-centrality does not flatten build diversity.",
+      "fix": "game-loop confirms gleam-centrality does not make all builds gleam-first; if it does, distribute some gating to other resources.",
+      "raised_by": "blind-panel-3"
+    },
+    {
+      "id": "I-007",
+      "layer": 2,
+      "status": "open",
+      "severity": "P3",
+      "kind": "numeric-deferral",
+      "what": "Three carried napkin obligations remain numeric-only for L6/game-loop: glad-price brightening-per-trade bounded below its cost (I-044); last-red+red-thread double-tool sizing (I-045); Untold count-and-pace escalation (I-022).",
+      "fix": "Discharge with exact numbers in numbers_curves (L6) / game-loop per D-005.3.",
+      "raised_by": "synthesizer+panels"
+    },
+    {
+      "id": "I-008",
+      "layer": 3,
+      "status": "open",
+      "severity": "P2",
+      "kind": "naming-collision",
+      "what": "primitive verb `crown` collides with LOCKED `the-rising-crown` (finale).",
+      "fix": "Rename verb -> brim. Apply at lock.",
+      "raised_by": "blind-panel-1/2/3"
+    },
+    {
+      "id": "I-009",
+      "layer": 3,
+      "status": "open",
+      "severity": "P2",
+      "kind": "locked-cap-tension",
+      "what": "`crown`/brim widens the anti-snowball soft-cap L1 locked.",
+      "fix": "Band only reduces diminishing penalty, never exceeds full-rate overkill; ceiling to game-loop.",
+      "raised_by": "blind-panel-2"
+    },
+    {
+      "id": "I-010",
+      "layer": 3,
+      "status": "open",
+      "severity": "P2",
+      "kind": "engineer-speak",
+      "what": "`read` flagged engineer-speak by 2/3.",
+      "fix": "State read is amount-syntax (per/by), never printed; add overkill source.",
+      "raised_by": "blind-panel-1/3"
+    },
+    {
+      "id": "I-011",
+      "layer": 3,
+      "status": "open",
+      "severity": "P3",
+      "kind": "redundant-primitive",
+      "what": "`warm` duplicates woken_delight stat.",
+      "fix": "Keep as no-combo baseline; drop metric rationale.",
+      "raised_by": "blind-panel-1/3"
+    },
+    {
+      "id": "I-012",
+      "layer": 3,
+      "status": "open",
+      "severity": "P3",
+      "kind": "canon-cap-ambiguity",
+      "what": "`soothe.amount` vs L2 last-red cap unstated.",
+      "fix": "State single once-per-season single-node within the cap.",
+      "raised_by": "blind-panel-3"
+    },
+    {
+      "id": "I-013",
+      "layer": 3,
+      "status": "open",
+      "severity": "P2",
+      "kind": "stale-canon-term",
+      "what": "terms.json still has `the-road-forgets`.",
+      "fix": "Delete from terms.json.",
+      "raised_by": "synthesizer"
+    },
+    {
+      "id": "I-014",
+      "layer": 4,
+      "status": "open",
+      "severity": "P2",
+      "kind": "glad-load-centrality",
+      "what": "All 3 auditors flag the glad-load bundle (taught piece + introduction-jar + bright handsels + intel, all from answering an asking) as the 'single richest flow' / 'passive spine' (~54% of card-power). The napkin's no_dominant_source check PASSED (glad-load is calendar-capped, can't stand the crown alone, >=3 independent doors every run), so it is central-but-bounded, not dominant.",
+      "fix": "game-loop confirms glad-load centrality does not flatten build diversity or make answer-everything the only viable line; if it does, redistribute richness to the active doors (Fair draft, courting, gleaning).",
+      "raised_by": "blind-panel-1/2/3"
+    },
+    {
+      "id": "I-015",
+      "layer": 4,
+      "status": "open",
+      "severity": "P2",
+      "kind": "deck-curve-accounting",
+      "what": "The §2/§3 on-curve prose arithmetic budgets influx as ~1 taught piece/asking + a bounded Fair burst, omitting P4 (masters)/P5 (bench)/P7 (crown) from the written budget — though the napkin models the full arc and passed deck_growth_on_curve.",
+      "fix": "Complete the §2/§3 prose budget to include P4/P5/P7 (the napkin already accounts for them); non-blocking.",
+      "raised_by": "blind-panel-1"
+    },
+    {
+      "id": "I-016",
+      "layer": 4,
+      "status": "open",
+      "severity": "P3",
+      "kind": "register-vocabulary",
+      "what": "the-courting-market (M1) and 'Paling Market' use 'market', which WORLD.md:723 bans as a diegetic metaphor for gift/courtship scenes.",
+      "fix": "L6 renders M1 diegetically (the-courting / the-vouching / the-stalls-that-lean-in), never an in-world 'market'. No mechanical change.",
+      "raised_by": "world-coherence critic + blind-panel-3"
+    },
+    {
+      "id": "I-017",
+      "layer": 4,
+      "status": "open",
+      "severity": "P3",
+      "kind": "inert-framing-overstatement",
+      "what": "§0/the-inert-delivery assert categorically that EVERY acquired piece enters inert and paling-prone; a couple of sources (first-gift, some hearth upgrades) may be edge cases to the absolute.",
+      "fix": "Soften the absolute or enumerate the exceptions; non-blocking.",
+      "raised_by": "blind-panel-1/2/3"
+    },
+    {
+      "id": "I-018",
+      "layer": 4,
+      "status": "open",
+      "severity": "P2",
+      "kind": "numeric-bounds-deferred",
+      "what": "Executable coefficients (taught-tier curve, thinning rate vs crown curve, glad-price brightening < tempo cost, Fair k/N + intercept freq, waking-capacity-per-turn < difficulty-per-ring, retire residual curve) are structural not yet numerically fit.",
+      "fix": "game-loop fits and simulates these; the structural shapes are committed in L4 §5 and must hold under tuning (D-005.3/I-022).",
+      "raised_by": "degenerate-economy critic"
+    },
+    {
+      "id": "I-019",
+      "layer": 5,
+      "status": "open",
+      "severity": "P2",
+      "kind": "capstone-homogeneity",
+      "what": "4 of 6 archetypes (Kilnfast/Untold/Mannerly/Gleaners) share the 'fill read(grain:<suit>)' capstone idiom + a false 'only one' uniqueness claim in §3. Distinct in fuel/resource/risk (not palette-swaps) but the winning moment reads alike for four.",
+      "fix": "Differentiation pass at lock: give >=2 capstones a distinct winning verb (Gleaner->soothe, Mannerly->court); delete the false claim.",
+      "raised_by": "blind-panel-2/3"
+    },
+    {
+      "id": "I-020",
+      "layer": 5,
+      "status": "open",
+      "severity": "P2",
+      "kind": "balance-asserted-not-derived",
+      "what": "Non-domination/viability/power-band rest on hand-authored ordinal vectors (napkins are shape-checks). Crown-stand spread .70-.99. Gleaners top-of-band + boss-affine to watch.",
+      "fix": "game-loop derives balance from card-level bot sim; structural shapes committed here (D-005.3).",
+      "raised_by": "blind-panel-1/2/3"
+    },
+    {
+      "id": "I-021",
+      "layer": 5,
+      "status": "open",
+      "severity": "P3",
+      "kind": "i022-match-calibrated",
+      "what": "Untold mid-run 'match' is calibrated not derived; load-bearing legs are FORCING (spiral-clock) + CROWN CLAMP. §2d citation typo A5->A3.",
+      "fix": "Reframe §2a/b as calibration target; fix A5->A3 at lock.",
+      "raised_by": "blind-panel-1/2/3"
+    },
+    {
+      "id": "I-022",
+      "layer": 5,
+      "status": "open",
+      "severity": "P3",
+      "kind": "l3-grammar-drift",
+      "what": "Fairwright C1 read(woken:*) wildcard and Mannerly C2 court-reads-chain not in enumerated locked-L3 grammar.",
+      "fix": "Restate within locked L3 surfaces at lock.",
+      "raised_by": "blind-panel-2/3"
+    },
+    {
+      "id": "I-023",
+      "layer": 5,
+      "status": "open",
+      "severity": "P3",
+      "kind": "depth-overclaim",
+      "what": "Kilnfast/Untold labeled depth-4 but 3 distinct card types (4th is cross-turn/one-shot accumulation). Min=3 regardless.",
+      "fix": "Relabel '3 distinct + accumulation loop'.",
+      "raised_by": "blind-panel-1/2/3"
+    },
+    {
+      "id": "I-024",
+      "layer": 5,
+      "status": "open",
+      "severity": "P3",
+      "kind": "vestigial-mark-grain",
+      "what": "Kilnfast/Fairwright C2 mark-grain stamps same-grain capstone (no-op).",
+      "fix": "Cross-suit or drop at lock.",
+      "raised_by": "blind-panel-1/2"
+    },
+    {
+      "id": "I-025",
+      "layer": 5,
+      "status": "open",
+      "severity": "P3",
+      "kind": "i017-traceability",
+      "what": "I-017 elevation one-liner (D-005.2) not visible in L5-archetypes section (run/geo lives in L1 dawn mechanic).",
+      "fix": "Confirm discharged in L1 dawn-income or add; non-blocking.",
+      "raised_by": "blind-panel-1"
+    },
+    {
+      "id": "I-026",
+      "layer": 6,
+      "status": "open",
+      "severity": "P3",
+      "kind": "decisions-floor-vs-median",
+      "what": "The >=3 decisions_per_turn gate is met on the MEDIAN (=4); the thinnest Green-Going mornings honestly afford 2 (play-subset + route only; chain-order activates ~Deep Gold, reach-vs-safe when room>ceiling+2). The napkin asserts the median, not a per-morning minimum.",
+      "fix": "Documented in GDD L6 sec8/sec9 as median-based; the home-note seat + guaranteed >=2 answerable needs keep the floor at 2 and the median at 4. game-loop confirms the felt agency of thin early mornings.",
+      "raised_by": "blind-panel-1/2/3"
+    },
+    {
+      "id": "I-027",
+      "layer": 6,
+      "status": "open",
+      "severity": "P2",
+      "kind": "numbers-asserted-not-derived",
+      "what": "The fitted coefficients (dawn/room curve, per-tier marks/fills, axis magnitudes, crown magnitudes .70-.99 stand-rates, Untold count/clamp, I-044/045/018 bounds, retire residual) satisfy the napkin SHAPE-checks over hand-authored vectors; the exact balance is asserted, not derived from card-level simulation.",
+      "fix": "game-loop derives the exact coefficients from bot sims and tunes within the shapes committed here (D-005.3); the napkin fixes the shape the tuning must preserve.",
+      "raised_by": "blind-panel-1/2/3"
+    },
+    {
+      "id": "I-028",
+      "layer": 6,
+      "status": "open",
+      "severity": "P3",
+      "kind": "deferred-obligations-fitted",
+      "what": "I-044 (glad-price 0.5<tempo 2), I-045 (soothe min(rings,2) capped 1/node/season + red-thread <=1 unlock/run), I-022 (UNTOLD_COUNT + D=1.5, clamp 8.5/6->10.2), I-018 (Dcap<=0.3 < Ddiff 1.0*s, >=3.3x margin; dawn 0.5/ring), retire-residual (cycle net-negative), Fair k=2/N=5 — all now carry concrete numbers.",
+      "fix": "game-loop fits and simulates the exact values; the structural inequalities are committed in L6 and must hold under tuning.",
+      "raised_by": "synthesizer+panels"
+    },
+    {
+      "id": "I-029",
+      "layer": 7,
+      "status": "open",
+      "severity": "P3",
+      "kind": "grain-reader-writer-pairing",
+      "what": "A few cards read grain:<suit> (e.g. grain:glaze/song) whose count is grown mainly by naturally-suited pieces in play rather than an explicit mark-grain writer of that exact suit; participants via room/chain regardless.",
+      "fix": "game-loop confirms each mark-grain suit has a live reader and each grain-read has a writer; cosmetic, non-blocking.",
+      "raised_by": "critic+panel"
+    },
+    {
+      "id": "I-030",
+      "layer": 7,
+      "status": "open",
+      "severity": "P2",
+      "kind": "balance-of-pool-to-game-loop",
+      "what": "The starter pool realizes the L5 chains + L6 numbers; whether the six starter decks are balanced in actual play (win-rate, combo reliability) is asserted structurally, not simulated.",
+      "fix": "game-loop derives per-archetype balance from bot sims over this pool and tunes card numbers within the locked shapes (D-005.3).",
+      "raised_by": "blind-panel"
+    },
+    {
+      "id": "I-031",
+      "layer": 7,
+      "status": "open",
+      "severity": "P3",
+      "kind": "grain-reader-writer-pairing",
+      "what": "A few cards read grain:<suit> (e.g. grain:glaze/song) whose count is grown mainly by naturally-suited pieces in play rather than an explicit mark-grain writer of that exact suit; participants via room/chain regardless.",
+      "fix": "game-loop confirms each mark-grain suit has a live reader and each grain-read has a writer; cosmetic, non-blocking.",
+      "raised_by": "critic+panel"
+    },
+    {
+      "id": "I-032",
+      "layer": 7,
+      "status": "open",
+      "severity": "P2",
+      "kind": "balance-of-pool-to-game-loop",
+      "what": "The starter pool realizes the L5 chains + L6 numbers; whether the six starter decks are balanced in actual play (win-rate, combo reliability) is asserted structurally, not simulated.",
+      "fix": "game-loop derives per-archetype balance from bot sims over this pool and tunes card numbers within the locked shapes (D-005.3).",
+      "raised_by": "blind-panel"
+    },
+    {
+      "id": "I-033",
+      "layer": 7,
+      "status": "open",
+      "severity": "P3",
+      "kind": "grain-reader-writer-pairing",
+      "what": "A few cards read grain:<suit> (e.g. grain:glaze/song) whose count is grown mainly by naturally-suited pieces in play rather than an explicit mark-grain writer of that exact suit; participants via room/chain regardless.",
+      "fix": "game-loop confirms each mark-grain suit has a live reader and each grain-read has a writer; cosmetic, non-blocking.",
+      "raised_by": "critic+panel"
+    },
+    {
+      "id": "I-034",
+      "layer": 7,
+      "status": "open",
+      "severity": "P2",
+      "kind": "balance-of-pool-to-game-loop",
+      "what": "The starter pool realizes the L5 chains + L6 numbers; whether the six starter decks are balanced in actual play (win-rate, combo reliability) is asserted structurally, not simulated.",
+      "fix": "game-loop derives per-archetype balance from bot sims over this pool and tunes card numbers within the locked shapes (D-005.3).",
+      "raised_by": "blind-panel"
+    }
+  ]
+}

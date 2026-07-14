@@ -1,0 +1,52 @@
+# Architecture — Roundelay
+
+> How the repo is organized and how to work it. Keep commands accurate — mark anything unverified as TODO.
+
+## Stack
+
+- **TypeScript** — the game engine (`src/engine/`). Only `vocabulary.ts` exists so far; no toolchain (package.json, tsconfig) is set up yet.
+- **JSON as content format** — all cards, contracts, and design-seam data are declarative JSON.
+- **Python 3** — the design pipeline's napkin simulations (`design/napkin/*.py`) and one-off HTML build scripts. Pipeline-era tooling, not part of the game itself.
+
+## Repo structure
+
+- `src/engine/` — the rules engine. `vocabulary.ts` holds the 14 locked effect primitives as typed data; `effects.ts` (to be written in M3) implements a resolver per primitive.
+- `src/content/cards/` — starter pool as data: one JSON per archetype (`kilnfast`, `eveners`, `untold`, `fairwrights`, `mannerly`, `gleaners`) plus `shared.json` and the combined `starter-pool.json`.
+- `src/content/contracts/` — `tiers.json`: per-tier contract (asking) numbers.
+- `design/` — the game-architect pipeline's machine state: `vocabulary.json` (canonical primitive definitions — source of truth for `vocabulary.ts`), `round_metrics.json` (57 telemetry keys the sim must emit), `state.json`/`config.json`/`layers/` (layer lock records), `napkin/` (executable balance checks).
+- `world/` — the world-architect pipeline's machine state (stage 1 equivalent of `design/`).
+- `planning/` — project docs + task dashboard: `PLAN.md`, `TASKS.md`, `DECISIONS.md`, this file, plus the locked design docs (`GDD.md`, `WORLD.md`, `terms.json`, `ledger.json`) and rendered HTML views (`world.html`, `roundelay-*.html`).
+- `HANDOFF.md` — the stage-2 pipeline handoff/resume document (historical context; stage 2 is now complete).
+- `scratchpad/` — throwaway scripts.
+
+## Modules / components
+
+- **Vocabulary (exists):** `src/engine/vocabulary.ts` + `design/vocabulary.json` — the closed set of 14 effect primitives, read-sources, triggers, play-events, and the cross-channel firewall (writers may bind only to `PLAY_EVENTS`). Cards never bypass this.
+- **Effects resolver (M3, planned):** `src/engine/effects.ts` — one resolver per primitive; deterministic, pure state-in/state-out so bots and sims can drive it.
+- **Content (exists):** `src/content/` — cards and contract tiers as data over the vocabulary. Generated at DESIGN_COMPLETE from GDD layers 6–7.
+- **Simulation harness (M3, planned):** bot players + runner emitting the `round_metrics.json` telemetry keys; feeds M4 balance tuning.
+
+## Build / test / run
+
+> No toolchain exists yet — set up in M3 and update this section with the real commands.
+- Install: `TODO: confirm` (no package.json yet)
+- Build: `TODO: confirm`
+- Test: `TODO: confirm`
+- Run / dev: `TODO: confirm`
+- Lint / format / typecheck: `TODO: confirm`
+- Napkin sims (pipeline-era, working): `python3 design/napkin/layer-0N.py`
+- Task dashboard: `cd planning && python3 -m http.server 8000` → http://localhost:8000/dashboard.html
+
+## Conventions (match these)
+
+- **Data over code:** new card/contract behavior is new JSON over existing primitives; engine special-cases are a design smell and likely a canon violation.
+- **Closed enums:** grains, read-sources, triggers, and play-events are closed sets (see `vocabulary.ts`). Extending them means re-opening locked GDD Layer 3 — a logged decision, not an edit.
+- **Naming:** in-world (diegetic) terms come from `planning/terms.json`; no literal commerce vocabulary ("market", "stalls") in player-facing strings.
+- **Docs style:** decisions logged as `D-00N · title (date)` entries in `DECISIONS.md`; design-pipeline issue ids (`I-0NN`) referenced where obligations carry forward.
+
+## Gotchas / notes
+
+- `design/`, `world/`, and `planning/GDD.md`/`WORLD.md`/`terms.json`/`ledger.json` are pipeline-generated and locked — don't hand-edit; changes go through a decision + the canon check (`design_state.py canon`, see HANDOFF.md).
+- `src/engine/vocabulary.ts` is *derived* from `design/vocabulary.json`; if they ever disagree, the JSON is canonical.
+- Git repo initialized 2026-07-13; `.gitignore` excludes `.DS_Store`, `scratchpad/`, `node_modules/`. No initial commit yet.
+- The rendered `planning/*.html` views are generated artifacts of the markdown/JSON sources; regenerate rather than edit.

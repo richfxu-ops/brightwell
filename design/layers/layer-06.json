@@ -1,0 +1,122 @@
+{
+  "layer": 6,
+  "audit": {
+    "auditor": "blind 3-panel (no-schema); decisions_per_turn=4 unanimous (median over 27 mornings); all 7 deferred obligations carry concrete coefficients; no canon/firewall/fixed-mark/gleam-gate/fifth-token/diegetic-market violation",
+    "artifact": "planning/GDD.md#layer-6",
+    "elements": [
+      {
+        "id": "deck-hand-curve",
+        "legible": true
+      },
+      {
+        "id": "per-tier-marks-fills",
+        "legible": true
+      },
+      {
+        "id": "seep-crown-curve",
+        "legible": true
+      },
+      {
+        "id": "standing-values-firewall",
+        "legible": true
+      },
+      {
+        "id": "handsel-decay",
+        "legible": true
+      },
+      {
+        "id": "archetype-axis-magnitudes",
+        "legible": true
+      },
+      {
+        "id": "diegetic-naming",
+        "legible": true
+      }
+    ],
+    "metrics": {
+      "decisions_per_turn": 4
+    }
+  },
+  "issues": [
+    {
+      "severity": "P3",
+      "kind": "decisions-floor-vs-median",
+      "what": "The >=3 decisions_per_turn gate is met on the MEDIAN (=4); the thinnest Green-Going mornings honestly afford 2 (play-subset + route only; chain-order activates ~Deep Gold, reach-vs-safe when room>ceiling+2). The napkin asserts the median, not a per-morning minimum.",
+      "fix": "Documented in GDD L6 sec8/sec9 as median-based; the home-note seat + guaranteed >=2 answerable needs keep the floor at 2 and the median at 4. game-loop confirms the felt agency of thin early mornings.",
+      "raised_by": "blind-panel-1/2/3"
+    },
+    {
+      "severity": "P2",
+      "kind": "numbers-asserted-not-derived",
+      "what": "The fitted coefficients (dawn/room curve, per-tier marks/fills, axis magnitudes, crown magnitudes .70-.99 stand-rates, Untold count/clamp, I-044/045/018 bounds, retire residual) satisfy the napkin SHAPE-checks over hand-authored vectors; the exact balance is asserted, not derived from card-level simulation.",
+      "fix": "game-loop derives the exact coefficients from bot sims and tunes within the shapes committed here (D-005.3); the napkin fixes the shape the tuning must preserve.",
+      "raised_by": "blind-panel-1/2/3"
+    },
+    {
+      "severity": "P3",
+      "kind": "deferred-obligations-fitted",
+      "what": "I-044 (glad-price 0.5<tempo 2), I-045 (soothe min(rings,2) capped 1/node/season + red-thread <=1 unlock/run), I-022 (UNTOLD_COUNT + D=1.5, clamp 8.5/6->10.2), I-018 (Dcap<=0.3 < Ddiff 1.0*s, >=3.3x margin; dawn 0.5/ring), retire-residual (cycle net-negative), Fair k=2/N=5 — all now carry concrete numbers.",
+      "fix": "game-loop fits and simulates the exact values; the structural inequalities are committed in L6 and must hold under tuning.",
+      "raised_by": "synthesizer+panels"
+    }
+  ],
+  "summary": "Layer 6 numbers_curves: concrete numbers fitted to the LOCKED L1-L5 substrate and the deferred obligations, proven by an engine-run napkin (9 checks, flags=0). Deck 7->20 / hand 5; per-tier fixed marks (apprentice 1-2 / mid 3-5 / proud 6-7 / capstone 7-8, wd 1-5, twice-benched 0.9x terminal); seep curve PER_MORNING_NEED [1,3,5,7] / S_OF_T / summed [6,18,32,50] / spiral 3-5-7 / combing 7 / crown floor [3,5,7,10] demand 10 delivery 8.5; Standing overkill full-rate-to-a-6-band + soft-capped room (~10) closing the snowball, explicit gleam firewall (season/spiral->size not the meter); integer handsels 1/2/3 with bounded whittle + glad-price 0.5<tempo 2 (I-044) + idle-lapse->dawn only sink; six archetype axis magnitudes (unique-10/column, band 4 [37-41], dominated pairs=0) + crown mags [10.2-12.5] all in [10,14) + Untold count [0.67,2,3.33,4.67]xD1.5 match/forced/clamped (I-022); diegetic renames the-vouching/the-stalls-that-lean-in/the-courting (I-016). Blind 3-auditor panel unanimous decisions_per_turn=4>=3, all obligations covered, no canon violation. AUTO layer -> LOCK_OK on clean napkin. All P1 critic leaks closed (ring-dawn out-scaling I-018, unbounded whittle mint, thin-Green collapse, filter-1 firewall, Untold clamp reconciliation). Exact coefficients -> game-loop (D-005.3).",
+  "tokens_spent": 663000,
+  "executed": {
+    "napkin_flags": {
+      "script": "napkin/layer-06.py",
+      "result": {
+        "model": "layer-06-numbers_curves",
+        "checks": [
+          {
+            "name": "curve_clearable_on_schedule",
+            "pass": true,
+            "detail": "legs clear (5th-pctile)=[True, True, True, True]; matured_crown=10.625>=10; turtle_crown=2.0<10 -> growth forced"
+          },
+          {
+            "name": "waking_capacity_below_difficulty",
+            "pass": true,
+            "detail": "Dcap/morning<=0.3 vs Ddiff/ring>=1.0*s(t): margin=3.333x(>=3), jitter-robust=True; dawn 0.5/ring < 1.0*s(t) all s=True -> skip-ripen cannot out-scale"
+          },
+          {
+            "name": "glad_price_bounded",
+            "pass": true,
+            "detail": "brightening 0.5 < tempo 2.0=True; netEV_buy=-0.5 < netEV_answer(all bands)=True -> teaching never arbitrage"
+          },
+          {
+            "name": "last_red_red_thread_bounded",
+            "pass": true,
+            "detail": "soothe<=4/run, red-thread unlock<=1/run; double-tool rate=0.148/morning<1 (not a faucet); soothe & red-thread never touch the gleam meter"
+          },
+          {
+            "name": "untold_matches_forced_clamped",
+            "pass": true,
+            "detail": "pressure=[1.01, 3.0, 5.0, 7.0]~[1,3,5,7] match=True monotone=True; season=[15, 25, 35, 45] ok=True; cum-surplus=[0.0, 3.33, 10.0, 20.0] crosses 7 in DeepGold=True; count clamped 14.4->8.5<=8.5, crown_mag 10.2 in [10,14)=True"
+          },
+          {
+            "name": "all_six_crown_routes_clear",
+            "pass": true,
+            "detail": "axis totals band=4<=8; dominated_pairs=0; unique-10/column=True (6 distinct owners); crown mags in [10,14)=True; stand-rates .70-.99=True"
+          },
+          {
+            "name": "retire_cycle_negative",
+            "pass": true,
+            "detail": "for all mark 1-8 x wd 1-5: material=-1<0, attention=0.1*mark-wd<0 (worst=-0.2); twice-benched terminal -> cycle non-repeating"
+          },
+          {
+            "name": "handsel_loop_closed",
+            "pass": true,
+            "detail": "whittle inventory-bounded (1/morning, consumes stock) -> net mint=0.0==0; dull 1 < warm 2 -> whittle->buy non-arbitrage; sole sink = idle-lapse->dawn"
+          },
+          {
+            "name": "decisions_per_turn_ge_3",
+            "pass": true,
+            "detail": "per-morning decisions across 27 mornings=[2, 2, 2, 2, 3, 3, 3, 3, 3, 3, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4]; MEDIAN=4>=3 (thin Green afford 2 by a+c; median robust; the >=3 GATE is set by the blind audit)"
+          }
+        ],
+        "flags": []
+      },
+      "failed_checks": []
+    }
+  }
+}

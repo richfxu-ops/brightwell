@@ -1,0 +1,107 @@
+{
+  "layer": 1,
+  "audit": {
+    "auditor": "blind 2-panel re-audit after canon-legal revise (both PASS, no P0/P1; 16/16 & 18/18 legible)",
+    "artifact": "planning/GDD.md#layer-1",
+    "elements": [
+      {
+        "id": "the-grammar-of-light",
+        "legible": true
+      },
+      {
+        "id": "the-three-settlings",
+        "legible": true
+      },
+      {
+        "id": "attention-conservation",
+        "legible": true
+      },
+      {
+        "id": "the-worked-morning",
+        "legible": true
+      },
+      {
+        "id": "the-gathered-room",
+        "legible": true
+      },
+      {
+        "id": "the-waking-mark",
+        "legible": true
+      },
+      {
+        "id": "the-returning-table",
+        "legible": true
+      },
+      {
+        "id": "full-cup-overflow",
+        "legible": true
+      },
+      {
+        "id": "the-reach",
+        "legible": true
+      },
+      {
+        "id": "play-is-the-only-gate",
+        "legible": true
+      },
+      {
+        "id": "the-two-filter-lantern",
+        "legible": true
+      },
+      {
+        "id": "accept-by-hand",
+        "legible": true
+      },
+      {
+        "id": "the-glad-load",
+        "legible": true
+      },
+      {
+        "id": "the-spiral-clock",
+        "legible": true
+      },
+      {
+        "id": "escalation-is-the-weather",
+        "legible": true
+      },
+      {
+        "id": "the-rising-crown",
+        "legible": true
+      },
+      {
+        "id": "the-spilling",
+        "legible": true
+      },
+      {
+        "id": "gleam-gone-quiet",
+        "legible": true
+      }
+    ],
+    "metrics": {}
+  },
+  "issues": [
+    {
+      "severity": "P3",
+      "kind": "deferred-proof-I022",
+      "what": "Count/pace claim (Untold tonnage-light variant) asserted; numeric equivalence deferred to game-architect (D-005.3 / I-022).",
+      "fix": "BINDING downstream: game-architect shows count/pace matches size-escalation via napkin, or clamp.",
+      "raised_by": "blind-panel-1"
+    },
+    {
+      "severity": "P3",
+      "kind": "spatial-tension",
+      "what": "Travel is free of calendar and Standing cost; dawn-scarcity not geography is the real constraint, weakening route tension.",
+      "fix": "Confirm with L5 geography; if spatial friction wanted, gate repositioning.",
+      "raised_by": "blind-panel-1"
+    },
+    {
+      "severity": "P3",
+      "kind": "naming-register-drift",
+      "what": "'the-two-filter-lantern' and 'escalation-is-the-weather' read as engineer-speak in an otherwise diegetic id set.",
+      "fix": "Cosmetic: consider a diegetic label. Non-blocking.",
+      "raised_by": "blind-panel-2"
+    }
+  ],
+  "summary": "Layer 1 core loop & pressure. Recovery blind-audit caught a P0 canon-contradiction (the-road-forgets = ambient within-run Standing decay, forbidden by locked L2 canon). USER CHOSE canon-legal fix. Reviser removed it; installed the-reach (outcome-only Standing pressure) + escalation-is-the-weather (season/Paling board escalation); re-keyed calendar to worked-mornings; renamed the-bench-fan -> the-returning-table. Verifier confirmed P0 resolved (4/4). Both blind re-auditors PASS, no P0/P1, all legible. Two residual P2s prose-corrected to match validated design. Canon-legal, spine-faithful; intuitiveness 1.0.",
+  "tokens_spent": 914878
+}

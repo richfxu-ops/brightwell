@@ -1,0 +1,123 @@
+{
+  "layers": [
+    {
+      "id": 1,
+      "name": "core_loop_pressure",
+      "gated": false,
+      "status": "locked",
+      "attempts": 1,
+      "last": {
+        "action": "LOCK_OK",
+        "reason": "auto-layer cleared all checks — locked. Advance to the next layer.",
+        "detail": {},
+        "metrics": {
+          "intuitiveness": 1.0
+        }
+      }
+    },
+    {
+      "id": 2,
+      "name": "resource_types",
+      "gated": true,
+      "status": "locked",
+      "attempts": 1,
+      "last": {
+        "action": "GATE_PAUSE",
+        "reason": "major fork — cleared all checks but is gated. Present to the human; run `lock` to advance.",
+        "detail": {},
+        "metrics": {
+          "system_count": 4,
+          "intuitiveness": 1.0,
+          "napkin_flags": 0
+        }
+      }
+    },
+    {
+      "id": 3,
+      "name": "effect_vocabulary",
+      "gated": true,
+      "status": "locked",
+      "attempts": 1,
+      "last": {
+        "action": "GATE_PAUSE",
+        "reason": "major fork — cleared all checks but is gated. Present to the human; run `lock` to advance.",
+        "detail": {},
+        "metrics": {
+          "intuitiveness": 0.8571,
+          "interaction_density": 0.8571
+        }
+      }
+    },
+    {
+      "id": 4,
+      "name": "acquisition_model",
+      "gated": false,
+      "status": "locked",
+      "attempts": 1,
+      "last": {
+        "action": "LOCK_OK",
+        "reason": "auto-layer cleared all checks — locked. Advance to the next layer.",
+        "detail": {},
+        "metrics": {
+          "intuitiveness": 1.0,
+          "napkin_flags": 0
+        }
+      }
+    },
+    {
+      "id": 5,
+      "name": "archetypes",
+      "gated": true,
+      "status": "locked",
+      "attempts": 1,
+      "last": {
+        "action": "GATE_PAUSE",
+        "reason": "major fork — cleared all checks but is gated. Present to the human; run `lock` to advance.",
+        "detail": {},
+        "metrics": {
+          "synergy_depth": 3,
+          "intuitiveness": 1.0,
+          "napkin_flags": 0
+        }
+      }
+    },
+    {
+      "id": 6,
+      "name": "numbers_curves",
+      "gated": false,
+      "status": "locked",
+      "attempts": 1,
+      "last": {
+        "action": "LOCK_OK",
+        "reason": "auto-layer cleared all checks — locked. Advance to the next layer.",
+        "detail": {},
+        "metrics": {
+          "decisions_per_turn": 4,
+          "intuitiveness": 1.0,
+          "napkin_flags": 0
+        }
+      }
+    },
+    {
+      "id": 7,
+      "name": "starter_pool",
+      "gated": false,
+      "status": "locked",
+      "attempts": 3,
+      "last": {
+        "action": "LOCK_OK",
+        "reason": "auto-layer cleared all checks — locked. Advance to the next layer.",
+        "detail": {},
+        "metrics": {
+          "combo_density": 0.8367,
+          "intuitiveness": 1.0,
+          "napkin_flags": 0
+        }
+      }
+    }
+  ],
+  "upstream_pins": {
+    "planning/WORLD.md": "bced2e0685e5c15a",
+    "planning/ledger.json": "0184d533ae4da964"
+  }
+}

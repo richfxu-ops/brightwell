@@ -1,0 +1,233 @@
+{
+  "archetype": "fairwrights",
+  "cards": [
+    {
+      "id": "raise-the-wain-stage",
+      "name": "Raise the Wain-Stage",
+      "grain": "dance",
+      "mark": 2,
+      "ceiling": 4,
+      "woken_delight": 1,
+      "tags": [
+        "chain:C1",
+        "venue"
+      ],
+      "archetype": "fairwrights",
+      "combo": true,
+      "effects": [
+        {
+          "when": "on-play",
+          "do": "gather",
+          "params": {
+            "amount": 6
+          }
+        },
+        {
+          "when": "on-chain",
+          "do": "steady",
+          "params": {
+            "brace": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "pitch-the-ring",
+      "name": "Pitch the Ring",
+      "grain": "dance",
+      "mark": 2,
+      "ceiling": 4,
+      "woken_delight": 1,
+      "tags": [
+        "chain:C2",
+        "venue"
+      ],
+      "archetype": "fairwrights",
+      "combo": true,
+      "effects": [
+        {
+          "when": "on-play",
+          "do": "gather",
+          "params": {
+            "amount": {
+              "do": "read",
+              "source": "room"
+            }
+          }
+        },
+        {
+          "when": "on-play",
+          "do": "mark-grain",
+          "params": {
+            "target": "hand:offgrain",
+            "suit": "dance"
+          }
+        }
+      ]
+    },
+    {
+      "id": "the-whole-fair-turn",
+      "name": "The Whole-Fair Turn",
+      "grain": "dance",
+      "mark": 8,
+      "ceiling": 9,
+      "woken_delight": 3,
+      "tags": [
+        "chain:C3",
+        "capstone"
+      ],
+      "archetype": "fairwrights",
+      "combo": true,
+      "effects": [
+        {
+          "when": "on-play",
+          "do": "rest",
+          "params": {
+            "target": "self",
+            "amount": {
+              "do": "read",
+              "source": "room"
+            }
+          }
+        },
+        {
+          "when": "on-overkill",
+          "do": "brim",
+          "params": {
+            "band": {
+              "do": "read",
+              "source": "over-ceiling"
+            }
+          }
+        },
+        {
+          "when": "on-fulfil",
+          "do": "whittle",
+          "params": {
+            "amount": 1
+          }
+        }
+      ]
+    },
+    {
+      "id": "bunting-and-banners",
+      "name": "Bunting and Banners",
+      "grain": "dance",
+      "mark": 3,
+      "ceiling": 5,
+      "woken_delight": 2,
+      "tags": [
+        "support:second-line",
+        "venue"
+      ],
+      "archetype": "fairwrights",
+      "combo": true,
+      "effects": [
+        {
+          "when": "on-play",
+          "do": "gather",
+          "params": {
+            "amount": {
+              "do": "read",
+              "source": "room"
+            }
+          }
+        },
+        {
+          "when": "on-play",
+          "do": "mark-grain",
+          "params": {
+            "target": "hand:offgrain",
+            "suit": "dance"
+          }
+        }
+      ]
+    },
+    {
+      "id": "call-the-crowd",
+      "name": "Call the Crowd",
+      "grain": "dance",
+      "mark": 3,
+      "ceiling": 5,
+      "woken_delight": 2,
+      "tags": [
+        "support:on-ramp",
+        "venue"
+      ],
+      "archetype": "fairwrights",
+      "combo": true,
+      "effects": [
+        {
+          "when": "on-play",
+          "do": "gather",
+          "params": {
+            "amount": 4
+          }
+        },
+        {
+          "when": "on-chain",
+          "do": "steady",
+          "params": {
+            "brace": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "string-the-bunting",
+      "name": "String the Bunting",
+      "grain": "dance",
+      "mark": 3,
+      "ceiling": 5,
+      "woken_delight": 2,
+      "tags": [
+        "support:room-builder"
+      ],
+      "archetype": "fairwrights",
+      "combo": true,
+      "effects": [
+        {
+          "when": "on-play",
+          "do": "gather",
+          "params": {
+            "amount": {
+              "do": "read",
+              "source": "room"
+            }
+          }
+        },
+        {
+          "when": "on-chain",
+          "do": "steady",
+          "params": {
+            "links": 1
+          }
+        }
+      ]
+    },
+    {
+      "id": "the-ringmasters-draw",
+      "name": "The Ringmaster's Draw",
+      "grain": "dance",
+      "mark": 3,
+      "ceiling": 5,
+      "woken_delight": 2,
+      "tags": [
+        "support:draw-fix",
+        "utility"
+      ],
+      "archetype": "fairwrights",
+      "combo": false,
+      "effects": [
+        {
+          "when": "on-dawn",
+          "do": "draw",
+          "params": {
+            "n": 1,
+            "suit": "dance"
+          }
+        }
+      ]
+    }
+  ]
+}

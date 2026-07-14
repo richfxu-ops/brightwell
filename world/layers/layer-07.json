@@ -1,0 +1,423 @@
+{
+  "layer": 7,
+  "metrics": {},
+  "audit": {
+    "auditor": "3-auditor blind depth panel (counts 54/55/55; all seam_consistent; 0 untraceable)",
+    "artifact": "planning/WORLD.md#layer-7",
+    "elements": [
+      {
+        "id": "journey-pieces-deck",
+        "trope": false,
+        "anchor": false,
+        "hook": true,
+        "legible": true
+      },
+      {
+        "id": "waking-threshold-play",
+        "trope": false,
+        "anchor": false,
+        "hook": true,
+        "legible": true
+      },
+      {
+        "id": "attention-engine",
+        "trope": false,
+        "anchor": false,
+        "hook": true,
+        "legible": true
+      },
+      {
+        "id": "play-as-exchange-gate",
+        "trope": false,
+        "anchor": false,
+        "hook": true,
+        "legible": true
+      },
+      {
+        "id": "attention-conservation",
+        "trope": false,
+        "anchor": false,
+        "hook": true,
+        "legible": true
+      },
+      {
+        "id": "gleam-standing",
+        "trope": false,
+        "anchor": false,
+        "hook": true,
+        "legible": true
+      },
+      {
+        "id": "overkill-to-standing",
+        "trope": false,
+        "anchor": false,
+        "hook": true,
+        "legible": true
+      },
+      {
+        "id": "grain-tagged-standing",
+        "trope": false,
+        "anchor": false,
+        "hook": true,
+        "legible": true
+      },
+      {
+        "id": "dawn-income",
+        "trope": false,
+        "anchor": false,
+        "hook": true,
+        "legible": true
+      },
+      {
+        "id": "fired-vs-held",
+        "trope": false,
+        "anchor": false,
+        "hook": true,
+        "legible": true
+      },
+      {
+        "id": "handsel-currency-decay",
+        "trope": false,
+        "anchor": false,
+        "hook": true,
+        "legible": true
+      },
+      {
+        "id": "glad-price-read",
+        "trope": false,
+        "anchor": false,
+        "hook": true,
+        "legible": true
+      },
+      {
+        "id": "bright-shavings-byproduct",
+        "trope": false,
+        "anchor": false,
+        "hook": true,
+        "legible": true
+      },
+      {
+        "id": "two-gate-courting",
+        "trope": false,
+        "anchor": false,
+        "hook": true,
+        "legible": true
+      },
+      {
+        "id": "apprentice-floor-materials",
+        "trope": false,
+        "anchor": false,
+        "hook": true,
+        "legible": true
+      },
+      {
+        "id": "graded-material-market",
+        "trope": false,
+        "anchor": false,
+        "hook": true,
+        "legible": true
+      },
+      {
+        "id": "introduction-jars-freshness",
+        "trope": false,
+        "anchor": false,
+        "hook": true,
+        "legible": true
+      },
+      {
+        "id": "escalating-contracts",
+        "trope": false,
+        "anchor": false,
+        "hook": true,
+        "legible": true
+      },
+      {
+        "id": "two-filter-lantern-sizing",
+        "trope": false,
+        "anchor": false,
+        "hook": true,
+        "legible": true
+      },
+      {
+        "id": "paling-clock",
+        "trope": false,
+        "anchor": false,
+        "hook": true,
+        "legible": true
+      },
+      {
+        "id": "paling-arithmetic-compounding",
+        "trope": false,
+        "anchor": false,
+        "hook": true,
+        "legible": true
+      },
+      {
+        "id": "combing-boss-tier",
+        "trope": false,
+        "anchor": false,
+        "hook": true,
+        "legible": true
+      },
+      {
+        "id": "contract-payoff-bundle",
+        "trope": false,
+        "anchor": false,
+        "hook": true,
+        "legible": true
+      },
+      {
+        "id": "delayed-tellings",
+        "trope": false,
+        "anchor": false,
+        "hook": true,
+        "legible": true
+      },
+      {
+        "id": "pale-route-harvest",
+        "trope": false,
+        "anchor": false,
+        "hook": true,
+        "legible": true
+      },
+      {
+        "id": "red-thread-marker",
+        "trope": false,
+        "anchor": false,
+        "hook": true,
+        "legible": true
+      },
+      {
+        "id": "spill-boons",
+        "trope": false,
+        "anchor": false,
+        "hook": true,
+        "legible": true
+      },
+      {
+        "id": "contract-preview-ui",
+        "trope": false,
+        "anchor": false,
+        "hook": true,
+        "legible": true
+      },
+      {
+        "id": "diegetic-standing-readout",
+        "trope": false,
+        "anchor": false,
+        "hook": true,
+        "legible": true
+      },
+      {
+        "id": "two-golds-read",
+        "trope": false,
+        "anchor": false,
+        "hook": true,
+        "legible": true
+      },
+      {
+        "id": "walking-ways-cardpools",
+        "trope": false,
+        "anchor": false,
+        "hook": true,
+        "legible": true
+      },
+      {
+        "id": "kilnfast-tall-permanence",
+        "trope": false,
+        "anchor": false,
+        "hook": true,
+        "legible": true
+      },
+      {
+        "id": "mannerly-condition-puzzle",
+        "trope": false,
+        "anchor": false,
+        "hook": true,
+        "legible": true
+      },
+      {
+        "id": "gleaner-adversity-economy",
+        "trope": false,
+        "anchor": false,
+        "hook": true,
+        "legible": true
+      },
+      {
+        "id": "evener-sacrifice-velocity",
+        "trope": false,
+        "anchor": false,
+        "hook": true,
+        "legible": true
+      },
+      {
+        "id": "untold-ratchet-tempo",
+        "trope": false,
+        "anchor": false,
+        "hook": true,
+        "legible": true
+      },
+      {
+        "id": "fairwright-multiplier-spike",
+        "trope": false,
+        "anchor": false,
+        "hook": true,
+        "legible": true
+      },
+      {
+        "id": "wander-year-run-frame",
+        "trope": false,
+        "anchor": false,
+        "hook": true,
+        "legible": true
+      },
+      {
+        "id": "run-map-circuit",
+        "trope": false,
+        "anchor": false,
+        "hook": true,
+        "legible": true
+      },
+      {
+        "id": "road-memory-map-buffs",
+        "trope": false,
+        "anchor": false,
+        "hook": true,
+        "legible": true
+      },
+      {
+        "id": "map-intel-preview",
+        "trope": false,
+        "anchor": false,
+        "hook": true,
+        "legible": true
+      },
+      {
+        "id": "elevation-dawn-ladder",
+        "trope": false,
+        "anchor": false,
+        "hook": true,
+        "legible": true
+      },
+      {
+        "id": "stillsummer-anomaly",
+        "trope": false,
+        "anchor": false,
+        "hook": true,
+        "legible": true
+      },
+      {
+        "id": "fair-hub-intercept",
+        "trope": false,
+        "anchor": false,
+        "hook": true,
+        "legible": true
+      },
+      {
+        "id": "doorstep-micro-contracts",
+        "trope": false,
+        "anchor": false,
+        "hook": true,
+        "legible": true
+      },
+      {
+        "id": "crown-finale-scheduling",
+        "trope": false,
+        "anchor": false,
+        "hook": true,
+        "legible": true
+      },
+      {
+        "id": "fair-answer-rival-contest",
+        "trope": false,
+        "anchor": false,
+        "hook": true,
+        "legible": true
+      },
+      {
+        "id": "red-thread-days-boss-modifiers",
+        "trope": false,
+        "anchor": false,
+        "hook": true,
+        "legible": true
+      },
+      {
+        "id": "quiet-walk-runend-meta",
+        "trope": false,
+        "anchor": false,
+        "hook": true,
+        "legible": true
+      },
+      {
+        "id": "winter-telling-victory",
+        "trope": false,
+        "anchor": false,
+        "hook": true,
+        "legible": true
+      },
+      {
+        "id": "porch-meta-home",
+        "trope": false,
+        "anchor": false,
+        "hook": true,
+        "legible": true
+      },
+      {
+        "id": "hearth-right-rest-telling",
+        "trope": false,
+        "anchor": false,
+        "hook": true,
+        "legible": true
+      },
+      {
+        "id": "noticing-game-notebook",
+        "trope": false,
+        "anchor": false,
+        "hook": true,
+        "legible": true
+      },
+      {
+        "id": "closed-round-relics",
+        "trope": false,
+        "anchor": false,
+        "hook": true,
+        "legible": true
+      },
+      {
+        "id": "deck-autobiography",
+        "trope": false,
+        "anchor": false,
+        "hook": true,
+        "legible": true
+      }
+    ],
+    "metrics": {
+      "candidate_mechanics": 55
+    }
+  },
+  "issues": [
+    {
+      "severity": "P3",
+      "kind": "double-count",
+      "what": "glad-price-read overlaps handsel-currency-decay; paling-clock vs paling-arithmetic-compounding near-adjacent; dense 4-row boss cluster. All defensibly distinct per panels.",
+      "fix": "game-architect confirms whether any collapse once numbers are assigned; if so merge and re-pin ledger hash.",
+      "raised_by": "panel-1/2/3"
+    },
+    {
+      "severity": "P3",
+      "kind": "soft-presentation-hook",
+      "what": "Four rows are UI/UX constraints not pure mechanics (two-golds-read, diegetic-standing-readout, contract-preview-ui, deck-autobiography); even discounting all four count 51 clears gate >4x.",
+      "fix": "note for game-architect that these feed UI/UX, not the effect-primitive vocabulary.",
+      "raised_by": "panel-2"
+    },
+    {
+      "severity": "P3",
+      "kind": "napkin-obligations",
+      "what": "Three inline napkin-sim obligations for the GDD: glad-price trade-brightening bound (I-044), Untold count-and-pace (I-022), last-red/red-thread double-tool sizing (I-045).",
+      "fix": "game-architect proves or clamps each numerically via executable napkin models.",
+      "raised_by": "compiler"
+    }
+  ],
+  "summary": "Layer 7 Ludic-Hook Ledger: 76 hooks across L1-6 harvested into 55 distinct candidate mechanics in 9 sub-tables; planning/ledger.json seam written in the game-architect shape and independently validated (55 unique ids, 0 broken/self refs, all keys, all interacting; feeds L2:13/run-structure:16/L5:8/contract-schema:7/meta:6/L3:5). 3-auditor blind panel median candidate_mechanics=55 (gate>=12, ~4.5x); all seam_consistent, every mechanic traces to a locked element, none invented; only P3 polish notes. Element verdicts mapped faithfully (trope:false all trace to locked non-trope fiction; hook:true; legible:true distinct+traceable).",
+  "tokens_spent": 297841
+}

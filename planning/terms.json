@@ -1,0 +1,933 @@
+{
+  "terms": [
+    {
+      "term": "Roundelay",
+      "definition": "A made world — not made once, long ago, but made continuously, by hands — named for a round-song passed voice to voice around a circle, that only stays wonderful as long as someone keeps singing their bars.",
+      "layer": 1
+    },
+    {
+      "term": "the Rounds / the Long Rounds",
+      "definition": "The great circuits the makers walk — not roads so much as habits the land has learned — where every maker's run is one verse of a Round and no two verses visit the same world.",
+      "layer": 1
+    },
+    {
+      "term": "waking (of made things)",
+      "definition": "Anything made while truly attended wakes a little — gaining a quiet aliveness in which it attends but never acts — while hasty work made alone still functions but is merely mortal, taken first by the Paling.",
+      "layer": 1
+    },
+    {
+      "term": "working-edge",
+      "definition": "The thin rim of gold a woken thing carries along its working edge — the lip of the bowl, the blade of the plane, the hem of the coat — like late sun on the edge of a table.",
+      "layer": 1
+    },
+    {
+      "term": "the Paling",
+      "definition": "The world exhaling — a tide, not a villain — that takes knack from made things first and color after, never touching people or the light itself, and is the reason makers exist at all.",
+      "layer": 1,
+      "renamed_from": [
+        "the Fade",
+        "Fade"
+      ]
+    },
+    {
+      "term": "pale (town)",
+      "definition": "A town three seasons overdue for a maker, which hangs out its asking-lanterns and waits, patient as winter gardens.",
+      "layer": 1
+    },
+    {
+      "term": "maker's gleam",
+      "definition": "The light that gathers on a maker whose gifts delight — the world's trust made visible, earned by delight given in any coin the world honors, dimming gently when work disappoints; this is Standing.",
+      "layer": 1
+    },
+    {
+      "term": "apprentice materials",
+      "definition": "Straw, dough, and river clay — the gregarious stuff that talks to everyone, dim or bright — both every newborn's first conversation with the world and every dimmed maker's way back into it.",
+      "layer": 1
+    },
+    {
+      "term": "asking",
+      "definition": "A town's crafted request for making: a small object carrying the shape of the need — a tin spoon with a dry bowl, a stitched swallow with one grey wing — that rides the accepting maker's pack and warms when they near the work.",
+      "layer": 1
+    },
+    {
+      "term": "asking-lantern",
+      "definition": "The lantern at a town gate where askings hang; it is choosy, showing a traveler only what the town believes their hands can hold, matched to the brightest the road has heard them be.",
+      "layer": 1
+    },
+    {
+      "term": "great asking",
+      "definition": "An asking made by the land itself, past anything a town can craft — a mountain sending weathered antler and cloudmoss, a fading season sending a morning that smells wrong — the peak of every maker's hope and the reason the Rounds exist.",
+      "layer": 1
+    },
+    {
+      "term": "hearth-right",
+      "definition": "Any traveler's claim on the Rounds to one night's warmth, one meal, one bed by the fire, freely given, nothing asked — though no guest has ever managed to leave nothing behind, because a fed and firelit traveler tells, and the story is how the house learns the world.",
+      "layer": 1
+    },
+    {
+      "term": "journey-piece",
+      "definition": "A kept fragment of learned craft carried in the pack — a ribbon holding the turn of a dance, a chip of glaze, three bars of a planing-song knotted into a cord — used by performing it, out loud, with the hands, in front of the work.",
+      "layer": 1
+    },
+    {
+      "term": "shy materials",
+      "definition": "Materials alive the way cats are alive — present, opinionated, and not obliged to come when called — so getting them is never mining and always courtship, with two gates in strict order: consent to negotiate (gleam's business) and terms once stated must be met.",
+      "layer": 1
+    },
+    {
+      "term": "audience of things",
+      "definition": "The gathering of made things' attention when true work begins — chairs turning a quarter-turn toward the bench, lamps steadying, a woken kettle taking up an attentive hum — inside which makers work measurably better.",
+      "layer": 1
+    },
+    {
+      "term": "attention (the force)",
+      "definition": "The gathered, unbroken regard of watchers, human or made, resting on work while it is being done — not a courtesy but a force, the thing that wakes made things and the magic of the world (attention made visible is light).",
+      "layer": 1
+    },
+    {
+      "term": "road-memory",
+      "definition": "A Round's remembering of who travels it well, from which every road-gift flows: miles fold politely, fords are shallower, dusk comes later, and the town you helped is somehow always downhill.",
+      "layer": 1
+    },
+    {
+      "term": "handsel",
+      "definition": "Luck made small and given — a whittled bird, a glazed button, a knot of bright thread pressed into a palm — which is also the money, worth as much as it is awake from crossing delighted hands, and dulling back toward being a button when hoarded.",
+      "layer": 1
+    },
+    {
+      "term": "the Quiet Walk",
+      "definition": "The kind rite for a maker gone fully dim: one more walk of the circuit — no pack, no pieces, no askings — fed and warmed at every town and asked for nothing, until sometimes delight given rekindles the first flicker of gleam.",
+      "layer": 1
+    },
+    {
+      "term": "unmarked wonders",
+      "definition": "Wonders with no maker's mark at all — a stone stair a thousand years bright, a river that has never forgotten its knack, a bell that wakes other things — whose origin is the world's long riddle, never explained as elder makers, precursors, or gods.",
+      "layer": 1
+    },
+    {
+      "term": "the grammar of light",
+      "definition": "The binding world law that light — attention made visible — is read in three channels that never cross: places fade, people gleam, things wake.",
+      "layer": 1
+    },
+    {
+      "term": "the round of light",
+      "definition": "The one circulation of the world's conserved regard — dawn to eyes, eyes to hands, hands to work, work to places, places seeping to the gloaming-table, the table rising as dawn — with no first verse and no dram ever lost; the world's deepest law wears the shape of its name.",
+      "layer": 2
+    },
+    {
+      "term": "regard",
+      "definition": "Attention as conserved stuff: the holding-of-things-in-mind that keeps a thing's character crisp, never created and never destroyed — 'nothing is noticed away' — and visible from outside as light.",
+      "layer": 2
+    },
+    {
+      "term": "the three settlings",
+      "definition": "The three holdings of regard, each belonging to its holder: loose in places (a seeping wash of color and knack), running in the living (always a current, never a pool), set in made things (fired into use, the gold working-edge) — the grammar of light given its physical floor.",
+      "layer": 2
+    },
+    {
+      "term": "the clinging",
+      "definition": "The three settlings' one lawful seam: gleam as loose light bound to a line of cause, riding the surface of a living current — dew on a riverboat, not dew on a stone — which no tide can skim; why the Paling can never touch Standing.",
+      "layer": 2
+    },
+    {
+      "term": "the held and the fired",
+      "definition": "The two wakings: fired waking sets regard into a work's use at the bench, permanently (you can weather fired glaze, never un-fire it); held waking keeps a handsel awake hand-to-delighted-hand and lapses when the attending stops — the fired never unfires, the held must be fed.",
+      "layer": 2
+    },
+    {
+      "term": "the gloaming-table",
+      "definition": "The world's low standing reserve of spent regard, pooled under valley floors and deep water like groundwater, fed by the Paling's downhill seep and drawn on by every dawn — a pantry, never an underworld: nothing living enters it, ever.",
+      "layer": 2
+    },
+    {
+      "term": "the unclaimed morning",
+      "definition": "Dawn as reissue: every morning's light is spent regard returned from the gloaming-table — loose, unclaimed, equal, free to every eye that opens — and pale country gets the best mornings, because the fuller the local table, the richer the return.",
+      "layer": 2
+    },
+    {
+      "term": "the Stillsummer of Quill Vale",
+      "definition": "The remembered season, forty years back, when one valley's Paling stopped and the valley curdled — waxy colors, hoarded knacks, grey thin mornings — proving the Paling the out-breath without which there is no in; the Quill Vale Morning that followed its return means an ending that turns out to be a gift.",
+      "layer": 2
+    },
+    {
+      "term": "light-followers",
+      "definition": "The Rounds' patient hedge-philosophers, who follow where regard goes — no academy, no college, no instrument beyond tally-chalk, hazel wands, pin-lanterns, and patience; their whole literature fits in walking-songs and their method's home is the windowsill.",
+      "layer": 2
+    },
+    {
+      "term": "gleam-runoff",
+      "definition": "The mechanism of Standing's rise: a made thing, like a cup, holds only so much, and when delight overfills the work the excess runs backward along the line of cause to the maker and clings at the body's edges — 'a full cup runs to the pourer' (the Moth Fair at Ferrow, sixty-one autumns back).",
+      "layer": 2
+    },
+    {
+      "term": "the grain of gleam",
+      "definition": "Gleam keeps the texture of what fed it — bridge-delight lies in long spans across the knuckles, song-gleam ripples, hearth-laughter freckles — so lanterns and proud materials read a maker's history worn as light, legible at dusk from across a square.",
+      "layer": 2
+    },
+    {
+      "term": "the spilling",
+      "definition": "What happens when work disappoints: regard withdraws all at once, the slackened gleam slides off where the maker stands and soaks into the flagstones and lanes — the lane remembers the light, never the name, and failure leaves the world slightly more beautiful exactly where it happened.",
+      "layer": 2
+    },
+    {
+      "term": "need-takes-aim",
+      "definition": "The law of the asking ratchet: an asking is a woken thing whose fixed attending is toward the brightest hands its town has heard of, and a lantern's sizing, once read from a maker's grain, is fired and never lowers — while what a lantern shows follows the gleam presently on the hands (the Merrylees hour, twenty-two springs ago).",
+      "layer": 2
+    },
+    {
+      "term": "sizing and showing",
+      "definition": "The two lantern variables that never trade places: sizing is fired, matched to the brightest the road has heard you be, one-way forever; showing is current, gated by tonight's gleam — so the ratchet never descends while the dimming maker's offers still walk legibly down the ladder toward the rafters' dark.",
+      "layer": 2
+    },
+    {
+      "term": "the paling-arithmetic",
+      "definition": "The Paling's gentle, steady, compounding rate on unanswered need — knack shores up knack, so each forgotten trick uncovers the next — chalked by lantern-keepers as a spiral on the gatepost, one ring per season unanswered: three rings is a plea, five is a poem, seven is a great asking being born.",
+      "layer": 2
+    },
+    {
+      "term": "the noticing-game",
+      "definition": "The Rounds' empirical method, older than any way: paired trials on a windowsill — an attended pebble beside a hasty one, chalk tallies beneath, a winter of watching which greys first — through which every law of the cosmology entered canon.",
+      "layer": 2
+    },
+    {
+      "term": "closed round",
+      "definition": "What an unmarked wonder is: a made thing whose circulation of regard has closed into a self-sustaining loop that keeps what it pours — a whirlpool in the round of light that never unwinds, immune to the weathering, whose completeness lawfully ate its ordinary maker's attribution; how a round closes is permanently unknowable, since causes cannot be traced inside a closed loop from outside it.",
+      "layer": 2
+    },
+    {
+      "term": "the stair at Setterby",
+      "definition": "The most beloved of the light-followers' near-closures — a stair that holds nine parts in ten of what it sheds, on which pilgrim-makers leave journey-pieces the way you would encourage a student.",
+      "layer": 2
+    },
+    {
+      "term": "the Bell of Hask",
+      "definition": "The Rounds' one disputed closing: a ferry-bell whose engraved signature bar the oldest listeners swear was plainer in their grandmothers' day — the riddle's slow public clock, argued over between crossings, which the Haskers refuse to settle on the grounds that a riddle carried this well would be a shame to set down.",
+      "layer": 2
+    },
+    {
+      "term": "the binding",
+      "definition": "The three settlings' one lawful seam: loose light held in place by ongoing regard, worn in two homes — the clinging (gleam on a maker, riding a living current no tide can skim) and held light (on a handsel, sheltered only while it circulates; boxed, the binding lapses and the dulling is the ordinary seep, indoors).",
+      "layer": 2
+    },
+    {
+      "term": "the combing",
+      "definition": "How the land 'makes' a great asking without wanting one: when a whole countryside's living regard holds one lack in mind, the crossing currents comb the loose wash of a place into shape — antler and cloudmoss on Wray Fell, a wrong-smelling morning — a held thing kept awake by the country's continuing regard for what it misses; 'the wash combs where currents cross.'",
+      "layer": 2
+    },
+    {
+      "term": "the walking ways",
+      "definition": "The six traveling cultures of Roundelay — each a complete answer to how regard is best set into the world — kept without hall, roll, or rite: a way is walked, never joined, and grain is the only membership the world reads.",
+      "layer": 3
+    },
+    {
+      "term": "the Kilnfast",
+      "definition": "The way of the fired waking: few askings finished utterly, whole lives aimed at single masterworks, patience as their entire strangeness, and at the bottom of it the horizon-hope that a work made attentively enough might one day close its round; they hold rooms long — one unbroken session at the bench — and never carry light over a dawn.",
+      "layer": 3
+    },
+    {
+      "term": "the Mannerly",
+      "definition": "The way of courtship: the finest work begins as listening, kept in the great traveling notebooks of what the world answers to; their gleam is a key that turns, never a coin that leaves, and what they truly risk is accepted terms, which can go stale like any asking.",
+      "layer": 3
+    },
+    {
+      "term": "the Morning-Gleaners",
+      "definition": "The cheerful way that walks toward the grey: sunwise readers of gatepost spirals who practice ripe mending — arriving exactly when a need has grown into its best self — and who stand in pale country's immense dawns on purpose; they never say a town is pale, only that it is saving up.",
+      "layer": 3
+    },
+    {
+      "term": "ripe mending",
+      "definition": "The Gleaner craft-creed: answer a need not as early as possible but exactly when it has grown into its best self — five rings is a poem, and answering one before two hundred gathered dawn-watchers is the closest thing the way has to a wedding.",
+      "layer": 3
+    },
+    {
+      "term": "the Eveners",
+      "definition": "The way that walks with the out-breath: widdershins dusk-walkers, the Rounds' great un-hoarders, who keep last lightings so that nothing meets the tide unattended; they name themselves for the potter's motion — they even things, the way a thumb evens a rim.",
+      "layer": 3
+    },
+    {
+      "term": "last lighting",
+      "definition": "The Eveners' tenderest custom, kept when a town has decided a thing will not be asked-for again: one full evening of the town's gathered regard resting on the retiring work, stories told at its foot, handsels rung bright hand to hand around it — then the attending ends, and the ordinary seep carries the old wash to the table, and the valley's dawns run richer for a season. The whole of it is one small bell, rung once.",
+      "layer": 3
+    },
+    {
+      "term": "the Untold",
+      "definition": "The way that walks ahead of its own tellings: between-road menders whose creed is that a deed left small stays exactly the size the need was, keeping their gleam fine-grained on purpose — a shine like sand, not like beams — so their lanterns lower a rafters' worth of kettles; met openly, greeted by name, and gone by breakfast.",
+      "layer": 3
+    },
+    {
+      "term": "the between-roads",
+      "definition": "The stile-and-hedgerow lines that pass no hearth, so no hearth passes the tale on — honest miles, cold fords, no askings and no tales carried; the Rounds' one chosen solitude, where a maker is greeted with a nod and no questions.",
+      "layer": 3
+    },
+    {
+      "term": "the Fairwrights",
+      "definition": "The way that makes the watching: builders of workshop-theaters, market-rings, and the Round-Fair itself, whose founding telling is the Moth Fair — kept not for the fiddler but for the four hundred, and for whoever raked the ground that held them; no work wakes thin in a room a Fairwright raised.",
+      "layer": 3
+    },
+    {
+      "term": "the Round-Fair",
+      "definition": "The fair that walks the Round: a few dozen wagons perpetually a week ahead of autumn, Fairwright-built and everybody-kept, arriving like a season with opinions — its commerce priced in wakefulness and nothing else, its dusk a mingling of all six gleam-grains.",
+      "layer": 3
+    },
+    {
+      "term": "the fair-answer",
+      "definition": "The custom for contested askings: two ways answer side by side before the whole town, and the verdict is read as which work wakes and the slow tilt of the town's woken things — no one presides, nothing counted decides, and the flagstones before the warmer bench are found a shade richer next morning, never watched.",
+      "layer": 3
+    },
+    {
+      "term": "red-thread-days",
+      "definition": "The season the country enters when a seventh ring closes and a combing is found: six ways converge on one valley — seams read, word run, ring raised, staging fired, materials courted, last lightings kept — around the maker the asking warmed to; 'the weather picks the hands; the road makes sure they don't stand there alone.'",
+      "layer": 3
+    },
+    {
+      "term": "the gathered bench",
+      "definition": "The working-theater raised from all sides around the answerer of a great asking, with no one presiding — because a countryside that combed a great asking into being is the same countryside that wants to watch it answered.",
+      "layer": 3
+    },
+    {
+      "term": "road-marks",
+      "definition": "The gift-graffiti of the Rounds — knotted thread on stiles, chalk birds on gateposts, spirals copied forward — the six ways' shared shorthand for what the next walker needs to know; no one keeps them and everyone keeps them up, and leaving a false one is the nearest thing the Rounds have to a sin.",
+      "layer": 3
+    },
+    {
+      "term": "the quiet porch",
+      "definition": "The deep benches under wide eaves on every Round — kept by whoever is sitting on them — where Quiet Walkers are met as honored audience: a maker gone dim is the finest watcher alive, and work done before a porch of old hands wakes deep.",
+      "layer": 3
+    },
+    {
+      "term": "the mending question",
+      "definition": "The one quarrel on the Rounds with real weight (the Untold against the Gleaners): answer a need early and small, or let it ripen into a poem? Settled town by town — the town is asked, and its answer, chalked on the gatepost, becomes part of its character.",
+      "layer": 3
+    },
+    {
+      "term": "fired-or-fed",
+      "definition": "The doctrine argument of the two persistences (the Kilnfast against the Eveners): is light best given set, held in a work for centuries, or best given back, fed to the table to come home in everyone's dawns? Two true readings of one conservation law, unsettled on purpose.",
+      "layer": 3
+    },
+    {
+      "term": "the even-morrow",
+      "definition": "The equinox festival held where a Gleaner circuit and an Evener circuit cross nearest the turning day: the two ends of the breath trade hours at one long table at first grey light, two lanterns at its ends, one held high, one held low — and underneath the comedy, the day the Paling's seasonal rate turns.",
+      "layer": 3
+    },
+    {
+      "term": "double-lit day",
+      "definition": "The small festival made wherever a sunwise Gleaner circuit and a widdershins Evener circuit cross at a town — dawn-work and dusk-work in one turn of the sun, held to be lucky for weddings and first apprenticings.",
+      "layer": 3
+    },
+    {
+      "term": "season-shadowing",
+      "definition": "How craft crosses between the ways: a learner simply falls in behind a master of another way and keeps their hours for a season — begun without arrangement, ended with one journey-piece, given, because giving is how it moves.",
+      "layer": 3
+    },
+    {
+      "term": "waymeet",
+      "definition": "The ground where the great circuits cross — held by no town, tended by whoever is camped on it — where the six gaits mix, journey-pieces change hands, and young makers come to watch the ways go by and choose one.",
+      "layer": 3
+    },
+    {
+      "term": "turning your coat to the weather",
+      "definition": "What it is called when a maker changes their way of walking — grounds for a party, never a grudge.",
+      "layer": 3
+    },
+    {
+      "term": "the courting",
+      "definition": "The acquisition law of the whole material world: nothing is mined, everything is asked, through two gates kept in strict order — the vouching (will the stuff state its terms to these hands at all, gleam's business and no coin's) and the terms (the material's own, always performable, always legible).",
+      "layer": 4
+    },
+    {
+      "term": "the vouching",
+      "definition": "The courting's first gate: a proud material's consent to negotiate at all, granted only to hands the world is currently holding in mind — read in behavior, a lean or a ripple, never spoken.",
+      "layer": 4
+    },
+    {
+      "term": "the apprentice-stuffs",
+      "definition": "Straw, dough, river clay, withy, tallow, chalk, coarse wool — the gregarious tier that answers any hands, dim or bright; every newborn's first courtship, every Quiet Walker's way back, and the stock from which handsels are whittled: anyone can make money, only circulation can make it worth anything.",
+      "layer": 4
+    },
+    {
+      "term": "singing-silver",
+      "definition": "The proud metal that will not take a shape unless sung to, one unbroken song from first heat to last pour; its lodes are common — what is rare is the singing, and the vouching before it. Sold with the last bars sung into the buyer's keeping, so the courtship travels live.",
+      "layer": 4
+    },
+    {
+      "term": "laughing-riverwood",
+      "definition": "The green riverwood grown where the living come to be glad, which opens only for people who are laughing — clean splits under genuine laughter, ragged tears under a forced one — willing for about a season once cut: used glad and used soon, never hoarded.",
+      "layer": 4
+    },
+    {
+      "term": "festival-glass",
+      "definition": "Glass blown before a crowd, which keeps its crowd — flecks of bunting-color drifting in it forever, warming a room like company — while glass blown alone clouds fog-grey in the annealing, every time; the whole craft is venue-bound, and its scarcity is the scarcity of gathered watching itself.",
+      "layer": 4
+    },
+    {
+      "term": "bell-bronze",
+      "definition": "A local proud stuff that will only pour while a crowd holds one breath.",
+      "layer": 4
+    },
+    {
+      "term": "hearth-slate",
+      "definition": "A local proud stuff quarried sweetest while a story is being told over the work.",
+      "layer": 4
+    },
+    {
+      "term": "introduction-jar",
+      "definition": "A jar of proud stock already courted — carried to you by a Mannerly or pressed on you in a glad-load — among the most valuable things a pack can hold, because it collapses weeks of courtship into a gift.",
+      "layer": 4
+    },
+    {
+      "term": "bright-shavings",
+      "definition": "The warm leavings of attended work: the room's loose-returned regard settles thickest at the bench and what fell from it, and the custom of telling whoever receives one where it fell binds the sheen — a shaving told-of is a handsel already begun, the held home entered early, lapsing in a season if nobody delights.",
+      "layer": 4
+    },
+    {
+      "term": "the shavings-jar",
+      "definition": "The squat jar in a maker's pack where warm leavings are kept against whittling-nights; the finest coins in circulation began as the floor-sweepings of famous work, and everyone who receives one is told so.",
+      "layer": 4
+    },
+    {
+      "term": "the open purse",
+      "definition": "The Rounds' purse-craft: money carried open-work — nets, loops, coins strung at the belt — so every handsel rides the day in the world's attending; an open purse keeps a coin's waking the way walking keeps warmth — longer, never forever — while a shut box dulls a coin in a season.",
+      "layer": 4
+    },
+    {
+      "term": "the glad-price",
+      "definition": "How prices are read on the Rounds: no stall posts a number — handsels are laid down until the pile in the keeper's palm sings; a grudged trade wakes nothing, and glad change comes back a shade brighter than the price strictly wanted. Haggling is a delight-craft of making the other's coins brighten.",
+      "layer": 4
+    },
+    {
+      "term": "the glad-load",
+      "definition": "What follows an answered asking, since no town pays a maker: delighted hands press the pack full at the gate — handsels rung bright by the square, a taught journey-piece, an introduction-jar, bread and wax and wool, road-marks chalked a day ahead — scaling with the gladness, which scales with the need.",
+      "layer": 4
+    },
+    {
+      "term": "the waymeet table",
+      "definition": "The plank table under the fingerboard sign where the circuits cross, fed by whatever the last hundred walkers chose to leave — coins and held things because idleness dims them, fired pieces because a piece unperformed delights no one — never owed anything, only fed, the way a fire is fed.",
+      "layer": 4
+    },
+    {
+      "term": "the twice-benched",
+      "definition": "Timber and iron from a lovingly retired work: the old loose wash went to the table at the last lighting, but the fired sub-uses of beam and shaft — bearing, turning, taking weight — never unfire, so twice-benched grain wakes at nine parts the attention fresh grain wants. Sold with its stories; plenty downstream of tenderness, never of ruin.",
+      "layer": 4
+    },
+    {
+      "term": "last-red",
+      "definition": "The stubbornest pigment in the world, gathered in the left-behind where the hearth-line red — the last wash still bound — lets go seasons behind the rest; its patience is the firing's, not the powder's: it takes root only when laid as part of a woken re-making, and fades on schedule anywhere else.",
+      "layer": 4
+    },
+    {
+      "term": "the gleaning",
+      "definition": "The pale roads' harvest-craft, walked with soft brush, scraper, hazel, and chalk, under one strict manner: glean the left-behind, never the lived-in — a hearth still lit keeps its red. A gleaner comes in off the greyest road with the reddest jars, rich in proportion to how far into the quiet she walked.",
+      "layer": 4
+    },
+    {
+      "term": "red thread",
+      "definition": "Dooryard flax dyed in last-red at a fireside while tales are told — what askings hang by, what a found combing is tied off with. A thread minds what it touches, and only that: one thing, one threshold, one knack, held a season for the walker's return; it marks what is minded, never what must be done.",
+      "layer": 4
+    },
+    {
+      "term": "lane-glimmers",
+      "definition": "The small unowned brightenings a later walker gathers from a lane where work went dark: a lane's whole glimmer gathers less than the least of a maker's shine — a sip, never a cup, and never for the spiller, whose slack lines of cause the new color will never again answer.",
+      "layer": 4
+    },
+    {
+      "term": "the walking light",
+      "definition": "The pace law of incoming shine: tellings walk one fireside a night, and only tellings move gleam or raise lantern readings — the murmur-net is the same net felt locally (pack-pieces tilt when a telling is a hearth or two out), and word (runners, road-marks) aims eyes, binds nothing, and moves no reading.",
+      "layer": 4
+    },
+    {
+      "term": "stilling",
+      "definition": "The rarest weather on the Rounds — three in living memory — a stretch of country whose Paling simply stops: nothing pales, nothing returns, color curdles waxy, mornings come thin and grey. It clears only at an equinox, and the first dawn returns the withheld season entire and exact, not a dram more.",
+      "layer": 4
+    },
+    {
+      "term": "the fresh verse",
+      "definition": "The ruling on the long forgetting: every re-spark is a fresh maker walking a fresh verse — the song keeps the verse and forgets the singer — so nothing of a past maker persists but what was given: fired works, road-marks, porch elders, woken things, and the glimmers in the lanes.",
+      "layer": 4
+    },
+    {
+      "term": "wander-year",
+      "definition": "What a run is: one maker's turn of one Round, walked from the morning after the spring even-morrow to the first still dawn of winter — the year trimmed the circuits to its own length long ago, so escalation is the season's own rising seep walking in step with the lantern ratchet.",
+      "layer": 5
+    },
+    {
+      "term": "the setting-out / the first-gift",
+      "definition": "How a run begins: a fresh maker makes some small true thing on waymeet ground before whoever happens to be there, the returning thread of shine is the whole starting stake, and the nearest lantern takes its first small fired reading — no rite, no roll, nothing conferred.",
+      "layer": 5
+    },
+    {
+      "term": "walking out of season",
+      "definition": "The road's name for the Quiet Walk's timing: Standing exhausted ends the year where it stands, in any season, because the Quiet Walk keeps no calendar — the one journey in Roundelay the year does not shape.",
+      "layer": 5
+    },
+    {
+      "term": "the four lights",
+      "definition": "The legs of the walked year, named by light and weather: the Green Going (spring, seep barely waking), the Long Light (high summer, the biggest working days), the Deep Gold (late summer, the out-breath leaning in), and the Red Walk (autumn, combing weather) — with the Wintering, unwalked, when whatever a maker still carries is carried to one fire.",
+      "layer": 5
+    },
+    {
+      "term": "high days",
+      "definition": "The year's fixed lights everyone walks toward — the two even-morrows, the Long Day of midsummer, the first-frost fires, the Fair's passage — which stitch the legs together and gather the year's great audiences, because a crowd is an occasion and the watchers live on the calendar.",
+      "layer": 5
+    },
+    {
+      "term": "lightshed",
+      "definition": "The basin of light: as rain has watersheds, light has lightsheds — the country whose seep runs downhill to one gloaming-table and out of whose table all its dawns rise; shed-lines are inked on every round as faint crown-ridges.",
+      "layer": 5
+    },
+    {
+      "term": "crown-country",
+      "definition": "The rims of the lightsheds — shrines, beacon-stones, high pastures — first to pale and poor by valley measures, rich by three of its own: the weather-glass (when the crown goes grey, the floor is saving up), the readings (three sheds in one sight), and the shrine-custom; never gleaning ground, for no hearth ever bound a red up there.",
+      "layer": 5
+    },
+    {
+      "term": "the dawn-ladder",
+      "definition": "The elevation law: dawn climbs back up the channels the seep cut down and settles where the wash runs thinnest — paleness sets the size of a node's dawn, height sets its length and lateness, and the shed's own table sets the total, exact to the dram.",
+      "layer": 5
+    },
+    {
+      "term": "the inked round",
+      "definition": "A maker's kept map: oiled canvas inked at each night's fire, usually woken and attending (never acting), showing the world in its own notation — grey wash, chalk spirals, shed-ridges, red thread — with route-light brightening the walked line behind and pale pencil ahead.",
+      "layer": 5
+    },
+    {
+      "term": "threading",
+      "definition": "How a route is planned: beads chosen and strung in the order the year will meet them, committed an arc at a time at each waymeet, never the whole year at once — and the thread can lace, figure-eighting back through a crossing, so returns are scheduled on purpose; skipped beads ripen at the chalked rate, so choosing a route quietly authors your own autumn.",
+      "layer": 5
+    },
+    {
+      "term": "the remembering roads",
+      "definition": "Roads have names, manners, and memories, so a route is a relationship: road-memory accrues to how you travel — marks kept up, tables fed, doorsteps answered — folding miles and shallowing fords on the return leg; an unwalked road is never punished, it simply stays a stranger.",
+      "layer": 5
+    },
+    {
+      "term": "the lantern-mile",
+      "definition": "The last mile into any town, which reads the whole town: marks thickening toward the gate, the spiral confirmed ring for ring, dawn-color reporting the table, rooftops greying crown-first — and the lantern itself legible from the ridge, with exactly one tier above tonight's showing previewed in silhouette before the rafters keep their dark.",
+      "layer": 5
+    },
+    {
+      "term": "the two paces of light",
+      "definition": "The speed of regard: light is quick in the room and on foot on the road — present overflow lands the instant it is caused (the Moth Fair condition), and distant rises exist only as tellings walking one fireside a night, landing when seen landing; two speeds, and no third courier ever.",
+      "layer": 5
+    },
+    {
+      "term": "the traveling lantern",
+      "definition": "The Fair's asking-lantern on its tallest wagon, the only lantern in the world that moves — a town's tier of asking that rides, whose fired readings travel with it, making it the one lantern a maker meets twice in a year and the road's most personal ratchet.",
+      "layer": 5
+    },
+    {
+      "term": "doorstep asking",
+      "definition": "The smallest tier of need: one kitchen's want hung on its own door-nail, supper-grade, unwoken and unaimed — no lantern present, so no reading is taken and nothing is sized, though the household's glad palms and walking telling flow lawfully at kettle magnitude; one nail to a hamlet, never one to a house.",
+      "layer": 5
+    },
+    {
+      "term": "one-throat bowl",
+      "definition": "The rarest useful landform on the Rounds: a closed round vale whose whole seep must pass a single narrow throat — a dozen-odd across all the Rounds, never on the thread of any circuit, and the only country a stilling ever takes, always with a near-closed wonder standing in or above the throat.",
+      "layer": 5
+    },
+    {
+      "term": "the crown of the year",
+      "definition": "The autumn work every wander-year walks toward: wherever the year's skips finish a country's longer arithmetic, the wash combs and red-thread-days gather — or, in quieter years, a five-ring poem before dawn-watchers or the Fair's last ground; never a fixture, never a surprise, always weather the maker routed.",
+      "layer": 5
+    },
+    {
+      "term": "the year-string",
+      "definition": "The run's history worn in the open: answered askings come down off their lanterns with their threads and are strung across the pack-flap, bead by bead — aiming eyes and moving no reading — and a Quiet Walker hangs their string on the lantern where the year ended, for passing makers to warm the story back to life.",
+      "layer": 5
+    },
+    {
+      "term": "the winter-telling",
+      "definition": "The bright ending: a maker still lit at the first still dawn, their crown stood, winters at one fire as the honored teller, the whole year told bead by bead off the year-string — then rises at the even-morrow as the road's newest master, or sits down on the porch for good, while one bead of the year goes on walking without them.",
+      "layer": 5
+    },
+    {
+      "term": "wintering-town",
+      "definition": "The town a maker winters in and sets out from the spring after — the lived word that replaces the retired hall-word fossil of Layer 1; a town like any other, holding no ground and conferring nothing, named only for where a maker's year rests and begins.",
+      "layer": 6,
+      "renamed_from": [
+        "guild-town",
+        "guild-hall wall"
+      ]
+    },
+    {
+      "term": "verse (of a Round)",
+      "definition": "The run-scale unit: one maker's turn of one Round, walked and handed on mid-song — coined at I-013's fresh-verse ruling and adopted here to end the turn-collision, so turn now means one worked morning only and verse means one whole run.",
+      "layer": 6,
+      "renamed_from": [
+        "turn of a Round"
+      ]
+    },
+    {
+      "term": "the three brushes",
+      "definition": "The channel ban made a painter's discipline and the art direction's master QA law: scenery takes the wash (wet, blooming, drained edge-inward), people take the rim (a dry key-light just behind the shoulder), things take the edge (one gold line, or the held sheen) — a frame that rims a doorway or edges a face is wrong-brushed, and the pipeline enforces places-pale / people-gleam / things-wake as three shader disciplines.",
+      "layer": 6
+    },
+    {
+      "term": "the two golds",
+      "definition": "The I-016 style law: fired waking wears the drawn gold (one still hairline on the depicted thing's working edge, blooming once at firing, then the stillest thing in the frame), held waking wears the breathing gold (a full-surface sheen on a four-to-six-second breath, brightening under a glad hand, dulling in a shut box) — if it has a line it was fired, if it breathes it is held, nothing carries both; a great asking is the breathing gold worn by the found arrangement itself, the fell around it keeping only wash.",
+      "layer": 6
+    },
+    {
+      "term": "found-not-watched",
+      "definition": "The transit-light restraint made cinematography: the world keeps its changes between looks (the lane is found brighter, never caught blushing), and exactly four light-in-motion effects exist — the re-making bloom and the Moth Fair overflow (light moving between holders) plus the firing crackle-bloom and the held-gold palm-brighten (in-place state changes) — everything else resolving on cuts, returns, and dawns.",
+      "layer": 6
+    },
+    {
+      "term": "the settling-tilt",
+      "definition": "The UI animation grammar derived from the restraint ban: nothing acts, so nothing moves — it settles. The compass-needle tilt (a small overshoot and rest, toward what matters), the sway of held things on thread and hip, and the stillness of the fired are the world's whole animate vocabulary; the gathered attention of the bench reads as a pool of worklight and the count of tilted silhouettes at its edge, the waking threshold cued by the oldest kettle taking up its hum.",
+      "layer": 6
+    },
+    {
+      "term": "chalk-thread-and-gold",
+      "definition": "The UI notation standard, gathering Layer 3's road-marks, Layer 4's spirals and red thread, and the two golds into three marks and no fourth: chalk says know-this (info, white, temporary, anyone's), red thread says this-is-minded (chosen, persistent, one per lane, never a bond), gold says this-is-awake (earned at the bench or fed by hands) — any interface mark not chalkable, tieable, or gildable is by law redesigned.",
+      "layer": 6
+    },
+    {
+      "term": "dusk-reads-dawn-gives",
+      "definition": "The lighting-and-screen-flow law: dusk is when the world is legible (gleam plainest, lanterns backlit, grain read across a square — the approach and appraisal grade), dawn is when the world gives (the reissue, income and reveals), noon is flat worklight for the bench, night is fire-amber for the telling — so the loop's phases are told by grade, and the only diegetic calendar is the inked round's own year-wheel; countdowns and dates-owed stay banned.",
+      "layer": 6
+    },
+    {
+      "term": "the shoulder-candle",
+      "definition": "The gleam bible — Standing worn as a key-light from a small warm source just behind the shoulder, its strength the meter and the thrown shadow the second read; grain rides the rim as texture (spans, ripples, freckles, watered-silk, furrow-light, bunting-dapple), the meter quantized diegetically in graded steps the world owns (showing-height, market-width), and on the Quiet Walk the rim goes out while the person keeps every color they own and everything they woke keeps its gold.",
+      "layer": 6
+    },
+    {
+      "term": "the lantern-dark",
+      "definition": "The askings bible and the world's warm dark: an asking-lantern is a chandelier of crafted needs turning on red thread against rafters that keep true dark, composed in three bands (lit hooks below for tonight's showing, one silhouette above for the next size of being believed in, honest dark above that for the fired sizing) — and dark in Roundelay is never cold or hunting, so locked and out-of-tier content hangs as warm silhouettes in rafters' dark, never greyed-out or padlocked.",
+      "layer": 6
+    },
+    {
+      "term": "the worked-word",
+      "definition": "The naming language kept as a living craft — five roots every coin must grow from (the worked -ing, the yoked pair of plain English words, the temper-name that states a material's terms, the revived gift-word, and the homely-great scale-inversion where the greater the thing the smaller its name) — grown by being said plainly and repeated hearth by hearth until it was so, proofed on porches, never christened from above; the smell test is seed-packet-or-map-poster.",
+      "layer": 6
+    },
+    {
+      "term": "the work-names-of-things",
+      "definition": "The I-003 ruling: nothing made is ever christened. A thing is called by its work and its place — the Hask bell, the Setterby stair, my mother's third kiln — because nothing in Roundelay speaks except people and a person-name is a small pretend mouth; the tenderness runs the other way, the more beloved a thing the more exactly its work is named, and the unmarked wonders, whose whole mystery is a swallowed signature, are the law made monument.",
+      "layer": 6
+    },
+    {
+      "term": "named-from-things",
+      "definition": "The palette law (anchor): every named color, swatch, and grade is the name of a thing in the world — madder, moth-wing, dove, rose-gold-that-only-means-dawn — so a palette list reads as a pack inventory and no abstract tier label (no 'epic', no color-coded rarity) ever appears in a name or the UI; ordinary folk speech keeps its plain reds and greys, but ask a limner for purple and you are asked which purple.",
+      "layer": 6
+    },
+    {
+      "term": "the giving-line",
+      "definition": "The card voice (anchor): every card is a thing that was given, so rules text is the maker's plain fire-written hand and flavor is the giving-line — the sentence spoken aloud when the piece changed hands, quoted exactly, with a giving-note of where and how — making the deck an autobiography of teachers; the voice is fond, exact, and a little amused, never exclaiming, never addressing the player, never letting an object speak, with the line collapsing to inspect and the year-string at hand scale.",
+      "layer": 6
+    },
+    {
+      "term": "the-worked-morning",
+      "definition": "The game turn: one worked morning at a node — dawn issues attention income (a guaranteed-floored universal base + a draw from the local table + yesterday's node-local returned surplus), the maker works one node's asking, and closes at a fire; only worked mornings are turns, so travelled miles fold into road-memory and never cost a turn. The floored base always suffices to wake the cheapest piece, so no turn is ever decision-free even in a thin room.",
+      "layer": 1,
+      "kind": "game-design"
+    },
+    {
+      "term": "the room (attention pool)",
+      "definition": "The per-turn spendable attention budget: morning-draw + the gathered audience of woken things present. An unbroken work-chain holds the pool high; a stall lets it cool. Soft-capped (a listening span, loops not a number), so each added woken audience-thing contributes less as the room grows and the personal room-floor plateaus rather than snowballing.",
+      "layer": 1,
+      "kind": "game-design"
+    },
+    {
+      "term": "the-waking-mark",
+      "definition": "Each journey-piece's own fixed waking threshold, printed on the card and never moving: rest attention at or above the mark and the piece wakes — takes its gold working-edge, fires permanently to the run-deck, joins the room as a new audience-thing, and pays woken delight into the need's fill; below its mark it still resolves once but stays inert and paling-prone. The three loop quantities are kept distinct: the room (pool you spend), the waking-mark (fixed card threshold), the need's fill (the asking's demand).",
+      "layer": 1,
+      "kind": "game-design"
+    },
+    {
+      "term": "the need's fill",
+      "definition": "An accepted asking's demand expressed as a target bar of woken delight (e.g. the well wants ●●●); woken pieces pay delight into it, and completing it re-makes the node (the square re-colors, only now). The read a player tracks for how re-made a place is; distinct from the room and the waking-mark.",
+      "layer": 1,
+      "kind": "game-design"
+    },
+    {
+      "term": "the-bench-fan",
+      "definition": "Conservation at the bench made mechanical: an attended play's attention splits with none lost — SET into the card (waking) and RETURN to this node's local table (turn-end surplus returns in tomorrow's dawn, node-bound and non-caravanning). OVERFLOW to Standing is a third share only when attention exceeds the card's ceiling (overkill); it is not present on every play. Node color changes only on fulfillment, never dribbled per-play.",
+      "layer": 1,
+      "kind": "game-design"
+    },
+    {
+      "term": "full-cup-overflow",
+      "definition": "The Standing-gain rule (the Moth Fair condition, a full cup runs to the pourer): attention poured past a card's ceiling — overkill above its waking-mark — converts to Standing at full rate, so the biggest gleam swings happen on stage in public. Diminishing returns past a band (a full cup runs over, but the floor only drinks so fast) keep a single mega-dump from trivializing the meter. Player-facing name for the ledger id overkill-to-standing.",
+      "layer": 1,
+      "kind": "game-design"
+    },
+    {
+      "term": "play-is-the-only-gate",
+      "definition": "The exchange-gate law as a loop rule: node color, Standing, and card wakefulness never convert directly into one another; every transfer passes through a played journey-piece. Play is the world's one and only exchange gate and there is no bypass, which is why the game is structurally a deckbuilder.",
+      "layer": 1,
+      "kind": "game-design"
+    },
+    {
+      "term": "the-two-filter-lantern",
+      "definition": "The escalating-contract generator: an asking's TIER is fired to peak-Standing-this-run (read from grain, one-way, never falls) and its OFFERS are gated by current Standing (the failure spiral descends the ladder), with exactly one tier previewed as a warm rafter-silhouette. The size of the asking is the compliment, and the compliment is permanent.",
+      "layer": 1,
+      "kind": "game-design"
+    },
+    {
+      "term": "accept-by-hand",
+      "definition": "Taking a crafted asking-object down off the lantern commits it to the pack as a held contract that warms as its season shortens; carried past its season it goes stale and Standing dims (the spilling). Unanswered askings in a region age into the spiral together, so contract count and pace read as genuine escalation (the I-022 axis) alongside tier.",
+      "layer": 1,
+      "kind": "game-design"
+    },
+    {
+      "term": "the-rising-crown",
+      "definition": "Forcing function 2 and the win gate: the year-end crown's tier carries a floor set by the calendar (the season reached) independent of route — the seasonal out-breath authors a minimum finale — topped up by the player's own skip-arithmetic. So escalation is un-declinable even for a passive engine, and standing the crown while still lit gates the winter-telling victory.",
+      "layer": 1,
+      "kind": "game-design"
+    },
+    {
+      "term": "gleam-gone-quiet",
+      "definition": "The fail-state: Standing at zero quiets the engine (all but apprentice materials refuse the hands) and ends the run into the Quiet Walk — a brief playable reverse-light epilogue that seeds the meta-layer with one woken work. A dimming, not a death; the world going shy; it keeps no calendar and can trigger in any season.",
+      "layer": 1,
+      "kind": "game-design"
+    },
+    {
+      "term": "the-resource-square",
+      "definition": "The Layer 2 resource identity: the whole economy runs on two things you spend and two you never spend, on two axes — tactical/strategic and spend/never-spend. Attention (tactical spend, the room), handsels (strategic spend, the held money), Standing (never-spend gate + fail-resource, gleam), the Paling (never-paid board pressure, the season-seep). Everything else in the world is a tap of one of the four, deliberately not promoted to a fifth token — depth from how few resources couple, not how many exist ('manners, not tonnage').",
+      "layer": 2,
+      "kind": "game-design"
+    },
+    {
+      "term": "courted-stock",
+      "definition": "Materials modelled as ONE graded resource class with a quality/temperament axis — not a wallet per material. Grades run apprentice-stuffs (floor, zero-gate) → singing-silver, laughing-riverwood, festival-glass → local characters (bell-bronze, hearth-slate) → twice-benched. Acquired by the two-gate courting (the vouching, a gleam gate that spends no coin; then a performable term the maker plays), never purchased; reverts to ordinary if not kept warm within a season. The anti-bloat move that keeps 'scarcity is manners, not tonnage' at the resource layer.",
+      "layer": 2,
+      "kind": "game-design"
+    },
+    {
+      "term": "the-shavings-share",
+      "definition": "Bright-shavings modelled conservation-clean: a bound sub-portion of the bench's RETURN share, not an additive faucet minted on top of it. The regard that returns loose to the room settles thickest on the bench and what fell from it (WORLD.md:590, 'the bench transaction's own third share'); the telling binds that loose wash into held light — a handsel already begun. Claiming a shaving redirects part of the node's own RETURN (which would otherwise seep to its local table for tomorrow's dawn) into the purse, competing with the local-table dawn and creating no new regard. The premium faucet of the handsel supply beside apprentice-stuff blanks; lapses in a season if untold-of.",
+      "layer": 2,
+      "kind": "game-design"
+    },
+    {
+      "term": "the-effect-vocabulary",
+      "definition": "The Layer 3 primitive set every card compiles to: 14 verbs (gather, rest, steady, fill, crown, mark-grain, draw, retire, whittle, court, soothe, read, warm, keep) over shared/persistent state. A card is declarative data — a suit, a fixed waking-mark, a ceiling, printed woken_delight, and an ordered effect list of {when, if, do, params}. Depth comes from composition (amounts are references via read, not constants) plus one cross-turn persistent store (typed woken-audience), not from primitive count; 12 of 14 interact (density 0.857).",
+      "layer": 3,
+      "kind": "game-design"
+    },
+    {
+      "term": "read (primitive)",
+      "definition": "The Layer 3 combo pivot: the single reference primitive that returns a scalar from live shared state (source in room, chain, fill, season, spiral, grain:suit, woken:suit, handsels) to use as the amount or if-guard of any other primitive. It is why the vocabulary is a combo engine with only 14 verbs — the room you build with card 1 is the number card 3 dumps. Folds four split readers (per-audience/per-pale/per-chain/if-grain) into one. Firewalled: a board read (season/spiral/paling) may never feed the gleam-writing primitive crown.",
+      "layer": 3,
+      "kind": "game-design"
+    },
+    {
+      "term": "gather (primitive)",
+      "definition": "Seat more of the present audience into the room, raising the pool (soft-capped); amount may be a read. Reads woken-audience/venue/grain, writes the room. Interacts. Traces to the-gathered-room/attention-engine.",
+      "layer": 3,
+      "kind": "game-design"
+    },
+    {
+      "term": "rest (primitive)",
+      "definition": "Spend the room to rest attention on a target piece (self/held/hand/chosen) times the chain; at or above its fixed mark the piece wakes, past its ceiling it overkills (engine to gleam). Reads room+chain, writes piece-set/room; the mark never moves — the lever is more attention. Interacts. Traces to the-waking-mark/the-returning-table/waking-threshold-play.",
+      "layer": 3,
+      "kind": "game-design"
+    },
+    {
+      "term": "steady (primitive)",
+      "definition": "Manipulate the work-chain: count this play as extra links and/or brace the chain so the next stall doesn't cool the room. Reads/writes the chain. Interacts. Absorbs proposal B's hold. Traces to the-gathered-room (chain holds the pool).",
+      "layer": 3,
+      "kind": "game-design"
+    },
+    {
+      "term": "fill (primitive)",
+      "definition": "Pour this play's woken delight into the accepted need's-fill; amount may read the room/grain. Reads piece delight + (via read) fill/grain, writes the fill; the node re-colors on fulfilment only. Play-gated cross-channel (thing to places). Interacts. Traces to the need's fill (L1 §2.6)/the-glad-load.",
+      "layer": 3,
+      "kind": "game-design"
+    },
+    {
+      "term": "brim (primitive)",
+      "definition": "Widen this play's overkill-to-gleam band (grain-stamped) so more of the genuine excess past the ceiling runs to Standing — the ONLY card verb that writes the gleam meter. Multiplies measured overkill only (no free-N mint). Compile-time firewalled: its band-read and if-guard may read only within-channel surfaces (room/chain/piece-set), never season/spiral/paling. Interacts. Traces to full-cup-overflow/overkill-to-standing.",
+      "layer": 3,
+      "kind": "game-design"
+    },
+    {
+      "term": "mark-grain (primitive)",
+      "definition": "Stamp a craft-suit onto a target piece or this play, so it also counts as that grain — which flows to its seated-audience type (via the engine's auto-seat on wake) and to the grain of any gleam it overkills. One writer, three payoffs; delivers proposal C's cross-turn typed-audience 'seat' without a separate primitive. Writes grain/tags. Interacts. Traces to grain-tagged-standing/the-grain-of-gleam.",
+      "layer": 3,
+      "kind": "game-design"
+    },
+    {
+      "term": "draw (primitive)",
+      "definition": "Draw journey-pieces into hand; with a suit/tag filter it searches the pack for the combo piece (absorbs proposal B's dig). Reads pack+grain, writes hand. Interacts (weak unfiltered). Traces to journey-pieces-deck/dawn-income/walking-ways-cardpools.",
+      "layer": 3,
+      "kind": "game-design"
+    },
+    {
+      "term": "retire (primitive)",
+      "definition": "Last-light a held/inert piece: perform it to destruction (permanent deck thin) and RETURN its worth to this node's local table (default) or the room now — fuel plus a leaner deck. Node-bound, no caravanning. Writes pack (thin) + room/local-table. Absorbs proposal B's exhaust + seep(inert). Interacts. Traces to evener-sacrifice-velocity/last-lighting/attention-conservation.",
+      "layer": 3,
+      "kind": "game-design"
+    },
+    {
+      "term": "whittle (primitive)",
+      "definition": "Carve the-shavings-share of this play's bench-RETURN into handsels (or brighten one) — the bench-to-money coupling; amount may read state (e.g. read(season) for more handsels on pale ground — yield, never Standing). Reads the RETURN share, writes handsels; conservation-clean (carved from RETURN, not minted on top). Interacts. Traces to the-shavings-share/bright-shavings-byproduct.",
+      "layer": 3,
+      "kind": "game-design"
+    },
+    {
+      "term": "court (primitive)",
+      "definition": "This play performs a courting term: a gleam-vouched material enters the pack (gleam gates, is never spent — 'a key that turns, never a coin that leaves'). Reads gleam (gate) + grain/tags (term), writes courted-stock. Play-gated. Interacts. Traces to two-gate-courting/graded-material-market.",
+      "layer": 3,
+      "kind": "game-design"
+    },
+    {
+      "term": "soothe (primitive)",
+      "definition": "On a woken re-making, spend a last-red catalyst to slow this node's future paling — the one card verb that writes the board (places-pale) and it never touches the gleam meter (the Paling-Standing firewall holds). Reads node, writes node/Paling. The single primitive grafted from proposal C that A/B lacked; the Gleaner archetype's board-repair verb. Interacts. Traces to pale-route-harvest/last-red/paling-clock.",
+      "layer": 3,
+      "kind": "game-design"
+    },
+    {
+      "term": "warm (primitive)",
+      "definition": "Add a flat printed value to this piece's own woken-delight — baseline value, no combo (this card only). One of two deliberate non-interacting primitives that keep the density claim honest and give a newcomer a legible floor. Traces to L1 delight/journey-pieces-deck.",
+      "layer": 3,
+      "kind": "game-design"
+    },
+    {
+      "term": "keep (primitive)",
+      "definition": "This piece resists the Paling / stays warm one extra season — self-persistence, no combo (this card only). The second deliberate non-interacting baseline. Distinct from soothe (which slows a NODE's paling, interacting). Traces to red-thread-marker/introduction-jars-freshness.",
+      "layer": 3,
+      "kind": "game-design"
+    },
+    {
+      "term": "the-combo-harness",
+      "definition": "The when/if clauses that let one card's effect fire off another card's event. when in {on-play, on-wake (the marquee hook — a piece crosses its fixed mark), on-chain, on-stall, on-overkill, on-fulfil, on-court, on-dawn, at-dusk}; if is a read comparison. The engine grows exactly this harness plus the 14-verb switch — no bespoke trigger per combo.",
+      "layer": 3,
+      "kind": "game-design"
+    },
+    {
+      "term": "the-firewall-guard",
+      "definition": "The compile-time enforcement of play-is-the-only-gate and the grammar of light at Layer 3. (1) Cross-channel-adjacent primitives (crown, fill, court, whittle, soothe, rest's overkill) may bind only to play events, never on-dawn/at-dusk — a card that tries fails to compile. (2) The gleam-write crown may neither read nor be if-gated by any board/Paling surface (season/spiral/paling), and multiplies measured overkill only — so no node's paleness can ever author the amount or firing of a gleam gain. Paleness may still scale attention/handsel/harvest yields, never Standing.",
+      "layer": 3,
+      "kind": "game-design"
+    },
+    {
+      "term": "the-acquisition-square",
+      "definition": "The Layer 4 identity of what may enter a run: only three things are ever newly acquired — journey-pieces (R5), courted stock (R6), handsels (R2), the three settlings that can change hands. Standing, attention, and the Paling are never acquired as content; they are the gates and clocks that decide how much of the three enters and when. Acquisition is a bundle paid across the existing L2 sub-economies (System D to B/C/A), never a new economy, and adds no fifth token.",
+      "layer": 4,
+      "kind": "game-design"
+    },
+    {
+      "term": "the-loading-gate",
+      "definition": "The glad-load as the passive spine of acquisition: answering a need loads the pack across all three settlings at once — one pressed journey-piece taught by whoever the town loves best (a single giver, arriving with the town's name via the-giving-line — NOT a draft menu), one introduction-jar of local proud stuff already courted, bright handsels rung by the square, and map-intel chalked outward — every strand scaling off the gatepost spiral (rings-in = load-out). Fires on-fulfil; the cost is the whole loop. Draft-CHOICE lives at the Fair, never at this gate.",
+      "layer": 4,
+      "kind": "game-design"
+    },
+    {
+      "term": "the-drafting-fair",
+      "definition": "The Round-Fair as the year's active card hub and the home of draft-CHOICE: the one moving node, where journey-pieces change hands by teaching (bright handsels via the glad-price, bounded), winning (the fair-answer contest), and plain delight — priced in wakefulness, never numbers. Wheel-intercept-gated (a week ahead of autumn) and retells everything at twice size, so drafting its stage is the fastest deck-growth and the fastest crown-raise in one act. Bounded k-of-N per passage; output is inert (still must be woken).",
+      "layer": 4,
+      "kind": "game-design"
+    },
+    {
+      "term": "the-courting-market",
+      "definition": "Town material stalls as the active proud-stock source: the vouching (a gleam gate, read from grain, never spent) decides which grades will state their terms this run — market width widens with Standing, narrows to apprentice at the bottom — then the maker performs the stated term (the court primitive, a play) to take the stock with its courtship live. Proud stock is never bought; handsels buy only already-courted jars and the apprentice tier. Internal design label only — L6 diegetic naming must not render this as an in-world 'market' (commerce-vocab ban, WORLD.md:723).",
+      "layer": 4,
+      "kind": "game-design"
+    },
+    {
+      "term": "the-gleaning-supply",
+      "definition": "Pale and left-behind country as the salvage-grade material faucet: walking the left-behind with brush and jar yields last-red (a catalyst spent only on woken re-makings via soothe, capped 1 node/1 knack/1 season) and twice-benched stock from Evener wagons trailing chosen last-lightings, yield scaling with node paleness. Highest route risk; never triggers on inhabited or answered nodes (the anti-salvage law); twice-benched keys only to chosen last-lightings, never failure. The Gleaner archetype's supply line.",
+      "layer": 4,
+      "kind": "game-design"
+    },
+    {
+      "term": "the-inert-delivery",
+      "definition": "The Layer 4 framing law inherited from L1/L2: every acquisition source delivers an inert, paling-prone piece, never a woken engine-part. A card becomes fired only by being played at or above its waking-mark; no source bypasses play-is-the-only-gate, and the room still pays for every card. This is the structural reason a fast draft cannot trivialize the run — money and drafts buy potential, never a woken engine.",
+      "layer": 4,
+      "kind": "game-design"
+    },
+    {
+      "term": "the-hearth-deepening",
+      "definition": "Card upgrade that deepens the deck without growing it: at a hearth-right rest-node the maker tells one event from the run's history (selection, never a cost) and the boon deepens one held piece via warm (+printed delight) or keep (+one season of freshness) — and those two L3-legal self-modifiers ONLY. It never rests attention toward a piece's mark and never lowers a fixed mark (the dropped 'eased first-waking' would have violated the fixed-mark law and play-is-the-only-gate). A woken head-start comes only from a conserved carrier (a storied waymeet piece, or twice-benched grade), never a telling-boon.",
+      "layer": 4,
+      "kind": "game-design"
+    },
+    {
+      "term": "the-terminal-twice-benched",
+      "definition": "Twice-benched as a one-way terminal grade, the structural close on the retire-then-rebench mint: twice-benched grain wakes at nine-tenths the attention fresh grain wants (a 10% ease, the single canon number — not 90%), and a piece benched from twice-benched stock yields NO new twice-benched stock when retired (the fired sub-uses are already twice-used and do not unfire a third time). Combined with retire's RETURN being clamped to the attention actually SET into the piece this cycle (never carried fired worth), the bench-then-wake-cheap-then-retire cycle nets negative on both material and attention and cannot run positive.",
+      "layer": 4,
+      "kind": "game-design"
+    },
+    {
+      "term": "the-two-supply-gates",
+      "definition": "The Layer 4 gating law, two non-substitutable gates on two channels: gleam gates market WIDTH (the vouching — who will deal with you: low shine narrows to apprentice tier, high shine leans every shelf in), and season+route gate what a place HAS (bright kept towns = proud stock on the shelf; pale inhabited towns = the richest glad-loads and mornings; the left-behind = last-red and twice-benched; crowds = venue-bound stock and the Fair draft). Both must open at once — the mending question worn as a supply chain. Richest supply is unlocked exactly by being bright and routing the pale country late, so supply and demand climb the same weather.",
+      "layer": 4,
+      "kind": "game-design"
+    },
+    {
+      "term": "the-lever-census",
+      "definition": "The Layer 5 count justification: the LOCKED L2 resource square exposes exactly six substrate levers a build can pull hardest (the fired/held R5; the purse/moving R2; the pace/ratcheted contract clock; the room/spiked R1; the proud/courted R3+R6; the grey/harvested R4), and the six Walking Ways sit one-to-one on them, no two sharing a hardest-lever. Six is therefore the exact number of orthogonal engines the vocabulary affords, not bloat. Two merges are canon-forbidden: Evener (exhaust for conversion) vs Untold (exhaust for pace), and Kilnfast (run-permanent room floor, no spike) vs Fairwright (transient crowd spike, sole brim-owner). Shipped tiered 3 + 3 for onboarding, not consolidated.",
+      "layer": 5,
+      "kind": "game-design"
+    },
+    {
+      "term": "archetype-kilnfast",
+      "definition": "The-kilnfast archetype (starter): the fired, held. Leans steady (chain links + brace) + the cross-turn read(woken:<suit>) compounder feeding gather, on R1 attention held in long within-turn chains + R5 fired pieces as a run-permanent audience store. Lowest variance, weak openings, strongest boss/crown scaling; no spike. Signature chain (depth 4): fired-audience -> read(woken:joinery) -> bigger gather -> clear a high fixed mark -> fire and seat one more joinery thing, compounding turn over turn. The cross-turn read is woken:joinery (the seated store), NOT grain:joinery (this-turn tags).",
+      "layer": 5,
+      "kind": "game-design"
+    },
+    {
+      "term": "archetype-eveners",
+      "definition": "The-eveners archetype (starter): the purse, moving. Leans retire (last-light inert pieces -> the room now / this node's table tomorrow) + whittle (the shavings-share of the fattened room -> bright handsels), glued by the work-chain, on R2 handsel velocity + R1 the table/room. Low-and-steady, the control deck, highest consistency; stands the crown by prepared board. Signature chain (depth 3): retire fattens the room (C1) + steady grows the chain (C2) -> the capstone rests room x chain and reloads. CANON LAW: the Evener's room is fuelled by retired pieces, NEVER by the purse (read(handsels)->gather is forbidden — attention is never banked, handsels never spent in-turn); money is produced FROM the room, never room from money.",
+      "layer": 5,
+      "kind": "game-design"
+    },
+    {
+      "term": "archetype-untold",
+      "definition": "The-untold archetype (starter, I-022 carrier): the pace, ratcheted. A thin, fast deck of cheap fine-grained one-shots that exhaust and never repeat (paper-bird pattern); leans draw (thin-deck flow + filtered search) + cheap exhausting fill, with read(grain:thread)/read(chain) stacking count-and-pace into one big fill. On R5 deck velocity + the contract-count channel as the felt pressure. The rising pressure is contract COUNT and PACE, not tier, until the combing arrives as weather. Exhaust is for pace, never conversion (canon distinction from the Evener). Signature chain (depth 4): cheap fill+draw cycle -> count/pace -> read(grain:thread)/read(chain) -> one big crown-route fill.",
+      "layer": 5,
+      "kind": "game-design"
+    },
+    {
+      "term": "archetype-fairwrights",
+      "definition": "The-fairwrights archetype (second wave): the room, spiked. Leans gather (venue + transient crowd tokens -> a giant room) + brim (the ONLY card gleam-writer; widens the overkill band), on R1 attention as transient crowd (venue-bound, expires when the fair moves) + R3 Standing as the payoff (full-cup-overflow). Highest variance in the game — a dead room spills hardest, a full one makes the run. Signature chain (depth 3): crowd gather -> room begets room (soft-capped) -> rest past the ceiling -> brim read(over-ceiling) runs the genuine overkill to Standing. brim/overkill is the Fairwright's signature alone, never the Kilnfast's; the band reads over-ceiling (measured overkill), never a board surface.",
+      "layer": 5,
+      "kind": "game-design"
+    },
+    {
+      "term": "archetype-mannerly",
+      "definition": "The-mannerly archetype (second wave): the proud, courted. Leans court (perform a stated term) + mark-grain/read(grain) growing the count the payoff fills by, on R6 courted stock + R3 Standing as a PURE GATE (widens the market, never depleted by use). Highest single-piece ceiling in the game; greedy value — dead cards in a dim hand, a wedding when the courtship lands; its only Standing risk is a term gone stale (the spilling). Signature chain (depth 3, a courtship-unlock): build the term-state + stamp the grain-count (C1) -> gleam vouches and the chain satisfies the term so proud stock enters the pack (C2) -> the benched proud piece fills by the grown grain-count (C3). draw filters by a real craft-suit (song), never a material grade.",
+      "layer": 5,
+      "kind": "game-design"
+    },
+    {
+      "term": "archetype-gleaners",
+      "definition": "The-morning-gleaners archetype (second wave): the grey, harvested. Leans read(season)/read(spiral) scaling gather/whittle (paleness feeds attention/handsels, NEVER Standing — the firewall), converted into a chain-held grain-count the capstone fills by; the ONLY archetype that uses soothe (the board-writer). On R4 the Paling routed as fuel + R1 the richest dawns on pale nodes. Highest route risk in the game; boss-affine, steers toward the combing on purpose. Signature chain (depth 3): read(spiral)->room + mark-grain writes the glaze-count (a preceding chain card writes the surface the capstone reads, so the payoff magnitude is CHAIN-authored not board-handed) -> rest + fill read(grain:glaze) -> soothe the node. Resolves the depth-critic's Gleaner 2-card-collapse present in all three proposals.",
+      "layer": 5,
+      "kind": "game-design"
+    },
+    {
+      "term": "the-untold-clamp",
+      "definition": "The I-022 resolution for the-untold: the tempo escalation is proven to MATCH the spine's size-escalation curve and CLAMPED so it can never exceed it. Match (mid-run): per-morning pressure equals the tonnage pressure at every leg (count rises on the same peak-Standing brightness clock size does), and seasonal throughput equals 15*s(t) for both the size spine (fewer-bigger) and the Untold (more-smaller-faster). Forced: refusing to raise pace lets un-cleared askings accumulate rings until the combing materialises the pressure as size (a great asking) — the curve can't be opted out of. Clamped at the crown: the calendar-floored crown is a size event for every way, so the Untold must convert pace into size within the boss turn (fill read(grain:thread)/read(chain)); a per-leg demand cap + a physical pace ceiling (MORNINGS x <=2 clears) bite at the Wintering finale, barring a tonnage exploit. Executable napkins return napkin_flags=0; exact coefficients hand off to game-loop (D-005.3).",
+      "layer": 5,
+      "kind": "game-design"
+    },
+    {
+      "term": "the-stalls-that-lean-in",
+      "definition": "The diegetic render of the graded-material stalls; the shy materials that lean toward hands the world holds in mind. Replaces any in-world use of 'market' (WORLD.md I-016 commerce-vocab ban).",
+      "layer": 6
+    },
+    {
+      "term": "the-vouching",
+      "definition": "The first gate of the two-gate courting: a gleam gate deciding whether a material will state its terms. Diegetic render replacing 'courting-market'.",
+      "layer": 6
+    },
+    {
+      "term": "the-courting",
+      "definition": "The whole shy-material acquisition surface rendered diegetically (vouching + performed term). The design-label 'graded-material-market' is retained as a ledger id ONLY, never diegetic prose.",
+      "layer": 6
+    },
+    {
+      "term": "the-home-note-seat",
+      "definition": "A single seated audience-thing the run starts with, contributing a +1 room floor from morning 1 so the thinnest Green room is never below 3 (decisions-per-turn floor). Numeric id, L6.",
+      "layer": 6
+    },
+    {
+      "term": "the-overkill-band",
+      "definition": "Overflow converts to Standing at full rate 1.0 for the first 6 points past a card's ceiling per play, then 0.5 beyond (closes bank-then-dump). Numeric id, L6.",
+      "layer": 6
+    }
+  ]
+}

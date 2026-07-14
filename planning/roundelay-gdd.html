@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Roundelay — Game Design Document</title>
+<style>
+  :root{
+    --bg:#f6f1e7; --panel:#fffdf8; --ink:#2a2622; --muted:#6b6357;
+    --line:#e4dccb; --gold:#b8862e; --gold-soft:#e8c877; --gleam:#e0a83c;
+    --pale:#9aa3a6; --accent:#7a5b8e; --code-bg:#efe8d6;
+    --shadow:0 1px 2px rgba(60,45,20,.06),0 8px 30px rgba(60,45,20,.06);
+    --serif:"Iowan Old Style","Palatino Linotype",Palatino,"Georgia",serif;
+    --sans:ui-sans-serif,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{
+      --bg:#161a20; --panel:#1d2129; --ink:#e9e3d6; --muted:#a49d8e;
+      --line:#2c313b; --gold:#e0b968; --gold-soft:#8a6a2a; --gleam:#f0c463;
+      --pale:#7d8791; --accent:#c3a3d6; --code-bg:#222732; --shadow:0 1px 2px rgba(0,0,0,.3),0 10px 34px rgba(0,0,0,.35);
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:#161a20; --panel:#1d2129; --ink:#e9e3d6; --muted:#a49d8e;
+    --line:#2c313b; --gold:#e0b968; --gold-soft:#8a6a2a; --gleam:#f0c463;
+    --pale:#7d8791; --accent:#c3a3d6; --code-bg:#222732; --shadow:0 1px 2px rgba(0,0,0,.3),0 10px 34px rgba(0,0,0,.35);
+  }
+  :root[data-theme="light"]{
+    --bg:#f6f1e7; --panel:#fffdf8; --ink:#2a2622; --muted:#6b6357;
+    --line:#e4dccb; --gold:#b8862e; --gold-soft:#e8c877; --gleam:#e0a83c;
+    --pale:#9aa3a6; --accent:#7a5b8e; --code-bg:#efe8d6; --shadow:0 1px 2px rgba(60,45,20,.06),0 8px 30px rgba(60,45,20,.06);
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    margin:0; background:var(--bg); color:var(--ink);
+    font-family:var(--sans); line-height:1.62; font-size:17px;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:820px; margin:0 auto; padding:0 22px 96px}
+  a{color:var(--gold); text-decoration:none}
+  a:hover{text-decoration:underline}
+
+  /* hero */
+  header.hero{
+    padding:64px 0 30px; text-align:center; position:relative;
+  }
+  .kicker{font-family:var(--sans); letter-spacing:.22em; text-transform:uppercase;
+    font-size:12px; color:var(--muted); margin-bottom:14px}
+  h1{font-family:var(--serif); font-weight:600; font-size:clamp(46px,9vw,78px);
+    margin:0; letter-spacing:-.01em; line-height:1;
+    background:linear-gradient(180deg,var(--ink),var(--gold)); -webkit-background-clip:text;
+    background-clip:text; color:transparent;}
+  .tagline{font-family:var(--serif); font-style:italic; font-size:clamp(18px,3.6vw,23px);
+    color:var(--muted); margin:18px auto 0; max-width:34ch}
+  .motto{margin:26px auto 0; display:inline-flex; gap:0; flex-wrap:wrap; justify-content:center;
+    font-family:var(--serif); font-size:15px}
+  .motto span{padding:6px 16px; border:1px solid var(--line); background:var(--panel); box-shadow:var(--shadow)}
+  .motto span:nth-child(1){border-radius:999px 0 0 999px; color:var(--pale)}
+  .motto span:nth-child(2){border-left:none; border-right:none; color:var(--gleam)}
+  .motto span:nth-child(3){border-radius:0 999px 999px 0; color:var(--gold)}
+
+  /* summary card */
+  .lede{
+    background:var(--panel); border:1px solid var(--line); border-radius:16px;
+    padding:26px 28px; box-shadow:var(--shadow); margin-top:14px;
+  }
+  .lede p{margin:0 0 12px; font-size:18px}
+  .lede p:last-child{margin-bottom:0}
+  .lede b{color:var(--ink); font-weight:650}
+  .term{color:var(--gold); font-weight:600; font-style:normal}
+
+  /* pillars */
+  .pillars{display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:14px; margin:22px 0 6px}
+  .pillar{background:var(--panel); border:1px solid var(--line); border-radius:13px; padding:16px 17px; box-shadow:var(--shadow)}
+  .pillar h4{margin:0 0 5px; font-family:var(--serif); font-size:16px; color:var(--gold)}
+  .pillar p{margin:0; font-size:14.5px; color:var(--muted); line-height:1.5}
+
+  .rule{height:1px; background:linear-gradient(90deg,transparent,var(--line),transparent); margin:44px 0 8px}
+  h2.section-head{font-family:var(--serif); font-size:15px; letter-spacing:.16em; text-transform:uppercase;
+    color:var(--muted); font-weight:600; margin:34px 0 12px}
+
+  /* collapsibles */
+  details{background:var(--panel); border:1px solid var(--line); border-radius:14px;
+    margin:12px 0; box-shadow:var(--shadow); overflow:hidden}
+  details[open]{border-color:var(--gold-soft)}
+  summary{cursor:pointer; list-style:none; padding:18px 22px; display:flex; align-items:baseline; gap:14px}
+  summary::-webkit-details-marker{display:none}
+  summary .lyr{font-family:var(--serif); font-size:13px; color:var(--gold); min-width:52px; font-variant-numeric:tabular-nums}
+  summary .ttl{font-family:var(--serif); font-size:21px; font-weight:600; color:var(--ink)}
+  summary .sub{margin-left:auto; color:var(--muted); font-size:13.5px; font-style:italic; text-align:right}
+  summary .chev{margin-left:6px; color:var(--pale); transition:transform .2s ease; font-size:13px}
+  details[open] summary .chev{transform:rotate(90deg)}
+  summary:hover .ttl{color:var(--gold)}
+  .body{padding:2px 24px 24px; border-top:1px solid var(--line)}
+  .body h3{font-family:var(--serif); font-size:18px; margin:22px 0 6px; color:var(--ink)}
+  .body p{margin:10px 0}
+  .body ul{margin:10px 0; padding-left:20px}
+  .body li{margin:6px 0}
+  .body b{color:var(--ink)}
+  em.q{color:var(--muted)}
+
+  code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace; font-size:13.5px;
+    background:var(--code-bg); padding:1.5px 6px; border-radius:6px; color:var(--gold)}
+  .scroll{overflow-x:auto; margin:14px 0}
+  table{border-collapse:collapse; width:100%; font-size:14.5px; min-width:460px}
+  th,td{text-align:left; padding:8px 12px; border-bottom:1px solid var(--line); vertical-align:top}
+  th{color:var(--muted); font-weight:600; font-size:12.5px; letter-spacing:.04em; text-transform:uppercase}
+  td b{color:var(--gold)}
+  pre{background:var(--code-bg); border:1px solid var(--line); border-radius:11px; padding:14px 16px;
+    overflow-x:auto; font-family:ui-monospace,Menlo,Consolas,monospace; font-size:13px; line-height:1.5; color:var(--ink)}
+  pre .c{color:var(--muted)}
+  .callout{border-left:3px solid var(--gold-soft); background:var(--code-bg); padding:12px 16px;
+    border-radius:0 10px 10px 0; margin:16px 0; font-size:15px; color:var(--muted)}
+  .callout b{color:var(--gold)}
+
+  footer{margin-top:52px; text-align:center; color:var(--muted); font-size:13px; line-height:1.7}
+  footer .dot{color:var(--gold)}
+
+  @media (max-width:560px){
+    body{font-size:16px}
+    summary{flex-wrap:wrap}
+    summary .sub{margin-left:0; width:100%; text-align:left; margin-top:4px}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="hero">
+    <div class="kicker">Game Design Document</div>
+    <h1>Roundelay</h1>
+    <p class="tagline">A roguelike economy deckbuilder where attention is a physical force.</p>
+    <div class="motto"><span>places pale</span><span>people gleam</span><span>things wake</span></div>
+  </header>
+
+  <section class="lede">
+    <p>You are a <b>maker</b> walking one <span class="term">wander-year</span> through a countryside that is quietly fading. Each turn is one <b>worked morning</b>: you gather <span class="term">the room</span> (a pool of attention), play <b>journey-pieces</b> from your deck in an unbroken chain, and — when a piece has rested enough attention past its <b>waking-mark</b> — it <b>wakes</b>: it takes a thin gold working-edge, fires permanently into your deck, and starts drawing a crowd of its own. Pour attention past a card's ceiling and the overflow runs to <span class="term">Standing</span> (your gleam — the light the world holds you in).</p>
+    <p>The pressure is the <b>weather</b>. The land's fading (the <span class="term">Paling</span>) grows stronger through the year, raising the size of the <b>askings</b> — contracts you take off town lanterns — toward a calendar-floored <b>crown</b> at winter. You never lose Standing by sitting still; you lose it only by <b>reaching and falling short</b> (the spilling). To <b>win</b> you must stand the crown — which means you must have grown, which means you must have risked.</p>
+    <p>Six playstyles (the <b>Walking Ways</b>), one gorgeous economy of light, and a deck that is an autobiography of everyone who ever taught you a piece.</p>
+  </section>
+
+  <div class="pillars">
+    <div class="pillar"><h4>Attention as physics</h4><p>Every number a card pays is a <em>read</em> of shared state an earlier card wrote. The room you build with card&nbsp;1 is the number card&nbsp;3 dumps.</p></div>
+    <div class="pillar"><h4>Failure is a reach, not a bar</h4><p>No ambient decay. Standing falls only when a performance falls short — so growth and risk are the same act.</p></div>
+    <div class="pillar"><h4>Escalation is weather</h4><p>The season's fading raises the stakes on its own. A turtle who skips nothing still walks into autumn.</p></div>
+    <div class="pillar"><h4>Wonder, not grimdark</h4><p>No debt, no fees, no paperwork. Every mechanic is the world's own craft-physics — a lifting room, a gold edge taking, grey ground held back.</p></div>
+  </div>
+
+  <h2 class="section-head">The design, layer by layer &nbsp;·&nbsp; tap to expand</h2>
+
+  <!-- WORLD -->
+  <details>
+    <summary><span class="lyr">World</span><span class="ttl">Roundelay &amp; the Paling</span><span class="sub">theme, tone, the six Ways<span class="chev">›</span></span></summary>
+    <div class="body">
+      <p>Roundelay is a made world — not made once, long ago, but made <b>continuously, by hands</b>. It is named for a round-song passed voice to voice around a circle, that only stays wonderful as long as someone keeps singing their bars.</p>
+      <p>The <b>Paling</b> is the world exhaling: a tide, not a villain, that takes knack from made things first and color after. It never touches people or the light itself — it is the reason makers exist at all. Answering a town's need <b>re-makes</b> it: the square re-colors in watercolor strokes, and the maker is paid in the town's own overflow of gladness (the <span class="term">glad-load</span>).</p>
+      <p>The board is painted in <b>one light and three brushes</b> — <em class="q">places pale, people gleam, things wake</em> — three channels that never cross, plus attention as the medium that carries between them.</p>
+      <h3>The six Walking Ways</h3>
+      <p>Makers travel in loose traditions, each a different answer to the same fading. They are the game's six archetypes: the <b>Kilnfast</b> (fire it, keep it), the <b>Eveners</b> (keep the evening moving), the <b>Untold</b> (outrun the tale), the <b>Fairwrights</b> (make the watching), the <b>Mannerly</b> (mind your courtships), and the <b>Morning-Gleaners</b> (glean the grey left behind).</p>
+      <div class="callout"><b>Aesthetic target:</b> wonder, fantasy, whimsy, elegance — closer to Miyazaki or Le&nbsp;Guin or a beautifully illustrated picture-book than to grimdark or bureaucratic satire. Every layer must generate imagery an artist could paint.</div>
+    </div>
+  </details>
+
+  <!-- L1 -->
+  <details open>
+    <summary><span class="lyr">Layer 1</span><span class="ttl">The Core Loop</span><span class="sub">the worked morning &amp; the win<span class="chev">›</span></span></summary>
+    <div class="body">
+      <p>A run is <b>one wander-year of fixed length</b> — ~27 worked mornings across five legs (Green&nbsp;Going → Long&nbsp;Light → Deep&nbsp;Gold → Red&nbsp;Walk → the Wintering finale). The calendar advances by <b>worked mornings only</b>, never by travel — so a camp-in-place player evades nothing.</p>
+      <h3>One play at a time</h3>
+      <ul>
+        <li><b>Dawn (income).</b> The morning issues attention: a flat base + a draw from the local table (a paler node gives a richer dawn) + yesterday's returned surplus. The base always wakes at least the cheapest piece — <em class="q">no morning is ever decision-free.</em> Draw a hand of five.</li>
+        <li><b>Gather the room.</b> Your pool = the morning draw + the gathered room (woken audience-things you own, townsfolk, a venue). A thin room caps how bright anything can wake.</li>
+        <li><b>Play a chain.</b> Each play spends attention as a <b>multiplier</b>; back-to-back plays hold the room high, a stall lets it cool. Attention is a budget and a momentum at once.</li>
+        <li><b>The waking line.</b> Rest a piece's attention <b>at or above its fixed waking-mark</b> and it wakes — fired to your deck permanently, paying delight into the need's fill and joining the room as a new audience-thing. Below its mark it still resolves once but stays inert and paling-prone.</li>
+        <li><b>The full cup.</b> Attention poured <b>past a card's ceiling</b> converts to Standing at full rate — <em class="q">a full cup runs to the pourer.</em> The run's biggest gleam swings happen here, on stage, in public.</li>
+        <li><b>Fulfil.</b> When the need's fill completes, the node is re-made and the glad-load pays out.</li>
+      </ul>
+      <h3>Standing, and how you lose</h3>
+      <p>Standing <b>is</b> gleam — the world's trust worn as a key-light behind the shoulder. It rises on overflow, glad palms, and delayed tellings. It falls only by <b>the spilling</b>: an unmoved room, or an asking carried past its season. There is <b>no ambient decay</b>. At Standing-zero the run ends into the <b>Quiet Walk</b> — not death, the world going shy.</p>
+      <div class="callout"><b>The win:</b> reach the first still dawn of winter still lit <b>and</b> having stood your <b>crown</b> — a boss-tier performance the whole engine you built must answer. The turtle-dodge is closed not by a decay meter but by the crown being <b>un-standable without a grown deck</b>. Opting out of risk means opting out of winning.</div>
+    </div>
+  </details>
+
+  <!-- L2 -->
+  <details>
+    <summary><span class="lyr">Layer 2</span><span class="ttl">Resources</span><span class="sub">four interacting systems<span class="chev">›</span></span></summary>
+    <div class="body">
+      <p>A lean set of resources, each on a <b>different clock</b> so none can substitute for another:</p>
+      <div class="scroll"><table>
+        <tr><th>Resource</th><th>What it is</th><th>Its clock</th></tr>
+        <tr><td><b>Attention</b> — the room</td><td>The per-turn pool you spend to wake pieces. Never banked; unspent attention returns to the local table.</td><td>the dawn</td></tr>
+        <tr><td><b>Handsels</b></td><td>A decaying currency. Bright only while it keeps moving; idle money dims and seeps back to tomorrow's dawn.</td><td>the rest</td></tr>
+        <tr><td><b>Gleam</b> — Standing</td><td>The never-spent gate + fail-resource. Gates which askings and materials answer you; ends the run at zero.</td><td>the run</td></tr>
+        <tr><td><b>The Paling</b></td><td>Board pressure. Accretes as spiral rings on skipped nodes; raises askings and richens dawns.</td><td>the season</td></tr>
+      </table></div>
+      <p>Plus <b>journey-pieces</b> (your deck) and <b>courted stock</b> (shy materials). Everything rides one conservation substrate — <em class="q">nothing is noticed away; nothing is minted.</em> Four subsystems (the Bench, the Handsel Round, the Courting Web, the Paling) tap and feed that single circulation.</p>
+      <div class="callout"><b>The firewall:</b> Standing never interacts with the Paling. Board pressure can never touch the gleam meter — so players always know which losses are the world's weather and which are their own.</div>
+    </div>
+  </details>
+
+  <!-- L3 -->
+  <details>
+    <summary><span class="lyr">Layer 3</span><span class="ttl">Effect Vocabulary</span><span class="sub">14 primitives; cards are data<span class="chev">›</span></span></summary>
+    <div class="body">
+      <p>A card is <b>declarative data</b>: a craft-suit, a fixed waking-mark, a ceiling, a printed delight, and an ordered list of effects. Each effect is <code>{ when, if?, do, params }</code>. The depth comes from one idea: <b>amounts are references, not constants</b> — the single primitive <code>read</code> turns any live quantity into the <em>amount</em> of another effect.</p>
+      <div class="scroll"><table>
+        <tr><th>Verb</th><th>What it does</th></tr>
+        <tr><td><b>gather</b></td><td>Seat more of the present audience into the room (soft-capped).</td></tr>
+        <tr><td><b>rest</b></td><td>Spend the room to rest attention on a piece × the chain; at its mark it wakes, past its ceiling it overkills.</td></tr>
+        <tr><td><b>steady</b></td><td>Manipulate the work-chain — extra links, or brace it against a stall.</td></tr>
+        <tr><td><b>fill</b></td><td>Pour woken delight into the accepted need's fill.</td></tr>
+        <tr><td><b>brim</b></td><td>Widen the overkill→gleam band. The <b>only</b> card that writes gleam.</td></tr>
+        <tr><td><b>mark-grain</b></td><td>Stamp a craft-suit onto a piece (feeds its audience-type and its grain-of-gleam).</td></tr>
+        <tr><td><b>draw</b></td><td>Draw pieces; with a filter, search the pack for the combo piece.</td></tr>
+        <tr><td><b>retire</b></td><td>Last-light a piece to destruction, returning its worth to the table or the room.</td></tr>
+        <tr><td><b>whittle</b></td><td>Carve the shavings-share of a play's return into handsels.</td></tr>
+        <tr><td><b>court</b></td><td>Perform a term to draw in a shy material. Reads gleam as a <b>gate, never spent</b>.</td></tr>
+        <tr><td><b>soothe</b></td><td>Spend a last-red catalyst to slow this node's fading. The one board-writer.</td></tr>
+        <tr><td><b>read</b></td><td>The reference primitive — reads a live surface (room, chain, grain, a node's rings…) as an amount.</td></tr>
+        <tr><td><b>warm</b> / <b>keep</b></td><td>The legible no-combo floor: +delight, or +one season of freshness. A newcomer can play these alone.</td></tr>
+      </table></div>
+      <div class="callout"><b>The grammar of light is compiler-enforced.</b> A gleam-write (<code>brim</code>) can only read the room / chain / genuine overflow — never a board surface. Paleness may scale attention, handsels, and harvest — <b>never Standing</b>. And no waking-mark can ever be lowered; the only lever is bringing more attention.</div>
+    </div>
+  </details>
+
+  <!-- L4 -->
+  <details>
+    <summary><span class="lyr">Layer 4</span><span class="ttl">Acquisition</span><span class="sub">how the deck grows — no card-shop<span class="chev">›</span></span></summary>
+    <div class="body">
+      <p>Only three things ever newly enter a run — <b>journey-pieces, courted stock, handsels</b> — and never through a shop. Acquisition is a bundle paid across the existing economies, gated by two independent things at once:</p>
+      <ul>
+        <li><b>The glad-load</b> — the passive spine. Answering a town's asking loads your pack across everything at once: one pressed <b>taught piece</b> (arriving with that town's name on it), one <b>introduction-jar</b> of local material, <b>bright handsels</b>, and map-intel chalked a day ahead. Its richness scales off the node's spiral rings — <em class="q">rings-in equals load-out</em>, so the same number raises both the difficulty and the reward.</li>
+        <li><b>The Round-Fair</b> — the active hub, and where <b>choice</b> lives: teach / win / delight lanes, priced in wakefulness, that you must route to intercept.</li>
+        <li><b>The gleaning</b> — walk the pale, left-behind country for last-red and salvage. Highest route risk; the Gleaner's home.</li>
+        <li><b>Courting</b> — proud materials are never bought. You spend <b>gleam as a gate</b> (which stalls will deal with you) then perform a term to draw the stuff in.</li>
+      </ul>
+      <p>Every acquired piece arrives <b>inert</b> — the room still has to wake it. That is why a fast draft can never trivialize the run: you cannot draft your way past the requirement to <em>perform</em>. Every faucet pairs with a canon drain (retire, gifting, exhaust), so the deck is a garden, not a hoard.</p>
+      <div class="callout"><b>The intersection is the strategy:</b> your <b>shine</b> decides who will deal with you; your <b>route + season</b> decides what a place even has. You need both gates open at once — the mending question worn as a supply chain.</div>
+    </div>
+  </details>
+
+  <!-- L5 -->
+  <details>
+    <summary><span class="lyr">Layer 5</span><span class="ttl">The Six Archetypes</span><span class="sub">six engines, not palette-swaps<span class="chev">›</span></span></summary>
+    <div class="body">
+      <p>Each Walking Way pulls one lever of the resource square hardest, wins the same crown by a <b>different route</b>, and sits on a different risk axis. You are never handed a class menu — <b>the country teaches you into the maker you are being</b>, by the grain your gleam shows.</p>
+      <div class="scroll"><table>
+        <tr><th>Way</th><th>Lever</th><th>Feel</th><th>How it wins</th></tr>
+        <tr><td><b>Kilnfast</b></td><td>the fired, held</td><td>lowest variance; a curve that out-scales the boss</td><td>a compounding fired-audience floor (<code>read(woken)</code> → bigger room, no spike)</td></tr>
+        <tr><td><b>Eveners</b></td><td>the purse, moving</td><td>the control deck; highest consistency</td><td>composts dead cards into room + keeps money bright by moving it</td></tr>
+        <tr><td><b>Untold</b></td><td>the pace, ratcheted</td><td>thin, fast, cool</td><td>clears <em>many small</em> needs; pressure is count-and-pace, not tonnage</td></tr>
+        <tr><td><b>Fairwrights</b></td><td>the room, spiked</td><td>highest variance; feast or famine</td><td>one enormous crowd dumped past a ceiling — the biggest gleam swing (<code>brim</code>)</td></tr>
+        <tr><td><b>Mannerly</b></td><td>the proud, courted</td><td>greedy, swingy; highest ceiling</td><td><b>court</b> a term-state, then one proud piece pays by the <b>courtship's depth</b></td></tr>
+        <tr><td><b>Gleaners</b></td><td>the grey, harvested</td><td>highest route risk; boss-affine</td><td>the fading itself is fuel — richest dawns, then <b>soothe</b> the ground you farmed</td></tr>
+      </table></div>
+      <div class="callout"><b>A late design pass</b> gave the Gleaner and the Mannerly their own <b>winning verbs</b> so no two builds win the same way. The Gleaner's marquee is now <b>mending the ripened grey it just harvested</b> (<code>soothe</code>); the Mannerly's is <b>the courtship landing</b> (<code>court</code>, with gleam a pure gate). Only two builds still win by a raw grain-count — and those two are set apart by other levers entirely.</div>
+    </div>
+  </details>
+
+  <!-- L6 -->
+  <details>
+    <summary><span class="lyr">Layer 6</span><span class="ttl">Numbers &amp; Curves</span><span class="sub">the economy, made concrete<span class="chev">›</span></span></summary>
+    <div class="body">
+      <p>Concrete numbers fitted to the design and proven by an executable economy model. Every worked morning offers a median of <b>four meaningful decisions</b>.</p>
+      <div class="scroll"><table>
+        <tr><th>Dial</th><th>Value</th></tr>
+        <tr><td>Deck size over the run</td><td>~7 → ~20 (grown enough to stand the crown, thinned along the way)</td></tr>
+        <tr><td>Hand size</td><td>5, refilled each morning</td></tr>
+        <tr><td>The rising need (per morning, by leg)</td><td>1 → 3 → 5 → 7, climbing to a <b>crown demand of 10</b></td></tr>
+        <tr><td>Card tiers (fixed marks)</td><td>apprentice 1–2 · mid 3–5 · proud 6–7 · capstone 7–8</td></tr>
+        <tr><td>Spiral rings</td><td>3 = a plea · 5 = a poem · 7 = a great asking born</td></tr>
+        <tr><td>Overflow → gleam</td><td>full rate for the first 6 points past a ceiling, then diminishing (closes bank-then-dump)</td></tr>
+        <tr><td>Handsels</td><td>dull 1 · warm 2 · singing 3; brightened only by circulation</td></tr>
+        <tr><td>Archetype balance</td><td>six power totals inside a 4-point band; each best on exactly one axis; zero dominated pairs</td></tr>
+      </table></div>
+      <p>The crown's 8.5-of-10 gap is deliberately closed by the <b>whole engine</b> — chain multiplier, overflow, and count-stacking — never by a single card. A static apprentice deck simply cannot reach it: <b>growth is forced by the weather, not optional.</b></p>
+      <div class="callout"><b>The commerce ban holds even in the numbers:</b> the shy-material stalls render diegetically as <em>the-vouching</em> / <em>the-stalls-that-lean-in</em> — never an in-world "market".</div>
+    </div>
+  </details>
+
+  <!-- L7 -->
+  <details>
+    <summary><span class="lyr">Layer 7</span><span class="ttl">The Starter Pool</span><span class="sub">49 cards, ready to play<span class="chev">›</span></span></summary>
+    <div class="body">
+      <p>The concrete opening cards, as data: a shared <b>7-card apprentice deck</b> every run begins with, plus ~7 cards for each of the six Ways so its signature chain opens from turn one. <b>84% of the pool participates in a combo</b> — the standalones are the deliberate legible floor.</p>
+      <h3>A signature chain, as the engine sees it — the Kilnfast's compounding hearth</h3>
+      <pre><span class="c">// C1 — Setterby Trestle: the room grows by every joinery piece already fired (cross-turn)</span>
+{ "grain":"joinery", "mark":2, "ceiling":4, effects:[
+    gather( read <span class="c">woken:joinery</span> ),   <span class="c">// +room per fired joinery</span>
+    steady( links:1, brace )  ]}                 <span class="c">// hold the room across a pause</span>
+
+<span class="c">// C2 — Calipers at the Bench: pre-rest the capstone toward its FIXED mark by the held room</span>
+{ "grain":"joinery", "mark":3, "ceiling":5, effects:[
+    rest( target: capstone, read <span class="c">room</span> ),
+    mark-grain( a hand piece → joinery )  ]}     <span class="c">// grows read(grain:joinery)</span>
+
+<span class="c">// C3 — The Fired Beam: clear it, pay by joinery-count, then wake and seat as one more piece</span>
+{ "grain":"joinery", "mark":7, "ceiling":8, tags:[capstone], effects:[
+    rest( self, read <span class="c">room</span> ),
+    fill( read <span class="c">grain:joinery</span> ),        <span class="c">// every number here was written by C1–C2</span>
+    steady( brace )  ]}</pre>
+      <p>Break the order and the capstone under-fills — <em class="q">a reach that falls short, the spilling.</em> The combo <b>is</b> the growth; the growth is the Standing at stake.</p>
+    </div>
+  </details>
+
+  <!-- NEXT -->
+  <details>
+    <summary><span class="lyr">Next</span><span class="ttl">What the design leaves open</span><span class="sub">for the balance stage<span class="chev">›</span></span></summary>
+    <div class="body">
+      <p>This document is the finished <b>design</b>. Its balance is <em>asserted</em> over hand-authored economy checks — proven to hold its <b>shape</b>, not yet its exact values. The next stage (the <b>game-loop</b>) derives real balance from bot-played simulations and tunes the exact coefficients within these locked shapes:</p>
+      <ul>
+        <li>the six archetypes' true win-rates and the crown-stand spread;</li>
+        <li>whether the glad-load (the passive spine) flattens build diversity;</li>
+        <li>the exact coefficients — the Untold's per-leg counts, the last-red and Fair rates, the skip-can't-out-scale margin;</li>
+        <li>the Gleaner's flagged boss-affinity.</li>
+      </ul>
+      <p>The simulation is a <b>thermometer, not an oracle</b>: it proves the game is balanced and deep, not that it is fun. That last judgment stays human.</p>
+    </div>
+  </details>
+
+  <footer>
+    <b>Roundelay</b> &nbsp;<span class="dot">·</span>&nbsp; a world&nbsp;→&nbsp;game design pipeline &nbsp;<span class="dot">·</span>&nbsp; all seven design layers locked<br>
+    Generated from the locked GDD (planning/GDD.md) &nbsp;<span class="dot">·</span>&nbsp; design stage complete
+  </footer>
+
+</div>
+</body>
+</html>

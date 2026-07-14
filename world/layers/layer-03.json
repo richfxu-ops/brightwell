@@ -1,0 +1,155 @@
+{
+  "layer": 3,
+  "metrics": {},
+  "audit": {
+    "auditor": "blind-post-synthesis",
+    "artifact": "planning/WORLD.md#layer-3",
+    "elements": [
+      {
+        "id": "the-kilnfast",
+        "trope": false,
+        "anchor": false,
+        "hook": true,
+        "legible": true
+      },
+      {
+        "id": "the-mannerly",
+        "trope": false,
+        "anchor": false,
+        "hook": true,
+        "legible": true
+      },
+      {
+        "id": "the-morning-gleaners",
+        "trope": false,
+        "anchor": false,
+        "hook": true,
+        "legible": true
+      },
+      {
+        "id": "the-eveners",
+        "trope": false,
+        "anchor": false,
+        "hook": true,
+        "legible": true
+      },
+      {
+        "id": "the-untold",
+        "trope": false,
+        "anchor": false,
+        "hook": true,
+        "legible": true
+      },
+      {
+        "id": "the-fairwrights",
+        "trope": true,
+        "anchor": true,
+        "hook": true,
+        "legible": true
+      },
+      {
+        "id": "the-walking-ways",
+        "trope": true,
+        "anchor": true,
+        "hook": true,
+        "legible": true
+      },
+      {
+        "id": "the-round-fair",
+        "trope": true,
+        "anchor": true,
+        "hook": true,
+        "legible": true
+      },
+      {
+        "id": "the-fair-answer",
+        "trope": false,
+        "anchor": false,
+        "hook": true,
+        "legible": true
+      },
+      {
+        "id": "red-thread-days",
+        "trope": false,
+        "anchor": false,
+        "hook": true,
+        "legible": true
+      },
+      {
+        "id": "road-marks",
+        "trope": false,
+        "anchor": false,
+        "hook": true,
+        "legible": true
+      },
+      {
+        "id": "the-quiet-porch",
+        "trope": false,
+        "anchor": false,
+        "hook": true,
+        "legible": true
+      }
+    ],
+    "metrics": {}
+  },
+  "issues": [
+    {
+      "severity": "P2",
+      "kind": "spine-tension",
+      "what": "the-untold reinterprets D-001's escalating contracts as rising contract COUNT and PACE rather than stakes/size ('the ratchet arrives as tempo instead of tonnage'), plus rumor-silent between-roads that suppress the tale-network the ratchet runs on. The text argues escalation still finds them (fine-grained shine is shown more and sooner; the combing reads country-need regardless) and self-flags the question for the L4 napkin-sim, but as written this is the one place the locked pressure curve rests on an unverified claim: if count-and-tempo plateaus mid-run, the Untold archetype has a lawful way to stand still under a spine that forbids standing still.",
+      "fix": "Hold the existing in-text flag as binding: L4 napkin-sim must demonstrate the count/pace channel keeps aggregate run pressure monotonically rising through the mid-run (e.g., pace floor tied to peak-gleam, plus combing-clock acceleration from skipped hearths on between-roads). If it fails, amend the Untold creed so kettle-tier askings themselves compound in count per town, not merely in frequency.",
+      "raised_by": "blind-post-synthesis"
+    },
+    {
+      "severity": "P3",
+      "kind": "canon-mechanism-ambiguity",
+      "what": "the-round-fair / how-the-ways-meet: 'a fair retells everything at twice the size, so the Fairwrights can raise another maker's lantern-ladder simply by singing of them.' Layer 2 pins asking tier to peak-gleam-this-run 'read from grain, never a hidden counter' and rules that delayed gleam arrivals never raise a lantern's reading until seen landing. If a doubled retelling can raise a third party's sizing directly through rumor, tier has two competing keys (grain vs. tale-size); if it routes through the retelling's caused delight running overflow back to the original maker (lawful under gleam-runoff), the lever is fine but the text does not say so.",
+      "fix": "One clause in the-round-fair or the-fair lever text stating that the retelling raises the ladder only via the gleam it sends home along the lines of cause (arriving on the L2 seen-landing rule) — the tale walks, the light lands, then the lantern reads.",
+      "raised_by": "blind-post-synthesis"
+    },
+    {
+      "severity": "P3",
+      "kind": "anchor-declaration-hygiene",
+      "what": "The Layer 3 anchor summary claims all anchors are 'declared inline above,' but the-fairwrights' own heading carries no inline anchor tag — its declaration lives only at the-round-fair's heading ('declared jointly'). A reader auditing element-by-element could count the-fairwrights as an undeclared trope.",
+      "fix": "Add the same '(anchor — declared jointly with the-round-fair ...)' tag to the-fairwrights heading, or reword the summary to say 'declared at the-round-fair, jointly.'",
+      "raised_by": "blind-post-synthesis"
+    },
+    {
+      "severity": "P3",
+      "kind": "prior-canon-vocabulary-friction",
+      "what": "Layer 3's foundational claim — ways keep 'no hall and no roll,' you will never hear 'a house or an order' — sits against Layer 1's 'guild-town' (spine narrative) and Layer 2's 'guild-hall wall' (the-round-of-light visual). Not a contradiction if guild-halls are town buildings rather than way-holdings, but 'guild' vocabulary is exactly the Curature-adjacent register D-003 polices, and Layer 3 is the layer that establishes there are no guilds.",
+      "fix": "In a later pass, rename 'guild-town'/'guild-hall' in Layers 1-2 to Roundelay-native terms (waymeet-town, makers'-hall, song-hall), or add a Layer 3 line explicitly noting the old word survives on signboards while the thing it named never existed here.",
+      "raised_by": "blind-post-synthesis"
+    },
+    {
+      "severity": "P3",
+      "kind": "archetype-label-clarity",
+      "what": "the-eveners' hook is labeled the 'sacrifice-and-velocity archetype' while its own text insists exhausts are 'always for conversion, never for pace (the tempo exhausts belong to the Untold)' — 'velocity' here means handsel-circulation velocity, but the label reads as deck tempo and collides with the Untold's identity at exactly the seam the text works hardest to keep clean.",
+      "fix": "Rename the label to 'sacrifice-and-circulation' or 'composting-control archetype' so the Evener/Untold exhaust distinction survives into L4 without a footnote.",
+      "raised_by": "blind-post-synthesis"
+    },
+    {
+      "severity": "P3",
+      "kind": "canon-extension",
+      "what": "The Fairwright entry adopts a one-sentence extension of gleam-runoff: overflow splits along ALL lines of cause and the room's share walks home slowly at a hearth's pace. Canon's one worked exemplar (Moth Fair) showed only the fiddler's share; the extension is canon-compatible but unconfirmed.",
+      "fix": "Confirm at L4 that delayed venue-share Standing income is modelable and desirable; if not, re-ground Fairwright gleam solely in the town-scale askings they take directly (one-line edit).",
+      "raised_by": "synthesizer"
+    },
+    {
+      "severity": "P3",
+      "kind": "process",
+      "what": "Per D-004's threshold-adjacency rule, proposal A sat at trope density 0.14 (threshold 0.15) and the merged slate is A-based; although the merge applied every recommended silhouette/twee fix and dropped C's above-threshold material, the merged text has not itself been re-audited.",
+      "fix": "Run the 3-auditor majority panel on the merged Layer 3 section before closing the GATE_BATCH review, focusing on guild residue (walking-ways), fair-anchor share, and quarrel-register accumulation.",
+      "raised_by": "synthesizer"
+    },
+    {
+      "severity": "P3",
+      "kind": "coverage-note",
+      "what": "No dedicated information archetype exists on the slate by design (light-followers stay a canon-mandated practice); information play is distributed via road-marks with the Gleaner kit leaning hardest.",
+      "fix": "If game-architect (L5/GDD) wants a full scry archetype, build it on road-marks + the follower practice without institutionalizing the followers (folk-scale guard is binding); otherwise no action.",
+      "raised_by": "synthesizer"
+    }
+  ],
+  "summary": "THE WALKING WAYS — six traveling craft-cultures, each a complete answer to 'how is regard best set into the world', worn (never conferred) and legible in gleam-grain at dusk: the Kilnfast (fired permanence; tall-permanence archetype), the Mannerly (material courtship; condition-puzzle control), the Morning-Gleaners (walk toward the grey, ripe mending; adversity economy), the Eveners (handsel circulation; conversion/velocity), the Untold (rumor-quiet roads; tempo pressure variant), the Fairwrights (the Round-Fair's one enormous public turn; declared anchor jointly with the-round-fair). Shared practices: the fair answer, red-thread days, road-marks, the quiet porch. No halls, no rolls, no violence-default: rivalry as craft disagreement and festival contest. Light-followers stay a practice threading all six, per canon. 3 declared anchors (anchor_share 0.25); archetypes mutually distinct as deck shapes. P2 recorded: the-untold reads the ratchet as tempo-not-tonnage — flagged for the gate and for game-architect to prove or clamp numerically.",
+  "tokens_spent": 771489
+}

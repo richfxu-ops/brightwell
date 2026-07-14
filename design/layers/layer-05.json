@@ -1,0 +1,131 @@
+{
+  "layer": 5,
+  "audit": {
+    "auditor": "blind 3-panel (no-schema); all 6 legible; synergy_depth min 3 unanimous; no P0/P1",
+    "artifact": "planning/GDD.md#layer-5",
+    "elements": [
+      {
+        "id": "the-kilnfast",
+        "legible": true
+      },
+      {
+        "id": "the-eveners",
+        "legible": true
+      },
+      {
+        "id": "the-untold",
+        "legible": true
+      },
+      {
+        "id": "the-fairwrights",
+        "legible": true
+      },
+      {
+        "id": "the-mannerly",
+        "legible": true
+      },
+      {
+        "id": "the-morning-gleaners",
+        "legible": true
+      }
+    ],
+    "metrics": {
+      "synergy_depth": 3
+    }
+  },
+  "issues": [
+    {
+      "severity": "P2",
+      "kind": "capstone-homogeneity",
+      "what": "4 of 6 archetypes (Kilnfast/Untold/Mannerly/Gleaners) share the 'fill read(grain:<suit>)' capstone idiom + a false 'only one' uniqueness claim in §3. Distinct in fuel/resource/risk (not palette-swaps) but the winning moment reads alike for four.",
+      "fix": "Differentiation pass at lock: give >=2 capstones a distinct winning verb (Gleaner->soothe, Mannerly->court); delete the false claim.",
+      "raised_by": "blind-panel-2/3"
+    },
+    {
+      "severity": "P2",
+      "kind": "balance-asserted-not-derived",
+      "what": "Non-domination/viability/power-band rest on hand-authored ordinal vectors (napkins are shape-checks). Crown-stand spread .70-.99. Gleaners top-of-band + boss-affine to watch.",
+      "fix": "game-loop derives balance from card-level bot sim; structural shapes committed here (D-005.3).",
+      "raised_by": "blind-panel-1/2/3"
+    },
+    {
+      "severity": "P3",
+      "kind": "i022-match-calibrated",
+      "what": "Untold mid-run 'match' is calibrated not derived; load-bearing legs are FORCING (spiral-clock) + CROWN CLAMP. §2d citation typo A5->A3.",
+      "fix": "Reframe §2a/b as calibration target; fix A5->A3 at lock.",
+      "raised_by": "blind-panel-1/2/3"
+    },
+    {
+      "severity": "P3",
+      "kind": "l3-grammar-drift",
+      "what": "Fairwright C1 read(woken:*) wildcard and Mannerly C2 court-reads-chain not in enumerated locked-L3 grammar.",
+      "fix": "Restate within locked L3 surfaces at lock.",
+      "raised_by": "blind-panel-2/3"
+    },
+    {
+      "severity": "P3",
+      "kind": "depth-overclaim",
+      "what": "Kilnfast/Untold labeled depth-4 but 3 distinct card types (4th is cross-turn/one-shot accumulation). Min=3 regardless.",
+      "fix": "Relabel '3 distinct + accumulation loop'.",
+      "raised_by": "blind-panel-1/2/3"
+    },
+    {
+      "severity": "P3",
+      "kind": "vestigial-mark-grain",
+      "what": "Kilnfast/Fairwright C2 mark-grain stamps same-grain capstone (no-op).",
+      "fix": "Cross-suit or drop at lock.",
+      "raised_by": "blind-panel-1/2"
+    },
+    {
+      "severity": "P3",
+      "kind": "i017-traceability",
+      "what": "I-017 elevation one-liner (D-005.2) not visible in L5-archetypes section (run/geo lives in L1 dawn mechanic).",
+      "fix": "Confirm discharged in L1 dawn-income or add; non-blocking.",
+      "raised_by": "blind-panel-1"
+    }
+  ],
+  "summary": "Layer 5 archetypes: SIX (one per Walking Way), 3 starters + 3 second-wave, six orthogonal levers. All 3 auditors PASS, no P0/P1; all legible (intuitiveness 1.0), min synergy_depth 3 (genuine >=3-card chains), no dead/dominant archetype. Napkins (engine-run) flags=0: all viable (crown-stand .70-.99), dominated pairs=0, power band 7<=8. I-022 discharged (matched+forced+clamped). Locked-canon distinctions affirmed. USER APPROVED lock-all-six + differentiation pass. Fixes at lock: differentiate Gleaner/Mannerly capstones, false-claim + typo fixes, L3-grammar restatements, depth relabel, vestigial mark-grain.",
+  "tokens_spent": 1392789,
+  "executed": {
+    "napkin_flags": {
+      "script": "napkin/layer-05.py",
+      "result": {
+        "model": "layer-05-archetypes",
+        "checks": [
+          {
+            "name": "every_archetype_viable",
+            "pass": true,
+            "detail": "crown-stand rate per archetype (floor 0.4): kilnfast stand=0.981; eveners stand=0.99; untold stand=0.945; fairwrights stand=0.707; mannerly stand=0.738; gleaners stand=0.705 | all>=floor=True; distinct crown routes=6(raw-burst/prepared-board/count-stack/landed-ceiling) — viability is not one crown solution re-skinned"
+          },
+          {
+            "name": "no_dominant_archetype",
+            "pass": true,
+            "detail": "lever-axis dominated_pairs=0 (=0 required); each best on exactly one axis=True; total-power band=7<= 8 (totals [44, 42, 41, 40, 38, 37]); crown-stand band=0.285<= 0.35, min=0.705; per-leg+crown leaders=['eveners', 'eveners', 'kilnfast', 'kilnfast', 'eveners'] -> 2 distinct (no archetype best across the whole curve)"
+          },
+          {
+            "name": "each_archetype_synergy_ge_3",
+            "pass": true,
+            "detail": "per-archetype [len, combo/indep median, p05]: kilnfast[4, x3.17, p05 x2.95]; eveners[3, x2.07, p05 x1.92]; untold[4, x2.66, p05 x2.48]; fairwrights[3, x2.78, p05 x2.55]; mannerly[3, x2.7, p05 x2.47]; gleaners[3, x2.36, p05 x2.16] | min chain length=3(>=3); worst-case combo/indep p05=x1.92(>= 1.5); broken-order under-fills for all (each capstone number is a read of shared state a preceding card wrote)"
+          },
+          {
+            "name": "untold_tempo_matches_or_clamped",
+            "pass": true,
+            "detail": "(a) per-morning pressure Untold=[1.0, 3.0, 5.0, 7.0] vs size=[1.0, 3.0, 5.0, 7.0] match(+/-15%)=True, monotone=True; (b) season throughput Untold=[15.0, 25.0, 35.0, 45.0] == 15*s(t)=[15.0, 25.0, 35.0, 45.0] match=True; (c) FORCED: refused-surplus cum-by-DeepGold=10.0 >= combing 7.0 -> materializes as size (True); (d) CLAMPED crown: unclamped C_match=14.42 > size 8.5 (would dominate=True) -> clamped to 6.0 <= size (True) via demand-cap + pace-ceiling(6.0); per-leg delivery never exceeds size=True"
+          },
+          {
+            "name": "archetypes_distinct_not_palette_swaps",
+            "pass": true,
+            "detail": "axis owners: scaling->kilnfast, consistency->eveners, tempo->untold, spike->fairwrights, ceiling->mannerly, route->gleaners | six distinct owners=True (each a different verb doing the load-bearing work on a different resource surface)"
+          },
+          {
+            "name": "brim_reserved_and_firewalled",
+            "pass": true,
+            "detail": "brim owners=['fairwrights'] (Fairwrights alone); band='over-ceiling' in legal ['chain', 'over-ceiling', 'room'] and not a board surface -> firewall holds (Kilnfast fills by grain-count with no spike; court reads gleam as a GATE, never spent)"
+          }
+        ],
+        "flags": []
+      },
+      "failed_checks": []
+    }
+  }
+}

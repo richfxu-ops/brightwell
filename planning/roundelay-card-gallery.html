@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Roundelay — Card Gallery</title>
+<style>
+  :root{
+    --bg:#f6f1e7; --panel:#fffdf8; --panel2:#fbf6ea; --ink:#2a2622; --muted:#6f6656;
+    --line:#e2d9c6; --gold:#b8862e; --shadow:0 1px 2px rgba(60,45,20,.05),0 8px 26px rgba(60,45,20,.07);
+    --serif:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;
+    --sans:ui-sans-serif,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+    --joinery:#a9702f; --thread:#3d7fb5; --song:#8a5cc0; --glaze:#3f8f8a; --dance:#bb4f86; --dough:#b79246;
+  }
+  @media (prefers-color-scheme:dark){:root{
+    --bg:#151920; --panel:#1e222b; --panel2:#262c37; --ink:#ece6d9; --muted:#a8a090;
+    --line:#2f3540; --gold:#e4bd6b; --shadow:0 1px 2px rgba(0,0,0,.3),0 10px 30px rgba(0,0,0,.4);
+    --joinery:#cf9a56; --thread:#77a8de; --song:#b088e0; --glaze:#5fb8b2; --dance:#dd7aa8; --dough:#d4b16a;
+  }}
+  :root[data-theme="dark"]{
+    --bg:#151920; --panel:#1e222b; --panel2:#262c37; --ink:#ece6d9; --muted:#a8a090;
+    --line:#2f3540; --gold:#e4bd6b; --shadow:0 1px 2px rgba(0,0,0,.3),0 10px 30px rgba(0,0,0,.4);
+    --joinery:#cf9a56; --thread:#77a8de; --song:#b088e0; --glaze:#5fb8b2; --dance:#dd7aa8; --dough:#d4b16a;
+  }
+  :root[data-theme="light"]{
+    --bg:#f6f1e7; --panel:#fffdf8; --panel2:#fbf6ea; --ink:#2a2622; --muted:#6f6656;
+    --line:#e2d9c6; --gold:#b8862e; --shadow:0 1px 2px rgba(60,45,20,.05),0 8px 26px rgba(60,45,20,.07);
+    --joinery:#a9702f; --thread:#3d7fb5; --song:#8a5cc0; --glaze:#3f8f8a; --dance:#bb4f86; --dough:#b79246;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:17px;line-height:1.55;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:1120px;margin:0 auto;padding:32px 20px 90px}
+  .nav{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;font-size:14px;margin-bottom:22px}
+  .nav a{color:var(--muted);text-decoration:none;border:1px solid var(--line);background:var(--panel);padding:6px 13px;border-radius:999px;box-shadow:var(--shadow)}
+  .nav a:hover{color:var(--gold);border-color:var(--gold)}
+  header{text-align:center}
+  .kick{letter-spacing:.24em;text-transform:uppercase;font-size:12.5px;color:var(--muted);margin-bottom:10px}
+  h1{font-family:var(--serif);font-weight:600;font-size:clamp(30px,5.5vw,44px);margin:0;
+     background:linear-gradient(180deg,var(--ink),var(--gold));-webkit-background-clip:text;background-clip:text;color:transparent}
+  .sub{font-family:var(--serif);font-style:italic;color:var(--muted);font-size:19px;margin:10px auto 0}
+
+  .jump{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin:22px 0 6px}
+  .jump a{font-size:13.5px;text-decoration:none;color:var(--ink);border:1px solid var(--line);background:var(--panel);
+          padding:6px 13px;border-radius:999px;box-shadow:var(--shadow);border-left:4px solid var(--ac,var(--gold))}
+  .jump a:hover{border-color:var(--ac,var(--gold))}
+
+  .grp{margin-top:40px}
+  .grphead{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;border-bottom:2px solid var(--ac,var(--gold));padding-bottom:8px;margin-bottom:16px}
+  .grphead h2{font-family:var(--serif);font-size:27px;margin:0;color:var(--ac,var(--gold))}
+  .grphead .tl{font-family:var(--serif);font-style:italic;color:var(--muted);font-size:17px}
+  .grphead .ct{margin-left:auto;font-size:13px;color:var(--muted)}
+
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(248px,1fr));gap:14px}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow);
+        overflow:hidden;display:flex;flex-direction:column}
+  .card .bar{height:6px;background:var(--gr,var(--gold))}
+  .card .in{padding:13px 15px 14px;display:flex;flex-direction:column;flex:1}
+  .card .top{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:4px}
+  .grain{font-size:11px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--gr)}
+  .role{font-size:10.5px;font-weight:700;letter-spacing:.04em;color:var(--muted);text-align:right}
+  .role.star{color:var(--gold)}
+  .cn{font-family:var(--serif);font-size:19px;font-weight:600;line-height:1.15;margin:1px 0 9px}
+  .stats{display:flex;gap:6px;margin-bottom:11px}
+  .st{flex:1;text-align:center;background:var(--panel2);border:1px solid var(--line);border-radius:8px;padding:4px 2px}
+  .st .k{display:block;font-size:9px;letter-spacing:.05em;text-transform:uppercase;color:var(--muted)}
+  .st .v{font-family:var(--serif);font-size:19px;font-weight:700;line-height:1.1}
+  .st.wake .v{color:var(--gr)} .st.ceil .v{color:var(--muted)} .st.del .v{color:var(--gold)}
+  .fx{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:7px}
+  .fx li{display:flex;gap:8px;font-size:13.5px;line-height:1.4;color:var(--ink)}
+  .w{flex:0 0 auto;font-family:var(--mono);font-size:10px;letter-spacing:.02em;text-transform:uppercase;color:var(--muted);
+     background:var(--panel2);border:1px solid var(--line);border-radius:5px;padding:2px 6px;height:fit-content;margin-top:1px}
+  .fx .verb{font-family:var(--mono);font-size:11px;color:var(--gr);opacity:.85}
+  .foot{margin-top:auto;padding-top:10px;font-size:11px;color:var(--muted);display:flex;justify-content:space-between;align-items:center}
+  .dot{display:inline-flex;align-items:center;gap:5px}
+  .dot i{width:8px;height:8px;border-radius:50%;background:var(--gr)}
+  .nocombo i{background:var(--muted);opacity:.5}
+
+  .legend{display:flex;gap:8px 18px;flex-wrap:wrap;justify-content:center;margin:26px 0 0;font-size:13.5px;color:var(--muted)}
+  .legend span{display:inline-flex;align-items:center;gap:6px}
+  .legend i{width:12px;height:12px;border-radius:3px}
+  footer{text-align:center;color:var(--muted);font-size:13px;margin-top:34px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <nav class="nav">
+    <a href="roundelay-how-it-works.html">← How it works</a>
+    <a href="roundelay-the-six-ways.html">The six Ways</a>
+    <a href="roundelay-a-deck-in-play.html">A deck in play</a>
+    <a href="roundelay-gdd.html">Full design doc</a>
+  </nav>
+  <header>
+    <div class="kick">Roundelay · card gallery</div>
+    <h1>All 49 starter cards</h1>
+    <p class="sub">7 shared apprentice cards + 7 for each of the six Ways.</p>
+  </header>
+
+  <div class="jump" id="jump"></div>
+  <div id="gallery"></div>
+
+  <div class="legend" id="legend"></div>
+  <footer>Roundelay · the locked starter pool, rendered from <span style="font-family:var(--mono)">src/content/cards/</span> · effects shown in plain English (numbers tune in the balance stage)</footer>
+</div>
+
+<script>
+// ---- the real card data (from src/content/cards/*.json) ----
+const R = s => ({read:s});
+const GROUPS = [
+  {key:"shared", grain:"dough", name:"The Apprentice Hand", tl:"seven plain cards every run begins with", cards:[
+    {id:"sprig-trestle",n:"Sprig Trestle",g:"joinery",m:1,c:2,d:1,role:"apprentice",combo:true,fx:[{w:"on-play",do:"gather",amt:R("grain:joinery")}]},
+    {id:"pegged-bench",n:"Pegged Bench",g:"joinery",m:1,c:2,d:1,role:"apprentice",combo:true,fx:[{w:"on-chain",do:"steady",links:1}]},
+    {id:"loose-thread",n:"Loose Thread",g:"thread",m:1,c:2,d:1,role:"baseline",combo:false,fx:[{w:"on-play",do:"keep"}]},
+    {id:"kettle-loaf",n:"Kettle-Loaf",g:"dough",m:1,c:2,d:1,role:"baseline",combo:false,fx:[{w:"on-play",do:"warm",n:1}]},
+    {id:"hearth-hum",n:"Hearth-Hum",g:"song",m:2,c:3,d:1,role:"apprentice",combo:true,fx:[{w:"on-play",do:"gather",amt:R("grain:song")}]},
+    {id:"grey-bowl",n:"Grey Bowl",g:"glaze",m:2,c:3,d:1,role:"apprentice",combo:true,fx:[{w:"on-play",do:"gather",amt:R("grain:glaze")}]},
+    {id:"first-step",n:"First Step",g:"dance",m:2,c:3,d:1,role:"apprentice",combo:true,fx:[{w:"on-play",do:"gather",amt:R("grain:dance")}]},
+  ]},
+  {key:"kilnfast", grain:"joinery", name:"The Kilnfast", tl:"the fired, held — fire it once, keep it forever", cards:[
+    {id:"setterby-trestle",n:"Setterby Trestle",g:"joinery",m:2,c:4,d:1,role:"chain:C1",combo:true,fx:[{w:"on-play",do:"gather",amt:R("woken:joinery")},{w:"on-chain",do:"steady",links:1,brace:true}]},
+    {id:"calipers-at-the-bench",n:"Calipers at the Bench",g:"joinery",m:3,c:5,d:2,role:"chain:C2",combo:true,fx:[{w:"on-play",do:"rest",tgt:"held:capstone",amt:R("room")},{w:"on-wake",do:"mark-grain",tgt:"hand:offgrain",suit:"joinery"}]},
+    {id:"the-fired-beam",n:"The Fired Beam",g:"joinery",m:7,c:8,d:3,role:"capstone",combo:true,fx:[{w:"on-play",do:"rest",tgt:"self",amt:R("room")},{w:"on-wake",do:"fill",amt:R("grain:joinery")},{w:"on-chain",do:"steady",brace:true}]},
+    {id:"bank-the-coals",n:"Bank the Coals",g:"joinery",m:3,c:5,d:2,role:"support",combo:true,fx:[{w:"on-play",do:"gather",amt:R("grain:joinery")},{w:"on-chain",do:"steady",links:1}]},
+    {id:"seasoned-timber",n:"Seasoned Timber",g:"joinery",m:3,c:5,d:2,role:"support",combo:true,fx:[{w:"on-play",do:"rest",tgt:"self",amt:R("room")},{w:"on-wake",do:"mark-grain",tgt:"hand:offgrain",suit:"joinery"}]},
+    {id:"keep-the-kiln",n:"Keep the Kiln",g:"joinery",m:2,c:3,d:1,role:"support",combo:true,fx:[{w:"on-chain",do:"steady",brace:true},{w:"on-play",do:"keep"}]},
+    {id:"dovetail-draw",n:"Dovetail Draw",g:"joinery",m:3,c:5,d:2,role:"utility",combo:false,fx:[{w:"on-dawn",do:"draw",nn:1,suit:"joinery"}]},
+  ]},
+  {key:"eveners", grain:"dance", name:"The Eveners", tl:"the purse, moving — waste nothing, keep it bright", cards:[
+    {id:"the-last-lighting",n:"The Last Lighting",g:"dance",m:3,c:5,d:2,role:"chain:C1",combo:true,fx:[{w:"on-play",do:"retire",tgt:"inert:hand",to:"room"},{w:"on-play",do:"retire",tgt:"inert:pack",to:"table"}]},
+    {id:"bright-hand-to-hand",n:"Bright Hand to Hand",g:"thread",m:3,c:5,d:1,role:"chain:C2",combo:true,fx:[{w:"on-play",do:"whittle",amt:R("room")},{w:"on-chain",do:"steady",links:1}]},
+    {id:"even-the-rim",n:"Even the Rim",g:"dance",m:6,c:8,d:3,role:"capstone",combo:true,fx:[{w:"on-play",do:"rest",tgt:"self",amt:R("room")},{w:"on-fulfil",do:"draw",nn:2}]},
+    {id:"waymeet-gift",n:"Waymeet Gift",g:"thread",m:2,c:3,d:1,role:"support",combo:true,fx:[{w:"on-play",do:"retire",tgt:"inert:hand",to:"table"},{w:"on-chain",do:"steady",links:1}]},
+    {id:"the-turning-purse",n:"The Turning Purse",g:"thread",m:3,c:5,d:1,role:"support",combo:true,fx:[{w:"on-play",do:"whittle",amt:R("room")},{w:"on-play",do:"draw",nn:1}]},
+    {id:"even-fuel",n:"Even Fuel",g:"dance",m:2,c:3,d:1,role:"support",combo:true,fx:[{w:"on-play",do:"retire",tgt:"inert:hand",to:"room"},{w:"on-chain",do:"steady",links:1}]},
+    {id:"quick-feet",n:"Quick Feet",g:"dance",m:3,c:5,d:2,role:"utility",combo:false,fx:[{w:"on-dawn",do:"draw",nn:1,suit:"dance"}]},
+  ]},
+  {key:"untold", grain:"thread", name:"The Untold", tl:"the pace, ratcheted — many small, very fast", cards:[
+    {id:"paper-bird",n:"Paper-Bird",g:"thread",m:1,c:2,d:1,role:"chain:C1",combo:true,tag:"one-shot",fx:[{w:"on-play",do:"fill",amt:R("grain:thread")},{w:"on-play",do:"draw",nn:1,suit:"thread"}]},
+    {id:"quick-hand",n:"Quick-Hand",g:"thread",m:2,c:3,d:1,role:"chain:C2",combo:true,fx:[{w:"on-play",do:"draw",nn:1,suit:"thread"},{w:"on-chain",do:"steady",links:1,brace:true}]},
+    {id:"the-standing-count",n:"The Standing Count",g:"thread",m:4,c:6,d:2,role:"capstone",combo:true,fx:[{w:"on-play",do:"rest",tgt:"self",amt:R("chain")},{w:"on-wake",do:"fill",amt:R("grain:thread")},{w:"on-fulfil",do:"draw",nn:2,suit:"thread"}]},
+    {id:"thread-the-needle",n:"Thread the Needle",g:"thread",m:2,c:3,d:1,role:"support",combo:true,fx:[{w:"on-play",do:"mark-grain",tgt:"hand:offgrain",suit:"thread"},{w:"on-play",do:"draw",nn:1,suit:"thread"}]},
+    {id:"swift-tally",n:"Swift Tally",g:"thread",m:1,c:2,d:1,role:"support",combo:true,tag:"one-shot",fx:[{w:"on-play",do:"fill",amt:R("grain:thread")},{w:"on-play",do:"draw",nn:1,suit:"thread"}]},
+    {id:"keep-the-pace",n:"Keep the Pace",g:"thread",m:2,c:3,d:1,role:"support",combo:true,fx:[{w:"on-chain",do:"steady",links:1,brace:true},{w:"on-play",do:"draw",nn:1,suit:"thread"}]},
+    {id:"morning-flock",n:"Morning Flock",g:"thread",m:1,c:2,d:1,role:"utility",combo:false,fx:[{w:"on-dawn",do:"draw",nn:1,suit:"thread"}]},
+  ]},
+  {key:"fairwrights", grain:"dance", name:"The Fairwrights", tl:"the room, spiked — one enormous show", cards:[
+    {id:"raise-the-wain-stage",n:"Raise the Wain-Stage",g:"dance",m:2,c:4,d:1,role:"chain:C1",combo:true,tag:"venue",fx:[{w:"on-play",do:"gather",amt:6},{w:"on-chain",do:"steady",brace:true}]},
+    {id:"pitch-the-ring",n:"Pitch the Ring",g:"dance",m:2,c:4,d:1,role:"chain:C2",combo:true,tag:"venue",fx:[{w:"on-play",do:"gather",amt:R("room")},{w:"on-play",do:"mark-grain",tgt:"hand:offgrain",suit:"dance"}]},
+    {id:"the-whole-fair-turn",n:"The Whole-Fair Turn",g:"dance",m:8,c:9,d:3,role:"capstone",combo:true,fx:[{w:"on-play",do:"rest",tgt:"self",amt:R("room")},{w:"on-overkill",do:"brim",band:R("over-ceiling")},{w:"on-fulfil",do:"whittle",amt:1}]},
+    {id:"bunting-and-banners",n:"Bunting and Banners",g:"dance",m:3,c:5,d:2,role:"support",combo:true,tag:"venue",fx:[{w:"on-play",do:"gather",amt:R("room")},{w:"on-play",do:"mark-grain",tgt:"hand:offgrain",suit:"dance"}]},
+    {id:"call-the-crowd",n:"Call the Crowd",g:"dance",m:3,c:5,d:2,role:"support",combo:true,tag:"venue",fx:[{w:"on-play",do:"gather",amt:4},{w:"on-chain",do:"steady",brace:true}]},
+    {id:"string-the-bunting",n:"String the Bunting",g:"dance",m:3,c:5,d:2,role:"support",combo:true,fx:[{w:"on-play",do:"gather",amt:R("room")},{w:"on-chain",do:"steady",links:1}]},
+    {id:"the-ringmasters-draw",n:"The Ringmaster's Draw",g:"dance",m:3,c:5,d:2,role:"utility",combo:false,fx:[{w:"on-dawn",do:"draw",nn:1,suit:"dance"}]},
+  ]},
+  {key:"mannerly", grain:"song", name:"The Mannerly", tl:"the proud, courted — win over the shy silver", cards:[
+    {id:"keep-the-silver-singing",n:"Keep the Silver Singing",g:"song",m:2,c:4,d:1,role:"chain:C1",combo:true,fx:[{w:"on-play",do:"steady",links:2,brace:true},{w:"on-play",do:"mark-grain",tgt:"hand:cheapest",suit:"song"}]},
+    {id:"court-the-singing-silver",n:"Court the Singing-Silver",g:"song",m:3,c:5,d:2,role:"chain:C2",combo:true,fx:[{w:"on-play",do:"court",stock:"singing-silver",term:3}]},
+    {id:"the-silver-refrain",n:"The Silver Refrain",g:"song",m:6,c:8,d:5,role:"proud",combo:true,fx:[{w:"on-play",do:"rest",tgt:"self",amt:R("room")},{w:"on-wake",do:"fill",amt:R("chain")},{w:"on-fulfil",do:"draw",nn:1,suit:"song"}]},
+    {id:"tune-the-strings",n:"Tune the Strings",g:"song",m:2,c:3,d:1,role:"support",combo:true,fx:[{w:"on-chain",do:"steady",links:2,brace:true},{w:"on-play",do:"mark-grain",tgt:"hand:cheapest",suit:"song"}]},
+    {id:"the-standing-introduction",n:"The Standing Introduction",g:"song",m:3,c:5,d:2,role:"support",combo:true,fx:[{w:"on-play",do:"court",stock:"singing-silver",term:1}]},
+    {id:"grace-note",n:"Grace-Note",g:"song",m:2,c:3,d:1,role:"support",combo:true,fx:[{w:"on-play",do:"gather",amt:R("grain:song")},{w:"on-chain",do:"steady",links:1}]},
+    {id:"silver-warm-up",n:"Silver Warm-Up",g:"song",m:3,c:5,d:2,role:"utility",combo:false,fx:[{w:"on-dawn",do:"draw",nn:1,suit:"song"}]},
+  ]},
+  {key:"gleaners", grain:"glaze", name:"The Morning-Gleaners", tl:"the grey, harvested — feed on the fading, then mend it", cards:[
+    {id:"walk-the-pale",n:"Walk the Pale",g:"glaze",m:3,c:5,d:2,role:"chain:C1",combo:true,fx:[{w:"on-play",do:"gather",amt:R("spiral")},{w:"on-play",do:"whittle",amt:R("season")}]},
+    {id:"glean-the-ground",n:"Glean the Ground",g:"glaze",m:3,c:5,d:2,role:"chain:C2",combo:true,fx:[{w:"on-play",do:"rest",tgt:"held:capstone",amt:R("room")},{w:"on-play",do:"gather",amt:R("spiral")}]},
+    {id:"ripe-mending",n:"Ripe Mending",g:"glaze",m:7,c:9,d:3,role:"capstone",combo:true,fx:[{w:"on-play",do:"rest",tgt:"self",amt:R("room")},{w:"on-wake",do:"fill",amt:R("room")},{w:"on-fulfil",do:"soothe"}]},
+    {id:"grey-gleaning",n:"Grey-Gleaning",g:"glaze",m:3,c:5,d:2,role:"support",combo:true,fx:[{w:"on-play",do:"gather",amt:R("spiral")},{w:"on-play",do:"mark-grain",tgt:"hand:offgrain",suit:"glaze"}]},
+    {id:"mend-the-verge",n:"Mend the Verge",g:"glaze",m:5,c:6,d:2,role:"support",combo:true,fx:[{w:"on-play",do:"rest",tgt:"self",amt:R("room")},{w:"on-fulfil",do:"soothe"}]},
+    {id:"slow-the-grey",n:"Slow the Grey",g:"glaze",m:2,c:3,d:1,role:"support",combo:true,fx:[{w:"on-play",do:"gather",amt:R("grain:glaze")},{w:"on-chain",do:"steady",links:1}]},
+    {id:"pale-harvest",n:"Pale Harvest",g:"glaze",m:3,c:5,d:2,role:"utility",combo:false,fx:[{w:"on-dawn",do:"draw",nn:1,suit:"glaze"}]},
+  ]},
+];
+
+// ---- plain-English glossers ----
+const readPhrase = s => ({
+  "room":"the room", "chain":"your chain", "spiral":"this node's grey",
+  "season":"the season's fade", "over-ceiling":"the overflow"
+}[s] || (s.startsWith("grain:") ? "your "+s.slice(6)+" count"
+      : s.startsWith("woken:") ? s.slice(6)+" you've fired before" : s));
+const amtPhrase = a => (a && a.read!==undefined) ? readPhrase(a.read) : ("+"+a);
+const tgtPhrase = t => ({
+  "self":"itself", "held:capstone":"your held capstone",
+  "hand:offgrain":"a spare off-suit card", "hand:cheapest":"your cheapest card",
+  "inert:hand":"a dead card in hand", "inert:pack":"a dead card in your deck"
+}[t] || t);
+const toPhrase = t => ({room:"the room now", table:"the town's table"}[t]||t);
+const WHEN = {"on-play":"play","on-wake":"wake","on-chain":"chain","on-fulfil":"fulfil","on-overkill":"overkill","on-dawn":"dawn"};
+
+function gloss(e){
+  switch(e.do){
+    case "gather": return (typeof e.amt==="number") ? `Gather a crowd of +${e.amt}` : `Gather a crowd by ${amtPhrase(e.amt)}`;
+    case "rest":   return `Pour ${amtPhrase(e.amt)} onto ${tgtPhrase(e.tgt)}`;
+    case "steady": {let p=[]; if(e.links) p.push(`+${e.links} chain link${e.links>1?"s":""}`); if(e.brace) p.push("brace the chain"); return "Steady: "+p.join(" & ");}
+    case "fill":   return `Fill the need by ${amtPhrase(e.amt)}`;
+    case "brim":   return `Spill the overflow (${amtPhrase(e.band)}) into Standing`;
+    case "mark-grain": return `Stamp ${tgtPhrase(e.tgt)} as “${e.suit}”`;
+    case "draw":   return `Draw ${e.nn} ${e.suit?e.suit+" ":""}card${e.nn>1?"s":""}`;
+    case "retire": return `Last-light ${tgtPhrase(e.tgt)} → ${toPhrase(e.to)}`;
+    case "whittle":return (typeof e.amt==="number") ? `Carve +${e.amt} bright money` : `Carve bright money from ${amtPhrase(e.amt)}`;
+    case "court":  return `Court the singing-silver — needs a chain of ${e.term}+ (gleam is the key, never spent)`;
+    case "soothe": return `Mend this node's fading (scaled by the grey, capped)`;
+    case "warm":   return `+${e.n} delight`;
+    case "keep":   return `Stays fresh one extra season`;
+    default: return e.do;
+  }
+}
+const roleLabel = r => ({
+  "apprentice":"Apprentice","baseline":"Baseline","chain:C1":"Chain ①","chain:C2":"Chain ②",
+  "capstone":"★ Capstone","proud":"★ Proud payoff","support":"Support","utility":"Utility"
+}[r]||r);
+
+// ---- render ----
+const gal = document.getElementById("gallery");
+const jump = document.getElementById("jump");
+GROUPS.forEach(G=>{
+  const a = `var(--${G.grain})`;
+  const link = document.createElement("a");
+  link.href="#g-"+G.key; link.textContent=G.name.replace(/^The /,""); link.style.setProperty("--ac",a);
+  jump.appendChild(link);
+
+  const grp=document.createElement("section"); grp.className="grp"; grp.id="g-"+G.key; grp.style.setProperty("--ac",a);
+  grp.innerHTML=`<div class="grphead"><h2>${G.name}</h2><span class="tl">${G.tl}</span><span class="ct">${G.cards.length} cards</span></div>`;
+  const grid=document.createElement("div"); grid.className="grid";
+  G.cards.forEach(c=>{
+    const gr=`var(--${c.g})`;
+    const star = (c.role==="capstone"||c.role==="proud");
+    const fxHtml = c.fx.map(e=>`<li><span class="w">${WHEN[e.w]}</span><span><span class="verb">${e.do}</span> · ${gloss(e)}</span></li>`).join("");
+    const el=document.createElement("div"); el.className="card"; el.style.setProperty("--gr",gr);
+    el.innerHTML=`
+      <div class="bar"></div>
+      <div class="in">
+        <div class="top"><span class="grain">${c.g}${c.tag?" · "+c.tag:""}</span><span class="role ${star?"star":""}">${roleLabel(c.role)}</span></div>
+        <div class="cn">${c.n}</div>
+        <div class="stats">
+          <div class="st wake"><span class="k">wake</span><span class="v">${c.m}</span></div>
+          <div class="st ceil"><span class="k">ceiling</span><span class="v">${c.c}</span></div>
+          <div class="st del"><span class="k">delight</span><span class="v">${c.d}</span></div>
+        </div>
+        <ul class="fx">${fxHtml}</ul>
+        <div class="foot">
+          <span class="dot ${c.combo?"":"nocombo"}"><i></i>${c.combo?"combos":"stands alone"}</span>
+          <span style="font-family:var(--mono)">${c.id}</span>
+        </div>
+      </div>`;
+    grid.appendChild(el);
+  });
+  grp.appendChild(grid); gal.appendChild(grp);
+});
+
+// grain legend
+const GR=[["joinery","woodwork"],["thread","cloth & tempo"],["song","music"],["glaze","pottery & the grey"],["dance","performance"],["dough","hearth"]];
+document.getElementById("legend").innerHTML = GR.map(([g,d])=>`<span><i style="background:var(--${g})"></i><b style="color:var(--ink)">${g}</b> — ${d}</span>`).join("");
+</script>
+</body>
+</html>

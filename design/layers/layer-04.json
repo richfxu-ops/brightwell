@@ -1,0 +1,180 @@
+{
+  "layer": 4,
+  "audit": {
+    "auditor": "blind 3-panel (no-schema); all legible 21-24/24; no P0/P1",
+    "artifact": "planning/GDD.md#layer-4",
+    "elements": [
+      {
+        "id": "P1-gate-taught-piece",
+        "legible": true
+      },
+      {
+        "id": "P2-round-fair-draft",
+        "legible": true
+      },
+      {
+        "id": "P3-waymeet-table",
+        "legible": true
+      },
+      {
+        "id": "P4-walking-with-masters",
+        "legible": true
+      },
+      {
+        "id": "P5-the-bench",
+        "legible": true
+      },
+      {
+        "id": "P6-setting-out-first-gift",
+        "legible": true
+      },
+      {
+        "id": "P7-red-thread-days-crown-unlock",
+        "legible": true
+      },
+      {
+        "id": "the-hearth-deepening",
+        "legible": true
+      },
+      {
+        "id": "M1-courting-market",
+        "legible": true
+      },
+      {
+        "id": "M2-glad-load-introduction-jar",
+        "legible": true
+      },
+      {
+        "id": "M3-festival-glass",
+        "legible": true
+      },
+      {
+        "id": "M4-the-gleaning",
+        "legible": true
+      },
+      {
+        "id": "M5-apprentice-stuffs-floor",
+        "legible": true
+      },
+      {
+        "id": "M6-waymeet-mannerly-jars",
+        "legible": true
+      },
+      {
+        "id": "H1-whittling-floor",
+        "legible": true
+      },
+      {
+        "id": "H2-the-shavings-share",
+        "legible": true
+      },
+      {
+        "id": "H3-glad-load-bright-handsels",
+        "legible": true
+      },
+      {
+        "id": "H4-glad-price-haggling",
+        "legible": true
+      },
+      {
+        "id": "H5-doorstep-askings",
+        "legible": true
+      },
+      {
+        "id": "H6-hearth-waymeet-gifts",
+        "legible": true
+      },
+      {
+        "id": "1D-map-intel",
+        "legible": true
+      }
+    ],
+    "metrics": {}
+  },
+  "issues": [
+    {
+      "severity": "P2",
+      "kind": "glad-load-centrality",
+      "what": "All 3 auditors flag the glad-load bundle (taught piece + introduction-jar + bright handsels + intel, all from answering an asking) as the 'single richest flow' / 'passive spine' (~54% of card-power). The napkin's no_dominant_source check PASSED (glad-load is calendar-capped, can't stand the crown alone, >=3 independent doors every run), so it is central-but-bounded, not dominant.",
+      "fix": "game-loop confirms glad-load centrality does not flatten build diversity or make answer-everything the only viable line; if it does, redistribute richness to the active doors (Fair draft, courting, gleaning).",
+      "raised_by": "blind-panel-1/2/3"
+    },
+    {
+      "severity": "P2",
+      "kind": "deck-curve-accounting",
+      "what": "The §2/§3 on-curve prose arithmetic budgets influx as ~1 taught piece/asking + a bounded Fair burst, omitting P4 (masters)/P5 (bench)/P7 (crown) from the written budget — though the napkin models the full arc and passed deck_growth_on_curve.",
+      "fix": "Complete the §2/§3 prose budget to include P4/P5/P7 (the napkin already accounts for them); non-blocking.",
+      "raised_by": "blind-panel-1"
+    },
+    {
+      "severity": "P3",
+      "kind": "register-vocabulary",
+      "what": "the-courting-market (M1) and 'Paling Market' use 'market', which WORLD.md:723 bans as a diegetic metaphor for gift/courtship scenes.",
+      "fix": "L6 renders M1 diegetically (the-courting / the-vouching / the-stalls-that-lean-in), never an in-world 'market'. No mechanical change.",
+      "raised_by": "world-coherence critic + blind-panel-3"
+    },
+    {
+      "severity": "P3",
+      "kind": "inert-framing-overstatement",
+      "what": "§0/the-inert-delivery assert categorically that EVERY acquired piece enters inert and paling-prone; a couple of sources (first-gift, some hearth upgrades) may be edge cases to the absolute.",
+      "fix": "Soften the absolute or enumerate the exceptions; non-blocking.",
+      "raised_by": "blind-panel-1/2/3"
+    },
+    {
+      "severity": "P2",
+      "kind": "numeric-bounds-deferred",
+      "what": "Executable coefficients (taught-tier curve, thinning rate vs crown curve, glad-price brightening < tempo cost, Fair k/N + intercept freq, waking-capacity-per-turn < difficulty-per-ring, retire residual curve) are structural not yet numerically fit.",
+      "fix": "game-loop fits and simulates these; the structural shapes are committed in L4 §5 and must hold under tuning (D-005.3/I-022).",
+      "raised_by": "degenerate-economy critic"
+    }
+  ],
+  "summary": "Layer 4 acquisition model (AUTO+napkin). Supply-is-geography spine (proposal B) grafted with reward-pull (A). ~21 acquisition sources across journey-pieces (glad-load gate-teach, Fair draft, waymeet swap, masters, the bench, first-gift, crown unlocks), materials (courting-market, jars, festival-glass, gleaning, apprentice floor), and handsels (whittling, shavings-share, glad-load, glad-price, doorstep, gifts), + map-intel. All 3 blind auditors: full legibility (intuitiveness 1.0), no P0/P1. Napkin (executable, engine-run) passed all 7 checks incl. deck_growth_on_curve (stands crown 100%, 1.3x margin), no_dominant_source (glad-load 54% but calendar-capped, can't solo crown, >=3 doors), no_degenerate_acquisition_loop (retire<->twice-benched double-close nets negative), thinning_viable. Central-but-bounded glad-load flagged for game-loop; market-register naming -> L6; numeric coefficients -> game-loop.",
+  "tokens_spent": 1242772,
+  "executed": {
+    "napkin_flags": {
+      "script": "napkin/layer-04.py",
+      "result": {
+        "model": "layer-04-acquisition-model",
+        "checks": [
+          {
+            "name": "deck_growth_on_curve",
+            "pass": true,
+            "detail": "per-season power [med,p05,p95] vs need green:8.0/7.0-10.0(need6.0); long:22.0/18.0-28.0(need18.0); deepgold:38.0/32.0-44.0(need32.0); redwalk:65.0/56.0-75.0(need50.0) | monotone=True mid<crown=True crown_floor=50.0 end_power_med=65.0 stands_crown=1.0 (deck grows onto the curve, stays below the crown mid-run, stands it by autumn)"
+          },
+          {
+            "name": "no_dominant_source",
+            "pass": true,
+            "detail": ">=3 card doors in 1.0 of runs; solo-source-stands-crown (keystone) in 0.0 of runs; glad_load power share med=0.544 p95=0.631 (richest flow, but calendar-capped: cannot stand the crown alone); materials max-door p95=0.375<=0.40 (no keystone faucet on cards OR materials)"
+          },
+          {
+            "name": "no_degenerate_acquisition_loop",
+            "pass": true,
+            "detail": "retire<->twice-benched CLOSED: material 8.0->0.0 (terminal, decays), attn 40.0->-28.0 (nets negative), halts=True; unclosed-variant WOULD explode=True (the two closes are load-bearing) | Handsel Round mint-clean: regard 100.0->worst 100.0 (non-increasing) | glad faucet calendar-bounded: max influx 20<=30 nodes (each answers once)"
+          },
+          {
+            "name": "thinning_viable",
+            "pass": true,
+            "detail": "aggressive thinning holds deck<=16 in 0.996 of runs; deck never thins below 5 (floor held in 1.0); default end-deck in [15,24] in 0.982 (arc ~18-22); thin keeps pace with influx (aggressive p95 size=15.0<=18) — the pack is a garden, keepable focused, never emptyable"
+          },
+          {
+            "name": "skip_ripen_not_dominant",
+            "pass": true,
+            "detail": "cap-growth/morning=3.82 < diff-growth/ring=7.78 -> ripe need out-scales; skip-run end power 40.3 < crown floor 50.0 (skipper may not stand the crown) -> high-risk style, not a dominant solve"
+          },
+          {
+            "name": "fair_faucet_bounded",
+            "pass": true,
+            "detail": "buy-a-teaching tempo 14.0 > answer-an-asking tempo 10.0 (no money->card arbitrage); windowed k/N=3/9; fair power share p95=0.261<=0.30 — a bounded trade, never a card-shop or keystone faucet"
+          },
+          {
+            "name": "deliberate_failure_ev_negative",
+            "pass": true,
+            "detail": "lane-glimmer value 0.4<1 Standing, spiller-claimable=0.0; spiller EV=-3.0<0 -> no flop-to-farm"
+          }
+        ],
+        "flags": []
+      },
+      "failed_checks": []
+    }
+  }
+}

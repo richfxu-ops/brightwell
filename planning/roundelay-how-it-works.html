@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Roundelay — How It Works</title>
+<style>
+  :root{
+    --bg:#f6f1e7; --panel:#fffdf8; --panel2:#fbf6ea; --ink:#2a2622; --muted:#6f6656;
+    --line:#e2d9c6; --gold:#b8862e; --gleam:#d9971f; --pale:#8f989b; --flow:#2f8387;
+    --return:#4470a8; --inert:#9a938a; --need:#b5552e;
+    --shadow:0 1px 2px rgba(60,45,20,.05),0 12px 36px rgba(60,45,20,.08);
+    --serif:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;
+    --sans:ui-sans-serif,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  }
+  @media (prefers-color-scheme:dark){:root{
+    --bg:#151920; --panel:#1e222b; --panel2:#242a35; --ink:#ece6d9; --muted:#a8a090;
+    --line:#2f3540; --gold:#e4bd6b; --gleam:#f2c65e; --pale:#828c96; --flow:#5ec6cb;
+    --return:#7cabde; --inert:#8a8478; --need:#e0895e;
+    --shadow:0 1px 2px rgba(0,0,0,.3),0 14px 40px rgba(0,0,0,.45);
+  }}
+  :root[data-theme="dark"]{
+    --bg:#151920; --panel:#1e222b; --panel2:#242a35; --ink:#ece6d9; --muted:#a8a090;
+    --line:#2f3540; --gold:#e4bd6b; --gleam:#f2c65e; --pale:#828c96; --flow:#5ec6cb;
+    --return:#7cabde; --inert:#8a8478; --need:#e0895e;
+    --shadow:0 1px 2px rgba(0,0,0,.3),0 14px 40px rgba(0,0,0,.45);
+  }
+  :root[data-theme="light"]{
+    --bg:#f6f1e7; --panel:#fffdf8; --panel2:#fbf6ea; --ink:#2a2622; --muted:#6f6656;
+    --line:#e2d9c6; --gold:#b8862e; --gleam:#d9971f; --pale:#8f989b; --flow:#2f8387;
+    --return:#4470a8; --inert:#9a938a; --need:#b5552e;
+    --shadow:0 1px 2px rgba(60,45,20,.05),0 12px 36px rgba(60,45,20,.08);
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);
+       font-size:19px;line-height:1.6;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:900px;margin:0 auto;padding:40px 22px 90px}
+  header{text-align:center;margin-bottom:14px}
+  .kick{letter-spacing:.24em;text-transform:uppercase;font-size:13px;color:var(--muted);margin-bottom:12px}
+  h1{font-family:var(--serif);font-weight:600;font-size:clamp(32px,6vw,50px);margin:0;line-height:1.08;
+     background:linear-gradient(180deg,var(--ink),var(--gold));-webkit-background-clip:text;background-clip:text;color:transparent}
+  .sub{font-family:var(--serif);font-style:italic;color:var(--muted);font-size:clamp(18px,2.6vw,22px);margin:14px auto 0;max-width:30ch}
+
+  .sec{font-family:var(--serif);font-size:14px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);
+       font-weight:600;margin:46px 4px 4px;text-align:center}
+  .sech{font-family:var(--serif);font-size:clamp(24px,4vw,32px);font-weight:600;text-align:center;margin:2px 4px 22px}
+
+  /* glossary */
+  .gloss{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:16px}
+  .g{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:20px 22px;box-shadow:var(--shadow)}
+  .g .ic{font-size:30px;line-height:1;display:block;margin-bottom:10px}
+  .g h4{font-family:var(--serif);font-size:21px;margin:0 0 6px;color:var(--gold)}
+  .g p{margin:0;font-size:16.5px;color:var(--muted);line-height:1.55}
+  .g p b{color:var(--ink)}
+
+  /* steps */
+  .step{background:var(--panel);border:1px solid var(--line);border-radius:20px;box-shadow:var(--shadow);
+        padding:26px 28px;margin:20px 0}
+  .step .num{display:inline-flex;align-items:center;justify-content:center;width:42px;height:42px;border-radius:50%;
+       background:var(--gold);color:var(--bg);font-family:var(--serif);font-size:22px;font-weight:700;flex:0 0 auto}
+  .step .top{display:flex;align-items:center;gap:16px;margin-bottom:6px}
+  .step h3{font-family:var(--serif);font-size:clamp(22px,3.4vw,27px);margin:0;font-weight:600}
+  .step p{margin:12px 0 0;font-size:18px}
+  .step p b{color:var(--ink)}
+  .ex{background:var(--panel2);border:1px dashed var(--gold);border-radius:14px;padding:14px 18px;margin-top:16px;
+      font-size:17px;color:var(--muted)}
+  .ex b{color:var(--gold);font-weight:600}
+  .ex .k{color:var(--ink);font-weight:600}
+  svg{display:block;width:100%;height:auto;margin-top:16px}
+  .t{fill:var(--ink);font-family:var(--serif)}
+  .n{fill:var(--muted);font-family:var(--sans)}
+  .ln{stroke:var(--muted);stroke-width:2;fill:none;opacity:.7}
+
+  .big{background:var(--panel);border:1px solid var(--line);border-radius:18px;box-shadow:var(--shadow);
+       padding:24px 26px;margin-top:26px;font-family:var(--serif);font-size:clamp(19px,2.6vw,23px);
+       line-height:1.5;text-align:center}
+  .big b{color:var(--gold)}
+  .legend{display:flex;flex-wrap:wrap;gap:10px 26px;justify-content:center;margin:22px 6px 0;font-size:16px;color:var(--muted)}
+  .legend b{color:var(--ink);font-weight:600}
+  .sw{display:inline-block;width:13px;height:13px;border-radius:4px;vertical-align:-1px;margin-right:7px}
+  footer{text-align:center;color:var(--muted);font-size:14px;margin-top:34px}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <div class="kick">Roundelay · how it works</div>
+    <h1>You put on a morning show<br>to mend a fading town</h1>
+    <p class="sub">Spend attention → wake your pieces → deliver the town's need → grow strong enough for winter.</p>
+  </header>
+
+  <!-- GLOSSARY -->
+  <div class="sec">First — five words</div>
+  <div class="sech">The whole game in five ideas</div>
+  <div class="gloss">
+    <div class="g"><span class="ic">🔦</span><h4>Attention</h4><p>Your energy for the morning — like a <b>spotlight</b> you shine on your cards to bring them to life. You get a fresh pool every dawn.</p></div>
+    <div class="g"><span class="ic">🎴</span><h4>A piece</h4><p>A card — one little act you perform. Your <b>deck is your troupe.</b> It starts tiny and grows as pieces "wake."</p></div>
+    <div class="g"><span class="ic">👥</span><h4>The room</h4><p>How big a <b>crowd</b> you've gathered right now. A bigger room lets you wake bigger, better pieces this turn.</p></div>
+    <div class="g"><span class="ic">🌡️</span><h4>Waking-mark</h4><p>Each piece needs a certain amount of attention to <b>wake up</b>. Give it more than its <b>ceiling</b> and the extra spills over.</p></div>
+    <div class="g"><span class="ic">✦</span><h4>Standing</h4><p>Your <b>reputation</b> — and it's both your <b>score and your life bar.</b> Hits zero, the run ends. You earn it by <b>over</b>-delivering.</p></div>
+  </div>
+
+  <!-- STEP WALKTHROUGH -->
+  <div class="sec">Now — watch one morning</div>
+  <div class="sech">A single turn, with real numbers</div>
+
+  <div class="step">
+    <div class="top"><span class="num">1</span><h3>The town posts a need</h3></div>
+    <p>You arrive at a pale little town. Its lantern shows an <b>asking</b> — a job with a size. Deliver that much <b>delight</b> and the town is re-made (and pays you). Early in the year the needs are small; they grow as winter nears.</p>
+    <div class="ex">Today's asking: <span class="k">a NEED of size 3.</span> &nbsp;Your job this morning is to pay <b>3 delight</b> into it.</div>
+    <svg viewBox="0 0 860 120" role="img" aria-label="A town lantern posting a need of size 3">
+      <circle cx="70" cy="60" r="30" fill="none" stroke="var(--need)" stroke-width="3"/>
+      <text x="70" y="70" text-anchor="middle" font-size="30" class="t" font-weight="700" fill="var(--need)">3</text>
+      <text x="70" y="108" text-anchor="middle" font-size="15" class="n">the need</text>
+      <text x="150" y="52" font-size="21" class="t">“This town needs a <tspan font-weight="700" fill="var(--need)">3</tspan> worth of mending.”</text>
+      <text x="150" y="82" font-size="16" class="n">Fill it, and the square blooms back into colour and pays you.</text>
+    </svg>
+  </div>
+
+  <div class="step">
+    <div class="top"><span class="num">2</span><h3>Gather a crowd (build the room)</h3></div>
+    <p>You play a card whose job is to <b>draw a crowd</b>. That raises <b>the room</b> — your pool of attention for the pieces you play next. The bigger the room, the bigger the piece you can wake.</p>
+    <div class="ex">You play a room-builder. <span class="k">The room is now 6.</span> &nbsp;You have <b>6 attention</b> to pour onto your next piece.</div>
+    <svg viewBox="0 0 860 130" role="img" aria-label="The room filled to 6">
+      <text x="20" y="46" font-size="18" class="n">the room</text>
+      <rect x="20" y="60" width="640" height="40" rx="20" fill="var(--panel2)" stroke="var(--line)" stroke-width="1.5"/>
+      <rect x="20" y="60" width="480" height="40" rx="20" fill="var(--flow)" opacity="0.85"/>
+      <text x="260" y="87" text-anchor="middle" font-size="22" fill="#fff" font-weight="700" font-family="var(--serif)">6 attention gathered</text>
+      <text x="700" y="88" font-size="20" class="t" font-weight="600" fill="var(--flow)">= a good crowd 👥</text>
+    </svg>
+  </div>
+
+  <div class="step">
+    <div class="top"><span class="num">3</span><h3>Wake your star piece — the core move</h3></div>
+    <p>Now you <b>pour the room onto a piece.</b> Every piece has a <b>waking-mark</b> (how much it needs to come alive) and a <b>ceiling</b> (how much it can hold). Reach the mark and it <b>WAKES</b>: it fires into your deck <b>permanently</b> and joins your crowd on future mornings. Pour <b>past</b> the ceiling and the leftover <b>spills into Standing.</b></p>
+    <div class="ex">Your star piece has <span class="k">waking-mark 4, ceiling 5.</span> You pour all <b>6</b> onto it: 6 ≥ 4, so it <b class="k">WAKES</b> ✦ — and 6 is <b>1 past</b> its ceiling of 5, so <b>+1 Standing.</b></div>
+    <svg viewBox="0 0 860 400" role="img" aria-label="A piece meter: pouring 6 attention onto a piece with mark 4 and ceiling 5">
+      <!-- glass -->
+      <rect x="120" y="40" width="150" height="310" rx="18" fill="var(--panel2)" stroke="var(--line)" stroke-width="2"/>
+      <!-- fill 0..5 normal (blue), 5..6 overflow (amber). scale: y0(val0)=350 top(val7)=40 -> unit=44.29 -->
+      <rect x="122" y="129" width="146" height="219" rx="14" fill="var(--flow)" opacity="0.80"/><!-- 0..5 -->
+      <rect x="122" y="84"  width="146" height="46"  fill="var(--gleam)" opacity="0.90"/><!-- 5..6 overflow -->
+      <text x="195" y="250" text-anchor="middle" font-size="26" fill="#fff" font-weight="700" font-family="var(--serif)">poured</text>
+      <text x="195" y="284" text-anchor="middle" font-size="34" fill="#fff" font-weight="700" font-family="var(--serif)">6</text>
+      <!-- mark line (4) at y=173 -->
+      <line x1="104" y1="173" x2="286" y2="173" stroke="var(--gold)" stroke-width="3" stroke-dasharray="7 5"/>
+      <!-- ceiling line (5) at y=129 -->
+      <line x1="104" y1="129" x2="286" y2="129" stroke="var(--gleam)" stroke-width="3" stroke-dasharray="7 5"/>
+
+      <!-- mark label -->
+      <text x="300" y="168" font-size="20" class="t" font-weight="700" fill="var(--gold)">▲ waking-mark = 4</text>
+      <text x="300" y="192" font-size="16" class="n">reach this and the piece WAKES ✦</text>
+      <!-- ceiling label -->
+      <text x="300" y="118" font-size="20" class="t" font-weight="700" fill="var(--gleam)">▲ ceiling = 5</text>
+      <text x="300" y="142" font-size="16" class="n">anything above here spills over →</text>
+
+      <!-- wakes callout -->
+      <path class="ln" d="M300,225 C250,240 240,258 272,262" marker-end="url(#a1)"/>
+      <rect x="300" y="238" width="470" height="66" rx="14" fill="var(--panel)" stroke="var(--gold)" stroke-width="2.6"/>
+      <text x="318" y="266" font-size="20" class="t" font-weight="700" fill="var(--gold)">✦ IT WAKES</text>
+      <text x="318" y="290" font-size="16.5" class="n">gold edge — added to your deck <tspan font-weight="700" fill="var(--ink)">forever</tspan>, and joins your crowd next time</text>
+
+      <!-- overflow callout -->
+      <path class="ln" d="M272,100 C330,90 360,88 388,92" marker-end="url(#a1)"/>
+      <rect x="300" y="46" width="470" height="52" rx="14" fill="var(--panel)" stroke="var(--gleam)" stroke-width="2.4"/>
+      <text x="318" y="70" font-size="19" class="t" font-weight="700" fill="var(--gleam)">the 1 spilled over → +1 Standing ✦</text>
+      <text x="318" y="90" font-size="15.5" class="n">doing MORE than needed builds your reputation</text>
+
+      <defs><marker id="a1" markerWidth="10" markerHeight="10" refX="7" refY="5" orient="auto">
+        <path d="M1,1 L9,5 L1,9 Z" fill="var(--muted)" opacity="0.7"/></marker></defs>
+    </svg>
+  </div>
+
+  <div class="step">
+    <div class="top"><span class="num">4</span><h3>Deliver — and get paid</h3></div>
+    <p>The piece you just woke <b>pays its delight into the town's need.</b> Fill the need and the town is <b>re-made</b>: the square blooms back into colour, and you're paid a bundle — a new taught card, bright money, map hints. Your deck just grew, and your show is a little bigger tomorrow.</p>
+    <div class="ex">Your woken piece pays <b>3 delight</b> → the need of <span class="k">3 is filled</span> → town re-made, you're paid. And the piece you woke is now <b>in your deck for good.</b></div>
+    <svg viewBox="0 0 860 130" role="img" aria-label="The need filled to 3 of 3">
+      <text x="20" y="42" font-size="18" class="n">the need</text>
+      <rect x="20" y="56" width="470" height="44" rx="12" fill="var(--panel2)" stroke="var(--line)" stroke-width="1.5"/>
+      <rect x="20" y="56" width="470" height="44" rx="12" fill="var(--need)" opacity="0.85"/>
+      <text x="255" y="85" text-anchor="middle" font-size="22" fill="#fff" font-weight="700" font-family="var(--serif)">3 / 3 — filled ✔</text>
+      <text x="530" y="72" font-size="20" class="t" font-weight="600" fill="var(--need)">town re-made 🌼</text>
+      <text x="530" y="96" font-size="16" class="n">you're paid: a card, money, hints</text>
+    </svg>
+  </div>
+
+  <div class="big">
+    Then dawn comes again — and <b>the piece you woke is back, bringing its crowd.</b><br>
+    Each morning your show gets bigger. That snowball is the whole game.
+  </div>
+
+  <!-- FATES -->
+  <div class="sec">The key rule</div>
+  <div class="sech">Every drop of attention goes somewhere</div>
+  <p style="text-align:center;max-width:60ch;margin:0 auto 20px;color:var(--muted);font-size:18px">
+    Nothing is ever wasted — when you pour attention onto a piece, it takes one of these four paths. Learning to steer it is the skill.</p>
+  <div class="gloss">
+    <div class="g" style="border-color:var(--gold)"><span class="ic" style="color:var(--gold)">✦</span><h4 style="color:var(--gold)">It wakes</h4><p>Reached the mark → fired into your deck <b>forever</b> and joins your crowd. <b>This is how you grow.</b></p></div>
+    <div class="g" style="border-color:var(--gleam)"><span class="ic" style="color:var(--gleam)">⤴</span><h4 style="color:var(--gleam)">It overflows</h4><p>Poured past the ceiling → the extra becomes <b>Standing</b> (your score + life bar). Showing off pays.</p></div>
+    <div class="g" style="border-color:var(--return)"><span class="ic" style="color:var(--return)">↩</span><h4 style="color:var(--return)">It returns</h4><p>Attention you didn't spend isn't lost — it <b>waits on the town's table</b> and gives you a richer dawn tomorrow.</p></div>
+    <div class="g" style="border-color:var(--inert)"><span class="ic" style="color:var(--inert)">○</span><h4 style="color:var(--inert)">It stays cold</h4><p>Not enough to reach the mark → the piece does its bit once, then <b>stays asleep</b> and slowly fades.</p></div>
+  </div>
+
+  <!-- THE YEAR -->
+  <div class="sec">The big picture</div>
+  <div class="sech">One run is one year — and it keeps getting harder</div>
+  <p style="text-align:center;max-width:62ch;margin:0 auto 8px;color:var(--muted);font-size:18px">
+    You get about <b style="color:var(--ink)">27 mornings</b>, spring to winter. The land's fading rises <b>on its own</b> — the needs grow whether you engage or not — building to a final job you must be strong enough to answer. Grow, or get left behind by the weather.</p>
+  <div class="step" style="padding:22px 20px">
+    <svg viewBox="0 0 860 270" role="img" aria-label="The year rising from small needs to the crown">
+      <defs>
+        <linearGradient id="pf" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stop-color="var(--pale)" stop-opacity="0.34"/>
+          <stop offset="1" stop-color="var(--pale)" stop-opacity="0.05"/>
+        </linearGradient>
+      </defs>
+      <path d="M40,206 L40,190 C200,184 280,158 430,126 C560,98 660,66 830,40 L830,206 Z"
+            fill="url(#pf)" stroke="var(--pale)" stroke-width="1.8" stroke-opacity="0.7"/>
+      <line x1="40" y1="206" x2="830" y2="206" stroke="var(--line)" stroke-width="1.8"/>
+      <text x="60" y="60" font-size="15" class="n" transform="rotate(0)">the Paling rises →</text>
+
+      <!-- growing needs -->
+      <circle cx="120" cy="186" r="9"  fill="var(--need)" opacity="0.9"/><text class="t" x="120" y="165" text-anchor="middle" font-size="17" font-weight="700" fill="var(--need)">1</text>
+      <circle cx="290" cy="164" r="13" fill="var(--need)" opacity="0.9"/><text class="t" x="290" y="139" text-anchor="middle" font-size="17" font-weight="700" fill="var(--need)">3</text>
+      <circle cx="460" cy="136" r="17" fill="var(--need)" opacity="0.9"/><text class="t" x="460" y="106" text-anchor="middle" font-size="17" font-weight="700" fill="var(--need)">5</text>
+      <circle cx="620" cy="102" r="21" fill="var(--need)" opacity="0.9"/><text class="t" x="620" y="68"  text-anchor="middle" font-size="17" font-weight="700" fill="var(--need)">7</text>
+      <text x="775" y="52" text-anchor="middle" font-size="38" fill="var(--gleam)">♛</text>
+      <text class="t" x="775" y="84" text-anchor="middle" font-size="16" font-weight="700" fill="var(--gleam)">THE CROWN</text>
+      <text class="n" x="775" y="104" text-anchor="middle" font-size="13.5">need 10 · stand it to win</text>
+
+      <!-- leg labels -->
+      <g font-size="15">
+        <text class="t" x="120" y="234" text-anchor="middle">spring</text>
+        <text class="t" x="290" y="234" text-anchor="middle">early summer</text>
+        <text class="t" x="460" y="234" text-anchor="middle">late summer</text>
+        <text class="t" x="620" y="234" text-anchor="middle">autumn</text>
+        <text class="t" x="775" y="234" text-anchor="middle">winter</text>
+      </g>
+      <text class="n" x="435" y="262" text-anchor="middle" font-size="14.5">small needs → bigger needs → a boss-sized finale you must have grown to meet</text>
+    </svg>
+  </div>
+
+  <div class="big">
+    The one idea that makes it clever:<br><b>a card's payoff isn't a fixed number — it reads what your earlier cards built.</b><br>
+    The crowd you gather with card 1 is the amount card 3 pours. Right cards, wrong order → your reach falls short.
+  </div>
+
+  <div class="legend">
+    <span><span class="sw" style="background:var(--flow)"></span><b>attention</b> — your spotlight</span>
+    <span><span class="sw" style="background:var(--gold)"></span><b>waking</b> — your growing deck</span>
+    <span><span class="sw" style="background:var(--gleam)"></span><b>Standing</b> — score &amp; life</span>
+    <span><span class="sw" style="background:var(--need)"></span><b>the need</b> — the town's job</span>
+    <span><span class="sw" style="background:var(--pale)"></span><b>the Paling</b> — the rising difficulty</span>
+  </div>
+
+  <footer>Roundelay · a plain-English walkthrough of the core loop</footer>
+</div>
+</body>
+</html>

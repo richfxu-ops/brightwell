@@ -1,0 +1,216 @@
+{
+  "workspace": "design",
+  "stage_name": "game-architect",
+  "skill_version": "2.4.0",
+  "checks": [
+    {
+      "metric": "intuitiveness",
+      "op": ">=",
+      "threshold": 0.8,
+      "fail": "INTUITIVE_REVISE",
+      "source": "audit",
+      "derive": {
+        "field": "legible",
+        "agg": "fraction"
+      },
+      "msg": "too counterintuitive — mechanics fight their fiction or aren't predictable from a card's name/flavor. Re-map so effect matches metaphor (legible, not generic)."
+    }
+  ],
+  "complexity_target": "high",
+  "block_severities": [
+    "P0",
+    "P1"
+  ],
+  "max_revises": 3,
+  "gate_mode": "each",
+  "layers": [
+    {
+      "id": 1,
+      "name": "core_loop_pressure",
+      "gated": false
+    },
+    {
+      "id": 2,
+      "name": "resource_types",
+      "gated": true,
+      "checks": [
+        {
+          "metric": "napkin_flags",
+          "op": "<=",
+          "threshold": 0,
+          "fail": "NAPKIN_REVISE",
+          "source": "exec",
+          "exec": {
+            "script": "napkin/layer-%02d.py"
+          },
+          "msg": "the EXECUTED napkin economy model raised flag(s) — revise the design/numbers and re-record"
+        },
+        {
+          "metric": "system_count",
+          "op": ">=",
+          "threshold": 4,
+          "fail": "DEPTH_REVISE",
+          "source": "audit",
+          "msg": "too few interacting systems — add resource subsystems / transformations / sinks (complexity_target). Count only systems that interact, not isolated resources."
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "name": "effect_vocabulary",
+      "gated": true,
+      "checks": [
+        {
+          "metric": "interaction_density",
+          "op": ">=",
+          "threshold": 0.5,
+          "fail": "DEPTH_REVISE",
+          "source": "audit",
+          "derive": {
+            "field": "interacts",
+            "agg": "fraction"
+          },
+          "msg": "vocabulary too self-contained — at least half the primitives must operate on shared/persistent state or other effects (triggers, conditionals, references) so cards can combo."
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "name": "acquisition_model",
+      "gated": false,
+      "checks": [
+        {
+          "metric": "napkin_flags",
+          "op": "<=",
+          "threshold": 0,
+          "fail": "NAPKIN_REVISE",
+          "source": "exec",
+          "exec": {
+            "script": "napkin/layer-%02d.py"
+          },
+          "msg": "the EXECUTED napkin economy model raised flag(s) — revise the design/numbers and re-record"
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "name": "archetypes",
+      "gated": true,
+      "checks": [
+        {
+          "metric": "napkin_flags",
+          "op": "<=",
+          "threshold": 0,
+          "fail": "NAPKIN_REVISE",
+          "source": "exec",
+          "exec": {
+            "script": "napkin/layer-%02d.py"
+          },
+          "msg": "the EXECUTED napkin economy model raised flag(s) — revise the design/numbers and re-record"
+        },
+        {
+          "metric": "synergy_depth",
+          "op": ">=",
+          "threshold": 3,
+          "fail": "DEPTH_REVISE",
+          "source": "audit",
+          "msg": "archetypes too flat — each needs >=3 interacting cards that chain into a payoff, not a pile of independent good cards."
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "name": "numbers_curves",
+      "gated": false,
+      "checks": [
+        {
+          "metric": "napkin_flags",
+          "op": "<=",
+          "threshold": 0,
+          "fail": "NAPKIN_REVISE",
+          "source": "exec",
+          "exec": {
+            "script": "napkin/layer-%02d.py"
+          },
+          "msg": "the EXECUTED napkin economy model raised flag(s) — revise the design/numbers and re-record"
+        },
+        {
+          "metric": "decisions_per_turn",
+          "op": ">=",
+          "threshold": 3,
+          "fail": "DEPTH_REVISE",
+          "source": "audit",
+          "msg": "too few meaningful decisions per turn — raise agency (plays/turn, branching, real choices), per the napkin's median branching estimate."
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "name": "starter_pool",
+      "gated": false,
+      "checks": [
+        {
+          "metric": "napkin_flags",
+          "op": "<=",
+          "threshold": 0,
+          "fail": "NAPKIN_REVISE",
+          "source": "exec",
+          "exec": {
+            "script": "napkin/layer-%02d.py"
+          },
+          "msg": "the EXECUTED napkin economy model raised flag(s) — revise the design/numbers and re-record"
+        },
+        {
+          "metric": "combo_density",
+          "op": ">=",
+          "threshold": 0.5,
+          "fail": "DEPTH_REVISE",
+          "source": "audit",
+          "derive": {
+            "field": "combo",
+            "agg": "fraction"
+          },
+          "msg": "starter pool too flat — at least half the cards must participate in a combo/synergy, not stand alone."
+        }
+      ]
+    }
+  ],
+  "complete_verdict": "DESIGN_COMPLETE",
+  "complete_msg": "All design layers locked. The GDD + effect vocabulary + starter pool are ready to seed game-loop.",
+  "upstream": [
+    {
+      "path": "planning/WORLD.md",
+      "hash": true,
+      "hint": "run world-architect first — designing from generic fantasy is the failure mode this pipeline exists to avoid"
+    },
+    {
+      "path": "planning/ledger.json",
+      "json": true,
+      "require": [
+        "mechanics"
+      ],
+      "hash": true,
+      "hint": "world-architect L7 emits the ludic-hook ledger as data (the element→mechanic table); regenerate it from WORLD.md's ledger section if missing"
+    }
+  ],
+  "terms_file": "planning/terms.json",
+  "artifacts_file": "planning/artifacts.json",
+  "canon_scan": [
+    "planning",
+    "src"
+  ],
+  "stale_on_reopen": {
+    "any": [
+      "planning/GDD.md — this layer's section and every downstream layer's section",
+      "design/vocabulary.json + design/round_metrics.json (the game-loop seam)",
+      "src/content/cards/ + src/content/contracts/ (data compiled from the GDD)",
+      "the game-loop stage — its engine/bots/rubric consume the GDD and vocabulary"
+    ]
+  },
+  "extra_dirs": [
+    "napkin"
+  ],
+  "init_hint": "Edit design/config.json to tune the layer plan, gates, and the napkin check.",
+  "record_hint": "run the layer's diverge→critique→(napkin)→synthesize micro-loop, then `record` it",
+  "engine_version": "2.7.0"
+}

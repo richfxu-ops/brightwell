@@ -1,0 +1,21 @@
+{
+  "artifacts": [
+    {
+      "path": "planning/world.html",
+      "description": "Luminous self-contained HTML reader for the Roundelay world bible (Layers 1-5), generated from WORLD.md + state/issues/terms.",
+      "generator": "scratchpad/build_world_html.py",
+      "sources": [
+        "planning/WORLD.md",
+        "planning/terms.json",
+        "world/state.json",
+        "world/issues.json"
+      ],
+      "pinned": {
+        "planning/WORLD.md": "bced2e0685e5c15a",
+        "planning/terms.json": "ac5501a1474790fb",
+        "world/state.json": "4446b17fd605fc7e",
+        "world/issues.json": "dd963e6b9fa83b1a"
+      }
+    }
+  ]
+}

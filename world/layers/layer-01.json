@@ -1,0 +1,134 @@
+{
+  "layer": 1,
+  "metrics": {},
+  "audit": {
+    "auditor": "blind-post-synthesis-2",
+    "artifact": "planning/WORLD.md#layer-1",
+    "elements": [
+      {
+        "id": "waking-of-made-things",
+        "trope": false,
+        "anchor": false,
+        "hook": true,
+        "legible": true
+      },
+      {
+        "id": "the-fade",
+        "trope": false,
+        "anchor": false,
+        "hook": true,
+        "legible": true
+      },
+      {
+        "id": "makers-gleam",
+        "trope": false,
+        "anchor": false,
+        "hook": true,
+        "legible": true
+      },
+      {
+        "id": "the-askings",
+        "trope": false,
+        "anchor": false,
+        "hook": true,
+        "legible": true
+      },
+      {
+        "id": "the-long-rounds",
+        "trope": false,
+        "anchor": true,
+        "hook": true,
+        "legible": true
+      },
+      {
+        "id": "hearth-right",
+        "trope": false,
+        "anchor": true,
+        "hook": true,
+        "legible": true
+      },
+      {
+        "id": "journey-pieces",
+        "trope": false,
+        "anchor": false,
+        "hook": true,
+        "legible": true
+      },
+      {
+        "id": "shy-materials",
+        "trope": false,
+        "anchor": false,
+        "hook": true,
+        "legible": true
+      },
+      {
+        "id": "audience-of-things",
+        "trope": false,
+        "anchor": false,
+        "hook": true,
+        "legible": true
+      },
+      {
+        "id": "handsels",
+        "trope": false,
+        "anchor": false,
+        "hook": true,
+        "legible": true
+      },
+      {
+        "id": "the-quiet-walk",
+        "trope": false,
+        "anchor": false,
+        "hook": true,
+        "legible": true
+      },
+      {
+        "id": "unmarked-wonders",
+        "trope": false,
+        "anchor": false,
+        "hook": true,
+        "legible": true
+      }
+    ],
+    "metrics": {}
+  },
+  "issues": [
+    {
+      "severity": "P2",
+      "kind": "coherence",
+      "what": "Escalation law stated two incompatible ways: the-askings insists sizing is strictly one-directional ('never scale down', 'rumor does not un-travel'), yet makers-gleam/dimming passage shows lanterns offering progressively SMALLER askings as gleam falls. The reconciliation (world-side need escalates one-way; lantern DISPLAY gates by current gleam) is implied but never stated as one law.",
+      "fix": "State the two-filter rule explicitly once, inside the-askings: the town's need never decreases, but the lantern only lowers what current gleam can hold — a dimmed maker walks past rafters they know are full.",
+      "raised_by": "blind-post-synthesis-2"
+    },
+    {
+      "severity": "P3",
+      "kind": "trope",
+      "what": "'The Fade' is a heavily pre-owned name (Dragon Age, Wheel of Time) — the only major element name reading as off-the-shelf fantasy vocabulary among otherwise distinctive coinages.",
+      "fix": "Rename in the world's own register at Layer 6 naming (e.g. 'the Paling', half-coined already by 'pale towns'); keep 'pale' as the adjective. Route through terms.json renamed_from + canon scan.",
+      "raised_by": "blind-post-synthesis-2"
+    },
+    {
+      "severity": "P3",
+      "kind": "trope",
+      "what": "shy-materials 'chatter with anyone' / 'state their terms' edges toward talking-object twee and smudges the attend-don't-act restraint law; the layer never says whether materials can literally speak.",
+      "fix": "One sentence clarifying materials never speak either — their 'terms' are read through behavior and temperament, the way a cat's terms are read.",
+      "raised_by": "blind-post-synthesis-2"
+    },
+    {
+      "severity": "P3",
+      "kind": "coherence",
+      "what": "unmarked-wonders are a permanent exception to the Fade with no mechanism — deliberately, as the game's long riddle — an open IOU on the world's one physical law.",
+      "fix": "Layer 2 (cosmology) must decide how much of the answer exists; the answer is hard-banned from being elder makers / ancient civilizations / gods. Carry into the L2 brief.",
+      "raised_by": "synthesizer, coherence-critic"
+    },
+    {
+      "severity": "P3",
+      "kind": "trope",
+      "what": "Residual do-not-resemble exposure one layer down: L4 economy could reintroduce fine-shaped penalties around askings or hearth nodes; card text could re-import promise/owed vocabulary or animate-furniture cuteness.",
+      "fix": "Inject the 'Register bans carried forward' section at the end of Layer 1 (vocabulary ban, channel ban, restraint ban, riddle ban) into every L2-L7 proposer/critic brief as binding constraints.",
+      "raised_by": "trope-critic, legibility-ludic-critic"
+    }
+  ],
+  "summary": "ROUNDELAY — a continuously hand-made world where attention is a physical force: attended work wakes, the Fade forgets knack out of untended places, a maker's gleam (the world's visible trust) IS Standing, and askings (crafted folk-object requests sized to the brightest the road has heard you be) ARE the escalating contracts — inevitable because rumor does not un-travel. Base: proposal C (craft/itinerant lens), grafts from B (road-memory, handsels as circulation-woken gift-coins). All critic P1s resolved in text (hearth-right recast as pure gift; two-gate shy-material courtship; one-way asking ratchet; three-channel 'grammar of light' law). Two anchors declared in text with named legibility payloads (the-long-rounds, hearth-right). Process notes: proposal A never materialized (structured-output failure), so the panel ran on two proposals; the synthesizer's file writes were blocked by a transient harness classifier outage — WORLD.md recovered byte-identical from its final Write attempt, terms.json (21 terms) transcribed by a dedicated agent, and the blind audit re-run fresh against the on-disk artifact.",
+  "tokens_spent": 573205
+}
