@@ -44,8 +44,9 @@ let nextDraftId = 0;
 // "offer row" you draft from once each dawn, to feel out whether frequent drafting belongs in
 // the design's Phase-6 acquisition. Tunable; the engine and GDD are untouched.
 const DRAFT_TUNABLES = {
-  OFFER_N: 3,           // cards shown in the row each morning
-  TAKE_PER_MORNING: 1,  // how many you may draft before the row locks until next dawn
+  OFFER_N: 3,             // cards shown in the row each morning
+  TAKE_PER_MORNING: 2,    // how many you may draft before the row locks until next dawn
+  RELEASE_PER_MORNING: 1, // how many un-woken cards you may last-light out of the deck per morning
 };
 const ALL_CARDS = starterPool.cards as unknown as Card[];
 
@@ -84,6 +85,7 @@ interface Run {
   duskData: DuskData | null;
   offers: string[];    // this morning's draft offer row (cardIds) — FIDELITY prototype
   drafted: number;     // how many drafted this morning (locks the row at TAKE_PER_MORNING)
+  released: number;    // how many cards last-lit out of the deck this morning
 }
 
 const MOMENT_CAP = 12;
@@ -132,7 +134,7 @@ function makeRun(seed: number, deck: string): Run {
     moments: [dawnMoment(r.state, r.events)],
     seen: markers(r.events),
     income: dawnIncomeOf(r.events), poured: 0, duskData: null,
-    offers: rollOffers(r.state), drafted: 0,
+    offers: rollOffers(r.state), drafted: 0, released: 0,
   };
 }
 
@@ -553,9 +555,9 @@ function NeedPanel({ run }: { run: Run }) {
   );
 }
 
-function PourPanel({ run, selected, pour, onPour, onPlay, onCancel }: {
+function PourPanel({ run, selected, pour, onPour, onPlay, onCancel, onRelease }: {
   run: Run; selected: string; pour: number;
-  onPour: (n: number) => void; onPlay: () => void; onCancel: () => void;
+  onPour: (n: number) => void; onPlay: () => void; onCancel: () => void; onRelease: () => void;
 }) {
   const s = run.s;
   const piece = s.pieces.find(p => p.instanceId === selected)!;
@@ -595,6 +597,10 @@ function PourPanel({ run, selected, pour, onPour, onPlay, onCancel }: {
         <div className="tm-pour-btns">
           <button type="button" className="tm-btn primary" onClick={onPlay}>{pv.banks ? "Bank it cold" : "Pour it"}</button>
           <button type="button" className="tm-btn" onClick={onCancel}>Never mind</button>
+          {!piece.fired && run.released < DRAFT_TUNABLES.RELEASE_PER_MORNING && (
+            <button type="button" className="tm-btn release" onClick={onRelease}
+              title="Last-light this card out of your deck (un-woken cards only)">Release ✕</button>
+          )}
         </div>
       </div>
     </div>
@@ -863,8 +869,22 @@ function App() {
     setRun({
       ...advance(run, r, dawnMoment(r.state, r.events)),
       phase: "morning", income: dawnIncomeOf(r.events), poured: 0, duskData: null,
-      offers: rollOffers(r.state), drafted: 0,   // a fresh offer row each dawn (prototype)
+      offers: rollOffers(r.state), drafted: 0, released: 0,   // a fresh offer row each dawn (prototype)
     });
+  };
+  const release = (instanceId: string) => {
+    const piece = s.pieces.find(p => p.instanceId === instanceId);
+    if (!piece || piece.fired || run.released >= DRAFT_TUNABLES.RELEASE_PER_MORNING) return;
+    const card = CARDS.get(piece.cardId)!;
+    const clone = structuredClone(s);
+    clone.pieces = clone.pieces.filter(p => p.instanceId !== instanceId);
+    const moment: Moment = {
+      id: nextMomentId++, kind: "stall", accent: "var(--pale)",
+      title: `Last-lit ${card.name}`, sub: "released from your deck",
+      badges: [{ tone: "pale", text: "gone from the run — the deck thins" }],
+    };
+    setRun({ ...run, s: clone, moments: [moment, ...run.moments].slice(0, MOMENT_CAP), released: run.released + 1 });
+    setSelected(null);
   };
   const draft = (cardId: string) => {
     const card = CARDS.get(cardId)!;
@@ -897,7 +917,8 @@ function App() {
               <div className="tm-scrollarea tm-scroll">
                 {selected && (
                   <PourPanel run={run} selected={selected} pour={pour}
-                    onPour={setPour} onPlay={play} onCancel={() => setSelected(null)} />
+                    onPour={setPour} onPlay={play} onCancel={() => setSelected(null)}
+                    onRelease={() => release(selected)} />
                 )}
                 <OfferRow run={run} onDraft={draft} />
                 <div>
