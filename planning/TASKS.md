@@ -5,8 +5,7 @@
 > and a `[Title](tasks/<name>.md)` link to the task's file in `tasks/` (worked via the `/task` skill).
 
 ## Backlog
-- [ ] (P1) Build bot players for all six archetypes #sim #m3
-- [ ] (P1) Simulation harness emitting the 57 round_metrics telemetry keys #sim #m3
+- [ ] (P1) [Simulation harness](tasks/sim-harness.md) — bot players + the 57 round_metrics keys (blocked on Phases 4–6) #sim #m3
 - [ ] (P2) Balance pass: I-022 Untold per-leg count coefficients #balance #m4
 - [ ] (P2) Balance pass: I-044 glad-price brightening bounded below tempo cost #balance #m4
 - [ ] (P2) Balance pass: I-045 last-red/red-thread double-tool sizing #balance #m4
