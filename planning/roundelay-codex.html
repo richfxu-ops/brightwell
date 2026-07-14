@@ -419,6 +419,32 @@ a{color:var(--gold-soft)}
   padding:12px 16px; border-radius:0 10px 10px 0; margin:16px 0; font-size:14px; color:var(--ink-dim);}
 .cdx .callout b{color:var(--gold-soft)}
 
+/* ========== Engine section ========== */
+.estack{display:flex; flex-direction:column; gap:6px; margin:14px 0}
+.elay{display:flex; align-items:baseline; gap:13px; background:linear-gradient(168deg, var(--panel-2), var(--panel));
+  border:1px solid var(--line-soft); border-left:4px solid var(--eac, var(--gold)); border-radius:10px; padding:9px 16px}
+.elay .n{font-family:var(--code); font-size:11px; color:var(--eac, var(--gold)); min-width:22px; font-weight:600}
+.elay .t{font-family:var(--display); font-weight:600; font-size:16.5px; min-width:190px; color:var(--ink)}
+.elay .d{color:var(--ink-faint); font-size:13.5px}
+.phasegrid{display:grid; grid-template-columns:repeat(auto-fill, minmax(280px,1fr)); gap:14px; margin:14px 0}
+.pcard{background:linear-gradient(168deg, var(--panel-2), var(--panel)); border:1px solid var(--line-soft);
+  border-radius:12px; padding:15px 17px}
+.pcard .ph{display:flex; align-items:center; gap:10px; margin-bottom:6px}
+.pcard .pn{display:inline-flex; align-items:center; justify-content:center; width:26px; height:26px; border-radius:50%;
+  border:1px solid var(--gold-deep); color:var(--gold-deep); font-family:var(--code); font-size:12px; flex:none}
+.pcard h4{font-family:var(--display); font-weight:600; font-size:16.5px; margin:0; color:var(--ink)}
+.pcard p{margin:4px 0 0; font-size:13.5px; color:var(--ink-dim); line-height:1.45}
+.pstat{margin-left:auto; font-family:var(--code); font-size:9px; letter-spacing:0.12em; text-transform:uppercase;
+  border-radius:99px; padding:3px 9px; border:1px solid var(--line-soft); color:var(--ink-faint); flex:none}
+.pstat.review{color:var(--gleam); border-color:color-mix(in srgb, var(--gleam) 50%, transparent);
+  background:color-mix(in srgb, var(--gleam) 12%, transparent)}
+.pstat.done{color:var(--moss); border-color:color-mix(in srgb, var(--moss) 50%, transparent);
+  background:color-mix(in srgb, var(--moss) 12%, transparent)}
+.ecode{background:color-mix(in oklch, var(--bg) 60%, var(--panel)); border:1px solid var(--line-soft);
+  border-radius:10px; padding:13px 16px; overflow-x:auto; font-family:var(--code); font-size:11.5px;
+  line-height:1.55; color:var(--ink-dim); margin:12px 0}
+.ecode b{color:var(--gold-soft); font-weight:500}
+
 /* ========== Footer ========== */
 .footer{text-align:center; margin-top:64px; padding-top:26px; border-top:1px solid var(--line-soft);
   color:var(--ink-faint); font-style:italic; font-size:13.5px;}
@@ -545,6 +571,7 @@ a{ color:var(--gold-deep) } a:hover{ color:var(--gold) }
       <button type="button" data-section="cards"><span class="nav-glyph">❖</span>Cards</button>
       <button type="button" data-section="ways"><span class="nav-glyph">♪</span>Ways</button>
       <button type="button" data-section="codex"><span class="nav-glyph">✒</span>Codex</button>
+      <button type="button" data-section="engine"><span class="nav-glyph">⚙</span>Engine</button>
     </nav>
   </header>
 
@@ -940,6 +967,97 @@ a{ color:var(--gold-deep) } a:hover{ color:var(--gold) }
         </details>
 
       </div>
+    </div>
+
+    <!-- ===== ENGINE ===== -->
+    <div id="section-engine" class="section">
+      <div class="sec-head">
+        <div>
+          <span class="eyebrow">Beneath the Board</span>
+          <h2 class="title">Engine</h2>
+          <div class="sub">The machine that will play Roundelay — designed in eight provable steps. Full plan: <a href="../docs/engine-plan.html">docs/engine-plan.html</a>.</div>
+        </div>
+      </div>
+
+      <div class="playhead">The one idea</div>
+      <div class="playtitle">A careful bookkeeper</div>
+      <p class="playnote">One plain data object holds the whole game; the only way it changes is a pure function taking "state + action" and returning the next state. Cards stay JSON — the engine knows only the fourteen verbs. A test, a bot, and the future UI all drive the same machine.</p>
+
+      <div class="gloss">
+        <div class="g"><span class="ic">🎲</span><h4>Same seed, same run</h4><p>All randomness flows through one seeded generator <b>carried in the state</b>. Seed 42 twice = the identical game — so every bug and every statistic is reproducible. <span style="color:var(--ink-faint)">(D-008)</span></p></div>
+        <div class="g"><span class="ic">📜</span><h4>The engine narrates</h4><p>Every change appends an event to a log. Tests assert on it, telemetry is arithmetic over it, and the future UI just <b>animates it</b> — replays come free.</p></div>
+        <div class="g"><span class="ic">🪜</span><h4>The fidelity ladder</h4><p>V1 simplifies the map and the outer trade economy — but every shortcut carries a <b>FIDELITY marker</b>. Detail is deferred; <b>rules are never changed</b> by a shortcut.</p></div>
+      </div>
+
+      <div class="playhead">The shape</div>
+      <div class="playtitle">Nine layers, built bottom-up</div>
+      <div class="estack">
+        <div class="elay" style="--eac:var(--flow)"><span class="n">1</span><span class="t">The table (state)</span><span class="d">one data object: the run, the board, deck, hand, room, gleam, purse</span></div>
+        <div class="elay" style="--eac:var(--flow)"><span class="n">2</span><span class="t">Reads</span><span class="d">amounts are references — read(room), read(grain:song), read(spiral)…</span></div>
+        <div class="elay" style="--eac:var(--gold)"><span class="n">3</span><span class="t">The fourteen verbs</span><span class="d">one resolver per primitive, firewalls enforced</span></div>
+        <div class="elay" style="--eac:var(--gold)"><span class="n">4</span><span class="t">The worked morning</span><span class="d">dawn → draw → chain of plays → wake/spill → dusk settle</span></div>
+        <div class="elay" style="--eac:var(--need)"><span class="n">5</span><span class="t">The askings</span><span class="d">contracts, staleness → the spilling, the glad-load payout</span></div>
+        <div class="elay" style="--eac:var(--need)"><span class="n">6</span><span class="t">The year</span><span class="d">27 mornings, 5 legs, spiral rings, the combing, the crown</span></div>
+        <div class="elay" style="--eac:var(--moss)"><span class="n">7</span><span class="t">Growing the deck</span><span class="d">glad-load bundles, the Round-Fair, courting terms, the drains</span></div>
+        <div class="elay" style="--eac:var(--pale)"><span class="n">8</span><span class="t">The thermometer</span><span class="d">the 57 telemetry keys every run must report</span></div>
+        <div class="elay" style="--eac:var(--pale)"><span class="n">9</span><span class="t">Bots &amp; the harness</span><span class="d">six archetype players, thousands of seeded runs → balance</span></div>
+      </div>
+
+      <div class="playhead">Where we are</div>
+      <div class="playtitle">The eight phases</div>
+      <div class="phasegrid">
+        <div class="pcard"><div class="ph"><span class="pn">1</span><h4>The table — state &amp; reads</h4><span class="pstat review">in review</span></div><p>GameState + the nine read sources. Built: 20 tests green; the grain/woken split ruled in D-009.</p></div>
+        <div class="pcard"><div class="ph"><span class="pn">2</span><h4>The fourteen verbs</h4><span class="pstat">next</span></div><p>One pure resolver per primitive; the five firewalls become runtime guards + a test suite.</p></div>
+        <div class="pcard"><div class="ph"><span class="pn">3</span><h4>The worked morning</h4><span class="pstat">planned</span></div><p>The turn loop. Golden test: the Kilnfast chain wakes in order, under-fills out of order.</p></div>
+        <div class="pcard"><div class="ph"><span class="pn">4</span><h4>The askings</h4><span class="pstat">planned</span></div><p>Contract tiers, gleam-banded lantern offers, the spilling, the glad-load.</p></div>
+        <div class="pcard"><div class="ph"><span class="pn">5</span><h4>The year</h4><span class="pstat">planned</span></div><p>The 27-morning run frame, the Paling, the crown; a static deck must provably lose.</p></div>
+        <div class="pcard"><div class="ph"><span class="pn">6</span><h4>Growing the deck</h4><span class="pstat">planned</span></div><p>Acquisition rung one: glad-load, a simple Fair, courting terms; deck ~7 → ~20.</p></div>
+        <div class="pcard"><div class="ph"><span class="pn">7</span><h4>The thermometer</h4><span class="pstat">planned</span></div><p>The 57 telemetry keys + a greedy bot; 1,000 unattended runs must finish legally.</p></div>
+        <div class="pcard"><div class="ph"><span class="pn">8</span><h4>Six temperaments</h4><span class="pstat">planned</span></div><p>Archetype bots + the harness; its first balance report is M4's starting gun.</p></div>
+      </div>
+
+      <div class="playhead">The reference surfaces</div>
+      <div class="playtitle">The nine reads</div>
+      <p class="playnote">Every clever number in the game is one of these, read live from the table. The <b>grain / woken</b> split is the D-009 ruling: <i>grain:</i> counts this morning's working (wakes + stamps, reset at dawn); <i>woken:</i> counts the crowd fired on earlier mornings.</p>
+      <div class="cdx"><div class="scroll"><table>
+        <tr><th>source</th><th>returns</th></tr>
+        <tr><td><b>room</b></td><td>the current attention pool</td></tr>
+        <tr><td><b>chain</b></td><td>unbroken-work links right now</td></tr>
+        <tr><td><b>fill</b></td><td>the accepted asking's progress</td></tr>
+        <tr><td><b>season</b></td><td>the seep stage — 1 · 3 · 5 · 7 by leg, the Wintering holds at 7</td></tr>
+        <tr><td><b>spiral</b></td><td>this town's Paling rings</td></tr>
+        <tr><td><b>handsels</b></td><td>the purse's total brightness (dull 1 / warm 2 / singing 3)</td></tr>
+        <tr><td><b>over-ceiling</b></td><td>this play's genuine overkill</td></tr>
+        <tr><td><b>grain:&lt;suit&gt;</b></td><td>pieces counting as the suit in <i>this morning's working</i> (D-009)</td></tr>
+        <tr><td><b>woken:&lt;suit&gt;</b></td><td>the fired audience of the suit from <i>earlier mornings</i> (D-009)</td></tr>
+      </table></div></div>
+
+      <div class="playhead">The safety net</div>
+      <div class="playtitle">Locked canon, enforced in code</div>
+      <div class="cdx"><div class="scroll"><table>
+        <tr><th>Locked rule (from the GDD)</th><th>Where it's enforced</th></tr>
+        <tr><td>Amounts are references (<b>read</b>)</td><td>Phase 1 — the evaluator + the closed enum (unknown source = compile error)</td></tr>
+        <tr><td>The five firewalls (brim the only gleam-writer, play-gate, fixed marks…)</td><td>Phase 2 — runtime guards + the firewall test suite</td></tr>
+        <tr><td>Attention conservation (<i>nothing minted, nothing lost</i>)</td><td>Phase 3 — the conservation check every dusk</td></tr>
+        <tr><td>Rings-in = load-out; the spilling is outcome-only</td><td>Phase 4 — asking lifecycle tests</td></tr>
+        <tr><td>The crown is un-standable without growth</td><td>Phase 5 — the static-deck-must-lose test</td></tr>
+        <tr><td>Deck ~7 → ~20; acquired pieces arrive inert</td><td>Phase 6 — growth-curve tests</td></tr>
+        <tr><td>The 57-key telemetry contract</td><td>Phase 7 — completeness check on every run</td></tr>
+        <tr><td>The balance watch-items (I-006 / 014 / 020 / 022…)</td><td>Phase 8 — the harness's balance sheet</td></tr>
+      </table></div></div>
+
+      <div class="playhead">The table itself</div>
+      <div class="playtitle">What the state holds</div>
+      <div class="ecode">GameState {
+  <b>rng</b>        seed + counter — the run's dice, carried in the state
+  <b>calendar</b>   morning 1..27 · leg 0..4 (Green Going → the Wintering)
+  <b>board</b>      towns: spiral rings, local table, last-red · where you are · the offered roads
+  <b>player</b>     gleam (+ per-grain tags) · handsels (dull/warm/singing) · courted stock
+  <b>pieces</b>     card instances: zone · fired? · attention rested vs the printed mark · stamps
+  <b>asking</b>     the accepted need: tier · size · progress · its season
+  <b>turn</b>       the room · chain links · brace · this play's overkill
+  <b>events</b>     the narration log — tests, telemetry and the UI all read this
+}</div>
     </div>
   </main>
 
@@ -1575,7 +1693,7 @@ function boot(){
   renderWays();
   // deep-link: #cards / #ways / #play / #codex / #world
   const h = location.hash.replace("#","");
-  if (["world","play","cards","ways","codex"].includes(h)) showSection(h);
+  if (["world","play","cards","ways","codex","engine"].includes(h)) showSection(h);
 }
 if (typeof document !== "undefined") boot();
 </script>
