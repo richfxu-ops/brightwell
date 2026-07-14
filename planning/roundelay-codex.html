@@ -468,6 +468,66 @@ a{color:var(--gold-soft)}
   .cdx summary .sub{margin-left:0; width:100%; text-align:left; margin-top:4px}
 }
 
+/* ========== Doc tabs / pages (Inkfall-style second row) ========== */
+.doc-tabs{display:flex; gap:4px; flex-wrap:wrap; margin:20px 0 8px; border-bottom:1px dashed var(--line)}
+.doc-tabs button{appearance:none; background:none; border:none; cursor:pointer; white-space:nowrap;
+  font-family:var(--ui); font-weight:700; font-size:12px; letter-spacing:0.1em; text-transform:uppercase;
+  color:var(--ink-faint); padding:9px 14px 12px; position:relative; transition:color .18s ease}
+.doc-tabs button:hover{color:var(--ink-dim)}
+.doc-tabs button.active{color:var(--gold-deep)}
+.doc-tabs button.active::after{content:""; position:absolute; left:8px; right:8px; bottom:-1px; height:2px;
+  background:linear-gradient(90deg, transparent, var(--gold), transparent)}
+.sec-head .doc-tabs{border-bottom:none; margin:0}
+.doc-page{display:none}
+.doc-page.visible{display:block}
+.toolbar > .lbl{font-family:var(--code); font-size:10px; letter-spacing:0.22em; text-transform:uppercase; color:var(--ink-faint)}
+
+/* contents panel */
+.contents{background:linear-gradient(168deg, var(--panel-2), var(--panel)); border:1px solid var(--line-soft);
+  border-radius:12px; margin:18px 0; padding:0; overflow:hidden}
+.contents summary{cursor:pointer; list-style:none; padding:11px 18px; font-family:var(--code); font-size:10px;
+  letter-spacing:0.24em; text-transform:uppercase; color:var(--gold-deep)}
+.contents summary::-webkit-details-marker{display:none}
+.contents summary::before{content:"\25be  "}
+.contents .c-links{display:flex; flex-wrap:wrap; gap:7px; padding:2px 16px 14px}
+.contents .c-links a{font-family:var(--ui); font-size:12.5px; text-decoration:none; color:var(--ink-dim);
+  border:1px solid var(--line-soft); border-radius:99px; padding:5px 12px; transition:all .15s ease}
+.contents .c-links a:hover{color:var(--gold-deep); border-color:var(--gold-deep)}
+
+/* under construction */
+.uc{display:grid; place-items:center; text-align:center; padding:70px 20px; color:var(--ink-faint)}
+.uc .uc-ic{font-size:40px; margin-bottom:14px}
+.uc h3{font-family:var(--display); font-weight:600; font-size:20px; color:var(--ink-dim); margin:0 0 8px}
+.uc p{font-style:italic; max-width:430px; margin:0 auto; line-height:1.55}
+
+/* project: board + decisions */
+.livenote{font-family:var(--code); font-size:10.5px; letter-spacing:0.1em; text-transform:uppercase;
+  color:var(--ink-faint); margin:14px 2px}
+.bcols{display:grid; grid-template-columns:repeat(auto-fit, minmax(230px,1fr)); gap:14px; align-items:start}
+.bcol{background:linear-gradient(168deg, var(--panel-2), var(--panel)); border:1px solid var(--line-soft);
+  border-radius:12px; padding:13px 15px}
+.bcol h4{font-family:var(--code); font-size:10.5px; letter-spacing:0.18em; text-transform:uppercase;
+  color:var(--gold-deep); margin:0 0 10px; display:flex; justify-content:space-between}
+.bcol h4 span{color:var(--ink-faint)}
+.bitem{display:flex; gap:8px; font-size:13.5px; color:var(--ink-dim); line-height:1.45; padding:6px 0;
+  border-top:1px dashed var(--line-soft)}
+.bitem .bx{flex:none; width:15px; height:15px; margin-top:2px; border:1px solid var(--line); border-radius:4px;
+  font-size:10px; line-height:14px; text-align:center; color:var(--moss)}
+.bitem.done{color:var(--ink-faint)}
+.bitem.done .bx{background:color-mix(in srgb, var(--moss) 14%, transparent); border-color:var(--moss)}
+.bitem a{color:var(--gold-deep); text-decoration:none}
+.bitem a:hover{text-decoration:underline}
+.bitem .prio{font-family:var(--code); font-size:9.5px; color:var(--need); border:1px solid
+  color-mix(in srgb, var(--need) 40%, transparent); border-radius:5px; padding:0 4px; margin-right:2px}
+.bitem .btag{font-family:var(--code); font-size:10px; color:var(--ink-faint)}
+.bempty{color:var(--ink-faint); font-style:italic; padding:8px 0; border-top:1px dashed var(--line-soft)}
+.dcard{background:linear-gradient(168deg, var(--panel-2), var(--panel)); border:1px solid var(--line-soft);
+  border-left:3px solid var(--gold-deep); border-radius:12px; padding:16px 20px; margin:12px 0}
+.dcard h4{font-family:var(--display); font-weight:600; font-size:16.5px; color:var(--ink); margin:0 0 8px}
+.dcard .dbody p{margin:8px 0; font-size:14px; color:var(--ink-dim); line-height:1.55}
+.dcard code{font-family:var(--code); font-size:12px; background:color-mix(in oklch, var(--bg) 60%, var(--panel));
+  padding:1px 5px; border-radius:5px; color:var(--gold-deep)}
+
 /* ================= DAYLIGHT WATERCOLOR — theme override ================= */
 :root{
   --bg:#f7f1e4; --bg-deep:#efe6d3; --panel:#fffaf0; --panel-2:#fdf5e6; --panel-hi:#fffdf7;
@@ -566,18 +626,25 @@ a{ color:var(--gold-deep) } a:hover{ color:var(--gold) }
       </div>
     </div>
     <nav class="topnav" id="sectionNav">
-      <button type="button" data-section="world" class="active"><span class="nav-glyph">❂</span>World</button>
-      <button type="button" data-section="play"><span class="nav-glyph">☼</span>Play</button>
-      <button type="button" data-section="cards"><span class="nav-glyph">❖</span>Cards</button>
-      <button type="button" data-section="ways"><span class="nav-glyph">♪</span>Ways</button>
-      <button type="button" data-section="codex"><span class="nav-glyph">✒</span>Codex</button>
+      <button type="button" data-section="design" class="active"><span class="nav-glyph">❂</span>Design</button>
       <button type="button" data-section="engine"><span class="nav-glyph">⚙</span>Engine</button>
+      <button type="button" data-section="data"><span class="nav-glyph">❖</span>Data Viewer</button>
+      <button type="button" data-section="project"><span class="nav-glyph">✒</span>Project</button>
+      <button type="button" data-section="reports"><span class="nav-glyph">▤</span>Reports</button>
     </nav>
   </header>
 
   <main>
-    <!-- ===== WORLD ===== -->
-    <div id="section-world" class="section visible">
+    <!-- ===== DESIGN ===== -->
+    <div id="section-design" class="section visible">
+      <div class="doc-tabs" id="designTabs">
+        <button type="button" class="active" data-doc="design-overview">Overview</button>
+        <button type="button" data-doc="design-play">How It Plays</button>
+        <button type="button" data-doc="design-ways">The Six Ways</button>
+        <button type="button" data-doc="design-layers">The Seven Layers</button>
+      </div>
+<!-- ===== WORLD ===== -->
+    <div id="doc-design-overview" class="doc-page visible">
       <div class="hero">
         <div class="kick">a roguelike economy deckbuilder</div>
         <h2>Attention is a<br>physical force</h2>
@@ -599,8 +666,8 @@ a{ color:var(--gold-deep) } a:hover{ color:var(--gold) }
       </div>
     </div>
 
-    <!-- ===== PLAY ===== -->
-    <div id="section-play" class="section">
+<!-- ===== PLAY ===== -->
+    <div id="doc-design-play" class="doc-page">
       <div class="sec-head">
         <div>
           <span class="eyebrow">The Worked Morning</span>
@@ -609,7 +676,14 @@ a{ color:var(--gold-deep) } a:hover{ color:var(--gold) }
         </div>
       </div>
 
-      <div class="playhead">First — five words</div>
+            <details class="contents">
+        <summary>Contents</summary>
+        <div class="c-links">
+          <a href="#hp-words">The five words</a><a href="#hp-morning">One morning</a>
+          <a href="#hp-fates">The four fates</a><a href="#hp-year">The rising year</a>
+        </div>
+      </details>
+      <div class="playhead" id="hp-words">First — five words</div>
       <div class="playtitle">The whole game in five ideas</div>
       <div class="gloss">
         <div class="g"><span class="ic">🔦</span><h4>Attention</h4><p>Your energy for the morning — like a <b>spotlight</b> you shine on your cards to bring them to life. You get a fresh pool every dawn.</p></div>
@@ -619,7 +693,7 @@ a{ color:var(--gold-deep) } a:hover{ color:var(--gold) }
         <div class="g"><span class="ic">✦</span><h4>Standing</h4><p>Your <b>reputation</b> — and it's both your <b>score and your life bar.</b> Hits zero, the run ends. You earn it by <b>over</b>-delivering.</p></div>
       </div>
 
-      <div class="playhead">Now — watch one morning</div>
+      <div class="playhead" id="hp-morning">Now — watch one morning</div>
       <div class="playtitle">A single turn, with real numbers</div>
 
       <div class="step">
@@ -670,7 +744,7 @@ a{ color:var(--gold-deep) } a:hover{ color:var(--gold) }
         Each morning your show gets bigger. That snowball is the whole game.
       </div>
 
-      <div class="playhead">The key rule</div>
+      <div class="playhead" id="hp-fates">The key rule</div>
       <div class="playtitle">Every drop of attention goes somewhere</div>
       <p class="playnote">Nothing is ever wasted — when you pour attention onto a piece, it takes one of these four paths. Learning to steer it is the skill.</p>
       <div class="gloss">
@@ -680,7 +754,7 @@ a{ color:var(--gold-deep) } a:hover{ color:var(--gold) }
         <div class="g" style="border-color:color-mix(in oklch, var(--pale) 45%, transparent)"><span class="ic" style="color:var(--pale)">○</span><h4 style="color:var(--pale)">It stays cold</h4><p>Not enough to reach the mark → the piece does its bit once, then <b>stays asleep</b> and slowly fades.</p></div>
       </div>
 
-      <div class="playhead">The big picture</div>
+      <div class="playhead" id="hp-year">The big picture</div>
       <div class="playtitle">One run is one year — and it keeps getting harder</div>
       <p class="playnote">You get about <b style="color:var(--ink)">27 mornings</b>, spring to winter. The land's fading rises <b>on its own</b> — the needs grow whether you engage or not — building to a final job you must be strong enough to answer. Grow, or get left behind by the weather.</p>
       <div class="step" style="padding:22px 20px">
@@ -727,73 +801,8 @@ a{ color:var(--gold-deep) } a:hover{ color:var(--gold) }
       </div>
     </div>
 
-    <!-- ===== CARDS (data viewer) ===== -->
-    <div id="section-cards" class="section">
-      <div class="sec-head">
-        <div>
-          <span class="eyebrow">The Pack, Opened</span>
-          <h2 class="title">Cards</h2>
-          <div class="sub">Everything the design currently knows about itself.</div>
-        </div>
-        <div class="subtabs" id="dataTabs">
-          <button type="button" class="active" data-tab="cards"><span class="g">❖</span>Cards</button>
-          <button type="button" data-tab="effects"><span class="g">✧</span>Effects</button>
-          <button type="button" data-tab="resources"><span class="g">◉</span>Resources</button>
-        </div>
-      </div>
-
-      <div id="dataTab-cards" class="data-tab visible">
-        <div class="toolbar">
-          <div class="searchbox">
-            <span class="ic">⌕</span>
-            <input type="search" id="cardSearch" placeholder="Search the pack…">
-          </div>
-          <div class="filterset" id="wayFilters"></div>
-          <span class="count-note" id="cardCount"></span>
-        </div>
-        <div class="toolbar" style="margin-top:-8px">
-          <div class="filterset" id="grainFilters"></div>
-          <div class="filterset" id="roleFilters"></div>
-        </div>
-        <div class="viewer-split">
-          <div class="card-grid" id="cardGrid"></div>
-          <div class="inspector-col" id="cardInspector"></div>
-        </div>
-      </div>
-
-      <div id="dataTab-effects" class="data-tab">
-        <div class="toolbar">
-          <div class="searchbox">
-            <span class="ic">⌕</span>
-            <input type="search" id="fxSearch" placeholder="Search the fourteen verbs…">
-          </div>
-          <div class="filterset" id="fxFilters"></div>
-          <span class="count-note" id="fxCount"></span>
-        </div>
-        <div class="viewer-split">
-          <div class="card-grid" id="fxGrid"></div>
-          <div class="inspector-col" id="fxInspector"></div>
-        </div>
-      </div>
-
-      <div id="dataTab-resources" class="data-tab">
-        <div class="toolbar">
-          <div class="searchbox">
-            <span class="ic">⌕</span>
-            <input type="search" id="resSearch" placeholder="Search the economy…">
-          </div>
-          <div class="filterset" id="resFilters"></div>
-          <span class="count-note" id="resCount"></span>
-        </div>
-        <div class="viewer-split">
-          <div class="card-grid" id="resGrid"></div>
-          <div class="inspector-col" id="resInspector"></div>
-        </div>
-      </div>
-    </div>
-
-    <!-- ===== WAYS ===== -->
-    <div id="section-ways" class="section">
+<!-- ===== WAYS ===== -->
+    <div id="doc-design-ways" class="doc-page">
       <div class="sec-head">
         <div>
           <span class="eyebrow">Six Temperaments</span>
@@ -810,8 +819,8 @@ a{ color:var(--gold-deep) } a:hover{ color:var(--gold) }
       </div>
     </div>
 
-    <!-- ===== CODEX ===== -->
-    <div id="section-codex" class="section">
+<!-- ===== CODEX ===== -->
+    <div id="doc-design-layers" class="doc-page">
       <div class="sec-head">
         <div>
           <span class="eyebrow">The Design, Layer by Layer</span>
@@ -819,9 +828,17 @@ a{ color:var(--gold-deep) } a:hover{ color:var(--gold) }
           <div class="sub">The locked GDD, condensed — tap a layer to unfold it.</div>
         </div>
       </div>
+            <details class="contents" open>
+        <summary>Contents</summary>
+        <div class="c-links">
+          <a href="#lyr-world">World</a><a href="#lyr-1">L1 Core Loop</a><a href="#lyr-2">L2 Resources</a>
+          <a href="#lyr-3">L3 Vocabulary</a><a href="#lyr-4">L4 Acquisition</a><a href="#lyr-5">L5 Archetypes</a>
+          <a href="#lyr-6">L6 Numbers</a><a href="#lyr-7">L7 Starter Pool</a><a href="#lyr-next">What's open</a>
+        </div>
+      </details>
       <div class="cdx">
 
-        <details>
+        <details id="lyr-world">
           <summary><span class="lyr">World</span><span class="ttl">Roundelay &amp; the Paling</span><span class="sub">theme, tone, the six Ways<span class="chev">›</span></span></summary>
           <div class="body">
             <p>Roundelay is a made world — not made once, long ago, but made <b>continuously, by hands</b>. It is named for a round-song passed voice to voice around a circle, that only stays wonderful as long as someone keeps singing their bars.</p>
@@ -833,7 +850,7 @@ a{ color:var(--gold-deep) } a:hover{ color:var(--gold) }
           </div>
         </details>
 
-        <details open>
+        <details id="lyr-1" open>
           <summary><span class="lyr">Layer 1</span><span class="ttl">The Core Loop</span><span class="sub">the worked morning &amp; the win<span class="chev">›</span></span></summary>
           <div class="body">
             <p>A run is <b>one wander-year of fixed length</b> — ~27 worked mornings across five legs (Green&nbsp;Going → Long&nbsp;Light → Deep&nbsp;Gold → Red&nbsp;Walk → the Wintering finale). The calendar advances by <b>worked mornings only</b>, never by travel — so a camp-in-place player evades nothing.</p>
@@ -852,7 +869,7 @@ a{ color:var(--gold-deep) } a:hover{ color:var(--gold) }
           </div>
         </details>
 
-        <details>
+        <details id="lyr-2">
           <summary><span class="lyr">Layer 2</span><span class="ttl">Resources</span><span class="sub">four interacting systems<span class="chev">›</span></span></summary>
           <div class="body">
             <p>A lean set of resources, each on a <b>different clock</b> so none can substitute for another:</p>
@@ -868,7 +885,7 @@ a{ color:var(--gold-deep) } a:hover{ color:var(--gold) }
           </div>
         </details>
 
-        <details>
+        <details id="lyr-3">
           <summary><span class="lyr">Layer 3</span><span class="ttl">Effect Vocabulary</span><span class="sub">14 primitives; cards are data<span class="chev">›</span></span></summary>
           <div class="body">
             <p>A card is <b>declarative data</b>: a craft-suit, a fixed waking-mark, a ceiling, a printed delight, and an ordered list of effects. Each effect is <code>{ when, if?, do, params }</code>. The depth comes from one idea: <b>amounts are references, not constants</b> — the single primitive <code>read</code> turns any live quantity into the <em>amount</em> of another effect. All fourteen verbs are browsable under <b>Cards → Effects</b>.</p>
@@ -876,7 +893,7 @@ a{ color:var(--gold-deep) } a:hover{ color:var(--gold) }
           </div>
         </details>
 
-        <details>
+        <details id="lyr-4">
           <summary><span class="lyr">Layer 4</span><span class="ttl">Acquisition</span><span class="sub">how the deck grows — no card-shop<span class="chev">›</span></span></summary>
           <div class="body">
             <p>Only three things ever newly enter a run — <b>journey-pieces, courted stock, handsels</b> — and never through a shop. Acquisition is a bundle paid across the existing economies, gated by two independent things at once:</p>
@@ -891,7 +908,7 @@ a{ color:var(--gold-deep) } a:hover{ color:var(--gold) }
           </div>
         </details>
 
-        <details>
+        <details id="lyr-5">
           <summary><span class="lyr">Layer 5</span><span class="ttl">The Six Archetypes</span><span class="sub">six engines, not palette-swaps<span class="chev">›</span></span></summary>
           <div class="body">
             <p>Each Walking Way pulls one lever of the resource square hardest, wins the same crown by a <b>different route</b>, and sits on a different risk axis. You are never handed a class menu — <b>the country teaches you into the maker you are being</b>, by the grain your gleam shows.</p>
@@ -908,7 +925,7 @@ a{ color:var(--gold-deep) } a:hover{ color:var(--gold) }
           </div>
         </details>
 
-        <details>
+        <details id="lyr-6">
           <summary><span class="lyr">Layer 6</span><span class="ttl">Numbers &amp; Curves</span><span class="sub">the economy, made concrete<span class="chev">›</span></span></summary>
           <div class="body">
             <p>Concrete numbers fitted to the design and proven by an executable economy model. Every worked morning offers a median of <b>four meaningful decisions</b>.</p>
@@ -928,7 +945,7 @@ a{ color:var(--gold-deep) } a:hover{ color:var(--gold) }
           </div>
         </details>
 
-        <details>
+        <details id="lyr-7">
           <summary><span class="lyr">Layer 7</span><span class="ttl">The Starter Pool</span><span class="sub">49 cards, ready to play<span class="chev">›</span></span></summary>
           <div class="body">
             <p>The concrete opening cards, as data: a shared <b>7-card apprentice deck</b> every run begins with, plus ~7 cards for each of the six Ways so its signature chain opens from turn one. <b>84% of the pool participates in a combo</b> — the standalones are the deliberate legible floor. Every card is browsable under <b>Cards</b>.</p>
@@ -952,7 +969,7 @@ a{ color:var(--gold-deep) } a:hover{ color:var(--gold) }
           </div>
         </details>
 
-        <details>
+        <details id="lyr-next">
           <summary><span class="lyr">Next</span><span class="ttl">What the design leaves open</span><span class="sub">for the balance stage<span class="chev">›</span></span></summary>
           <div class="body">
             <p>This document is the finished <b>design</b>. Its balance is <em>asserted</em> over hand-authored economy checks — proven to hold its <b>shape</b>, not yet its exact values. The next stage (the <b>game-loop</b>) derives real balance from bot-played simulations and tunes the exact coefficients within these locked shapes:</p>
@@ -968,8 +985,9 @@ a{ color:var(--gold-deep) } a:hover{ color:var(--gold) }
 
       </div>
     </div>
+    </div>
 
-    <!-- ===== ENGINE ===== -->
+<!-- ===== ENGINE ===== -->
     <div id="section-engine" class="section">
       <div class="sec-head">
         <div>
@@ -978,6 +996,13 @@ a{ color:var(--gold-deep) } a:hover{ color:var(--gold) }
           <div class="sub">The machine that will play Roundelay — designed in eight provable steps. Full plan: <a href="../docs/engine-plan.html">docs/engine-plan.html</a>.</div>
         </div>
       </div>
+      <div class="doc-tabs" id="engineTabs">
+        <button type="button" class="active" data-doc="engine-plan">Plan</button>
+        <button type="button" data-doc="engine-reads">The Reads</button>
+        <button type="button" data-doc="engine-safety">Safety Net</button>
+        <button type="button" data-doc="engine-state">The State</button>
+      </div>
+      <div id="doc-engine-plan" class="doc-page visible">
 
       <div class="playhead">The one idea</div>
       <div class="playtitle">A careful bookkeeper</div>
@@ -1006,7 +1031,7 @@ a{ color:var(--gold-deep) } a:hover{ color:var(--gold) }
       <div class="playhead">Where we are</div>
       <div class="playtitle">The eight phases</div>
       <div class="phasegrid">
-        <div class="pcard"><div class="ph"><span class="pn">1</span><h4>The table — state &amp; reads</h4><span class="pstat review">in review</span></div><p>GameState + the nine read sources. Built: 20 tests green; the grain/woken split ruled in D-009.</p></div>
+        <div class="pcard"><div class="ph"><span class="pn">1</span><h4>The table — state &amp; reads</h4><span class="pstat done">merged</span></div><p>GameState + the nine read sources. Built: 20 tests green; the grain/woken split ruled in D-009.</p></div>
         <div class="pcard"><div class="ph"><span class="pn">2</span><h4>The fourteen verbs</h4><span class="pstat">next</span></div><p>One pure resolver per primitive; the five firewalls become runtime guards + a test suite.</p></div>
         <div class="pcard"><div class="ph"><span class="pn">3</span><h4>The worked morning</h4><span class="pstat">planned</span></div><p>The turn loop. Golden test: the Kilnfast chain wakes in order, under-fills out of order.</p></div>
         <div class="pcard"><div class="ph"><span class="pn">4</span><h4>The askings</h4><span class="pstat">planned</span></div><p>Contract tiers, gleam-banded lantern offers, the spilling, the glad-load.</p></div>
@@ -1016,7 +1041,8 @@ a{ color:var(--gold-deep) } a:hover{ color:var(--gold) }
         <div class="pcard"><div class="ph"><span class="pn">8</span><h4>Six temperaments</h4><span class="pstat">planned</span></div><p>Archetype bots + the harness; its first balance report is M4's starting gun.</p></div>
       </div>
 
-      <div class="playhead">The reference surfaces</div>
+      </div>
+      <div id="doc-engine-reads" class="doc-page"><div class="playhead">The reference surfaces</div>
       <div class="playtitle">The nine reads</div>
       <p class="playnote">Every clever number in the game is one of these, read live from the table. The <b>grain / woken</b> split is the D-009 ruling: <i>grain:</i> counts this morning's working (wakes + stamps, reset at dawn); <i>woken:</i> counts the crowd fired on earlier mornings.</p>
       <div class="cdx"><div class="scroll"><table>
@@ -1032,7 +1058,8 @@ a{ color:var(--gold-deep) } a:hover{ color:var(--gold) }
         <tr><td><b>woken:&lt;suit&gt;</b></td><td>the fired audience of the suit from <i>earlier mornings</i> (D-009)</td></tr>
       </table></div></div>
 
-      <div class="playhead">The safety net</div>
+      </div>
+      <div id="doc-engine-safety" class="doc-page"><div class="playhead">The safety net</div>
       <div class="playtitle">Locked canon, enforced in code</div>
       <div class="cdx"><div class="scroll"><table>
         <tr><th>Locked rule (from the GDD)</th><th>Where it's enforced</th></tr>
@@ -1046,7 +1073,8 @@ a{ color:var(--gold-deep) } a:hover{ color:var(--gold) }
         <tr><td>The balance watch-items (I-006 / 014 / 020 / 022…)</td><td>Phase 8 — the harness's balance sheet</td></tr>
       </table></div></div>
 
-      <div class="playhead">The table itself</div>
+      </div>
+      <div id="doc-engine-state" class="doc-page"><div class="playhead">The table itself</div>
       <div class="playtitle">What the state holds</div>
       <div class="ecode">GameState {
   <b>rng</b>        seed + counter — the run's dice, carried in the state
@@ -1058,6 +1086,105 @@ a{ color:var(--gold-deep) } a:hover{ color:var(--gold) }
   <b>turn</b>       the room · chain links · brace · this play's overkill
   <b>events</b>     the narration log — tests, telemetry and the UI all read this
 }</div>
+    </div>
+    </div>
+
+<!-- ===== CARDS (data viewer) ===== -->
+    <div id="section-data" class="section">
+      <div class="sec-head">
+        <div>
+          <span class="eyebrow">The Pack, Opened</span>
+          <h2 class="title">Data Viewer</h2>
+          <div class="sub">Everything the design currently knows about itself.</div>
+        </div>
+        <div class="subtabs" id="dataTabs">
+          <button type="button" class="active" data-tab="cards"><span class="g">❖</span>Cards</button>
+          <button type="button" data-tab="effects"><span class="g">✧</span>Effects</button>
+          <button type="button" data-tab="resources"><span class="g">◉</span>Resources</button>
+        </div>
+      </div>
+
+      <div id="dataTab-cards" class="data-tab visible">
+        <div class="toolbar">
+          <div class="searchbox">
+            <span class="ic">⌕</span>
+            <input type="search" id="cardSearch" placeholder="Search the pack…">
+          </div>
+          <span class="lbl">Way</span><div class="filterset" id="wayFilters"></div>
+          <span class="count-note" id="cardCount"></span>
+        </div>
+        <div class="toolbar" style="margin-top:-8px">
+          <span class="lbl">Grain</span><div class="filterset" id="grainFilters"></div>
+          <span class="lbl">Role</span><div class="filterset" id="roleFilters"></div>
+        </div>
+        <div class="viewer-split">
+          <div class="card-grid" id="cardGrid"></div>
+          <div class="inspector-col" id="cardInspector"></div>
+        </div>
+      </div>
+
+      <div id="dataTab-effects" class="data-tab">
+        <div class="toolbar">
+          <div class="searchbox">
+            <span class="ic">⌕</span>
+            <input type="search" id="fxSearch" placeholder="Search the fourteen verbs…">
+          </div>
+          <span class="lbl">Kind</span><div class="filterset" id="fxFilters"></div>
+          <span class="count-note" id="fxCount"></span>
+        </div>
+        <div class="viewer-split">
+          <div class="card-grid" id="fxGrid"></div>
+          <div class="inspector-col" id="fxInspector"></div>
+        </div>
+      </div>
+
+      <div id="dataTab-resources" class="data-tab">
+        <div class="toolbar">
+          <div class="searchbox">
+            <span class="ic">⌕</span>
+            <input type="search" id="resSearch" placeholder="Search the economy…">
+          </div>
+          <span class="lbl">Kind</span><div class="filterset" id="resFilters"></div>
+          <span class="count-note" id="resCount"></span>
+        </div>
+        <div class="viewer-split">
+          <div class="card-grid" id="resGrid"></div>
+          <div class="inspector-col" id="resInspector"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== PROJECT ===== -->
+    <div id="section-project" class="section">
+      <div class="sec-head">
+        <div>
+          <span class="eyebrow">The Long Walk</span>
+          <h2 class="title">Project</h2>
+          <div class="sub">Where the work stands — live from the planning files when served; a dated snapshot otherwise. Full tracker: <a href="dashboard.html">dashboard.html</a>.</div>
+        </div>
+        <div class="doc-tabs" id="projectTabs">
+          <button type="button" class="active" data-doc="project-board">Board</button>
+          <button type="button" data-doc="project-decisions">Decisions</button>
+        </div>
+      </div>
+      <div id="doc-project-board" class="doc-page visible"><div id="boardContent"></div></div>
+      <div id="doc-project-decisions" class="doc-page"><div id="decisionsContent"></div></div>
+    </div>
+
+    <!-- ===== REPORTS ===== -->
+    <div id="section-reports" class="section">
+      <div class="sec-head">
+        <div>
+          <span class="eyebrow">The Thermometer</span>
+          <h2 class="title">Reports</h2>
+          <div class="sub">Telemetry and balance reports from the simulation harness.</div>
+        </div>
+      </div>
+      <div class="uc">
+        <div class="uc-ic">🌡️</div>
+        <h3>Nothing to read yet</h3>
+        <p>The first balance sheet lands when engine Phases 7–8 run the six archetype bots over thousands of seeded mornings. The 57-key telemetry contract is already locked — this page is its home.</p>
+      </div>
     </div>
   </main>
 
@@ -1470,14 +1597,14 @@ function renderCardFilters(){
 function selectCard(id){
   cardsState.q=""; cardsState.way="all"; cardsState.grain="all"; cardsState.role="all"; cardsState.sel=id;
   document.getElementById("cardSearch").value = "";
-  showSection("cards"); showDataTab("cards");
+  showSection("data"); showDataTab("cards");
   renderCardFilters(); renderCardGrid(); renderCardInspector();
-  document.getElementById("section-cards").scrollIntoView({behavior:"smooth"});
+  document.getElementById("section-data").scrollIntoView({behavior:"smooth"});
 }
 function browseWay(way){
   cardsState.q=""; cardsState.way=way; cardsState.grain="all"; cardsState.role="all"; cardsState.sel=null;
   document.getElementById("cardSearch").value = "";
-  showSection("cards"); showDataTab("cards");
+  showSection("data"); showDataTab("cards");
   renderCardFilters(); renderCardGrid(); renderCardInspector();
   window.scrollTo({top:0, behavior:"smooth"});
 }
@@ -1655,10 +1782,70 @@ function renderWays(){
     </div>`).join("");
 }
 
+
+/* ---------- doc tabs + project (Inkfall layout) ---------- */
+function showDoc(key){
+  const scope = key.split("-")[0];
+  document.querySelectorAll(`#section-${scope} .doc-page`).forEach(d => d.classList.toggle("visible", d.id === "doc-"+key));
+  document.querySelectorAll(`#section-${scope} .doc-tabs button`).forEach(b => b.classList.toggle("active", b.dataset.doc === key));
+}
+
+const SNAPSHOT_DATE = "2026-07-13";
+const TASKS_SNAPSHOT = "# Tasks \u2014 Roundelay\n\n> Source of truth for work. Format is fixed so `dashboard.html` can parse it:\n> columns are `## ` headings; tasks are `- [ ]` / `- [x]`; optional `(P0)`\u2013`(P3)` priority, `#tags`,\n> and a `[Title](tasks/<name>.md)` link to the task's file in `tasks/` (worked via the `/task` skill).\n\n## Backlog\n- [ ] (P1) Build bot players for all six archetypes #sim #m3\n- [ ] (P1) Simulation harness emitting the 57 round_metrics telemetry keys #sim #m3\n- [ ] (P2) Balance pass: I-022 Untold per-leg count coefficients #balance #m4\n- [ ] (P2) Balance pass: I-044 glad-price brightening bounded below tempo cost #balance #m4\n- [ ] (P2) Balance pass: I-045 last-red/red-thread double-tool sizing #balance #m4\n- [ ] (P2) Validate Gleaner pale-route reward vs risk under sim #balance #m4\n- [ ] (P2) Verify glad-load ~54% centrality and crown-stand spread .70\u2013.99 #balance #m4\n- [ ] (P3) Decide prototype form (web/terminal) and sketch UI #prototype #m5\n\n## Next\n- [ ] (P0) Decide stage-3 approach: game-loop skill pipeline vs hand-built (plan + token budget sign-off) #m3\n- [ ] (P1) Implement effects.ts: resolvers for the 14 primitives #engine #m3\n\n## In Progress\n\n## Done\n- [x] Stage 1 (world-architect): WORLD.md, ledger, terms \u2014 all layers locked #m1\n- [x] Stage 2 (game-architect): GDD.md layers 1\u20137 locked #m2\n- [x] Emit game-loop seam: vocabulary.json, round_metrics.json, src/content, vocabulary.ts #m2\n- [x] Initialize planning scaffold (CLAUDE.md, PLAN, ARCHITECTURE, TASKS, dashboard, /task skills)\n- [x] Init git repository #infra\n- [x] Build roundelay-codex.html \u2014 single-file codex site, Daylight watercolor design #docs\n- [x] (P1) [TS toolchain setup](tasks/set-up-ts-toolchain.md) #infra #m3\n- [x] (P1) [Engine state & reads](tasks/engine-state-and-reads.md) #engine #m3\n";
+const DECISIONS_SNAPSHOT = "# DECISIONS.md \u2014 pipeline-test-02\n\n## D-009 \u00b7 read(grain:<suit>) scope ruling (2026-07-13, user-approved)\n**`grain:<suit>` counts this morning's working** (pieces waking or stamped `<suit>` today; resets at\ndawn); **`woken:<suit>` counts the cross-turn fired audience** (pieces fired on earlier mornings).\nA canon *clarification*, not a change: the executable napkin Layer 7 was locked against\n(`design/napkin/layer-07.py`, check 4) validates archetype chains by \"C3 reads a surface C1/C2\nwrote this chain\" \u2014 which only holds under the this-morning reading \u2014 and the L7 cards use\n`woken:` wherever they mean cross-turn compounding. The contrary \"+1 room per joinery already\nwoken\" comment in GDD L3 \u00a73's illustrative example is a known doc slip (contradicted by that\nexample's own narration); the locked GDD text stays untouched.\n\n## D-008 \u00b7 Engine ground rules (2026-07-13, user-approved)\nM3 engine architecture per `docs/engine-plan.html` (8 phases, bottom-up): (1) **pure & deterministic** \u2014\none plain GameState, pure transition functions, all randomness from a seeded RNG carried in state;\n(2) **event log** \u2014 every state change appends an event; tests/telemetry/UI read the log;\n(3) **fidelity ladder** \u2014 v1 simplifies the map (2\u20133 offered next towns per dusk) and the outer\nacquisition economy; every simplification carries a `FIDELITY:` marker + task-file line. Rules are\nnever changed by shortcuts, only detail deferred.\n\n## D-007 \u00b7 TS toolchain (2026-07-13)\nNode 24 LTS via nvm (pinned in `.nvmrc`; the machine's system Node was EOL v12), TypeScript strict\nESM with `tsc --noEmit` as checker only, vitest as test runner, no bundler and no linter yet\n(deferred until there is engine code). Rationale + details: `planning/tasks/set-up-ts-toolchain.md`.\n\n## D-001 \u00b7 Locked mechanical spine (premise chassis) \u2014 LOCKED, pre-world\nSingle-player **roguelike economy deckbuilder** with:\n- **Escalating contracts** \u2014 the run's pressure curve: obligations that grow in stakes/size as a run progresses.\n- **Standing** \u2014 a depletable fail-resource: run ends (or degrades terminally) when Standing is exhausted.\n\nThe world must give both a *diegetic reason to exist* so they feel inevitable \u2014 discovered, not\nexplained. Contradicting the spine is out of bounds; a genuine fiction-demands-mechanic-change\nconflict is a P0 that stops for the human. Everything else (resources, archetypes, currencies,\nrun structure) is open and should be *generated from the fiction*.\n\n## D-002 \u00b7 Creative direction \u2014 this run's prime aesthetic target\n**WONDER, FANTASY, WHIMSY, ELEGANCE.** Joyful, luminous, strange in a way that delights rather\nthan oppresses \u2014 closer to Miyazaki / Le Guin / a beautifully illustrated picture-book than to\ngrimdark or bureaucratic satire.\n- **Elegant** = metaphors so clean that mechanics feel discovered, not explained.\n- **Visually beautiful** = every layer (especially L4 economy and L6 aesthetic/naming) must\n  generate imagery an artist could paint: distinctive color, light, silhouette, and motion\n  motifs \u2014 logged as ludic hooks AND **visual hooks**.\n- **Escalating contracts and Standing need wondrous identities, not punitive-bleak ones**: find\n  a register where rising stakes and a depletable Standing feel like part of the world's magic.\n- **Guard:** whimsy must not collapse into twee generic fairy-tale. Banned lazy defaults: candy\n  kingdoms, fairy godmothers, plucky talking animals, star-wish clich\u00e9s. The anti-generic gate\n  applies at full strength.\n\n## D-003 \u00b7 Do-not-resemble list (hard constraint for all proposers/critics/auditors)\n1. **\"Cantle\"** (skyfall-market): sky-city held aloft by debt, obligation-as-buoyancy,\n   promise-gripping machine, name-syllable currency, salvage-from-collapse economy.\n2. **\"The Curature\"** (pipeline-test-01): legal-guardianship estate, courts/benches/filings/\n   schedules, bureaucratic-procedural register, estuary-mud economy.\nExplicitly banned this run: **debt/obligation cosmologies, courts, paperwork-as-core-fantasy.**\nResemblance to either world is a trope-critic P1+.\n\n## D-006 \u00b7 Layer 6 rename ratification (2026-07-10, user-approved)\nThe Layer 6 synthesizer executed four renames that edited locked L1/L2/L5 canon; user ratified **all\nfour**. (Old spellings are recorded only in terms.json `renamed_from` \u2014 deliberately not repeated here,\nso this file stays clean under the retired-alias canon scan.)\n1. **The world's tide \u2192 the Paling** (D-005-sanctioned, I-002) \u2014 everywhere.\n2. **grammar-of-light slogan verb \u2192 \"places pale, people gleam, things wake\"** \u2014 edits a BINDING L1\n   law's wording; ratified so the pale/Paling word-family is complete (endorsed by both proposers +\n   all 3 critics).\n3. **The two hall-word fossils (L1 setting-out, L2 wall) \u2192 wintering-town / waymeet-board\u00b7porch-beam\u00b7\n   wain-side** (I-047) \u2014 they predated the \"ways keep no halls\" canon.\n4. **Run-scale unit \u2192 \"verse of a Round\"** (from the L2/L5 collision) \u2014 the run-scale sense now reads\n   \"verse\"; the per-morning sense keeps its L5 meaning.\nCanon scan re-run independently 2026-07-10 \u2192 clean. Reversible via `renamed_from` if ever needed.\n\n## D-005 \u00b7 GATE_BATCH decisions, layers 1\u20133 (2026-07-09, user-approved)\n1. **L1 thematic_spine (Roundelay) locked as-is.** Open items routed downstream: I-001 two-filter\n   escalation law already canon in L2; I-002 (renaming the world's tide, executed in Layer 6 as **the Paling**) + I-003\n   materials-never-speak go to Layer 6 naming (via terms.json `renamed_from` + canon scan).\n2. **L2 cosmology (the Round of Light) locked as-is.** I-017 (valley/hilltop dawn geometry) is a\n   BINDING input to Layer 5 geography \u2014 it must state the elevation law in one line.\n3. **L3 factions (the Walking Ways) locked as-is; the Untold's tempo-not-tonnage variant kept.**\n   BINDING obligation on game-architect: prove numerically that the Untold's count-and-pace pressure\n   matches the spine's escalation curve, or clamp it to size-escalation there (I-022).\n\n## D-004 \u00b7 Stage 1 run configuration (2026-07-09)\nworld-architect skill 2.3.0 / stage engine 2.7.0. `gate_mode: \"batch\"` (L1\u20133 consolidate into one\nGATE_BATCH review). Default thresholds kept: trope_density \u2264 0.15, anchor_share \u2264 0.40,\nludic_coverage \u2265 0.80, intuitiveness \u2265 0.80, interacting_systems \u2265 4 (L4),\ncandidate_mechanics \u2265 12 (L7), max_revises 3. All micro-loops run via the Workflow engine;\n3-auditor majority panels on L4+ audits and threshold-adjacent re-audits.\n";
+let projectLoaded = false;
+
+async function textOrNull(url){
+  try { const r = await fetch(url); return r.ok ? await r.text() : null; } catch { return null; }
+}
+function renderBoard(md, live){
+  const cols = []; let cur = null;
+  for (const line of md.split("\n")){
+    const h = line.match(/^## +(.*)/);
+    if (h){ cur = {name: h[1].trim(), items: []}; cols.push(cur); continue; }
+    const m = line.match(/^- \[( |x)\] +(.*)/);
+    if (m && cur) cur.items.push({done: m[1] === "x", text: m[2]});
+  }
+  const fmt = t => esc(t)
+    .replace(/\[([^\]]+)\]\(([^)]+)\)/g, (_, a, b) => `<a href="${b}">${a}</a>`)
+    .replace(/\(P(\d)\)/g, '<span class="prio">P$1</span>')
+    .replace(/#([\w-]+)/g, '<span class="btag">#$1</span>');
+  document.getElementById("boardContent").innerHTML =
+    `<p class="livenote">${live ? "live · planning/TASKS.md" : "snapshot of " + SNAPSHOT_DATE + " — open via a local server for live data"}</p>
+     <div class="bcols">${cols.map(c => `<div class="bcol"><h4>${esc(c.name)}<span>${c.items.length}</span></h4>${
+       c.items.map(i => `<div class="bitem ${i.done ? "done" : ""}"><span class="bx">${i.done ? "\u2713" : ""}</span><span>${fmt(i.text)}</span></div>`).join("") || '<div class="bempty">nothing here</div>'
+     }</div>`).join("")}</div>`;
+}
+function renderDecisions(md, live){
+  const inline = s => esc(s)
+    .replace(/\*\*([^*]+)\*\*/g, "<b>$1</b>")
+    .replace(/`([^`]+)`/g, "<code>$1</code>");
+  const parts = md.split(/^## /m).slice(1);
+  document.getElementById("decisionsContent").innerHTML =
+    `<p class="livenote">${live ? "live · planning/DECISIONS.md" : "snapshot of " + SNAPSHOT_DATE}</p>` +
+    parts.map(p => {
+      const nl = p.indexOf("\n");
+      const title = p.slice(0, nl).trim();
+      const body = p.slice(nl + 1).trim();
+      return `<div class="dcard"><h4>${inline(title)}</h4><div class="dbody">${
+        body.split(/\n{2,}/).map(par => `<p>${inline(par).replace(/\n/g, "<br>")}</p>`).join("")
+      }</div></div>`;
+    }).join("");
+}
+async function loadProject(){
+  if (projectLoaded) return;
+  projectLoaded = true;
+  const t = await textOrNull("TASKS.md");
+  renderBoard(t ?? TASKS_SNAPSHOT, t !== null);
+  const d = await textOrNull("DECISIONS.md");
+  renderDecisions(d ?? DECISIONS_SNAPSHOT, d !== null);
+}
+
 /* ---------- shell: nav, tabs, atmosphere ---------- */
 function showSection(key){
   document.querySelectorAll(".section").forEach(s => s.classList.toggle("visible", s.id==="section-"+key));
   document.querySelectorAll("#sectionNav button").forEach(b => b.classList.toggle("active", b.dataset.section===key));
+  if (key === "project") loadProject();
 }
 function showDataTab(key){
   document.querySelectorAll(".data-tab").forEach(t => t.classList.toggle("visible", t.id==="dataTab-"+key));
@@ -1691,9 +1878,16 @@ function boot(){
   renderFxFilters(); renderFxGrid(); renderFxInspector();
   renderResFilters(); renderResGrid(); renderResInspector();
   renderWays();
-  // deep-link: #cards / #ways / #play / #codex / #world
+  document.querySelectorAll(".doc-tabs button[data-doc]").forEach(b =>
+    b.addEventListener("click", () => showDoc(b.dataset.doc)));
+  document.querySelectorAll(".contents a[href^='#']").forEach(a =>
+    a.addEventListener("click", () => {
+      const t = document.getElementById(a.getAttribute("href").slice(1));
+      if (t && t.tagName === "DETAILS") t.open = true;
+    }));
+  // deep-link: #design / #engine / #data / #project / #reports
   const h = location.hash.replace("#","");
-  if (["world","play","cards","ways","codex","engine"].includes(h)) showSection(h);
+  if (["design","engine","data","project","reports"].includes(h)) showSection(h);
 }
 if (typeof document !== "undefined") boot();
 </script>
