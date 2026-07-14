@@ -1,7 +1,8 @@
 ---
-status: In Review
+status: Complete
 size: Medium
 created: 2026-07-14
+completed: 2026-07-14
 title: Run frame
 ---
 
@@ -43,7 +44,7 @@ entry (same "feel it out" constraint as Phase 4):
    reaches the first still dawn and the run ends.
 3. **The crown.** On entering the Wintering, `acceptAsking` hangs the **crown** instead of an
    ordinary asking: tier `crown`, demand 10 (calendar-floored). Standing it = completing its fill.
-4. **Run-end resolution** (`runEndReason`, pure): `quiet-walk` if Standing ≤ 0 (any time) →
+4. **Run-end resolution** (`checkRunEnd`, pure): `quiet-walk` if Standing ≤ 0 (any time) →
    immediate end; else on crown-stand → `won`; else when the Wintering is spent → `drifted`.
    Emits a `run-ended` event carrying the reason + tier reached.
 5. **The toy** gets a run-end screen (like dusk): won / Quiet Walk / drifted, showing the tier
@@ -72,9 +73,10 @@ closes QUESTIONS.md §C5.
 - [x] opening Standing fixed to `STARTING_STANDING` (5); terminal calendar (`yearOver` at the first still dawn)
 - [x] crown accepted in the Wintering (`isWintering` → `acceptCrown`); `payGladLoad` sets `crownStood` → win
 - [x] Quiet Walk on Standing ≤ 0; drift at year-end without the crown; `checkRunEnd` after every action
-- [x] tests: `runframe.test.ts` (6 — opening Standing, crown hangs, won, quiet-walk, drifted, static-deck-must-lose); 106 total pass
+- [x] tests: `runframe.test.ts` (8 — opening Standing, crown hangs, won, quiet-walk, drifted, static-deck-must-lose, + inert-run & no-doomed-asking from review); 108 total pass
 - [x] toy: run-end screen (won / Quiet Walk / drifted) + year summary + "next verse" restart; subtitle retired the endless-sandbox line
-- [ ] promote decisions to DECISIONS.md (D-014); board + docs sync (on merge)
+- [x] two code-review passes: hardened entry points (inert once ended, no doomed asking) + polished the end screen (clamped morning, "how it ended")
+- [x] promote decisions to DECISIONS.md (D-014); board + docs sync; merged to main
 
 Verified (2026-07-14): unit tests cover all three endings + the static-deck-must-lose gate (a
 pure apprentice deck has no `fill` card, so it can never stand the crown). In-browser: opening

@@ -1,5 +1,21 @@
 # DECISIONS.md — pipeline-test-02
 
+## D-014 · Run frame (engine Phase 5) — the year ends three ways; C5 adopted (2026-07-14, user-decided)
+The run now concludes (was an endless sandbox). Built + tested (108 pass), merged. `runframe.ts`,
+every value a `RUN_TUNABLES` entry (adopted-but-tunable, per the "feel it out" stance):
+- **Two run-ends (GDD §6):** Standing-zero any season → the **Quiet Walk** (survivable dimming);
+  the first still dawn → **won** only if still lit AND the crown stood, else **drifted**.
+- **C5 · the crown** → a single demand-10 crown asking hung in the Wintering (the last leg); stand
+  it or drift. Closes QUESTIONS.md §C5.
+- **Opening Standing fixed to 5** (was the placeholder 1), so the fail-state isn't trivially hit.
+- **Simplification (toy-noted):** standing the crown ends the run **immediately** into a triumphant
+  ending rather than playing out the remaining Wintering mornings (canon frames the check at the
+  first still dawn).
+- **Static-deck-must-lose is a test, not just prose:** the apprentice hand carries no `fill` card,
+  so a static deck can never stand the crown — the win gate requires growth (closes the turtle
+  dodge, GDD §5). New Standing-loss path `spillGleam`; `peakGleam` one-way ratchet (never falls,
+  preserved through spills). Two code-review passes hardened it (concluded runs are inert).
+
 ## D-013 · Drafting adopted as the Phase-6 acquisition direction — "the Fair" (2026-07-14, user-decided)
 Playtesting the toy surfaced that a small, fully-woken deck **plateaus** — nothing new to wake
 (the "all my cards are awoken, now what?" moment). Decision: acquisition should be **frequent

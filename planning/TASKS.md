@@ -6,7 +6,7 @@
 
 ## Backlog
 - [ ] (P1) Engine Phase 6: acquisition — build "the Fair" drafting (direction set in D-013; toy prototype exists) #engine #m3
-- [ ] (P1) [Simulation harness](tasks/sim-harness.md) — bot players + the 57 round_metrics keys (blocked on Phases 5–6) #sim #m3
+- [ ] (P1) [Simulation harness](tasks/sim-harness.md) — bot players + the 57 round_metrics keys (blocked on Phase 6) #sim #m3
 - [ ] (P2) Balance pass: I-022 Untold per-leg count coefficients #balance #m4
 - [ ] (P2) Balance pass: I-044 glad-price brightening bounded below tempo cost #balance #m4
 - [ ] (P2) Balance pass: I-045 last-red/red-thread double-tool sizing #balance #m4
@@ -17,9 +17,9 @@
 ## Next
 
 ## In Progress
-- [ ] (P1) [Run frame](tasks/run-frame.md) — engine Phase 5 #engine #m3 #review
 
 ## Done
+- [x] (P1) [Run frame](tasks/run-frame.md) — engine Phase 5 #engine #m3
 - [x] (P1) [Asking lifecycle](tasks/asking-lifecycle.md) — engine Phase 4 #engine #m3
 - [x] (P2) [Toy morning](tasks/toy-morning.md) #prototype #m3
 - [x] (P2) [Toy Morning redesign](tasks/toy-morning-redesign.md) #prototype #ui

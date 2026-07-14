@@ -88,9 +88,10 @@ rings accrue 1 per skipped season per node.
 - **C4 · Map size & offers.** How many nodes per leg, offers per dusk (the FIDELITY map)?
   *Recommendation: 3 offers/dusk from a per-leg pool of ~5–6 nodes; camp always offered
   (the ⅔-RETURN rule needs camping to exist).*
-- **C5 · Standing the crown.** One Wintering morning of delivery ≥ 10? Multi-morning?
-  *Recommendation: the crown is a single named great-asking node in the Wintering; you get
-  its 3 mornings; deliver 10 into it before the run ends or take the Quiet Walk.*
+- **C5 · Standing the crown.** *(CLOSED by D-014 — a single demand-10 crown in the Wintering;
+  stand it or drift/Quiet-Walk. Adopted, M4-tunable in `RUN_TUNABLES`.)* One Wintering morning of
+  delivery ≥ 10? Multi-morning? *Recommendation: the crown is a single named great-asking node in
+  the Wintering; you get its 3 mornings; deliver 10 into it before the run ends or take the Quiet Walk.*
 - **C6 · Delayed tellings + glad palms in v1.** Model both, or defer tellings (road-graph
   walk) to post-M4? *Recommendation: glad palms in Phase 4 (+1 on doorstep kettles);
   tellings deferred with a FIDELITY marker — they're flavor-critical but sim-marginal.*
