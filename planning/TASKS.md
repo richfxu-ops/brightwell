@@ -16,6 +16,7 @@
 ## Next
 
 ## In Progress
+- [ ] (P1) [Asking lifecycle](tasks/asking-lifecycle.md) — engine Phase 4 #engine #m3 #review
 
 ## Done
 - [x] (P2) [Toy morning](tasks/toy-morning.md) #prototype #m3

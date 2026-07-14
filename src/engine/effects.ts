@@ -119,8 +119,29 @@ export function creditGleam(
   }
   if (amount <= 0) return;
   state.player.gleam += amount;
+  if (state.player.gleam > state.player.peakGleam) state.player.peakGleam = state.player.gleam;
   state.player.gleamGrain[grain] += amount;   // the-grain-of-gleam
   emit(state, "gleam", { amount, grain, overkill: provenance.overkillExcess });
+}
+
+/**
+ * The ONLY way Standing FALLS: the spilling (a flopped/stale asking, L1 §4). Outcome-only and
+ * EV-negative by canon; distinct from creditGleam (which forbids decrements). Lowers CURRENT
+ * gleam toward a floor of 0 — never peakGleam (the filter-1 ratchet is one-way). The loss is not
+ * grain-tied (a flop isn't a craft), so it draws proportionally from the grain tags to keep them
+ * consistent with the meter.
+ */
+export function spillGleam(state: GameState, amount: number, reason: string): void {
+  if (amount <= 0) return;
+  const before = state.player.gleam;
+  const lost = Math.min(amount, before);
+  if (lost <= 0) { emit(state, "spilled", { amount: 0, reason, gleam: before }); return; }
+  state.player.gleam = before - lost;
+  const scale = (before - lost) / before;   // shrink each grain tag by the same ratio
+  for (const g of Object.keys(state.player.gleamGrain) as Grain[]) {
+    state.player.gleamGrain[g] *= scale;
+  }
+  emit(state, "spilled", { amount: lost, reason, gleam: state.player.gleam });
 }
 
 // ----- engine automatics (locked L1 machinery; shared with Phase 3's turn loop) -----
@@ -154,6 +175,7 @@ export function pourAttention(
   const landed = spend * chainMultiplier(state.turn.chainLinks);
   const card = ctx.cardOf(piece.cardId);
   state.turn.room -= spend;
+  state.turn.pouredThisMorning += spend;
   piece.set += landed;
   emit(state, "rested", { piece: piece.instanceId, spend, landed, set: piece.set });
   if (!piece.fired && piece.set >= card.mark) applyWake(state, piece, ctx);
@@ -333,6 +355,7 @@ const RESOLVERS: Record<PrimitiveId, Resolver> = {
     const amount = amountOf(effect.params?.amount, state, ctx);
     if (amount < 1) return refuse(state, effect, "nothing to pour");
     state.asking.progress += amount;
+    state.asking.touched = true;
     emit(state, "filled", {
       amount,
       progress: state.asking.progress,

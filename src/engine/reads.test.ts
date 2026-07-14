@@ -26,7 +26,7 @@ describe("simple surfaces", () => {
 
   it("fill reads the accepted asking's progress (0 with no asking)", () => {
     const s = state(s => {
-      s.asking = { tier: "plea", needFill: 3, progress: 2, acceptedMorning: 5, staleAfterMornings: 6 };
+      s.asking = { tier: "plea", needFill: 3, progress: 2, acceptedMorning: 5, staleAfterMornings: 6, acceptedLeg: 0, touched: false };
     });
     expect(evaluateRead("fill", s, ctx)).toBe(2);
     expect(evaluateRead("fill", createInitialState(1), ctx)).toBe(0);

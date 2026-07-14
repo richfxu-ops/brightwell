@@ -35,7 +35,7 @@ describe("the starter pool is canon-legal AND playable", () => {
                     testPiece(card.id, { instanceId: "spare#0" })];
         x.turn.room = 9; x.turn.chainLinks = 5; x.player.gleam = 21;
         x.board.nodes[0].lastRed = 2; x.board.nodes[0].rings = 3;
-        x.asking = { tier: "plea", needFill: 3, progress: 0, acceptedMorning: 1, staleAfterMornings: 6 };
+        x.asking = { tier: "plea", needFill: 3, progress: 0, acceptedMorning: 1, staleAfterMornings: 6, acceptedLeg: 0, touched: false };
       });
       const cardCtx: EffectContext = { selfId: "live#0", cardOf: id => table.get(id) ?? card };
       for (const effect of card.effects) {
@@ -139,7 +139,7 @@ describe("runtime firewalls", () => {
     const s0 = state(x => {
       x.turn.room = 6; x.turn.chainLinks = 3; x.player.gleam = 2;
       x.board.nodes[0].lastRed = 1; x.board.nodes[0].rings = 2;
-      x.asking = { tier: "kettle", needFill: 1, progress: 0, acceptedMorning: 1, staleAfterMornings: 4 };
+      x.asking = { tier: "kettle", needFill: 1, progress: 0, acceptedMorning: 1, staleAfterMornings: 4, acceptedLeg: 0, touched: false };
     });
     let s = s0;
     for (const e of [

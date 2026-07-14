@@ -53,7 +53,9 @@ export interface Asking {
   needFill: number;
   progress: number;
   acceptedMorning: number;
+  acceptedLeg: number;          // the leg (season) it was accepted in — drives staleness (C3)
   staleAfterMornings: number;
+  touched: boolean;             // any fill poured into it this lifetime (for the unmoved-room flop, C2)
 }
 
 export interface CalendarState {
@@ -71,6 +73,7 @@ export interface TurnState {
   seatedCount: number;         // audience seats this morning — drives the decaying seat law
   whittledThisMorning: boolean; // whittle is capped at 1 dull per morning (L6 §5)
   dawned: boolean;             // this turn's dawn has run (dawn() advances the calendar after)
+  pouredThisMorning: number;   // room spent on pours this morning — provenance + the flop check (C2)
   playedOrder: string[];       // instanceIds in played order — cascade order (D-010 B3)
   firedEffectKeys: string[];   // "<instanceId>#<effectIndex>" — fire-once per morning (B3)
 }
@@ -94,6 +97,7 @@ export interface GameState {
   };
   player: {
     gleam: number;
+    peakGleam: number;                   // brightest Standing this run — one-way, never falls (filter-1 ratchet)
     gleamGrain: Record<Grain, number>;   // grain-tagged Standing
     handsels: Handsel[];
     stock: StockItem[];
@@ -155,6 +159,7 @@ export function createInitialState(seed: number): GameState {
       // Starting gleam is a placeholder inside the kettle band (1-5); the true
       // opening value is fixed in Phase 5 with the run frame.
       gleam: 1,
+      peakGleam: 1,
       gleamGrain: { ...NO_GRAIN_GLEAM },
       handsels: [],
       // PLACEHOLDER count pending QUESTIONS.md §D3 — whittle consumes these
@@ -169,7 +174,7 @@ export function createInitialState(seed: number): GameState {
     turn: {
       room: 0, chainLinks: 0, braced: false, stalled: false,
       overCeiling: 0, overkillPieceId: null, seatedCount: 0, whittledThisMorning: false,
-      dawned: false, playedOrder: [], firedEffectKeys: [],
+      dawned: false, pouredThisMorning: 0, playedOrder: [], firedEffectKeys: [],
     },
     events: [],
   };

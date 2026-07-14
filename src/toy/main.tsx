@@ -21,7 +21,6 @@ const ctx: MorningContext = { cardOf: id => CARDS.get(id)! };
 const readCtx = { grainOf: (id: string) => CARDS.get(id)!.grain };
 const DECKS = ["apprentice", "kilnfast", "eveners", "untold", "fairwrights", "mannerly", "gleaners"] as const;
 const LEG_NAMES = ["Green Going", "Long Light", "Deep Gold", "Red Walk", "the Wintering"];
-const NEED_BY_LEG = [1, 3, 5, 7, 7];
 const r1 = (n: number): string => (Math.round(n * 10) / 10).toString();
 const seatContribution = (index: number): number => SEAT_FIRST * SEAT_DECAY ** index;
 const grainVar = (g: string): string => `var(--${g})`;
@@ -55,18 +54,6 @@ interface Run {
 }
 
 const MOMENT_CAP = 12;
-
-// FIDELITY: the Phase-4 asking lifecycle isn't in yet — a standing asking simply
-// refreshes each dawn at the leg's floor size.
-function refreshAsking(s: GameState): void {
-  s.asking = {
-    tier: (["kettle", "plea", "poem", "great", "great"] as const)[s.calendar.leg],
-    needFill: NEED_BY_LEG[s.calendar.leg],
-    progress: 0,
-    acceptedMorning: s.calendar.morning,
-    staleAfterMornings: 99,
-  };
-}
 
 function dawnIncomeOf(events: GameEvent[]): DawnIncome {
   const d = (events.find(e => e.type === "dawn")?.data ?? {}) as Record<string, number>;
@@ -106,8 +93,7 @@ function makeRun(seed: number, deck: string): Run {
       });
     }
   }
-  refreshAsking(s);
-  const r = dawn(s, ctx);
+  const r = dawn(s, ctx);   // dawn accepts the doorstep asking (Phase 4)
   return {
     s: r.state, phase: "morning",
     moments: [dawnMoment(r.state, r.events)],
@@ -139,9 +125,14 @@ function eventBadge(s: GameState, e: GameEvent): Badge | null {
     case "drew": return { tone: "pale", text: `drew ${(d.pieces as string[]).map(p => nameOf(s, p)).join(", ")}` };
     case "filled": return {
       tone: "need",
-      text: d.complete ? "need filled — the town is re-made 🌼" : `+${d.amount} into the need (${d.progress}/${s.asking?.needFill})`,
+      text: d.complete ? "need filled 🌼" : `+${d.amount} into the need`,
       big: d.complete === true,
     };
+    case "fulfilled": return { tone: "moss", text: `the town is re-made — glad-load: +${d.gladLoad} to the purse${(d.rings as number) > 0 ? ` (${d.rings} rings paid out)` : ""} + a taught card`, big: true };
+    case "spilled": return (d.amount as number) > 0
+      ? { tone: "warn", text: `the spilling — ${d.reason}: −${r1(d.amount as number)} Standing`, big: true }
+      : null;
+    case "accepted": return { tone: "pale", text: `a new ${d.tier} need hangs (fill ${d.needFill})` };
     case "overkilled": return null; // covered by the gleam badge
     case "gleam": return { tone: "gleam", text: `+${d.amount} Standing (${d.grain}-tinged)`, big: true };
     case "brimmed": return { tone: "gleam", text: `the brim widens — +${d.extra} more Standing` };
@@ -177,6 +168,13 @@ function dawnMoment(state: GameState, events: GameEvent[]): Moment {
   if (inc.tableDraw > 0) badges.push({ tone: "moss", text: `table returns +${r1(inc.tableDraw)}` });
   const drew = (events.find(e => e.type === "dawn")?.data?.drew as string[]) ?? [];
   if (drew.length) badges.push({ tone: "pale", text: `drew ${drew.length} to hand` });
+  // a held asking may have gone stale at this dawn (spill), and a fresh one is accepted
+  for (const e of events) {
+    if (e.type === "spilled" || e.type === "accepted") {
+      const b = eventBadge(state, e);
+      if (b) badges.push(b);
+    }
+  }
   return {
     id: nextMomentId++, kind: "dawn",
     title: `Dawn — Morning ${state.calendar.morning}, ${LEG_NAMES[state.calendar.leg]}`,
@@ -285,7 +283,7 @@ function glossEffect(effect: Effect, s: GameState): Gloss {
 interface Preview {
   spend: number; m: number; landed: number; setAfter: number;
   wakes: boolean; alreadyFired: boolean; excess: number;
-  gleamGain: number; fillGain: number; fillDone: boolean; roomAfter: number; banks: boolean;
+  gleamGain: number; fillGain: number; fillDone: boolean; gladLoad: number; roomAfter: number; banks: boolean;
 }
 
 function previewPlay(s: GameState, id: string, pour: number): Preview {
@@ -294,19 +292,23 @@ function previewPlay(s: GameState, id: string, pour: number): Preview {
   const spend = Math.min(pour, Math.floor(s.turn.room));
   const m = chainMultiplier(s.turn.chainLinks + 1);
   const landed = spend * m;   // what the direct pour lands (the spend × chain → lands row)
-  const after = playPiece(s, id, spend, ctx).state;
+  const { state: after, events } = playPiece(s, id, spend, ctx);
   const played = after.pieces.find(p => p.instanceId === id)!;
   // setAfter is the engine's truth, not before.set + landed: on-play effects that rest more
   // onto the piece (Fired Beam, Even the Rim, Seasoned Timber) push its set past the pour.
   const setAfter = played.set;
-  const fillGain = (after.asking?.progress ?? 0) - (s.asking?.progress ?? 0);
+  // fulfilment clears the asking, so read fill from events, not an asking.progress diff.
+  const fulfil = events.find(e => e.type === "fulfilled")?.data as { gladLoad?: number } | undefined;
+  const fillTotal = events.filter(e => e.type === "filled")
+    .reduce((sum, e) => sum + ((e.data?.amount as number) ?? 0), 0);
   return {
     spend, m, landed, setAfter,
     wakes: !before.fired && played.fired, alreadyFired: before.fired,
     excess: Math.max(0, setAfter - card.ceiling),
     gleamGain: after.player.gleam - s.player.gleam,
-    fillGain,
-    fillDone: fillGain > 0 && (after.asking?.progress ?? 0) >= (after.asking?.needFill ?? Infinity),
+    fillGain: fillTotal,
+    fillDone: !!fulfil,
+    gladLoad: fulfil?.gladLoad ?? 0,
     roomAfter: after.turn.room, banks: spend === 0,
   };
 }
@@ -471,20 +473,24 @@ function NeedPanel({ run }: { run: Run }) {
     s.pieces.map(p => CARDS.get(p.cardId)!).filter(fillsNeed).map(c => [c.id, c]),
   ).values()];
   const handFillers = s.pieces.filter(p => p.zone === "hand" && fillsNeed(CARDS.get(p.cardId)!));
-  const status = handFillers.length
-    ? `in hand now: ${handFillers.map(p => CARDS.get(p.cardId)!.name).join(", ")}`
-    : fillCards.length
-      ? "no fill card in hand — draw one"
-      : "this Way fills needs another way";
+  const rings = currentNode(s).rings;
+  const ringNote = rings > 0 ? ` · ${rings} grey ring${rings === 1 ? "" : "s"} (bigger need & pay next)` : "";
+  const status = !ask
+    ? "🌼 re-made — a fresh need hangs at next dawn"
+    : (handFillers.length
+      ? `in hand now: ${handFillers.map(p => CARDS.get(p.cardId)!.name).join(", ")}`
+      : fillCards.length
+        ? "no fill card in hand — draw one"
+        : "this Way fills needs another way") + ringNote;
   return (
-    <div className={`tm-panel tm-need${ask && handFillers.length ? " lit" : ""}`}>
+    <div className={`tm-panel tm-need${ask && handFillers.length ? " lit" : ""}${!ask ? " remade" : ""}`}>
       <div className="tm-needhead">
-        <span className="tm-lbl">The {ask?.tier ?? "—"}'s Need</span>
+        <span className="tm-lbl">{ask ? `The ${ask.tier}'s Need` : "Re-made 🌼"}</span>
         <button type="button" className={`tm-howbtn${howOpen ? " open" : ""}`}
           aria-expanded={howOpen} onClick={() => setHowOpen(!howOpen)}>how?</button>
         <span className="tm-neednum">{ask?.progress ?? 0}<i>/{ask?.needFill ?? 0}</i></span>
       </div>
-      <div className="tm-bar"><div className="tm-barfill need" style={{ width: `${ask ? Math.min(100, (ask.progress / ask.needFill) * 100) : 0}%` }} /></div>
+      <div className="tm-bar"><div className="tm-barfill need" style={{ width: `${ask ? Math.min(100, (ask.progress / ask.needFill) * 100) : 100}%` }} /></div>
       <div className="tm-fillers">{status}</div>
       {howOpen && (
         <div className="tm-howpop">
@@ -529,7 +535,8 @@ function PourPanel({ run, selected, pour, onPour, onPlay, onCancel }: {
   else if (!pv.alreadyFired && !pv.banks) badges.push({ tone: "pale", text: `stays cold — ${r1(pv.setAfter)} of mark ${card.mark}` });
   if (pv.excess > 0) badges.push({ tone: "gleam", text: `${r1(pv.excess)} past the ceiling` });
   if (pv.gleamGain > 0) badges.push({ tone: "gleam", text: `+${pv.gleamGain} Standing`, big: true });
-  if (pv.fillGain > 0) badges.push({ tone: "need", text: pv.fillDone ? `+${pv.fillGain} — COMPLETES the need 🌼` : `+${pv.fillGain} into the need`, big: pv.fillDone });
+  if (pv.fillDone) badges.push({ tone: "moss", text: `🌼 COMPLETES the need — glad-load +${pv.gladLoad} to the purse`, big: true });
+  else if (pv.fillGain > 0) badges.push({ tone: "need", text: `+${pv.fillGain} into the need` });
   badges.push({ tone: "flow", text: `room after: ${r1(pv.roomAfter)}` });
   return (
     <div className="tm-pour">
@@ -773,14 +780,18 @@ function App() {
     setSelected(null);
     const r = dusk(s, ctx);
     const d = (r.events.find(e => e.type === "dusk")?.data ?? {}) as unknown as DuskData;
-    setRun({ ...advance(run, r, null), phase: "dusk", duskData: d });
+    // an idle morning flops at dusk (C2) — surface the spill as a moment before the dusk screen
+    const flop = r.events.find(e => e.type === "spilled");
+    const moment = flop
+      ? buildMoment(r.state, r.events, { kind: "stall", title: "The morning goes to waste", sub: "reaching-and-idle", accent: "var(--need)" })
+      : null;
+    setRun({ ...advance(run, r, moment), phase: "dusk", duskData: d });
   };
   const nextDawn = () => {
-    const withAsking = structuredClone(s);
-    refreshAsking(withAsking);
-    const r = dawn(withAsking, ctx);
+    // dawn is pure and now owns the lifecycle: it stales a held asking, spills, and re-accepts.
+    const r = dawn(s, ctx);
     setRun({
-      ...advance({ ...run, s: withAsking }, r, dawnMoment(r.state, r.events)),
+      ...advance(run, r, dawnMoment(r.state, r.events)),
       phase: "morning", income: dawnIncomeOf(r.events), poured: 0, duskData: null,
     });
   };

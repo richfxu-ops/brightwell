@@ -6,6 +6,7 @@ import type { Card, Effect } from "./vocabulary.js";
 import type { GameEvent, GameState, PieceInstance } from "./state.js";
 import { MORNINGS_PER_LEG, currentNode } from "./state.js";
 import { applyEffect, emit, pourAttention, SEAT_FIRST, SEAT_DECAY } from "./effects.js";
+import { acceptAsking, checkFlopAtDusk, checkStaleAtDawn, payGladLoad } from "./asking.js";
 import { nextInt } from "./rng.js";
 
 // ----- locked L6 constants + the one D-010 dial -----
@@ -138,7 +139,7 @@ export function dawn(stateIn: GameState, ctx: MorningContext): MorningResult {
     chainLinks: 0, braced: false, stalled: false,
     overCeiling: 0, overkillPieceId: null,
     seatedCount: seats, whittledThisMorning: false,
-    dawned: true, playedOrder: [], firedEffectKeys: [],
+    dawned: true, pouredThisMorning: 0, playedOrder: [], firedEffectKeys: [],
   };
 
   const drawn = refillHand(state);
@@ -155,6 +156,12 @@ export function dawn(stateIn: GameState, ctx: MorningContext): MorningResult {
     });
   }
   runCascade(state, ctx, before);
+
+  // the asking lifecycle (Phase 4): a contract held past its accepting leg goes stale (spills
+  // Standing, chalks a ring); then the doorstep always hangs a fresh one if none is carried.
+  checkStaleAtDawn(state);
+  if (!state.asking) acceptAsking(state);
+
   return { state, events: state.events.slice(before) };
 }
 
@@ -186,6 +193,14 @@ export function playPiece(
     if (eff.when === "on-play") fireEffectOnce(state, piece, eff, i, ctx);
   });
   runCascade(state, ctx, before);
+
+  // fulfil → the glad-load: if a fill completed the need this play (after on-fulfil card effects
+  // fired in the cascade), pay out and re-make the node. Fills are play-gated, so only here.
+  const completed = state.events
+    .slice(before)
+    .some(e => e.type === "filled" && (e.data as { complete?: boolean } | undefined)?.complete === true);
+  if (completed && state.asking) payGladLoad(state);
+
   return { state, events: state.events.slice(before) };
 }
 
@@ -224,6 +239,9 @@ export function dusk(stateIn: GameState, ctx: MorningContext, choice: DuskChoice
     });
   }
   runCascade(state, ctx, before);
+
+  // the unmoved-room flop (C2): a morning ended with the asking untouched and nothing poured
+  checkFlopAtDusk(state);
 
   // the B1 dusk sweep: unspent room + cold pieces' rested attention → THIS node's table
   const node = currentNode(state);

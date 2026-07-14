@@ -137,7 +137,7 @@ describe("the cascade (D-010 B3)", () => {
   function fulfilSetup(first: string, second: string): GameState {
     return testState(s => {
       s.turn.dawned = true; s.turn.room = 4;
-      s.asking = { tier: "kettle", needFill: 3, progress: 0, acceptedMorning: 1, staleAfterMornings: 4 };
+      s.asking = { tier: "kettle", needFill: 3, progress: 0, acceptedMorning: 1, staleAfterMornings: 4, acceptedLeg: 0, touched: false };
       s.pieces = [testPiece("warmA", { instanceId: "A#1" }), testPiece("keepB", { instanceId: "B#1" }),
                   testPiece("filler", { instanceId: "F#1" })];
     });
@@ -198,7 +198,7 @@ describe("GOLDEN: the Kilnfast chain (GDD L7)", () => {
       s.turn.dawned = true;
       s.turn.room = 9;          // a matured Deep Gold room (L6)
       s.turn.seatedCount = 5;   // home-note + 4 fired seated at dawn
-      s.asking = { tier: "poem", needFill: 3, progress: 0, acceptedMorning: 15, staleAfterMornings: 7 };
+      s.asking = { tier: "poem", needFill: 3, progress: 0, acceptedMorning: 15, staleAfterMornings: 7, acceptedLeg: 0, touched: false };
       s.pieces = [
         testPiece("setterby-trestle", { instanceId: "c1" }),
         testPiece("calipers-at-the-bench", { instanceId: "c2" }),
@@ -214,8 +214,10 @@ describe("GOLDEN: the Kilnfast chain (GDD L7)", () => {
     r = playPiece(r.state, "c2", 2, poolCtx);                  // Calipers: wakes, aims the room at the Beam
     const beam = r.state.pieces.find(p => p.instanceId === "cap")!;
     expect(beam.fired).toBe(true);                             // the Beam woke
-    expect(r.state.asking!.progress).toBeGreaterThanOrEqual(3);
     expect(r.state.events.some(e => e.type === "filled" && e.data?.complete === true)).toBe(true);
+    // completing the need re-makes the town (Phase 4): the glad-load pays and the asking clears
+    expect(r.state.events.some(e => e.type === "fulfilled")).toBe(true);
+    expect(r.state.asking).toBeNull();
     expect(r.state.player.gleam).toBeGreaterThan(1);           // the reach overflowed
   });
   it("out of order, the same cards under-fill — the reach falls short", () => {

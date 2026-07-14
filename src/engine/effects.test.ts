@@ -198,7 +198,7 @@ describe("specialization verbs", () => {
 describe("the working core", () => {
   it("fill pours into the accepted asking and flags completion", () => {
     const s0 = state(s => {
-      s.asking = { tier: "plea", needFill: 3, progress: 2, acceptedMorning: 1, staleAfterMornings: 6 };
+      s.asking = { tier: "plea", needFill: 3, progress: 2, acceptedMorning: 1, staleAfterMornings: 6, acceptedLeg: 0, touched: false };
     });
     const { state: s, events } = resolveEffect(s0, fx("fill", { amount: 1 }), ctx);
     expect(s.asking!.progress).toBe(3);
