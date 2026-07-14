@@ -16,7 +16,6 @@
 
 ## Next
 - [ ] (P0) Decide stage-3 approach: game-loop skill pipeline vs hand-built (plan + token budget sign-off) #m3
-- [ ] (P1) Set up TypeScript toolchain (package.json, tsconfig, test framework) #infra #m3
 - [ ] (P1) Implement effects.ts: resolvers for the 14 primitives #engine #m3
 
 ## In Progress
@@ -28,3 +27,4 @@
 - [x] Initialize planning scaffold (CLAUDE.md, PLAN, ARCHITECTURE, TASKS, dashboard, /task skills)
 - [x] Init git repository #infra
 - [x] Build roundelay-codex.html — single-file codex site, Daylight watercolor design #docs
+- [x] (P1) [TS toolchain setup](tasks/set-up-ts-toolchain.md) #infra #m3

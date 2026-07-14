@@ -1,5 +1,10 @@
 # DECISIONS.md — pipeline-test-02
 
+## D-007 · TS toolchain (2026-07-13)
+Node 24 LTS via nvm (pinned in `.nvmrc`; the machine's system Node was EOL v12), TypeScript strict
+ESM with `tsc --noEmit` as checker only, vitest as test runner, no bundler and no linter yet
+(deferred until there is engine code). Rationale + details: `planning/tasks/set-up-ts-toolchain.md`.
+
 ## D-001 · Locked mechanical spine (premise chassis) — LOCKED, pre-world
 Single-player **roguelike economy deckbuilder** with:
 - **Escalating contracts** — the run's pressure curve: obligations that grow in stakes/size as a run progresses.

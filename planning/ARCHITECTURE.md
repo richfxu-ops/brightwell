@@ -4,7 +4,7 @@
 
 ## Stack
 
-- **TypeScript** — the game engine (`src/engine/`). Only `vocabulary.ts` exists so far; no toolchain (package.json, tsconfig) is set up yet.
+- **TypeScript** (strict, ESM) on **Node 24 LTS** — the game engine (`src/engine/`). Node is managed by nvm and pinned in `.nvmrc`; tests run under **vitest**; `tsc --noEmit` is the typechecker (no build/bundle step yet).
 - **JSON as content format** — all cards, contracts, and design-seam data are declarative JSON.
 - **Python 3** — the design pipeline's napkin simulations (`design/napkin/*.py`) and one-off HTML build scripts. Pipeline-era tooling, not part of the game itself.
 
@@ -28,12 +28,11 @@
 
 ## Build / test / run
 
-> No toolchain exists yet — set up in M3 and update this section with the real commands.
-- Install: `TODO: confirm` (no package.json yet)
-- Build: `TODO: confirm`
-- Test: `TODO: confirm`
-- Run / dev: `TODO: confirm`
-- Lint / format / typecheck: `TODO: confirm`
+- Node version: `nvm use` (pinned to 24 in `.nvmrc`)
+- Install: `npm install`
+- Test: `npm test` (vitest)
+- Typecheck: `npm run typecheck` (`tsc --noEmit`)
+- Build / run / dev: none yet — engine-only; no lint/format configured (deferred until there's engine code)
 - Napkin sims (pipeline-era, working): `python3 design/napkin/layer-0N.py`
 - Task dashboard: `cd planning && python3 -m http.server 8000` → http://localhost:8000/dashboard.html
 
