@@ -45,6 +45,7 @@ export interface NodeState {
   localTable: number;          // RETURNed attention waiting for tomorrow's dawn (node-bound)
   lastRed: number;             // harvestable last-red catalysts
   remade: boolean;
+  soothed: boolean;            // a soothe removes this node's ring-indexed dawn draw (L6 §9)
 }
 
 export interface Asking {
@@ -67,6 +68,8 @@ export interface TurnState {
   stalled: boolean;
   overCeiling: number;         // measured genuine overkill of the current play
   overkillPieceId: string | null; // the piece whose excess overCeiling measures (brim's target)
+  seatedCount: number;         // audience seats this morning — drives the decaying seat law
+  whittledThisMorning: boolean; // whittle is capped at 1 dull per morning (L6 §5)
 }
 
 export interface GameEvent {
@@ -90,6 +93,7 @@ export interface GameState {
     gleamGrain: Record<Grain, number>;   // grain-tagged Standing
     handsels: Handsel[];
     stock: StockItem[];
+    soothesUsed: number;                 // max 4/run — 1 node / 1 knack / 1 season (L6)
   };
   pieces: PieceInstance[];
   asking: Asking | null;
@@ -136,6 +140,7 @@ export function createInitialState(seed: number): GameState {
     localTable: 0,
     lastRed: 0,
     remade: false,
+    soothed: false,
   };
 
   return {
@@ -148,11 +153,19 @@ export function createInitialState(seed: number): GameState {
       gleam: 1,
       gleamGrain: { ...NO_GRAIN_GLEAM },
       handsels: [],
-      stock: [],
+      // PLACEHOLDER count pending QUESTIONS.md §D3 — whittle consumes these
+      stock: [
+        { id: "apprentice-stuff", grade: "apprentice", freshness: 2 },
+        { id: "apprentice-stuff", grade: "apprentice", freshness: 2 },
+      ],
+      soothesUsed: 0,
     },
     pieces,
     asking: null,
-    turn: { room: 0, chainLinks: 0, braced: false, stalled: false, overCeiling: 0, overkillPieceId: null },
+    turn: {
+      room: 0, chainLinks: 0, braced: false, stalled: false,
+      overCeiling: 0, overkillPieceId: null, seatedCount: 0, whittledThisMorning: false,
+    },
     events: [],
   };
 }

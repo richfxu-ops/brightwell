@@ -19,13 +19,17 @@ import { currentNode } from "./state.js";
 import { countsAs, evaluateRead } from "./reads.js";
 import { nextInt } from "./rng.js";
 
-// ----- constants (traced to L6 where locked; PLACEHOLDERs are M4-tuning dials) -----
-export const ROOM_SOFT_CAP = 10;      // gather plateau (L6 / L3 note)
-export const FULL_RATE_BAND = 6;      // overkill→gleam at full rate for the first 6 (L6)
-export const DIMINISH_RATE = 0.5;     // PLACEHOLDER: L6 locks the band, not the tail rate
-export const SHAVINGS_SHARE = 1 / 3;  // the-shavings-share of a play's RETURN (L3)
-export const RETIRE_BASE_WORTH = 1;   // PLACEHOLDER: last-lighting residual = base + rested set
-export const VOUCH_FLOOR = 1;         // PLACEHOLDER: graded vouching bands land in Phase 6
+// ----- constants (all locked L6 values; see planning/QUESTIONS.md §A for the alignment) -----
+export const FULL_RATE_BAND = 6;      // overkill→gleam at full rate for the first 6 (L6 §4)
+export const DIMINISH_RATE = 0.5;     // LOCKED: "then 0.5 beyond" (L6 §4, overkill-band)
+export const SEAT_FIRST = 2;          // the nth seat contributes 2 × 0.8^(n-1) room…
+export const SEAT_DECAY = 0.8;        // …plateauing ~10 (gathered-room-softcap)
+export const SOOTHE_MEND_CAP = 2;     // soothe mends min(requested, rings, 2) (last-red-cap)
+export const SOOTHE_RUN_MAX = 4;      // 1 node / 1 knack / 1 season (napkin SOOTHE_PER_RUN_MAX)
+// the vouching: which stock grades answer at which gleam band (gleam-bands, L6 §4).
+// Proud opens at 6 ("proud stalls begin to lean in"); the 13+ full-width nuance is Phase 6.
+export const GRADE_VOUCH: Record<string, number> = { apprentice: 0, mid: 6, proud: 6, capstone: 21 };
+export const STOCK_GRADE: Record<string, string> = { "singing-silver": "proud" };
 
 export interface EffectContext {
   selfId: string;                       // the acting piece's instanceId
@@ -178,11 +182,17 @@ const RESOLVERS: Record<PrimitiveId, Resolver> = {
   },
 
   gather(state, effect, ctx) {
-    const asked = amountOf(effect.params?.amount, state, ctx);
-    // soft cap: you gain what you asked, up to the remaining headroom, never negative
-    const gain = Math.min(asked, Math.max(0, ROOM_SOFT_CAP - state.turn.room));
+    // seating, not adding: the amount is SEATS, and the nth seat this morning
+    // contributes 2 × 0.8^(n-1) room — the softcap is the decay, not a ceiling.
+    const seats = Math.floor(amountOf(effect.params?.amount, state, ctx));
+    if (seats < 1) return refuse(state, effect, "no one to seat");
+    let gain = 0;
+    for (let i = 0; i < seats; i++) {
+      gain += SEAT_FIRST * SEAT_DECAY ** (state.turn.seatedCount + i);
+    }
+    state.turn.seatedCount += seats;
     state.turn.room += gain;
-    emit(state, "gathered", { asked, gain, room: state.turn.room });
+    emit(state, "gathered", { seats, gain, room: state.turn.room });
   },
 
   // -- specialization writers --
@@ -220,7 +230,9 @@ const RESOLVERS: Record<PrimitiveId, Resolver> = {
   retire(state, effect, ctx) {
     const target = resolveTarget(state, effect.params?.target, ctx);
     if (!target || target.fired) return refuse(state, effect, "no inert piece to last-light");
-    const worth = RETIRE_BASE_WORTH + target.set;   // residual-only
+    // retire-residual (L6): this-cycle unspent attention ONLY — a never-rested piece
+    // returns 0; the deck-thinning is the payoff (cycle net attention < 0 by design)
+    const worth = target.set;
     state.pieces = state.pieces.filter(p => p.instanceId !== target.instanceId);
     const to = effect.params?.to ?? "table";
     if (to === "room") state.turn.room += worth;
@@ -229,20 +241,27 @@ const RESOLVERS: Record<PrimitiveId, Resolver> = {
   },
 
   whittle(state, effect, ctx) {
+    // the-bounded-whittle (L6 §5): yields exactly 1 dull, at most once per morning,
+    // and consumes one apprentice-stuff — an inventory-bounded faucet, never a mint
+    if (state.turn.whittledThisMorning) return refuse(state, effect, "the shavings are carved for today");
     const returnShare = amountOf(effect.params?.amount, state, ctx);
-    const shavings = Math.floor(returnShare * SHAVINGS_SHARE);
-    if (shavings < 1) return refuse(state, effect, "too thin a return to carve");
-    for (let i = 0; i < shavings; i++) {
-      state.player.handsels.push({ brightness: 1, idleMornings: 0 });
-    }
-    emit(state, "whittled", { returnShare, handsels: shavings });
+    if (returnShare < 1) return refuse(state, effect, "too thin a return to carve");
+    const stuffAt = state.player.stock.findIndex(s => s.grade === "apprentice");
+    if (stuffAt < 0) return refuse(state, effect, "no apprentice-stuff to carve");
+    state.player.stock.splice(stuffAt, 1);
+    state.player.handsels.push({ brightness: 1, idleMornings: 0 });
+    state.turn.whittledThisMorning = true;
+    emit(state, "whittled", { returnShare, handsels: 1 });
   },
 
   court(state, effect, ctx) {
     const stock = effect.params?.stock;
     if (typeof stock !== "string") throw new Error("court without a stock (validate.ts should have caught this)");
-    // the vouching: gleam GATES and is never spent (read, compared, untouched)
-    if (state.player.gleam < VOUCH_FLOOR) return refuse(state, effect, "the vouching is closed");
+    // the vouching: gleam GATES by the stock's grade band and is never spent
+    const grade = STOCK_GRADE[stock] ?? "mid";
+    if (state.player.gleam < (GRADE_VOUCH[grade] ?? GRADE_VOUCH.mid)) {
+      return refuse(state, effect, `the vouching is closed (${grade} stock)`);
+    }
     // the term: a performable condition. Number = required chain length;
     // object form = { if: <read>, at_least: <amount> } straight from the card data.
     const term = effect.params?.term;
@@ -256,20 +275,24 @@ const RESOLVERS: Record<PrimitiveId, Resolver> = {
       throw new Error(`malformed court term: ${JSON.stringify(term)} (validate.ts should have caught this)`);
     }
     if (!met) return refuse(state, effect, "the term is unmet");
-    state.player.stock.push({ id: stock, grade: "named", freshness: 2 });
-    emit(state, "courted", { stock });
+    state.player.stock.push({ id: stock, grade: grade as "apprentice" | "named" | "twice-benched", freshness: 2 });
+    emit(state, "courted", { stock, grade });
   },
 
   soothe(state, effect, ctx) {
+    // last-red-cap (L6): mend = min(requested, rings, 2); at most 4 soothes a run;
+    // the soothed node loses its ring-indexed dawn draw (no retained skip-capacity)
+    if (state.player.soothesUsed >= SOOTHE_RUN_MAX) return refuse(state, effect, "the season's soothing is spent");
     const node = currentNode(state);
     if (node.lastRed < 1) return refuse(state, effect, "no last-red catalyst");
     const base = amountOf(effect.params?.amount, state, ctx, 1);
     const scale = amountOf(effect.params?.scale, state, ctx, 1);
-    // capped to the last-red: the mend can never exceed the catalysts the node holds
-    const mend = Math.min(base * scale, node.lastRed);
+    const mend = Math.min(base * scale, node.rings, SOOTHE_MEND_CAP);
     if (mend < 1) return refuse(state, effect, "nothing to mend");   // the catalyst is NOT spent
     node.lastRed -= 1;
-    node.rings = Math.max(0, node.rings - mend);
+    node.rings -= mend;
+    node.soothed = true;
+    state.player.soothesUsed += 1;
     emit(state, "soothed", { node: node.id, mend, rings: node.rings });
   },
 

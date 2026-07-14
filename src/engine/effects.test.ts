@@ -2,7 +2,7 @@
 import { describe, it, expect } from "vitest";
 import type { Card } from "./vocabulary.js";
 import type { GameState, PieceInstance } from "./state.js";
-import { resolveEffect, type EffectContext, ROOM_SOFT_CAP, FULL_RATE_BAND } from "./effects.js";
+import { resolveEffect, type EffectContext, FULL_RATE_BAND, SEAT_FIRST, SEAT_DECAY } from "./effects.js";
 import { testPiece, testState, fx } from "./test-helpers.js";
 
 // a tiny content table so tests are independent of the real pool
@@ -46,16 +46,27 @@ describe("turn-state verbs", () => {
     expect(s.turn.chainLinks).toBe(2);
     expect(s.turn.braced).toBe(true);
   });
-  it("gather raises the room, soft-capped at the plateau", () => {
-    const s0 = state(s => { s.turn.room = 8; });
-    const { state: s, events } = resolveEffect(s0, fx("gather", { amount: 5 }), ctx);
-    expect(s.turn.room).toBe(ROOM_SOFT_CAP);
-    expect(events.find(e => e.type === "gathered")?.data?.gain).toBe(2);
+  it("gather seats the audience under the decaying-seat law (2 · 0.8^(n-1))", () => {
+    const { state: s } = resolveEffect(state(), fx("gather", { amount: 2 }), ctx);
+    expect(s.turn.room).toBeCloseTo(SEAT_FIRST + SEAT_FIRST * SEAT_DECAY, 5);   // 3.6
+    expect(s.turn.seatedCount).toBe(2);
   });
-  it("gather resolves a read amount", () => {
-    const s0 = state(s => { s.pieces.push(piece("mid", { fired: true })); });
+  it("seating plateaus near 10 — the softcap is structural, not a ceiling", () => {
+    const { state: s } = resolveEffect(state(), fx("gather", { amount: 50 }), ctx);
+    expect(s.turn.room).toBeGreaterThan(9.9);
+    expect(s.turn.room).toBeLessThan(10);
+  });
+  it("later seats contribute less — the same gather is worth less in a full room", () => {
+    const first = resolveEffect(state(), fx("gather", { amount: 3 }), ctx);
+    const second = resolveEffect(first.state, fx("gather", { amount: 3 }), ctx);
+    const g1 = first.events.find(e => e.type === "gathered")!.data!.gain as number;
+    const g2 = second.events.find(e => e.type === "gathered")!.data!.gain as number;
+    expect(g2).toBeLessThan(g1);
+  });
+  it("gather resolves a read amount as seats", () => {
+    const s0 = state(s => { s.pieces.push(piece("mid", { fired: true })); });   // woken:song = 1
     const { state: s } = resolveEffect(s0, fx("gather", { amount: { do: "read", source: "woken:song" } }), ctx);
-    expect(s.turn.room).toBe(1);
+    expect(s.turn.room).toBeCloseTo(SEAT_FIRST, 5);
   });
 });
 
@@ -83,12 +94,18 @@ describe("specialization verbs", () => {
     expect(a.state.pieces.map(p => p.zone)).toEqual(b.state.pieces.map(p => p.zone)); // deterministic
     expect(a.state.rng.counter).toBe(s0.rng.counter + 1);
   });
-  it("retire last-lights an inert piece (the acting self here) and returns its worth to this node's table", () => {
-    const s0 = state(s => { s.pieces.push(piece("mid", { set: 2 })); });
+  it("retire last-lights an inert piece; its worth is this-cycle unspent set only", () => {
+    const s0 = state(s => { s.pieces[0].set = 2; });   // the acting self, partially worked
     const { state: s, events } = resolveEffect(s0, fx("retire", { target: "inert:hand", to: "table" }), ctx);
-    expect(s.pieces).toHaveLength(1);
-    expect(events.find(e => e.type === "retired")).toBeTruthy();
-    expect(s.board.nodes[0].localTable).toBeGreaterThan(0);
+    expect(s.pieces).toHaveLength(0);
+    expect(events.find(e => e.type === "retired")?.data?.worth).toBe(2);
+    expect(s.board.nodes[0].localTable).toBe(2);
+  });
+  it("a never-rested piece retires for 0 — the thinning is the payoff", () => {
+    const { state: s, events } = resolveEffect(state(), fx("retire", { target: "inert:hand", to: "room" }), ctx);
+    expect(s.pieces).toHaveLength(0);
+    expect(events.find(e => e.type === "retired")?.data?.worth).toBe(0);
+    expect(s.turn.room).toBe(0);
   });
   it("retire refuses when nothing inert remains", () => {
     const s0 = state(s => { s.pieces.forEach(p => { p.fired = true; }); });
@@ -96,30 +113,48 @@ describe("specialization verbs", () => {
     expect(events[0].type).toBe("refused");
   });
 
-  it("whittle carves exactly the shavings-share — a thin return refuses instead of rounding up", () => {
-    const carve = (amount: number) =>
-      resolveEffect(state(s => { s.turn.room = amount; }), fx("whittle", { amount: { do: "read", source: "room" } }), ctx);
-    expect(carve(1).events[0].type).toBe("refused");
-    expect(carve(2).events[0].type).toBe("refused");
-    expect(carve(3).state.player.handsels).toHaveLength(1);
-    expect(carve(6).state.player.handsels).toHaveLength(2);
+  it("whittle is the bounded faucet: 1 dull, consumes an apprentice-stuff", () => {
+    const s0 = state(s => { s.turn.room = 6; });
+    const { state: s } = resolveEffect(s0, fx("whittle", { amount: { do: "read", source: "room" } }), ctx);
+    expect(s.player.handsels).toHaveLength(1);
+    expect(s.player.handsels[0].brightness).toBe(1);
+    expect(s.player.stock.filter(x => x.grade === "apprentice")).toHaveLength(1);   // one consumed
+    expect(s.turn.whittledThisMorning).toBe(true);
+  });
+  it("whittle refuses a second carve the same morning", () => {
+    const s0 = state(s => { s.turn.room = 6; });
+    const once = resolveEffect(s0, fx("whittle", { amount: 6 }), ctx);
+    const twice = resolveEffect(once.state, fx("whittle", { amount: 6 }), ctx);
+    expect(twice.events[0].type).toBe("refused");
+    expect(twice.state.player.handsels).toHaveLength(1);
+  });
+  it("whittle refuses without an apprentice-stuff or a real return", () => {
+    const noStuff = state(s => { s.turn.room = 6; s.player.stock = []; });
+    expect(resolveEffect(noStuff, fx("whittle", { amount: 6 }), ctx).events[0].type).toBe("refused");
+    expect(resolveEffect(state(), fx("whittle", { amount: 0 }), ctx).events[0].type).toBe("refused");
   });
 
   it("court lands on a met numeric term — and never spends gleam", () => {
-    const s0 = state(s => { s.turn.chainLinks = 3; s.player.gleam = 4; });
+    const s0 = state(s => { s.turn.chainLinks = 3; s.player.gleam = 7; });
     const { state: s } = resolveEffect(s0, fx("court", { stock: "singing-silver", term: 3 }), ctx);
     expect(s.player.stock.map(x => x.id)).toContain("singing-silver");
-    expect(s.player.gleam).toBe(4);
+    expect(s.player.gleam).toBe(7);
   });
   it("court understands the real cards' object terms: { if: read(chain), at_least: n }", () => {
     const term = { if: { do: "read", source: "chain" }, at_least: 3 };
-    const met = state(s => { s.turn.chainLinks = 3; s.player.gleam = 2; });
-    const unmet = state(s => { s.turn.chainLinks = 2; s.player.gleam = 2; });
+    const met = state(s => { s.turn.chainLinks = 3; s.player.gleam = 6; s.player.stock = []; });
+    const unmet = state(s => { s.turn.chainLinks = 2; s.player.gleam = 6; s.player.stock = []; });
     expect(resolveEffect(met, fx("court", { stock: "s", term }), ctx).state.player.stock).toHaveLength(1);
     expect(resolveEffect(unmet, fx("court", { stock: "s", term }), ctx).events[0].type).toBe("refused");
   });
+  it("the vouching gates by the stock's grade band: proud stock needs a warm gleam", () => {
+    const dim = state(s => { s.turn.chainLinks = 5; s.player.gleam = 5; });
+    const { state: s, events } = resolveEffect(dim, fx("court", { stock: "singing-silver", term: 3 }), ctx);
+    expect(events[0].type).toBe("refused");
+    expect(s.player.gleam).toBe(5);   // gated, never spent — even on refusal
+  });
 
-  it("soothe spends one last-red, mends capped to the last-red, touches only the node", () => {
+  it("soothe spends one last-red, mends min(requested, rings, 2), marks the node soothed", () => {
     const s0 = state(s => {
       s.board.nodes[0].rings = 5;
       s.board.nodes[0].lastRed = 2;
@@ -128,8 +163,20 @@ describe("specialization verbs", () => {
     const { state: s } = resolveEffect(s0,
       fx("soothe", { amount: 1, scale: { do: "read", source: "spiral" }, cap: "last-red" }), ctx);
     expect(s.board.nodes[0].lastRed).toBe(1);
-    expect(s.board.nodes[0].rings).toBe(3);   // mend = min(1*5, lastRed 2) = 2
+    expect(s.board.nodes[0].rings).toBe(3);   // mend = min(1×5, rings 5, CAP 2) = 2
+    expect(s.board.nodes[0].soothed).toBe(true);
+    expect(s.player.soothesUsed).toBe(1);
     expect(s.player.gleam).toBe(3);
+  });
+  it("soothe refuses past the 4-per-run cap", () => {
+    const s0 = state(s => {
+      s.board.nodes[0].rings = 3;
+      s.board.nodes[0].lastRed = 2;
+      s.player.soothesUsed = 4;
+    });
+    const { state: s, events } = resolveEffect(s0, fx("soothe", { amount: 2 }), ctx);
+    expect(events[0].type).toBe("refused");
+    expect(s.board.nodes[0].lastRed).toBe(2);
   });
   it("soothe refuses a zero mend WITHOUT burning the catalyst", () => {
     const s0 = state(s => {

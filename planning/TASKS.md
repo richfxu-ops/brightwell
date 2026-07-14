@@ -15,7 +15,6 @@
 - [ ] (P3) Decide prototype form (web/terminal) and sketch UI #prototype #m5
 
 ## Next
-- [ ] (P1) Align Phase-2 resolvers to the L6 letter — QUESTIONS.md §A drift list #engine #m3
 - [ ] (P1) Engine Phase 3: the worked morning — decide QUESTIONS.md §B opens in its proposal #engine #m3
 - [ ] (P2) Toy morning: playable single-turn slice over the engine — the "is it fun?" check (after Phase 3) #prototype #m3
 
@@ -32,3 +31,4 @@
 - [x] (P1) [Engine state & reads](tasks/engine-state-and-reads.md) #engine #m3
 - [x] (P0) Decide stage-3 approach: hand-build the engine via /task (D-008); game-loop skill re-evaluated at M4 #m3
 - [x] (P1) [Effects resolvers](tasks/engine-effects-resolvers.md) #engine #m3
+- [x] (P1) [Align resolvers to L6](tasks/align-resolvers-l6.md) #engine #m3

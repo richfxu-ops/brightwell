@@ -13,9 +13,10 @@
 
 ## A · Phase-2 code vs Layer 6 — corrections needed **[DRIFT]**
 
-Found 2026-07-14 by re-reading L6 §4–§5 + the napkin against `effects.ts`. These are
-specified numbers the code treats as placeholders (or implements differently). One task:
-**align the resolvers to the L6 letter** before Phase 3 builds on them.
+Found 2026-07-14 by re-reading L6 §4–§5 + the napkin against `effects.ts`.
+**CORRECTED 2026-07-14** — `planning/tasks/align-resolvers-l6.md` implements all six;
+interpretation calls (soothe harmonization, proud-vouch-at-6, worth = set, gather-as-seating,
+starting stock 2 pending §D3) are recorded in that task's Decisions.
 
 - **A1 · whittle bounds.** Canon: yields exactly **1 dull**, costs 1 play, **max 1/morning**,
   **consumes one apprentice-stuff** (`the-bounded-whittle`). Code: mints `floor(amount/3)` dulls,

@@ -33,7 +33,7 @@ describe("the starter pool is canon-legal AND playable", () => {
       const s = testState(x => {
         x.pieces = [testPiece(card.id, { instanceId: "live#0" }),
                     testPiece(card.id, { instanceId: "spare#0" })];
-        x.turn.room = 9; x.turn.chainLinks = 5; x.player.gleam = 5;
+        x.turn.room = 9; x.turn.chainLinks = 5; x.player.gleam = 21;
         x.board.nodes[0].lastRed = 2; x.board.nodes[0].rings = 3;
         x.asking = { tier: "plea", needFill: 3, progress: 0, acceptedMorning: 1, staleAfterMornings: 6 };
       });
@@ -118,10 +118,10 @@ describe("runtime firewalls", () => {
     expect(after.player.gleamGrain.dough).toBe(0);
   });
   it("court reads gleam as a gate and never decrements it — met or unmet", () => {
-    const met = state(x => { x.turn.chainLinks = 3; x.player.gleam = 7; });
-    const unmet = state(x => { x.turn.chainLinks = 0; x.player.gleam = 7; });
-    expect(resolveEffect(met, fx("court", { stock: "s", term: 2 }), ctx).state.player.gleam).toBe(7);
-    expect(resolveEffect(unmet, fx("court", { stock: "s", term: 2 }), ctx).state.player.gleam).toBe(7);
+    const met = state(x => { x.turn.chainLinks = 3; x.player.gleam = 8; });
+    const unmet = state(x => { x.turn.chainLinks = 0; x.player.gleam = 8; });
+    expect(resolveEffect(met, fx("court", { stock: "s", term: 2 }), ctx).state.player.gleam).toBe(8);
+    expect(resolveEffect(unmet, fx("court", { stock: "s", term: 2 }), ctx).state.player.gleam).toBe(8);
   });
   it("soothe writes the board and nothing else — gleam and purse untouched", () => {
     const s0 = state(x => {
