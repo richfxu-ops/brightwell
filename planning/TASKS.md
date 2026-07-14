@@ -25,7 +25,7 @@
 - [x] Emit game-loop seam: vocabulary.json, round_metrics.json, src/content, vocabulary.ts #m2
 - [x] Initialize planning scaffold (CLAUDE.md, PLAN, ARCHITECTURE, TASKS, dashboard, /task skills)
 - [x] Init git repository #infra
-- [x] Build roundelay-codex.html — single-file codex site, Daylight watercolor design #docs
+- [x] Build brightwell-codex.html — single-file codex site, Daylight watercolor design #docs
 - [x] (P1) [TS toolchain setup](tasks/set-up-ts-toolchain.md) #infra #m3
 - [x] (P1) [Engine state & reads](tasks/engine-state-and-reads.md) #engine #m3
 - [x] (P0) Decide stage-3 approach: hand-build the engine via /task (D-008); game-loop skill re-evaluated at M4 #m3

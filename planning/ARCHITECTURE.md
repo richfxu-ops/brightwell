@@ -15,7 +15,7 @@
 - `src/content/contracts/` — `tiers.json`: per-tier contract (asking) numbers.
 - `design/` — the game-architect pipeline's machine state: `vocabulary.json` (canonical primitive definitions — source of truth for `vocabulary.ts`), `round_metrics.json` (57 telemetry keys the sim must emit), `state.json`/`config.json`/`layers/` (layer lock records), `napkin/` (executable balance checks).
 - `world/` — the world-architect pipeline's machine state (stage 1 equivalent of `design/`).
-- `planning/` — project docs + task dashboard: `PLAN.md`, `TASKS.md`, `DECISIONS.md`, this file, plus the locked design docs (`GDD.md`, `WORLD.md`, `terms.json`, `ledger.json`) and rendered HTML views (`world.html`, `roundelay-*.html`).
+- `planning/` — project docs + task dashboard: `PLAN.md`, `TASKS.md`, `DECISIONS.md`, this file, plus the locked design docs (`GDD.md`, `WORLD.md`, `terms.json`, `ledger.json`) and rendered HTML views (`world.html`, `brightwell-*.html`).
 - `HANDOFF.md` — the stage-2 pipeline handoff/resume document (historical context; stage 2 is now complete).
 - `scratchpad/` — throwaway scripts.
 

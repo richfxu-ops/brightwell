@@ -14,7 +14,7 @@ const result = await build({
 });
 const js = result.outputFiles[0].text.replace(/<\/script>/g, "<\\/script>");
 
-const path = "planning/roundelay-codex.html";
+const path = "planning/brightwell-codex.html";
 let html = readFileSync(path, "utf8");
 const BEGIN = "<!-- TOY-BUNDLE:BEGIN";
 const END = "<!-- TOY-BUNDLE:END -->";

@@ -1,5 +1,5 @@
 // vocabulary.ts — the game-loop seam, effects.ts-ready.
-// The 14 LOCKED L3 effect primitives of Roundelay as typed data. Cards
+// The 14 LOCKED L3 effect primitives of Brightwell as typed data. Cards
 // (src/content/cards) are declarative data over these; the game-loop engine
 // (effects.ts) implements a resolver per primitive. Emitted at DESIGN_COMPLETE
 // from GDD Layer 3 (locked) + Layer 6 numbers (locked). See design/vocabulary.json

@@ -20,7 +20,7 @@ teach us how much number-previewing the real UI must carry.
 - **Build (revised per user 2026-07-14: a page ON the codex, not a sibling):** esbuild (new
   dev-dep) bundles `main.ts` + the engine + the card JSONs into one script, which
   `npm run build:toy` injects between `TOY-BUNDLE` markers inside
-  **`planning/roundelay-codex.html`** — a new "Toy Morning" top-nav section. The section
+  **`planning/brightwell-codex.html`** — a new "Toy Morning" top-nav section. The section
   shell and styles are hand-authored codex HTML; only the marked bundle region is generated.
   The toy inherits the Daylight theme for free.
 - **The screen:** the room as a big meter; chain links + current multiplier; gleam; the

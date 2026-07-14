@@ -7,9 +7,11 @@ tongue"), from a shortlist riffing softer on "Brightwork". Diegetic anchor, adde
 terms.json (additive, layer 2-adjacent): a **brightwell** is the folk name for a town's pool
 of kept light — the node's local table where swept attention waits for dawn
 (`the-returning-table` / `gloaming-table` ledger ids unchanged). The Paling dims brightwells;
-makers refill them; the title is what a maker leaves behind. Sweep: title surfaces only
-(codex masthead/title, toy UI strings, package.json, PLAN.md) — file names and locked prose
-untouched.
+makers refill them; the title is what a maker leaves behind. Sweep 1: title surfaces
+(codex masthead/title, toy UI strings, package.json, PLAN.md). Sweep 2 (same day, user):
+full rename — the six planning pages became brightwell-*.html with all cross-links, scripts,
+and doc references updated. Locked prose (WORLD.md/GDD.md/world/design pipeline records)
+keeps Roundelay as the land's name.
 
 ## D-010 · The worked morning's five rules (2026-07-14, user-decided one by one)
 The QUESTIONS.md §B calls that shape engine Phase 3:

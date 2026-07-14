@@ -4,7 +4,7 @@
 Run after any planning change worth publishing:
     python3 scripts/bake-codex.py
 Refreshes TASKS_SNAPSHOT, DECISIONS_SNAPSHOT, QUESTIONS_SNAPSHOT, PROPOSALS_SNAPSHOT
-(all task files), and SNAPSHOT_DATE inside planning/roundelay-codex.html.
+(all task files), and SNAPSHOT_DATE inside planning/brightwell-codex.html.
 When the codex is served over http these snapshots are ignored (it fetches live).
 """
 import datetime
@@ -15,7 +15,7 @@ import re
 import sys
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-CODEX = os.path.join(ROOT, "planning", "roundelay-codex.html")
+CODEX = os.path.join(ROOT, "planning", "brightwell-codex.html")
 
 def read(rel: str) -> str:
     with open(os.path.join(ROOT, rel)) as f:
