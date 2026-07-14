@@ -641,6 +641,7 @@ a{ color:var(--gold-deep) } a:hover{ color:var(--gold) }
         <button type="button" class="active" data-doc="design-overview">Overview</button>
         <button type="button" data-doc="design-play">How It Plays</button>
         <button type="button" data-doc="design-ways">The Six Ways</button>
+        <button type="button" data-doc="design-grains">Grains &amp; Roles</button>
         <button type="button" data-doc="design-layers">The Seven Layers</button>
       </div>
 <!-- ===== WORLD ===== -->
@@ -816,6 +817,85 @@ a{ color:var(--gold-deep) } a:hover{ color:var(--gold) }
         <b>Untold</b> out-runs you, <b>Fairwrights</b> out-dazzle you, <b>Mannerly</b> out-class you,
         and <b>Gleaners</b> walk somewhere you wouldn't dare.<br>
         Start with a starter; you'll drift into your own.
+      </div>
+    </div>
+
+<!-- ===== GRAINS & ROLES ===== -->
+    <div id="doc-design-grains" class="doc-page">
+      <div class="sec-head">
+        <div>
+          <span class="eyebrow">The Card Vocabulary</span>
+          <h2 class="title">Grains &amp; Roles</h2>
+          <div class="sub">Every card is one small act of a craft (its grain) and one job in your engine (its role).</div>
+        </div>
+      </div>
+
+      <div class="playhead">The six crafts</div>
+      <div class="playtitle">Grains</div>
+      <p class="playnote">A card's grain is the craft it belongs to. It matters three ways: a woken piece joins your crowd <b>typed by its grain</b> (what <i>woken:</i> counts), cards pay amounts by grain-counts (what <i>grain:</i> counts), and the grain of the delight you give <b>tags your Standing</b> — which decides what the country answers you with. Each Way leans on one grain hardest.</p>
+      <div class="gloss">
+        <div class="g" style="border-color:color-mix(in srgb, var(--joinery) 50%, transparent)">
+          <span class="ic">🪵</span><h4 style="color:var(--joinery)">joinery <small style="font-family:var(--code);font-size:11px;color:var(--ink-faint)">· <span data-count-grain="joinery"></span> cards</small></h4>
+          <p>Woodwork — trestles, benches, fired beams. <b>The Kilnfast's grain:</b> sturdy pieces that fire once and hold forever, reading <i>woken:joinery</i> to build ever-bigger rooms.</p>
+          <button type="button" class="wbrowse" style="--acc:var(--joinery)" onclick="browseGrain('joinery')">Browse joinery →</button>
+        </div>
+        <div class="g" style="border-color:color-mix(in srgb, var(--thread) 50%, transparent)">
+          <span class="ic">🧵</span><h4 style="color:var(--thread)">thread <small style="font-family:var(--code);font-size:11px;color:var(--ink-faint)">· <span data-count-grain="thread"></span> cards</small></h4>
+          <p>Cloth and tempo — needles, paper-birds, quick hands. <b>The Untold's grain:</b> cheap, fast, many; thread cards draw and fill in small rapid counts.</p>
+          <button type="button" class="wbrowse" style="--acc:var(--thread)" onclick="browseGrain('thread')">Browse thread →</button>
+        </div>
+        <div class="g" style="border-color:color-mix(in srgb, var(--song) 50%, transparent)">
+          <span class="ic">🎶</span><h4 style="color:var(--song)">song <small style="font-family:var(--code);font-size:11px;color:var(--ink-faint)">· <span data-count-grain="song"></span> cards</small></h4>
+          <p>Music — refrains, grace-notes, the singing-silver. <b>The Mannerly's grain:</b> proud pieces courted into play; gleam is the key that opens them, never a coin spent.</p>
+          <button type="button" class="wbrowse" style="--acc:var(--song)" onclick="browseGrain('song')">Browse song →</button>
+        </div>
+        <div class="g" style="border-color:color-mix(in srgb, var(--glaze) 50%, transparent)">
+          <span class="ic">🏺</span><h4 style="color:var(--glaze)">glaze <small style="font-family:var(--code);font-size:11px;color:var(--ink-faint)">· <span data-count-grain="glaze"></span> cards</small></h4>
+          <p>Pottery and the grey — bowls, mendings, pale harvests. <b>The Morning-Gleaners' grain:</b> it reads the world's fading (<i>read(spiral)</i>, <i>read(season)</i>) — and mends it after.</p>
+          <button type="button" class="wbrowse" style="--acc:var(--glaze)" onclick="browseGrain('glaze')">Browse glaze →</button>
+        </div>
+        <div class="g" style="border-color:color-mix(in srgb, var(--dance) 50%, transparent)">
+          <span class="ic">🎪</span><h4 style="color:var(--dance)">dance <small style="font-family:var(--code);font-size:11px;color:var(--ink-faint)">· <span data-count-grain="dance"></span> cards</small></h4>
+          <p>Performance — rings, wain-stages, bunting. <b>The Fairwrights' grain</b> (and much of the Eveners'): crowd-gathering, and the one enormous show.</p>
+          <button type="button" class="wbrowse" style="--acc:var(--dance)" onclick="browseGrain('dance')">Browse dance →</button>
+        </div>
+        <div class="g" style="border-color:color-mix(in srgb, var(--dough) 50%, transparent)">
+          <span class="ic">🍞</span><h4 style="color:var(--dough)">dough <small style="font-family:var(--code);font-size:11px;color:var(--ink-faint)">· <span data-count-grain="dough"></span> cards</small></h4>
+          <p>Hearth — loaves, kettles, warmth. <b>The apprentice grain:</b> the plain, friendly stuff of the starting hand; the craft that talks to everyone.</p>
+          <button type="button" class="wbrowse" style="--acc:var(--dough)" onclick="browseGrain('dough')">Browse dough →</button>
+        </div>
+      </div>
+
+      <div class="playhead">The eight jobs</div>
+      <div class="playtitle">Roles</div>
+      <p class="playnote">A card's role is the part it plays in your engine. Every Way ships the same skeleton — a numbered chain that builds toward a finisher, supports to make it reliable, and utilities to smooth the draw. The starred roles are where runs are won.</p>
+      <div class="gloss">
+        <div class="g"><span class="ic">🌱</span><h4>Apprentice <small style="font-family:var(--code);font-size:11px;color:var(--ink-faint)">· in the shared hand</small></h4>
+          <p>The five simple room-builders every run begins with. Humble, but combo-ready — each gathers by a grain-count from morning one.</p></div>
+        <div class="g"><span class="ic">🕯️</span><h4>Baseline <small style="font-family:var(--code);font-size:11px;color:var(--ink-faint)">· <span data-count-role="baseline"></span> incl. apprentice</small></h4>
+          <p>The legible floor: <i>warm</i> and <i>keep</i> cards that need no combo at all. A newcomer can play them alone — that's their whole job.</p>
+          <button type="button" class="wbrowse" onclick="browseRole('baseline')">Browse baseline →</button></div>
+        <div class="g"><span class="ic">①</span><h4>Chain ① <small style="font-family:var(--code);font-size:11px;color:var(--ink-faint)">· the opener</small></h4>
+          <p>Writes the shared state — gathers the room, steadies the chain, starts the count — that every later card will read.</p></div>
+        <div class="g"><span class="ic">②</span><h4>Chain ② <small style="font-family:var(--code);font-size:11px;color:var(--ink-faint)">· <span data-count-role="chain"></span> chain cards total</small></h4>
+          <p>The pointer: aims what ① built — pre-resting the capstone toward its fixed mark, stamping grains to grow the count.</p>
+          <button type="button" class="wbrowse" onclick="browseRole('chain')">Browse chains →</button></div>
+        <div class="g" style="border-color:color-mix(in srgb, var(--gold) 50%, transparent)"><span class="ic" style="color:var(--gold)">★</span><h4 style="color:var(--gold-deep)">Capstone <small style="font-family:var(--code);font-size:11px;color:var(--ink-faint)">· <span data-count-role="capstone"></span> incl. proud</small></h4>
+          <p>The finisher. Every load-bearing number on it was written by ①→② through shared state — break the order and it under-fills: <i>the reach that falls short.</i></p>
+          <button type="button" class="wbrowse" style="--acc:var(--gold)" onclick="browseRole('capstone')">Browse capstones →</button></div>
+        <div class="g" style="border-color:color-mix(in srgb, var(--song) 50%, transparent)"><span class="ic" style="color:var(--song)">★</span><h4 style="color:var(--song)">Proud payoff</h4>
+          <p>The Mannerly's variant capstone — the single highest ceiling in the game, and it sits <b>dead in hand</b> until a courtship unlocks it. Gleam gates; it is never spent.</p></div>
+        <div class="g"><span class="ic">🧰</span><h4>Support <small style="font-family:var(--code);font-size:11px;color:var(--ink-faint)">· <span data-count-role="support"></span> cards</small></h4>
+          <p>Redundant copies of the chain's functions, so the combo actually shows up: a second gatherer, a spare stamp, another brace.</p>
+          <button type="button" class="wbrowse" onclick="browseRole('support')">Browse supports →</button></div>
+        <div class="g"><span class="ic">🌅</span><h4>Utility <small style="font-family:var(--code);font-size:11px;color:var(--ink-faint)">· <span data-count-role="utility"></span> cards</small></h4>
+          <p>Dawn-trigger smoothers — draw a card of your suit each morning. No combo; pure consistency, so the engine finds its pieces.</p>
+          <button type="button" class="wbrowse" onclick="browseRole('utility')">Browse utilities →</button></div>
+      </div>
+
+      <div class="big">
+        Grain is <b>what the craft is</b>; role is <b>what the card is for</b>.<br>
+        Six grains × eight jobs, and every one of the 49 starter cards is one cell of that grid.
       </div>
     </div>
 
@@ -1608,6 +1688,28 @@ function browseWay(way){
   renderCardFilters(); renderCardGrid(); renderCardInspector();
   window.scrollTo({top:0, behavior:"smooth"});
 }
+function browseGrain(grain){
+  cardsState.q=""; cardsState.way="all"; cardsState.grain=grain; cardsState.role="all"; cardsState.sel=null;
+  document.getElementById("cardSearch").value = "";
+  showSection("data"); showDataTab("cards");
+  renderCardFilters(); renderCardGrid(); renderCardInspector();
+  window.scrollTo({top:0, behavior:"smooth"});
+}
+function browseRole(role){
+  cardsState.q=""; cardsState.way="all"; cardsState.grain="all"; cardsState.role=role; cardsState.sel=null;
+  document.getElementById("cardSearch").value = "";
+  showSection("data"); showDataTab("cards");
+  renderCardFilters(); renderCardGrid(); renderCardInspector();
+  window.scrollTo({top:0, behavior:"smooth"});
+}
+function fillVocabCounts(){
+  document.querySelectorAll("[data-count-grain]").forEach(el => {
+    el.textContent = ALL_CARDS.filter(c => c.g === el.dataset.countGrain).length;
+  });
+  document.querySelectorAll("[data-count-role]").forEach(el => {
+    el.textContent = ALL_CARDS.filter(c => roleKey(c.role) === el.dataset.countRole).length;
+  });
+}
 
 /* ---------- Effects tab ---------- */
 function fxMatches(p){
@@ -1878,6 +1980,7 @@ function boot(){
   renderFxFilters(); renderFxGrid(); renderFxInspector();
   renderResFilters(); renderResGrid(); renderResInspector();
   renderWays();
+  fillVocabCounts();
   document.querySelectorAll(".doc-tabs button[data-doc]").forEach(b =>
     b.addEventListener("click", () => showDoc(b.dataset.doc)));
   document.querySelectorAll(".contents a[href^='#']").forEach(a =>
