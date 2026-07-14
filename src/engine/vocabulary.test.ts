@@ -26,8 +26,8 @@ describe("vocabulary (GDD Layer 3, locked)", () => {
   });
 });
 
-describe("starter pool (GDD Layer 7, locked)", () => {
-  it("contains 49 cards", () => {
-    expect(starterPool.cards).toHaveLength(49);
+describe("the card pool", () => {
+  it("contains 97 cards — the L7 starter 49 plus the card-flow Part 3 expansion", () => {
+    expect(starterPool.cards).toHaveLength(97);
   });
 });

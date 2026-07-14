@@ -1574,6 +1574,1634 @@
           }
         }
       ]
+    },
+    {
+      "id": "stoke-the-long-fire",
+      "name": "Stoke the Long Fire",
+      "grain": "joinery",
+      "mark": 4,
+      "ceiling": 6,
+      "woken_delight": 2,
+      "tags": [
+        "fill",
+        "support:mid-fill"
+      ],
+      "archetype": "kilnfast",
+      "combo": true,
+      "effects": [
+        {
+          "when": "on-play",
+          "do": "fill",
+          "params": {
+            "amount": {
+              "do": "read",
+              "source": "woken:joinery"
+            }
+          }
+        },
+        {
+          "when": "on-chain",
+          "do": "steady",
+          "params": {
+            "links": 1
+          }
+        }
+      ]
+    },
+    {
+      "id": "even-the-coalbed",
+      "name": "Even the Coalbed",
+      "grain": "joinery",
+      "mark": 3,
+      "ceiling": 5,
+      "woken_delight": 2,
+      "tags": [
+        "fill",
+        "support:chain-fill"
+      ],
+      "archetype": "kilnfast",
+      "combo": true,
+      "effects": [
+        {
+          "when": "on-play",
+          "do": "fill",
+          "params": {
+            "amount": {
+              "do": "read",
+              "source": "chain"
+            }
+          }
+        },
+        {
+          "when": "on-chain",
+          "do": "steady",
+          "params": {
+            "brace": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "trestle-run",
+      "name": "Trestle Run",
+      "grain": "joinery",
+      "mark": 2,
+      "ceiling": 4,
+      "woken_delight": 1,
+      "tags": [
+        "support:tempo"
+      ],
+      "archetype": "kilnfast",
+      "combo": true,
+      "effects": [
+        {
+          "when": "on-play",
+          "do": "gather",
+          "params": {
+            "amount": {
+              "do": "read",
+              "source": "woken:joinery"
+            }
+          }
+        },
+        {
+          "when": "on-chain",
+          "do": "steady",
+          "params": {
+            "links": 1
+          }
+        }
+      ]
+    },
+    {
+      "id": "set-the-keel-block",
+      "name": "Set the Keel-Block",
+      "grain": "joinery",
+      "mark": 4,
+      "ceiling": 6,
+      "woken_delight": 2,
+      "tags": [
+        "support:room-builder"
+      ],
+      "archetype": "kilnfast",
+      "combo": true,
+      "effects": [
+        {
+          "when": "on-play",
+          "do": "rest",
+          "params": {
+            "target": "self",
+            "amount": {
+              "do": "read",
+              "source": "room"
+            }
+          }
+        },
+        {
+          "when": "on-chain",
+          "do": "steady",
+          "params": {
+            "links": 1,
+            "brace": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "sort-the-offcuts",
+      "name": "Sort the Offcuts",
+      "grain": "joinery",
+      "mark": 3,
+      "ceiling": 5,
+      "woken_delight": 2,
+      "tags": [
+        "support:draw",
+        "utility"
+      ],
+      "archetype": "kilnfast",
+      "combo": false,
+      "effects": [
+        {
+          "when": "on-play",
+          "do": "draw",
+          "params": {
+            "n": 1,
+            "suit": "joinery"
+          }
+        }
+      ]
+    },
+    {
+      "id": "warm-the-workshop",
+      "name": "Warm the Workshop",
+      "grain": "joinery",
+      "mark": 2,
+      "ceiling": 3,
+      "woken_delight": 1,
+      "tags": [
+        "support:baseline",
+        "utility"
+      ],
+      "archetype": "kilnfast",
+      "combo": false,
+      "effects": [
+        {
+          "when": "on-play",
+          "do": "warm",
+          "params": {
+            "n": 1
+          }
+        }
+      ]
+    },
+    {
+      "id": "feed-and-fire",
+      "name": "Feed and Fire",
+      "grain": "joinery",
+      "mark": 4,
+      "ceiling": 6,
+      "woken_delight": 2,
+      "tags": [
+        "support:engine"
+      ],
+      "archetype": "kilnfast",
+      "combo": true,
+      "effects": [
+        {
+          "when": "on-play",
+          "do": "rest",
+          "params": {
+            "target": "self",
+            "amount": {
+              "do": "read",
+              "source": "room"
+            }
+          }
+        },
+        {
+          "when": "on-wake",
+          "do": "gather",
+          "params": {
+            "amount": {
+              "do": "read",
+              "source": "woken:joinery"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "the-ember-crown",
+      "name": "The Ember Crown",
+      "grain": "joinery",
+      "mark": 7,
+      "ceiling": 8,
+      "woken_delight": 3,
+      "tags": [
+        "proud",
+        "capstone"
+      ],
+      "archetype": "kilnfast",
+      "combo": true,
+      "effects": [
+        {
+          "when": "on-play",
+          "do": "rest",
+          "params": {
+            "target": "self",
+            "amount": {
+              "do": "read",
+              "source": "room"
+            }
+          }
+        },
+        {
+          "when": "on-play",
+          "do": "fill",
+          "params": {
+            "amount": {
+              "do": "read",
+              "source": "woken:joinery"
+            }
+          }
+        },
+        {
+          "when": "on-chain",
+          "do": "steady",
+          "params": {
+            "links": 1,
+            "brace": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "the-dusk-gift",
+      "name": "The Dusk-Gift",
+      "grain": "dance",
+      "mark": 3,
+      "ceiling": 5,
+      "woken_delight": 2,
+      "tags": [
+        "starter",
+        "fill"
+      ],
+      "archetype": "eveners",
+      "combo": true,
+      "effects": [
+        {
+          "when": "on-play",
+          "do": "retire",
+          "params": {
+            "target": "inert:hand",
+            "to": "room"
+          }
+        },
+        {
+          "when": "on-play",
+          "do": "fill",
+          "params": {
+            "amount": {
+              "do": "read",
+              "source": "room"
+            }
+          }
+        },
+        {
+          "when": "on-chain",
+          "do": "steady",
+          "params": {
+            "links": 1
+          }
+        }
+      ]
+    },
+    {
+      "id": "chainwise-gift",
+      "name": "Chainwise Gift",
+      "grain": "dance",
+      "mark": 4,
+      "ceiling": 6,
+      "woken_delight": 2,
+      "tags": [
+        "support:chainwise-fill"
+      ],
+      "archetype": "eveners",
+      "combo": true,
+      "effects": [
+        {
+          "when": "on-play",
+          "do": "retire",
+          "params": {
+            "target": "inert:hand",
+            "to": "room"
+          }
+        },
+        {
+          "when": "on-play",
+          "do": "fill",
+          "params": {
+            "amount": {
+              "do": "read",
+              "source": "chain"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "left-for-the-morning",
+      "name": "Left for the Morning",
+      "grain": "dance",
+      "mark": 2,
+      "ceiling": 3,
+      "woken_delight": 1,
+      "tags": [
+        "support:table-fuel"
+      ],
+      "archetype": "eveners",
+      "combo": true,
+      "effects": [
+        {
+          "when": "on-play",
+          "do": "retire",
+          "params": {
+            "target": "inert:pack",
+            "to": "table"
+          }
+        },
+        {
+          "when": "on-chain",
+          "do": "steady",
+          "params": {
+            "links": 1
+          }
+        }
+      ]
+    },
+    {
+      "id": "seasons-shavings",
+      "name": "Season's Shavings",
+      "grain": "thread",
+      "mark": 3,
+      "ceiling": 5,
+      "woken_delight": 1,
+      "tags": [
+        "support:handsel-velocity"
+      ],
+      "archetype": "eveners",
+      "combo": true,
+      "effects": [
+        {
+          "when": "on-play",
+          "do": "whittle",
+          "params": {
+            "amount": {
+              "do": "read",
+              "source": "season"
+            }
+          }
+        },
+        {
+          "when": "on-chain",
+          "do": "steady",
+          "params": {
+            "brace": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "widening-round",
+      "name": "Widening Round",
+      "grain": "thread",
+      "mark": 3,
+      "ceiling": 5,
+      "woken_delight": 1,
+      "tags": [
+        "support:draw-fix",
+        "utility"
+      ],
+      "archetype": "eveners",
+      "combo": true,
+      "effects": [
+        {
+          "when": "on-play",
+          "do": "draw",
+          "params": {
+            "n": 1
+          }
+        },
+        {
+          "when": "on-dawn",
+          "do": "draw",
+          "params": {
+            "n": 1,
+            "suit": "dance"
+          }
+        }
+      ]
+    },
+    {
+      "id": "brace-the-waychain",
+      "name": "Brace the Waychain",
+      "grain": "thread",
+      "mark": 2,
+      "ceiling": 3,
+      "woken_delight": 1,
+      "tags": [
+        "support:brace"
+      ],
+      "archetype": "eveners",
+      "combo": true,
+      "effects": [
+        {
+          "when": "on-play",
+          "do": "draw",
+          "params": {
+            "n": 1
+          }
+        },
+        {
+          "when": "on-chain",
+          "do": "steady",
+          "params": {
+            "links": 1,
+            "brace": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "even-by-lastlight",
+      "name": "Even by Lastlight",
+      "grain": "dance",
+      "mark": 4,
+      "ceiling": 6,
+      "woken_delight": 2,
+      "tags": [
+        "engine"
+      ],
+      "archetype": "eveners",
+      "combo": true,
+      "effects": [
+        {
+          "when": "on-play",
+          "do": "retire",
+          "params": {
+            "target": "inert:hand",
+            "to": "room"
+          }
+        },
+        {
+          "when": "on-play",
+          "do": "rest",
+          "params": {
+            "target": "self",
+            "amount": {
+              "do": "read",
+              "source": "room"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "the-great-un-hoarding",
+      "name": "The Great Un-Hoarding",
+      "grain": "dance",
+      "mark": 6,
+      "ceiling": 8,
+      "woken_delight": 3,
+      "tags": [
+        "proud",
+        "capstone"
+      ],
+      "archetype": "eveners",
+      "combo": true,
+      "effects": [
+        {
+          "when": "on-play",
+          "do": "retire",
+          "params": {
+            "target": "inert:hand",
+            "to": "room"
+          }
+        },
+        {
+          "when": "on-play",
+          "do": "rest",
+          "params": {
+            "target": "self",
+            "amount": {
+              "do": "read",
+              "source": "chain"
+            }
+          }
+        },
+        {
+          "when": "on-play",
+          "do": "fill",
+          "params": {
+            "amount": {
+              "do": "read",
+              "source": "room"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "running-tally",
+      "name": "Running Tally",
+      "grain": "thread",
+      "mark": 1,
+      "ceiling": 2,
+      "woken_delight": 1,
+      "tags": [
+        "fill",
+        "one-shot"
+      ],
+      "archetype": "untold",
+      "combo": true,
+      "effects": [
+        {
+          "when": "on-play",
+          "do": "fill",
+          "params": {
+            "amount": {
+              "do": "read",
+              "source": "chain"
+            }
+          }
+        },
+        {
+          "when": "on-play",
+          "do": "draw",
+          "params": {
+            "n": 1,
+            "suit": "thread"
+          }
+        }
+      ]
+    },
+    {
+      "id": "marked-in-passing",
+      "name": "Marked in Passing",
+      "grain": "thread",
+      "mark": 1,
+      "ceiling": 2,
+      "woken_delight": 1,
+      "tags": [
+        "fill",
+        "support:count-writer",
+        "one-shot"
+      ],
+      "archetype": "untold",
+      "combo": true,
+      "effects": [
+        {
+          "when": "on-play",
+          "do": "fill",
+          "params": {
+            "amount": {
+              "do": "read",
+              "source": "grain:thread"
+            }
+          }
+        },
+        {
+          "when": "on-play",
+          "do": "mark-grain",
+          "params": {
+            "target": "hand:offgrain",
+            "suit": "thread"
+          }
+        }
+      ]
+    },
+    {
+      "id": "dawn-errand",
+      "name": "Dawn Errand",
+      "grain": "thread",
+      "mark": 1,
+      "ceiling": 2,
+      "woken_delight": 1,
+      "tags": [
+        "support:draw-fix",
+        "utility"
+      ],
+      "archetype": "untold",
+      "combo": false,
+      "effects": [
+        {
+          "when": "on-dawn",
+          "do": "draw",
+          "params": {
+            "n": 2,
+            "suit": "thread"
+          }
+        }
+      ]
+    },
+    {
+      "id": "nimble-step",
+      "name": "Nimble Step",
+      "grain": "thread",
+      "mark": 2,
+      "ceiling": 3,
+      "woken_delight": 1,
+      "tags": [
+        "support:second-line"
+      ],
+      "archetype": "untold",
+      "combo": true,
+      "effects": [
+        {
+          "when": "on-play",
+          "do": "draw",
+          "params": {
+            "n": 2,
+            "suit": "thread"
+          }
+        },
+        {
+          "when": "on-play",
+          "do": "steady",
+          "params": {
+            "links": 1
+          }
+        }
+      ]
+    },
+    {
+      "id": "chalk-the-count",
+      "name": "Chalk the Count",
+      "grain": "thread",
+      "mark": 2,
+      "ceiling": 3,
+      "woken_delight": 1,
+      "tags": [
+        "support:count-writer"
+      ],
+      "archetype": "untold",
+      "combo": true,
+      "effects": [
+        {
+          "when": "on-play",
+          "do": "mark-grain",
+          "params": {
+            "target": "hand:cheapest",
+            "suit": "thread"
+          }
+        },
+        {
+          "when": "on-play",
+          "do": "draw",
+          "params": {
+            "n": 1,
+            "suit": "thread"
+          }
+        }
+      ]
+    },
+    {
+      "id": "hold-the-thread",
+      "name": "Hold the Thread",
+      "grain": "thread",
+      "mark": 2,
+      "ceiling": 3,
+      "woken_delight": 1,
+      "tags": [
+        "support:tempo"
+      ],
+      "archetype": "untold",
+      "combo": true,
+      "effects": [
+        {
+          "when": "on-stall",
+          "do": "steady",
+          "params": {
+            "links": 1,
+            "brace": true
+          }
+        },
+        {
+          "when": "on-play",
+          "do": "draw",
+          "params": {
+            "n": 1,
+            "suit": "thread"
+          }
+        }
+      ]
+    },
+    {
+      "id": "the-little-ledger",
+      "name": "The Little Ledger",
+      "grain": "thread",
+      "mark": 3,
+      "ceiling": 5,
+      "woken_delight": 2,
+      "tags": [
+        "engine"
+      ],
+      "archetype": "untold",
+      "combo": true,
+      "effects": [
+        {
+          "when": "on-play",
+          "do": "rest",
+          "params": {
+            "target": "self",
+            "amount": {
+              "do": "read",
+              "source": "chain"
+            }
+          }
+        },
+        {
+          "when": "on-play",
+          "do": "fill",
+          "params": {
+            "amount": 2
+          }
+        }
+      ]
+    },
+    {
+      "id": "the-long-tally",
+      "name": "The Long Tally",
+      "grain": "thread",
+      "mark": 5,
+      "ceiling": 7,
+      "woken_delight": 3,
+      "tags": [
+        "capstone",
+        "proud"
+      ],
+      "archetype": "untold",
+      "combo": true,
+      "effects": [
+        {
+          "when": "on-play",
+          "do": "rest",
+          "params": {
+            "target": "self",
+            "amount": {
+              "do": "read",
+              "source": "chain"
+            }
+          }
+        },
+        {
+          "when": "on-play",
+          "do": "fill",
+          "params": {
+            "amount": {
+              "do": "read",
+              "source": "grain:thread"
+            }
+          }
+        },
+        {
+          "when": "on-fulfil",
+          "do": "draw",
+          "params": {
+            "n": 2,
+            "suit": "thread"
+          }
+        }
+      ]
+    },
+    {
+      "id": "feed-the-crown",
+      "name": "Feed the Crown",
+      "grain": "dance",
+      "mark": 3,
+      "ceiling": 5,
+      "woken_delight": 2,
+      "tags": [
+        "starter",
+        "fill",
+        "venue"
+      ],
+      "archetype": "fairwrights",
+      "combo": true,
+      "effects": [
+        {
+          "when": "on-play",
+          "do": "fill",
+          "params": {
+            "amount": {
+              "do": "read",
+              "source": "room"
+            }
+          }
+        },
+        {
+          "when": "on-chain",
+          "do": "steady",
+          "params": {
+            "brace": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "pour-the-turnout",
+      "name": "Pour the Turnout",
+      "grain": "dance",
+      "mark": 5,
+      "ceiling": 7,
+      "woken_delight": 2,
+      "tags": [
+        "fill",
+        "venue"
+      ],
+      "archetype": "fairwrights",
+      "combo": true,
+      "effects": [
+        {
+          "when": "on-play",
+          "do": "fill",
+          "params": {
+            "amount": {
+              "do": "read",
+              "source": "room"
+            }
+          }
+        },
+        {
+          "when": "on-play",
+          "do": "gather",
+          "params": {
+            "amount": 4
+          }
+        }
+      ]
+    },
+    {
+      "id": "ring-up-the-lanterns",
+      "name": "Ring Up the Lanterns",
+      "grain": "dance",
+      "mark": 2,
+      "ceiling": 4,
+      "woken_delight": 1,
+      "tags": [
+        "venue",
+        "support:room-builder"
+      ],
+      "archetype": "fairwrights",
+      "combo": true,
+      "effects": [
+        {
+          "when": "on-play",
+          "do": "gather",
+          "params": {
+            "amount": {
+              "do": "read",
+              "source": "room"
+            }
+          }
+        },
+        {
+          "when": "on-chain",
+          "do": "steady",
+          "params": {
+            "links": 1
+          }
+        }
+      ]
+    },
+    {
+      "id": "throng-the-ring",
+      "name": "Throng the Ring",
+      "grain": "dance",
+      "mark": 2,
+      "ceiling": 3,
+      "woken_delight": 1,
+      "tags": [
+        "venue",
+        "support:on-ramp"
+      ],
+      "archetype": "fairwrights",
+      "combo": true,
+      "effects": [
+        {
+          "when": "on-play",
+          "do": "gather",
+          "params": {
+            "amount": 5
+          }
+        },
+        {
+          "when": "on-chain",
+          "do": "steady",
+          "params": {
+            "brace": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "the-callboys-round",
+      "name": "The Callboy's Round",
+      "grain": "dance",
+      "mark": 3,
+      "ceiling": 5,
+      "woken_delight": 2,
+      "tags": [
+        "utility",
+        "support:draw-fix"
+      ],
+      "archetype": "fairwrights",
+      "combo": true,
+      "effects": [
+        {
+          "when": "on-play",
+          "do": "draw",
+          "params": {
+            "n": 1,
+            "suit": "dance"
+          }
+        },
+        {
+          "when": "on-chain",
+          "do": "steady",
+          "params": {
+            "brace": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "spill-the-ring-over",
+      "name": "Spill the Ring Over",
+      "grain": "dance",
+      "mark": 5,
+      "ceiling": 6,
+      "woken_delight": 2,
+      "tags": [
+        "spike",
+        "overflow"
+      ],
+      "archetype": "fairwrights",
+      "combo": true,
+      "effects": [
+        {
+          "when": "on-play",
+          "do": "rest",
+          "params": {
+            "target": "self",
+            "amount": {
+              "do": "read",
+              "source": "room"
+            }
+          }
+        },
+        {
+          "when": "on-overkill",
+          "do": "brim",
+          "params": {
+            "band": {
+              "do": "read",
+              "source": "over-ceiling"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "tally-the-ring",
+      "name": "Tally the Ring",
+      "grain": "dance",
+      "mark": 4,
+      "ceiling": 6,
+      "woken_delight": 2,
+      "tags": [
+        "venue",
+        "support:second-line"
+      ],
+      "archetype": "fairwrights",
+      "combo": true,
+      "effects": [
+        {
+          "when": "on-play",
+          "do": "gather",
+          "params": {
+            "amount": {
+              "do": "read",
+              "source": "room"
+            }
+          }
+        },
+        {
+          "when": "on-play",
+          "do": "mark-grain",
+          "params": {
+            "target": "hand:offgrain",
+            "suit": "dance"
+          }
+        }
+      ]
+    },
+    {
+      "id": "crown-the-round-fair",
+      "name": "Crown the Round-Fair",
+      "grain": "dance",
+      "mark": 7,
+      "ceiling": 9,
+      "woken_delight": 3,
+      "tags": [
+        "proud",
+        "capstone"
+      ],
+      "archetype": "fairwrights",
+      "combo": true,
+      "effects": [
+        {
+          "when": "on-play",
+          "do": "gather",
+          "params": {
+            "amount": {
+              "do": "read",
+              "source": "room"
+            }
+          }
+        },
+        {
+          "when": "on-play",
+          "do": "rest",
+          "params": {
+            "target": "self",
+            "amount": {
+              "do": "read",
+              "source": "room"
+            }
+          }
+        },
+        {
+          "when": "on-overkill",
+          "do": "brim",
+          "params": {
+            "band": {
+              "do": "read",
+              "source": "over-ceiling"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "the-refrain-repeated",
+      "name": "The Refrain Repeated",
+      "grain": "song",
+      "mark": 4,
+      "ceiling": 5,
+      "woken_delight": 2,
+      "tags": [
+        "fill"
+      ],
+      "archetype": "mannerly",
+      "combo": true,
+      "effects": [
+        {
+          "when": "on-play",
+          "do": "fill",
+          "params": {
+            "amount": {
+              "do": "read",
+              "source": "grain:song"
+            }
+          }
+        },
+        {
+          "when": "on-play",
+          "do": "mark-grain",
+          "params": {
+            "target": "hand:cheapest",
+            "suit": "song"
+          }
+        }
+      ]
+    },
+    {
+      "id": "answer-in-kind",
+      "name": "Answer in Kind",
+      "grain": "song",
+      "mark": 4,
+      "ceiling": 5,
+      "woken_delight": 2,
+      "tags": [
+        "fill"
+      ],
+      "archetype": "mannerly",
+      "combo": true,
+      "effects": [
+        {
+          "when": "on-play",
+          "do": "fill",
+          "params": {
+            "amount": {
+              "do": "read",
+              "source": "chain"
+            }
+          }
+        },
+        {
+          "when": "on-chain",
+          "do": "steady",
+          "params": {
+            "links": 1
+          }
+        }
+      ]
+    },
+    {
+      "id": "rehearse-the-courtesies",
+      "name": "Rehearse the Courtesies",
+      "grain": "song",
+      "mark": 2,
+      "ceiling": 3,
+      "woken_delight": 1,
+      "tags": [
+        "support:on-ramp-chain"
+      ],
+      "archetype": "mannerly",
+      "combo": true,
+      "effects": [
+        {
+          "when": "on-play",
+          "do": "steady",
+          "params": {
+            "links": 2,
+            "brace": true
+          }
+        },
+        {
+          "when": "on-play",
+          "do": "mark-grain",
+          "params": {
+            "target": "hand:cheapest",
+            "suit": "song"
+          }
+        }
+      ]
+    },
+    {
+      "id": "a-word-of-introduction",
+      "name": "A Word of Introduction",
+      "grain": "song",
+      "mark": 3,
+      "ceiling": 4,
+      "woken_delight": 2,
+      "tags": [
+        "support:on-ramp-court"
+      ],
+      "archetype": "mannerly",
+      "combo": true,
+      "effects": [
+        {
+          "when": "on-play",
+          "do": "court",
+          "params": {
+            "stock": "singing-silver",
+            "term": {
+              "if": {
+                "do": "read",
+                "source": "chain"
+              },
+              "at_least": 2
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "listen-for-the-answer",
+      "name": "Listen for the Answer",
+      "grain": "song",
+      "mark": 3,
+      "ceiling": 4,
+      "woken_delight": 2,
+      "tags": [
+        "support:draw-fix",
+        "utility"
+      ],
+      "archetype": "mannerly",
+      "combo": false,
+      "effects": [
+        {
+          "when": "on-play",
+          "do": "draw",
+          "params": {
+            "n": 2,
+            "suit": "song"
+          }
+        }
+      ]
+    },
+    {
+      "id": "note-what-the-room-loves",
+      "name": "Note What the Room Loves",
+      "grain": "song",
+      "mark": 1,
+      "ceiling": 2,
+      "woken_delight": 1,
+      "tags": [
+        "support:room-feed"
+      ],
+      "archetype": "mannerly",
+      "combo": true,
+      "effects": [
+        {
+          "when": "on-play",
+          "do": "mark-grain",
+          "params": {
+            "target": "hand:offgrain",
+            "suit": "song"
+          }
+        },
+        {
+          "when": "on-play",
+          "do": "gather",
+          "params": {
+            "amount": {
+              "do": "read",
+              "source": "grain:song"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "hold-the-note",
+      "name": "Hold the Note",
+      "grain": "song",
+      "mark": 4,
+      "ceiling": 5,
+      "woken_delight": 2,
+      "tags": [
+        "engine"
+      ],
+      "archetype": "mannerly",
+      "combo": true,
+      "effects": [
+        {
+          "when": "on-play",
+          "do": "rest",
+          "params": {
+            "target": "self",
+            "amount": {
+              "do": "read",
+              "source": "chain"
+            }
+          }
+        },
+        {
+          "when": "on-play",
+          "do": "fill",
+          "params": {
+            "amount": {
+              "do": "read",
+              "source": "grain:song"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "the-silver-wedding",
+      "name": "The Silver Wedding",
+      "grain": "song",
+      "mark": 7,
+      "ceiling": 9,
+      "woken_delight": 4,
+      "tags": [
+        "proud"
+      ],
+      "archetype": "mannerly",
+      "combo": true,
+      "effects": [
+        {
+          "when": "on-play",
+          "do": "rest",
+          "params": {
+            "target": "self",
+            "amount": {
+              "do": "read",
+              "source": "room"
+            }
+          }
+        },
+        {
+          "when": "on-play",
+          "do": "fill",
+          "params": {
+            "amount": {
+              "do": "read",
+              "source": "grain:song"
+            }
+          }
+        },
+        {
+          "when": "on-fulfil",
+          "do": "draw",
+          "params": {
+            "n": 1,
+            "suit": "song"
+          }
+        }
+      ]
+    },
+    {
+      "id": "windrow-mending",
+      "name": "Windrow Mending",
+      "grain": "glaze",
+      "mark": 3,
+      "ceiling": 5,
+      "woken_delight": 2,
+      "tags": [
+        "fill",
+        "grain-writer"
+      ],
+      "archetype": "gleaners",
+      "combo": true,
+      "effects": [
+        {
+          "when": "on-play",
+          "do": "fill",
+          "params": {
+            "amount": {
+              "do": "read",
+              "source": "grain:glaze"
+            }
+          }
+        },
+        {
+          "when": "on-play",
+          "do": "mark-grain",
+          "params": {
+            "target": "hand:offgrain",
+            "suit": "glaze"
+          }
+        }
+      ]
+    },
+    {
+      "id": "attend-the-ripe",
+      "name": "Attend the Ripe",
+      "grain": "glaze",
+      "mark": 4,
+      "ceiling": 5,
+      "woken_delight": 2,
+      "tags": [
+        "fill",
+        "support:second-line"
+      ],
+      "archetype": "gleaners",
+      "combo": true,
+      "effects": [
+        {
+          "when": "on-play",
+          "do": "fill",
+          "params": {
+            "amount": {
+              "do": "read",
+              "source": "room"
+            }
+          }
+        },
+        {
+          "when": "on-play",
+          "do": "gather",
+          "params": {
+            "amount": {
+              "do": "read",
+              "source": "spiral"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "read-the-gatepost",
+      "name": "Read the Gatepost",
+      "grain": "glaze",
+      "mark": 2,
+      "ceiling": 3,
+      "woken_delight": 1,
+      "tags": [
+        "support:on-ramp-room",
+        "grain-writer"
+      ],
+      "archetype": "gleaners",
+      "combo": true,
+      "effects": [
+        {
+          "when": "on-play",
+          "do": "gather",
+          "params": {
+            "amount": {
+              "do": "read",
+              "source": "spiral"
+            }
+          }
+        },
+        {
+          "when": "on-play",
+          "do": "mark-grain",
+          "params": {
+            "target": "hand:offgrain",
+            "suit": "glaze"
+          }
+        }
+      ]
+    },
+    {
+      "id": "comb-the-verge",
+      "name": "Comb the Verge",
+      "grain": "glaze",
+      "mark": 3,
+      "ceiling": 4,
+      "woken_delight": 2,
+      "tags": [
+        "support:on-ramp-room"
+      ],
+      "archetype": "gleaners",
+      "combo": true,
+      "effects": [
+        {
+          "when": "on-play",
+          "do": "gather",
+          "params": {
+            "amount": {
+              "do": "read",
+              "source": "season"
+            }
+          }
+        },
+        {
+          "when": "on-chain",
+          "do": "steady",
+          "params": {
+            "links": 1
+          }
+        }
+      ]
+    },
+    {
+      "id": "sift-the-sheaves",
+      "name": "Sift the Sheaves",
+      "grain": "glaze",
+      "mark": 2,
+      "ceiling": 3,
+      "woken_delight": 1,
+      "tags": [
+        "support:draw-fix",
+        "utility"
+      ],
+      "archetype": "gleaners",
+      "combo": false,
+      "effects": [
+        {
+          "when": "on-play",
+          "do": "draw",
+          "params": {
+            "n": 1,
+            "suit": "glaze"
+          }
+        }
+      ]
+    },
+    {
+      "id": "ease-the-grey",
+      "name": "Ease the Grey",
+      "grain": "glaze",
+      "mark": 4,
+      "ceiling": 5,
+      "woken_delight": 2,
+      "tags": [
+        "support:on-ramp-soothe"
+      ],
+      "archetype": "gleaners",
+      "combo": true,
+      "effects": [
+        {
+          "when": "on-play",
+          "do": "rest",
+          "params": {
+            "target": "self",
+            "amount": {
+              "do": "read",
+              "source": "room"
+            }
+          }
+        },
+        {
+          "when": "on-fulfil",
+          "do": "soothe",
+          "params": {
+            "amount": 1,
+            "scale": {
+              "do": "read",
+              "source": "spiral"
+            },
+            "cap": "last-red"
+          }
+        }
+      ]
+    },
+    {
+      "id": "spiral-readers-round",
+      "name": "Spiral-Reader's Round",
+      "grain": "glaze",
+      "mark": 4,
+      "ceiling": 6,
+      "woken_delight": 2,
+      "tags": [
+        "support:second-line",
+        "grain-writer"
+      ],
+      "archetype": "gleaners",
+      "combo": true,
+      "effects": [
+        {
+          "when": "on-play",
+          "do": "gather",
+          "params": {
+            "amount": {
+              "do": "read",
+              "source": "spiral"
+            }
+          }
+        },
+        {
+          "when": "on-play",
+          "do": "mark-grain",
+          "params": {
+            "target": "hand:offgrain",
+            "suit": "glaze"
+          }
+        },
+        {
+          "when": "on-chain",
+          "do": "steady",
+          "params": {
+            "links": 1
+          }
+        }
+      ]
+    },
+    {
+      "id": "the-ripe-hour",
+      "name": "The Ripe Hour",
+      "grain": "glaze",
+      "mark": 7,
+      "ceiling": 9,
+      "woken_delight": 3,
+      "tags": [
+        "proud",
+        "capstone"
+      ],
+      "archetype": "gleaners",
+      "combo": true,
+      "effects": [
+        {
+          "when": "on-play",
+          "do": "fill",
+          "params": {
+            "amount": {
+              "do": "read",
+              "source": "grain:glaze"
+            }
+          }
+        },
+        {
+          "when": "on-play",
+          "do": "rest",
+          "params": {
+            "target": "self",
+            "amount": {
+              "do": "read",
+              "source": "room"
+            }
+          }
+        },
+        {
+          "when": "on-fulfil",
+          "do": "soothe",
+          "params": {
+            "amount": 1,
+            "scale": {
+              "do": "read",
+              "source": "spiral"
+            },
+            "cap": "last-red"
+          }
+        }
+      ]
     }
   ]
 }
