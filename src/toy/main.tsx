@@ -24,6 +24,7 @@ interface Run {
   s: GameState;
   log: string[];
   phase: "morning" | "dusk";
+  seen: string[];   // milestone markers for the tutorial guide
 }
 
 // FIDELITY: the Phase-4 asking lifecycle isn't in yet — a standing asking simply
@@ -53,11 +54,28 @@ function makeRun(seed: number, deck: string): Run {
   }
   refreshAsking(s);
   const r = dawn(s, ctx);
-  return { s: r.state, log: glossAll(r.state, r.events), phase: "morning" };
+  return { s: r.state, log: glossAll(r.state, r.events), phase: "morning", seen: [] };
+}
+
+function markers(events: GameEvent[]): string[] {
+  const out: string[] = [];
+  for (const e of events) {
+    out.push(e.type);
+    const d = (e.data ?? {}) as Record<string, unknown>;
+    if (e.type === "played" && (d.link as number) >= 2) out.push("chain2");
+    if (e.type === "played" && d.pour === 0) out.push("banked");
+    if (e.type === "filled" && d.complete === true) out.push("town");
+  }
+  return out;
 }
 
 function advance(run: Run, r: MorningResult, phase: Run["phase"] = run.phase): Run {
-  return { s: r.state, log: [...run.log, ...glossAll(r.state, r.events)], phase };
+  return {
+    s: r.state,
+    log: [...run.log, ...glossAll(r.state, r.events)],
+    phase,
+    seen: [...new Set([...run.seen, ...markers(r.events)])],
+  };
 }
 
 // ---------- glossing ----------
@@ -124,6 +142,46 @@ function previewPlay(s: GameState, id: string, amount: number): string {
   return bits.join(" · ");
 }
 
+// ---------- the tutorial guide (reads progress; never touches the rules) ----------
+
+interface GuideStep {
+  done: (run: Run, selected: string | null) => boolean;
+  text: string;
+}
+const GUIDE: GuideStep[] = [
+  { done: (r, sel) => r.seen.includes("played") || sel !== null,
+    text: "Click a card in your hand — a cheap mark-1 piece is a good first pick." },
+  { done: r => r.seen.includes("played"),
+    text: "The slider chooses how much attention to pour. The preview underneath tells you exactly what will happen — pour at least the waking-mark, then Play It." },
+  { done: r => r.seen.includes("woke"),
+    text: "Wake something: pour at least its mark. A woken piece is yours forever — it will help gather tomorrow's crowd." },
+  { done: r => r.seen.includes("chain2"),
+    text: "Play a second card right away — an unbroken chain multiplies your next pour (×1.25 per link, up to ×2)." },
+  { done: r => r.seen.includes("dusk"),
+    text: "When the room runs low, End the Morning. Unspent attention isn't lost — it seeps to the town's table." },
+  { done: r => r.s.calendar.morning >= 2,
+    text: "Take the next dawn. Your woken pieces come back and SEAT the room — this snowball is the whole game." },
+  { done: r => r.seen.includes("gleam"),
+    text: "Now show off: pour PAST a piece's ceiling. The overflow becomes Standing — your score and your life bar." },
+  { done: r => r.seen.includes("town"),
+    text: "Fill the town's need (cards with a fill effect pour woken delight in). Complete it and the town is re-made." },
+  { done: r => r.seen.includes("banked"),
+    text: "One more trick: play a big piece with the slider at 0 — banking it cold on the table, ready for a later card to aim the room at it." },
+];
+const GRADUATED =
+  "You know the whole loop. Try a Way's deck — the Kilnfast's Fired Beam wants a Setterby → Calipers setup; feel what order does.";
+
+function Guide({ run, selected, onOff }: { run: Run; selected: string | null; onOff: () => void }) {
+  const next = GUIDE.find(g => !g.done(run, selected));
+  return (
+    <div className="tguide">
+      <span className="tguide-ic">🧭</span>
+      <span>{next ? next.text : GRADUATED}</span>
+      <button type="button" className="tguide-off" onClick={onOff}>guide off</button>
+    </div>
+  );
+}
+
 // ---------- components ----------
 
 function Meter({ value, max, label, cls }: { value: number; max: number; label: string; cls: string }) {
@@ -168,6 +226,7 @@ function App() {
   const [run, setRun] = useState<Run>(() => makeRun(1, "apprentice"));
   const [selected, setSelected] = useState<string | null>(null);
   const [pour, setPour] = useState(0);
+  const [guideOn, setGuideOn] = useState(true);
 
   const s = run.s;
   const node = currentNode(s);
@@ -210,7 +269,26 @@ function App() {
         ))}
         <input className="tseed" type="number" value={seed} title="seed"
           onChange={e => reset(deck, Number(e.target.value) || 1)} />
+        {!guideOn && (
+          <button type="button" className="chip" onClick={() => setGuideOn(true)}>🧭 guide</button>
+        )}
       </div>
+
+      {guideOn && (
+        <>
+          <details className="tprimer">
+            <summary>What am I doing?</summary>
+            <p>You're a traveling maker spending one morning in a fading town. The blue bar is
+            <b> the room</b> — your pool of attention. Pour it onto cards: reach a card's
+            <b> waking-mark</b> and it <b>wakes</b> — yours forever, and it helps gather tomorrow's
+            crowd. Pour past its <b>ceiling</b> and the extra becomes <b>Standing</b> (gleam),
+            your score. Fill the town's <b>need</b> (the warm bar) to re-make it. Chains of
+            back-to-back plays multiply your pours; errands break the chain. Nothing here is
+            scripted — every number comes from the real game engine.</p>
+          </details>
+          <Guide run={run} selected={selected} onOff={() => setGuideOn(false)} />
+        </>
+      )}
 
       <div className="tbar">
         <span><b>Morning {s.calendar.morning}</b> · {LEG_NAMES[s.calendar.leg]}</span>

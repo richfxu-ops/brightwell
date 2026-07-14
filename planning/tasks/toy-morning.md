@@ -56,6 +56,7 @@ teach us how much number-previewing the real UI must carry.
 - [x] Play / errand / dusk / next-dawn flow + dusk summary
 - [x] Event log glosser; deck picker; seed input
 - [x] Verified: build clean (228KB bundle), codex self-test passes, mornings played through the DOM
+- [x] Tutorial guide: progress-aware directions + primer + off switch (user request)
 - [x] Board + docs sync; findings below
 
 ## Findings (the point of the toy)
