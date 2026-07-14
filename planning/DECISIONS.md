@@ -1,5 +1,28 @@
 # DECISIONS.md — pipeline-test-02
 
+## D-018 · Overkill→gleam faucet tightened — the fail-state gets teeth (2026-07-14, user-decided)
+Playtesting + the harness showed Standing balloons to ~200 (gleam_peak median 196, **quiet-walks
+0/350**) — the safety resource is trivially maxed and the fail-state never threatens; D-017 worsened
+it (fill cards' "pour room onto itself" self-rest now fires every play). Tightened the overkill→gleam
+curve: **`FULL_RATE_BAND` 6→3, `DIMINISH_RATE` 0.5→0.25** (was L6 §4's locked 6/0.5 — this amends it).
+Cut gleam_peak median 196→105 (still generous; the residual is the fill cards' self-pour, a card-design
+matter for the card-flow redesign Part 3). **Crown demand held at 10** (user-decided — simple bots win
+only ~5-10%, so it's non-trivial; final crown/gleam tuning deferred to Phase-8 competent bots). Tunable.
+
+## D-017 · `fill` fires on-play, not on-wake — repeatable fills, no hoarding (2026-07-14, user-decided)
+Playtesting surfaced two fun-killers with one root cause: fills fired **on-wake** (one-shot), so a
+mature deck went passive AND standing the crown degenerated into *hoarding* a fill card unwoken until
+the Wintering. Moved `fill` to **`on-play`** on the 4 on-wake fill cards (the-fired-beam, the-standing-
+count, the-silver-refrain, ripe-mending; the other 2 were already on-play) — a filler now fills every
+time it's played, and a woken filler stays useful. ripe-mending reordered (fill before its self-pour,
+so it reads room before draining it). **Harness: winnability proven** — this change alone took wins
+**0/350 → ~11/350** (even simple bots stand the crown now), confirming 0-wins was this trap, not broken
+numbers. Card-authoring standardization (the GDD `fill` primitive is *defined* on-play, §L7; §2's
+on-wake flavor wasn't implemented) — **but it retires the GDD L7 "aim the room at a capstone to wake+
+fill by proxy" combo** (a capstone woken by another card's pour is in-play, not playable). Golden test
+retooled to the new reach ("build the read, then PLAY the filler") + a repeatability test added.
+Part of the card-flow redesign (more cards + more flow still to come).
+
 ## D-016 · Simulation harness (engine Phase 7) — the balance thermometer, built (2026-07-14, user-decided)
 The M3 capstone: `src/sim/` plays bot games over seeded runs and emits per-run `round_metrics`
 records so M4 balance can derive real numbers (not napkin shape-checks). Built + tested (134 pass),

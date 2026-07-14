@@ -87,7 +87,7 @@
           }
         },
         {
-          "when": "on-wake",
+          "when": "on-play",
           "do": "fill",
           "params": {
             "amount": {

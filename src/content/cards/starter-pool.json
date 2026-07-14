@@ -258,7 +258,7 @@
           }
         },
         {
-          "when": "on-wake",
+          "when": "on-play",
           "do": "fill",
           "params": {
             "amount": {
@@ -696,7 +696,7 @@
           }
         },
         {
-          "when": "on-wake",
+          "when": "on-play",
           "do": "fill",
           "params": {
             "amount": {
@@ -1149,7 +1149,7 @@
           }
         },
         {
-          "when": "on-wake",
+          "when": "on-play",
           "do": "fill",
           "params": {
             "amount": {
@@ -1372,9 +1372,8 @@
       "effects": [
         {
           "when": "on-play",
-          "do": "rest",
+          "do": "fill",
           "params": {
-            "target": "self",
             "amount": {
               "do": "read",
               "source": "room"
@@ -1382,9 +1381,10 @@
           }
         },
         {
-          "when": "on-wake",
-          "do": "fill",
+          "when": "on-play",
+          "do": "rest",
           "params": {
+            "target": "self",
             "amount": {
               "do": "read",
               "source": "room"

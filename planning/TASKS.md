@@ -16,6 +16,7 @@
 ## Next
 
 ## In Progress
+- [ ] (P1) [Card flow redesign](tasks/card-flow-redesign.md) — repeatable fills + harder crown, more flow, more cards (from playtest) #design #m4
 
 ## Done
 - [x] (P1) [Simulation harness](tasks/sim-harness.md) — engine Phase 7, bots + run-driver + the 57-key emitter #sim #m3
