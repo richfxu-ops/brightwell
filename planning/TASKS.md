@@ -5,7 +5,9 @@
 > and a `[Title](tasks/<name>.md)` link to the task's file in `tasks/` (worked via the `/task` skill).
 
 ## Backlog
-- [ ] (P1) [Simulation harness](tasks/sim-harness.md) — bot players + the 57 round_metrics keys (blocked on Phases 4–6) #sim #m3
+- [ ] (P1) Engine Phase 5: the run frame — win gate (crown) + fail-state (Quiet Walk) #engine #m3
+- [ ] (P1) Engine Phase 6: acquisition — build "the Fair" drafting (direction set in D-013; toy prototype exists) #engine #m3
+- [ ] (P1) [Simulation harness](tasks/sim-harness.md) — bot players + the 57 round_metrics keys (blocked on Phases 5–6) #sim #m3
 - [ ] (P2) Balance pass: I-022 Untold per-leg count coefficients #balance #m4
 - [ ] (P2) Balance pass: I-044 glad-price brightening bounded below tempo cost #balance #m4
 - [ ] (P2) Balance pass: I-045 last-red/red-thread double-tool sizing #balance #m4
@@ -16,9 +18,9 @@
 ## Next
 
 ## In Progress
-- [ ] (P1) [Asking lifecycle](tasks/asking-lifecycle.md) — engine Phase 4 #engine #m3 #review
 
 ## Done
+- [x] (P1) [Asking lifecycle](tasks/asking-lifecycle.md) — engine Phase 4 #engine #m3
 - [x] (P2) [Toy morning](tasks/toy-morning.md) #prototype #m3
 - [x] (P2) [Toy Morning redesign](tasks/toy-morning-redesign.md) #prototype #ui
 - [x] Stage 1 (world-architect): WORLD.md, ledger, terms — all layers locked #m1

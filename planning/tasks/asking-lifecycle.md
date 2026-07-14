@@ -1,7 +1,8 @@
 ---
-status: In Review
+status: Complete
 size: Medium
 created: 2026-07-14
+completed: 2026-07-14
 title: Asking lifecycle
 ---
 
@@ -92,7 +93,7 @@ These are recommendations in the register, not yet ratified — **user sign-off 
 - [x] tests: `asking.test.ts` (8 new — accept/fulfil/stale/escalate/flop/floor/tierOf); 100 total pass
 - [x] toy consumes real askings (retired the FIDELITY `refreshAsking` stub); surfaces glad-load,
       the spilling, rings, and a re-made panel; preview reads fulfilment from events
-- [ ] promote C1/C2/C3/C6 to DECISIONS.md; board + docs sync (on merge)
+- [x] promote C1/C2/C3/C6 to DECISIONS.md (D-012); board + docs sync; merged to main
 
 Verified in-browser (2026-07-14): the engine accepts the doorstep kettle at dawn (no stub);
 waking The Standing Count completes the kettle → glad-load +2 to the purse, panel shows "Re-made

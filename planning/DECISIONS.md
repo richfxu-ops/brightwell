@@ -1,5 +1,34 @@
 # DECISIONS.md — pipeline-test-02
 
+## D-013 · Drafting adopted as the Phase-6 acquisition direction — "the Fair" (2026-07-14, user-decided)
+Playtesting the toy surfaced that a small, fully-woken deck **plateaus** — nothing new to wake
+(the "all my cards are awoken, now what?" moment). Decision: acquisition should be **frequent
+drafting woven into the turn**, not the rare seasonal event the GDD sketched. Prototyped in the
+toy (FIDELITY, **not yet engine or canon**; all knobs in `DRAFT_TUNABLES`):
+- a **per-morning offer row** ("the Fair"), draft up to 2/morning; the deck may grow larger than
+  the GDD's ~20 sketch, **balanced by a release** (last-light an un-woken card, 1/morning);
+- **Standing GATES the market** — current gleam unlocks richer card tiers (apprentice→mid→capstone).
+  This is pure canon ("the market widens as gleam rises"); Standing is **read, never spent**;
+- **handsels PRICE the take** — each card costs money by its tier.
+**Preserved:** the locked "Standing is never spent — a key that turns, never a coin that leaves."
+**OPEN for the Phase-6 build (must reconcile):** canon reserves handsels for small goods, *not*
+power cards (GDD R2/R3). The toy pricing cards in handsels is an experiment — Phase 6 must either
+(a) ratify handsels-buy-cards as a canon amendment, or (b) swap to a canon-legal cost
+(courting-performance / deck-slot dilution). Flagged, not resolved. See [sim-harness.md](tasks/sim-harness.md) sequencing.
+
+## D-012 · Asking lifecycle (engine Phase 4) — C1/C2/C3/C6 adopted, M4-tunable (2026-07-14, user-decided)
+The Phase-4 contract lifecycle (accept · fulfil · escalate · go-stale) is built, tested (100
+pass), and merged. The four open items in QUESTIONS.md §C are **adopted as the working design,
+every value an `ASKING_TUNABLES` entry** (user asked to keep them changeable — "feel it out
+first" — so adopted-but-tunable, not locked-hard):
+- **C1** spilling cost = the stale asking's **tier size**, floor 1;
+- **C2** unmoved-room flop = a morning ended with the asking **untouched AND** the room **never poured**;
+- **C3** staleness = carried **past the leg it was accepted in**;
+- **C6** glad-palm **+1** on kettles now; delayed tellings **deferred** (FIDELITY marker).
+New engine surfaces: `spillGleam` (the **only** Standing-loss path — `creditGleam` still forbids
+decrements), `peakGleam` (a one-way ratchet that never falls). The toy retired its FIDELITY
+asking stub and now consumes the real lifecycle. Closes QUESTIONS.md §C1/C2/C3/C6.
+
 ## D-011 · The game is titled BRIGHTWELL (2026-07-14, user-decided)
 "Roundelay" stays the locked name of the LAND and its round-song (WORLD.md L1 untouched);
 the GAME's title becomes **Brightwell** — chosen for sound ("Roundelay doesn't roll off the

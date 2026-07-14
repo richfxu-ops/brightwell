@@ -75,7 +75,7 @@ crown floor [3,5,7,10], demand 10, pace-ceiling 6 clears; the doorstep kettle al
 filter-2 offers gated by current gleam; glad-palm +1, delayed tellings +1–2 (seen landing);
 rings accrue 1 per skipped season per node.
 
-**[OPEN]:**
+**[OPEN]:** *(C1/C2/C3/C6 CLOSED by D-012, adopted M4-tunable in `ASKING_TUNABLES`; C4/C5 remain — Phase 5.)*
 - **C1 · The spilling's size.** How much gleam falls on a flop (unmoved room / stale asking)?
   Canon fixes only that it is outcome-only and EV-negative. *Recommendation: lost = the
   asking's tier size (a stale poem costs 5), floor 1 — big enough to fear, legible, scales
