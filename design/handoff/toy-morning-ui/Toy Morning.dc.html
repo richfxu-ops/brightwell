@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Spectral:wght@400;500;600&family=Mulish:wght@400;600;700;800&family=Spline+Sans+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  *{box-sizing:border-box}
+  html,body{margin:0}
+  body{background:#efe6d3;font-family:"Spectral",Georgia,serif;color:#33271a;font-variant-numeric:lining-nums;-moz-font-feature-settings:"lnum";font-feature-settings:"lnum" 1}
+  a{color:#8f671d} a:hover{color:#b8862e}
+  ::selection{background:rgba(184,134,46,0.28);color:#33271a}
+  .tm-scroll::-webkit-scrollbar{width:9px;height:9px}
+  .tm-scroll::-webkit-scrollbar-thumb{background:rgba(74,54,32,0.20);border-radius:9px}
+  .tm-scroll::-webkit-scrollbar-track{background:transparent}
+  input[type=range]{accent-color:#b8862e}
+  @keyframes tmGhost{0%,100%{opacity:.42}50%{opacity:.7}}
+  @keyframes tmRise{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+  @keyframes tmFlash{0%{box-shadow:0 0 0 0 rgba(217,154,42,0)}30%{box-shadow:0 0 22px 3px rgba(217,154,42,.55)}100%{box-shadow:0 0 0 0 rgba(217,154,42,0)}}
+  @keyframes tmWake{0%{box-shadow:0 0 0 0 rgba(184,134,46,0)}40%{box-shadow:0 0 26px 4px rgba(184,134,46,.5)}100%{box-shadow:0 0 0 0 rgba(184,134,46,0)}}
+</style>
+</helmet>
+
+<sc-if value="{{ loaded }}" hint-placeholder-val="{{ false }}">
+<div style="display:flex;flex-direction:column;height:100vh;height:100dvh;overflow:hidden;background:radial-gradient(120% 80% at 12% 0%, rgba(184,134,46,0.07), transparent 55%),radial-gradient(120% 90% at 100% 100%, rgba(63,143,166,0.07), transparent 55%),#efe6d3;font-family:'Spectral',Georgia,serif;color:#33271a">
+
+  <!-- ================= MASTHEAD ================= -->
+  <header style="display:flex;align-items:center;gap:14px;padding:7px 16px;border-bottom:1px solid rgba(74,54,32,0.15);background:linear-gradient(180deg,#fffaf0,#fdf5e6);flex:none">
+    <div style="display:flex;align-items:baseline;gap:12px;flex:none">
+      <span style="font-family:'Cormorant Garamond',serif;font-weight:600;font-size:22px;color:#8f671d;letter-spacing:.01em">Toy Morning</span>
+      <span style="font-family:'Mulish',sans-serif;font-size:12px;color:#8a765b">Morning <b style="color:#33271a">{{ morning }}</b> · {{ legName }}</span>
+      <div style="display:flex;gap:5px;align-items:center;margin-left:2px">
+        <sc-for list="{{ seasonDots }}" as="dot" hint-placeholder-count="5"><span style="{{ dot.style }}"></span></sc-for>
+      </div>
+    </div>
+
+    <div style="display:flex;gap:3px;flex-wrap:wrap;flex:1;justify-content:center">
+      <sc-for list="{{ deckChips }}" as="chip" hint-placeholder-count="7">
+        <button type="button" onClick="{{ chip.onClick }}" style="{{ chip.style }}">{{ chip.label }}</button>
+      </sc-for>
+      <label style="display:flex;align-items:center;gap:5px;font-family:'Spline Sans Mono',monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:#8a765b;margin-left:6px">seed
+        <input type="number" value="{{ seed }}" onChange="{{ onSeed }}" style="width:56px;background:#f7f1e4;border:1px solid rgba(74,54,32,0.15);border-radius:7px;color:#33271a;font-family:'Spline Sans Mono',monospace;font-size:12px;padding:5px 7px"></label>
+    </div>
+
+    <div style="display:flex;align-items:center;gap:16px;flex:none;font-family:'Mulish',sans-serif;font-size:12px;color:#5c4a33">
+      <div style="text-align:right">
+        <div style="font-family:'Spline Sans Mono',monospace;font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:#8a765b">Standing</div>
+        <div style="font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:700;color:#d99a2a;line-height:1">✦ {{ gleam }}</div>
+      </div>
+      <div style="text-align:center"><div style="font-family:'Spline Sans Mono',monospace;font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:#8a765b">Woken</div><div style="font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:600;color:#b8862e;line-height:1.1">{{ wokenCount }}</div></div>
+      <div style="text-align:center"><div style="font-family:'Spline Sans Mono',monospace;font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:#8a765b">Purse</div><div style="font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:600;color:#6f8f4a;line-height:1.1">{{ purse }}</div></div>
+      <button type="button" onClick="{{ onGuideToggle }}" style="{{ guideBtnStyle }}">{{ guideBtnLabel }}</button>
+    </div>
+  </header>
+
+  <!-- ================= GUIDE STRIP ================= -->
+  <sc-if value="{{ guideOn }}" hint-placeholder-val="{{ true }}">
+    <div style="display:flex;align-items:center;gap:11px;margin:10px 22px 0;padding:10px 16px;background:rgba(184,134,46,0.12);border:1px solid #8f671d;border-radius:11px;font-size:14.5px;color:#33271a;line-height:1.45;flex:none">
+      <span style="font-size:16px;flex:none">🧭</span>
+      <span style="flex:1">{{ guideText }}</span>
+    </div>
+  </sc-if>
+
+  <!-- ================= PLAY WORKSPACE ================= -->
+  <sc-if value="{{ isPlay }}" hint-placeholder-val="{{ true }}">
+  <main style="display:flex;flex-direction:column;padding:0;flex:1;min-height:0">
+
+    <!-- ---------- STATUS STRIP: room · chain · need ---------- -->
+    <div style="display:flex;gap:10px;padding:10px 16px 0;flex:none">
+
+      <!-- THE ROOM (compact) -->
+      <div style="flex:1.7;min-width:0;background:linear-gradient(168deg,#fffdf7,#fffaf0);border:1px solid rgba(74,54,32,0.15);border-radius:12px;padding:9px 14px;box-shadow:0 2px 10px rgba(74,54,32,0.06);display:flex;align-items:center;gap:14px">
+        <div style="flex:none;text-align:center">
+          <div style="font-family:'Spline Sans Mono',monospace;font-size:8.5px;letter-spacing:.16em;text-transform:uppercase;color:#8a765b">The Room</div>
+          <div style="font-family:'Cormorant Garamond',serif;font-size:38px;font-weight:700;color:#3f8fa6;line-height:1">{{ roomNow }}</div>
+        </div>
+        <div style="flex:1;min-width:0">
+          <div style="position:relative;height:9px;border-radius:99px;background:#efe6d3;border:1px solid rgba(74,54,32,0.12);overflow:hidden;margin-bottom:6px"><div style="{{ roomFillStyle }}"></div></div>
+          <div style="display:flex;gap:4px;flex-wrap:wrap;align-items:center">
+            <span style="font-family:'Spline Sans Mono',monospace;font-size:8px;letter-spacing:.1em;text-transform:uppercase;color:#8a765b">from</span>
+            <sc-for list="{{ income }}" as="row" hint-placeholder-count="2"><span style="{{ row.chipStyle }}">{{ row.label }} {{ row.val }}</span></sc-for>
+            <span style="font-family:'Spline Sans Mono',monospace;font-size:9px;color:#c1653a;background:rgba(193,101,58,0.12);border-radius:5px;padding:1px 6px">poured {{ poured }}</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- THE CHAIN (compact) -->
+      <div style="flex:1.15;min-width:0;background:linear-gradient(168deg,#fffdf7,#fffaf0);border:1px solid rgba(74,54,32,0.15);border-radius:12px;padding:9px 14px;box-shadow:0 2px 10px rgba(74,54,32,0.06);display:flex;align-items:center;gap:12px">
+        <div style="flex:none">
+          <div style="font-family:'Spline Sans Mono',monospace;font-size:8.5px;letter-spacing:.16em;text-transform:uppercase;color:#8a765b;margin-bottom:6px">The Chain</div>
+          <div style="display:flex;align-items:center;gap:5px"><sc-for list="{{ beads }}" as="b" hint-placeholder-count="1"><span style="{{ b.style }}"></span></sc-for><span style="font-family:'Mulish',sans-serif;font-size:11px;color:#8a765b;margin-left:1px">{{ links }} link<span>{{ linkPlural }}</span></span></div>
+        </div>
+        <div style="flex:1;display:flex;gap:6px">
+          <div style="flex:1;background:#f7f1e4;border-radius:8px;padding:4px 6px;text-align:center"><div style="font-family:'Spline Sans Mono',monospace;font-size:8px;letter-spacing:.06em;text-transform:uppercase;color:#8a765b">now</div><div style="font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:700;color:#5c4a33;line-height:1">×{{ curMult }}</div></div>
+          <div style="flex:1;background:rgba(184,134,46,0.12);border:1px solid rgba(184,134,46,0.35);border-radius:8px;padding:4px 6px;text-align:center"><div style="font-family:'Spline Sans Mono',monospace;font-size:8px;letter-spacing:.06em;text-transform:uppercase;color:#8f671d">next</div><div style="font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:700;color:#b8862e;line-height:1">×{{ nextMult }}</div></div>
+        </div>
+        <span style="{{ bracedStyle }}">{{ bracedLabel }}</span>
+      </div>
+
+      <!-- THE NEED (compact) -->
+      <div style="flex:1.35;min-width:0;background:linear-gradient(168deg,#fffdf7,#fffaf0);border:1px solid {{ needBorder }};border-radius:12px;padding:9px 14px;box-shadow:0 2px 10px rgba(74,54,32,0.06)">
+        <div style="display:flex;align-items:baseline;justify-content:space-between;margin-bottom:5px"><span style="font-family:'Spline Sans Mono',monospace;font-size:8.5px;letter-spacing:.16em;text-transform:uppercase;color:#8a765b">The {{ needTier }}'s Need</span><span style="font-family:'Cormorant Garamond',serif;font-size:17px;font-weight:700;color:#c1653a;line-height:1">{{ needProgress }}<span style="font-size:11px;color:#8a765b">/{{ needFill }}</span></span></div>
+        <div style="position:relative;height:9px;border-radius:99px;background:#efe6d3;border:1px solid rgba(74,54,32,0.12);overflow:hidden;margin-bottom:5px"><div style="{{ needBarStyle }}"></div></div>
+        <div style="font-family:'Mulish',sans-serif;font-size:10.5px;color:#8a765b;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ needFillerText }}</div>
+      </div>
+    </div>
+
+    <!-- ---------- BODY: center + right ---------- -->
+    <div style="display:flex;gap:11px;padding:11px 16px 14px;flex:1;min-height:0">
+
+      <!-- CENTER: pour · hand · table + actions -->
+      <section style="display:flex;flex-direction:column;flex:1;min-height:0">
+        <div class="tm-scroll" style="flex:1;min-height:0;overflow-y:auto;display:flex;flex-direction:column;gap:12px;padding-right:2px">
+
+          <!-- POUR PANEL (compact) -->
+          <sc-if value="{{ hasSelected }}" hint-placeholder-val="{{ false }}">
+            <div style="order:-1;background:linear-gradient(168deg,#fdf5e6,#fffaf0);border:1.5px solid #8f671d;border-radius:13px;padding:12px 14px;box-shadow:0 5px 18px rgba(74,54,32,0.10);animation:tmRise .28s ease both">
+              <div style="display:flex;gap:14px;align-items:stretch">
+                <div style="position:relative;width:66px;height:148px;flex:none;border-radius:9px 9px 13px 13px;border:2px solid rgba(74,54,32,0.30);background:#efe6d3;overflow:hidden;box-shadow:inset 0 3px 8px rgba(74,54,32,0.16)">
+                  <div style="{{ sel.fillStyle }}"></div><div style="{{ sel.ghostStyle }}"></div><div style="{{ sel.overStyle }}"></div><div style="{{ sel.markStyle }}"></div><div style="{{ sel.ceilStyle }}"></div>
+                  <span style="position:absolute;left:0;right:0;bottom:5px;text-align:center;font-family:'Spline Sans Mono',monospace;font-size:9px;color:#33271a;text-shadow:0 1px 2px rgba(255,255,255,.5)">{{ sel.setLabel }}</span>
+                </div>
+                <div style="flex:1;min-width:0;display:flex;flex-direction:column">
+                  <div style="display:flex;align-items:baseline;gap:8px"><span style="font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:700;color:#33271a">{{ sel.name }}</span><span style="font-family:'Spline Sans Mono',monospace;font-size:9.5px;color:#8a765b">wake {{ sel.mark }} · ceil {{ sel.ceiling }}</span></div>
+                  <input type="range" min="0" max="{{ sel.maxPour }}" step="1" value="{{ sel.pour }}" onInput="{{ sel.onPour }}" style="width:100%;margin:8px 0 5px">
+                  <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin-bottom:8px">
+                    <span style="display:inline-flex;flex-direction:column;align-items:center;background:#f7f1e4;border:1px solid rgba(74,54,32,0.15);border-radius:8px;padding:3px 10px"><span style="font-family:'Spline Sans Mono',monospace;font-size:8px;letter-spacing:.08em;text-transform:uppercase;color:#8a765b">spend</span><b style="font-family:'Cormorant Garamond',serif;font-size:17px;color:#c1653a;line-height:1.1">{{ sel.pv.spend }}</b></span>
+                    <span style="color:#8a765b;font-size:13px">×</span>
+                    <span style="display:inline-flex;flex-direction:column;align-items:center;background:rgba(184,134,46,0.12);border:1px solid rgba(184,134,46,0.35);border-radius:8px;padding:3px 10px"><span style="font-family:'Spline Sans Mono',monospace;font-size:8px;letter-spacing:.08em;text-transform:uppercase;color:#8f671d">chain</span><b style="font-family:'Cormorant Garamond',serif;font-size:17px;color:#b8862e;line-height:1.1">{{ sel.pv.m }}</b></span>
+                    <span style="color:#8a765b;font-size:13px">→</span>
+                    <span style="display:inline-flex;flex-direction:column;align-items:center;background:rgba(63,143,166,0.12);border:1px solid rgba(63,143,166,0.35);border-radius:8px;padding:3px 10px"><span style="font-family:'Spline Sans Mono',monospace;font-size:8px;letter-spacing:.08em;text-transform:uppercase;color:#3f8fa6">lands</span><b style="font-family:'Cormorant Garamond',serif;font-size:17px;color:#3f8fa6;line-height:1.1">{{ sel.pv.landed }}</b></span>
+                  </div>
+                  <div style="display:flex;gap:5px;flex-wrap:wrap;margin-bottom:9px">
+                    <sc-for list="{{ sel.pv.badges }}" as="bd" hint-placeholder-count="2"><span style="{{ bd.style }}">{{ bd.text }}</span></sc-for>
+                  </div>
+                  <div style="display:flex;gap:7px;margin-top:auto">
+                    <button type="button" onClick="{{ sel.onPlay }}" style="cursor:pointer;font-family:'Mulish',sans-serif;font-weight:800;font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:#33271a;background:linear-gradient(160deg,#caa044,#b8862e);border:1px solid #b8862e;border-radius:9px;padding:8px 18px;box-shadow:0 3px 12px rgba(184,134,46,.28)">{{ sel.playLabel }}</button>
+                    <button type="button" onClick="{{ sel.onCancel }}" style="cursor:pointer;font-family:'Mulish',sans-serif;font-weight:700;font-size:11.5px;letter-spacing:.05em;text-transform:uppercase;color:#8a765b;background:transparent;border:1px solid rgba(74,54,32,0.20);border-radius:9px;padding:8px 14px">Never mind</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </sc-if>
+
+          <!-- HAND -->
+          <div>
+            <div style="font-family:'Spline Sans Mono',monospace;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:#8a765b;margin-bottom:8px">Your hand — pick a card to pour the room into it</div>
+            <sc-if value="{{ handEmpty }}" hint-placeholder-val="{{ false }}"><p style="font-style:italic;color:#8a765b;font-size:14px">Your hand is empty — end the morning.</p></sc-if>
+            <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(178px,1fr));gap:10px">
+              <sc-for list="{{ hand }}" as="card" hint-placeholder-count="5">
+                <button type="button" onClick="{{ card.onPick }}" style="{{ card.cardStyle }}">
+                  <div style="display:flex;align-items:baseline;gap:6px">
+                    <span style="{{ card.grainDotStyle }}"></span>
+                    <span style="font-family:'Cormorant Garamond',serif;font-weight:600;font-size:16.5px;color:#33271a;line-height:1.05;flex:1;min-width:0">{{ card.name }}<span style="{{ card.wakeMarkStyle }}"> ✦</span></span>
+                    <span style="font-family:'Spline Sans Mono',monospace;font-size:9px;color:{{ card.grainColor }};letter-spacing:.06em;text-transform:uppercase;flex:none">{{ card.grain }}</span>
+                  </div>
+                  <div style="display:flex;gap:5px;margin:7px 0 8px;flex-wrap:wrap">
+                    <span style="font-family:'Spline Sans Mono',monospace;font-size:9px;color:#8a765b;background:rgba(74,54,32,0.06);border-radius:5px;padding:2px 6px">wake {{ card.mark }}</span>
+                    <span style="font-family:'Spline Sans Mono',monospace;font-size:9px;color:#8a765b;background:rgba(74,54,32,0.06);border-radius:5px;padding:2px 6px">ceil {{ card.ceiling }}</span>
+                    <span style="font-family:'Spline Sans Mono',monospace;font-size:9px;color:#8a765b;background:rgba(74,54,32,0.06);border-radius:5px;padding:2px 6px">gift {{ card.delight }}</span>
+                    <span style="{{ card.setChipStyle }}">{{ card.setChip }}</span>
+                  </div>
+                  <div style="display:flex;flex-direction:column;gap:3px">
+                    <sc-for list="{{ card.effects }}" as="fx" hint-placeholder-count="1">
+                      <div style="display:flex;gap:5px;align-items:baseline">
+                        <span style="{{ fx.whenStyle }}">{{ fx.whenLabel }}</span>
+                        <span style="{{ fx.textStyle }}">{{ fx.text }}<span style="{{ fx.liveStyle }}">{{ fx.liveText }}</span></span>
+                      </div>
+                    </sc-for>
+                  </div>
+                </button>
+              </sc-for>
+            </div>
+          </div>
+
+          <!-- ON THE TABLE -->
+          <sc-if value="{{ hasTable }}" hint-placeholder-val="{{ false }}">
+            <div>
+              <div style="font-family:'Spline Sans Mono',monospace;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:#8a765b;margin-bottom:8px">On the table — banked &amp; woken vessels</div>
+              <div style="display:flex;gap:9px;flex-wrap:wrap">
+                <sc-for list="{{ table }}" as="t" hint-placeholder-count="2">
+                  <div style="{{ t.cardStyle }}">
+                    <div style="position:relative;width:34px;height:74px;flex:none;border-radius:6px 6px 9px 9px;border:1.5px solid rgba(74,54,32,0.28);background:#efe6d3;overflow:hidden">
+                      <div style="{{ t.fillStyle }}"></div><div style="{{ t.overStyle }}"></div><div style="{{ t.markStyle }}"></div><div style="{{ t.ceilStyle }}"></div>
+                    </div>
+                    <div><div style="font-family:'Cormorant Garamond',serif;font-weight:600;font-size:13.5px;color:#33271a;line-height:1.1">{{ t.name }}<span>{{ t.firedMark }}</span></div><div style="font-family:'Spline Sans Mono',monospace;font-size:9px;color:#8a765b">{{ t.stateLabel }}</div></div>
+                  </div>
+                </sc-for>
+              </div>
+            </div>
+          </sc-if>
+        </div>
+
+        <!-- ACTIONS (pinned bottom-right) -->
+        <div style="display:flex;justify-content:flex-end;align-items:center;gap:9px;padding-top:11px;flex:none">
+          <button type="button" onClick="{{ onStall }}" style="display:flex;align-items:center;gap:8px;cursor:pointer;font-family:'Mulish',sans-serif;font-weight:700;font-size:11.5px;letter-spacing:.05em;text-transform:uppercase;color:#5c4a33;background:#fffaf0;border:1px solid rgba(74,54,32,0.20);border-radius:10px;padding:10px 15px">Run an errand <span style="{{ stallCostStyle }}">{{ stallCostLabel }}</span></button>
+          <button type="button" onClick="{{ onEnd }}" style="cursor:pointer;font-family:'Mulish',sans-serif;font-weight:800;font-size:12px;letter-spacing:.07em;text-transform:uppercase;color:#33271a;background:linear-gradient(160deg,#caa044,#b8862e);border:1px solid #b8862e;border-radius:10px;padding:11px 18px;box-shadow:0 3px 12px rgba(184,134,46,.28)">End the morning →</button>
+        </div>
+      </section>
+
+    <!-- ---------- RIGHT RAIL: crowd / moments ---------- -->
+    <section style="display:flex;flex-direction:column;gap:11px;width:300px;flex:none;min-height:0">
+
+      <!-- WOKEN CROWD -->
+      <div style="display:flex;flex-direction:column;background:linear-gradient(168deg,#fffdf7,#fffaf0);border:1px solid rgba(74,54,32,0.15);border-radius:14px;box-shadow:0 3px 16px rgba(74,54,32,0.07);min-height:0;flex:1 1 55%">
+        <div style="padding:13px 16px 9px;border-bottom:1px dashed rgba(74,54,32,0.15);flex:none">
+          <div style="font-family:'Spline Sans Mono',monospace;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:#8a765b">The Woken Crowd — tomorrow's room</div>
+          <div style="font-family:'Mulish',sans-serif;font-size:11px;color:#8a765b;margin-top:2px">every woken piece seats the room at next dawn</div>
+        </div>
+        <div style="overflow-y:auto;padding:11px 13px;display:flex;flex-direction:column;gap:9px" class="tm-scroll">
+          <div style="display:flex;align-items:center;gap:9px;padding:8px 11px;border-radius:10px;background:rgba(184,134,46,0.10);border:1px dashed rgba(184,134,46,0.4)">
+            <span style="font-size:16px">🏠</span><div style="flex:1"><div style="font-family:'Cormorant Garamond',serif;font-weight:600;font-size:14.5px;color:#8f671d">The home-note</div><div style="font-family:'Mulish',sans-serif;font-size:11px;color:#8a765b">always seat #1</div></div>
+            <span style="font-family:'Cormorant Garamond',serif;font-weight:700;font-size:16px;color:#3f8fa6">+{{ homeSeatLabel }}</span>
+          </div>
+          <sc-if value="{{ crowdEmpty }}" hint-placeholder-val="{{ true }}"><p style="font-style:italic;color:#8a765b;font-size:13px;margin:4px 2px">No one woken yet. Pour a card to its mark and it joins the crowd — the snowball starts here.</p></sc-if>
+          <sc-for list="{{ crowd }}" as="w" hint-placeholder-count="0">
+            <div style="{{ w.cardStyle }}">
+              <div style="display:flex;align-items:center;gap:8px;margin-bottom:5px">
+                <span style="{{ w.grainDotStyle }}"></span>
+                <span style="font-family:'Cormorant Garamond',serif;font-weight:600;font-size:15px;color:#33271a;flex:1">{{ w.name }}</span>
+                <span style="font-family:'Spline Sans Mono',monospace;font-size:9px;color:#8a765b">seat #{{ w.seatNo }}</span>
+              </div>
+              <div style="display:flex;flex-direction:column;gap:3px">
+                <sc-for list="{{ w.grants }}" as="g" hint-placeholder-count="2">
+                  <div style="display:flex;gap:6px;align-items:baseline;font-family:'Mulish',sans-serif;font-size:11.5px;line-height:1.35"><span style="flex:none;width:13px;text-align:center;{{ g.iconStyle }}">{{ g.icon }}</span><span style="{{ g.textStyle }}">{{ g.text }}</span></div>
+                </sc-for>
+              </div>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+
+      <!-- MOMENTS -->
+      <div style="display:flex;flex-direction:column;background:linear-gradient(168deg,#fffdf7,#fffaf0);border:1px solid rgba(74,54,32,0.15);border-radius:14px;box-shadow:0 3px 16px rgba(74,54,32,0.07);min-height:0;flex:1 1 45%">
+        <div style="padding:12px 16px 8px;border-bottom:1px dashed rgba(74,54,32,0.15);flex:none;font-family:'Spline Sans Mono',monospace;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:#8a765b">The Morning, moment by moment</div>
+        <div style="overflow-y:auto;padding:11px 13px;display:flex;flex-direction:column;gap:9px" class="tm-scroll">
+          <sc-for list="{{ moments }}" as="m" hint-placeholder-count="2">
+            <div style="{{ m.cardStyle }}">
+              <div style="display:flex;align-items:baseline;gap:7px"><span style="{{ m.dotStyle }}"></span><span style="font-family:'Spectral',serif;font-weight:600;font-size:14px;color:#33271a;flex:1">{{ m.title }}</span><span style="font-family:'Spline Sans Mono',monospace;font-size:9px;color:#8a765b">{{ m.sub }}</span></div>
+              <div style="display:flex;gap:5px;flex-wrap:wrap;margin-top:7px;padding-left:14px">
+                <sc-for list="{{ m.badges }}" as="bd" hint-placeholder-count="2"><span style="{{ bd.style }}">{{ bd.text }}</span></sc-for>
+              </div>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+    </section>
+    </div>
+  </main>
+  </sc-if>
+
+  <!-- ================= DUSK SCREEN ================= -->
+  <sc-if value="{{ isDusk }}" hint-placeholder-val="{{ false }}">
+    <main style="flex:1;display:flex;align-items:center;justify-content:center;padding:24px">
+      <div style="width:520px;max-width:100%;background:linear-gradient(168deg,#fdf5e6,#fffaf0);border:1px solid rgba(74,54,32,0.18);border-radius:18px;padding:30px 34px;box-shadow:0 14px 44px rgba(74,54,32,0.14);animation:tmRise .3s ease both">
+        <div style="font-family:'Spline Sans Mono',monospace;font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:#8a765b">Dusk settles</div>
+        <h2 style="font-family:'Cormorant Garamond',serif;font-weight:600;font-size:32px;color:#8f671d;margin:4px 0 3px">The light goes long and gold</h2>
+        <p style="font-family:'Spectral',serif;font-size:15px;color:#5c4a33;margin:0 0 18px;line-height:1.5">{{ dusk.blurb }}</p>
+        <div style="background:#fffaf0;border:1px solid rgba(74,54,32,0.15);border-radius:12px;padding:15px 18px;margin-bottom:16px">
+          <div style="font-family:'Spline Sans Mono',monospace;font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:#8a765b;margin-bottom:8px">what seeps to the town's table</div>
+          <sc-for list="{{ dusk.rows }}" as="row" hint-placeholder-count="3"><div style="display:flex;justify-content:space-between;font-family:'Mulish',sans-serif;font-size:14px;color:#5c4a33;padding:3px 0"><span>{{ row.label }}</span><span style="{{ row.valStyle }}">{{ row.val }}</span></div></sc-for>
+          <div style="display:flex;justify-content:space-between;font-family:'Mulish',sans-serif;font-weight:700;font-size:15px;color:#33271a;padding:8px 0 0;margin-top:5px;border-top:1px solid rgba(74,54,32,0.15)"><span>{{ dusk.totalLabel }}</span><span style="color:#3f8fa6">{{ dusk.total }}</span></div>
+        </div>
+        <p style="font-family:'Spectral',serif;font-size:14px;color:#5c4a33;margin:0 0 20px;line-height:1.5">Your audience: <b style="color:#b8862e">{{ dusk.wokenCount }}</b> woken piece<span>{{ dusk.wokenPlural }}</span> will seat tomorrow's room — worth about <b style="color:#3f8fa6">+{{ dusk.seatPreview }}</b> attention at dawn.</p>
+        <button type="button" onClick="{{ dusk.onNext }}" style="width:100%;cursor:pointer;font-family:'Mulish',sans-serif;font-weight:800;font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:#33271a;background:linear-gradient(160deg,#caa044,#b8862e);border:1px solid #b8862e;border-radius:12px;padding:14px;box-shadow:0 4px 14px rgba(184,134,46,.3)">Take the next dawn →</button>
+      </div>
+    </main>
+  </sc-if>
+
+</div>
+</sc-if>
+
+<sc-if value="{{ notLoaded }}" hint-placeholder-val="{{ true }}">
+  <div style="display:flex;align-items:center;justify-content:center;height:100vh;background:#efe6d3;color:#8a765b;font-family:'Cormorant Garamond',serif;font-size:22px">Kindling the morning…</div>
+</sc-if>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1280,&quot;height&quot;:800}}">
+class Component extends DCLogic {
+  state = { loaded: false, deck: "apprentice", seed: 1, selected: null, pour: 0, guideOn: true, run: null };
+
+  palette = {
+    grain: { joinery: "#bf8a34", thread: "#4f7fb0", song: "#8a63b8", glaze: "#2f9e90", dance: "#c85f8c", dough: "#b7973f" },
+    way: { apprentice: "#b7973f", kilnfast: "#c47b2b", eveners: "#3f9977", untold: "#4f83bf", fairwrights: "#c85f8c", mannerly: "#8a63b8", gleaners: "#6f9440" },
+    tone: { flow: "#3f8fa6", gold: "#b8862e", gleam: "#d99a2a", need: "#c1653a", moss: "#6f8f4a", pale: "#7f92a6", song: "#8a63b8", glaze: "#2f9e90", warn: "#a8552f" },
+  };
+
+  GUIDE = [
+    { done: (r, sel) => r.seen.includes("played") || sel != null, text: "Click a card in your hand — a cheap mark-1 piece is a good first pour." },
+    { done: r => r.seen.includes("played"), text: "Drag the pour slider. The preview shows exactly what will happen — pour at least the waking-mark, then Pour it." },
+    { done: r => r.seen.includes("woke"), text: "Wake something: pour at least its mark. A woken piece is yours forever and seats tomorrow's room." },
+    { done: r => r.seen.includes("chain2"), text: "Play a second card right away — an unbroken chain multiplies your next pour (×1.25 per link, up to ×2)." },
+    { done: r => r.seen.includes("dusk"), text: "When the room runs low, End the morning. Unspent attention seeps to the town's table." },
+    { done: r => r.s.calendar.morning >= 2, text: "Take the next dawn. Your woken pieces return and SEAT the room — this snowball is the whole game." },
+    { done: r => r.seen.includes("gleam"), text: "Now show off: pour PAST a piece's ceiling. The overflow becomes Standing — your score and your life." },
+    { done: r => r.seen.includes("town"), text: "Fill the town's need. Complete it and the town is re-made." },
+    { done: r => r.seen.includes("banked"), text: "One more trick: play a big piece with the slider at 0 — banking it cold, ready for a later card to aim the room at it." },
+  ];
+  GRADUATED = "You know the whole loop. Try a Way's deck — the Kilnfast's Fired Beam wants a Setterby → Calipers → detonate setup; feel what order does.";
+
+  async componentDidMount() {
+    this.E = await import("./engine.js");
+    this.setState({ loaded: true, run: this.makeRun(this.state.seed, this.state.deck) });
+  }
+
+  // ---- run construction ----
+  makeRun(seed, deck) {
+    const E = this.E;
+    let s = E.createInitialState(seed, deck);
+    E.refreshAsking(s);
+    const r = E.dawn(s);
+    return { s: r.state, phase: "play", moments: [this.dawnMoment(r.state, r.events)], seen: this.markers(r.events) };
+  }
+  markers(events) {
+    const out = [];
+    for (const e of events) {
+      out.push(e.type);
+      const d = e.data || {};
+      if (e.type === "played" && d.link >= 2) out.push("chain2");
+      if (e.type === "played" && d.pour === 0) out.push("banked");
+      if (e.type === "filled" && d.complete === true) out.push("town");
+    }
+    return out;
+  }
+  dawnMoment(state, events) {
+    const E = this.E, inc = state.turn.dawnIncome;
+    const badges = [{ tone: "flow", text: `base +2` }, { tone: "flow", text: `${inc.seats} seated → +${E.r1(inc.seatRoom)}` }];
+    if (inc.ringDraw > 0) badges.push({ tone: "pale", text: `rings +${E.r1(inc.ringDraw)}` });
+    if (inc.tableDraw > 0) badges.push({ tone: "moss", text: `table returns +${E.r1(inc.tableDraw)}` });
+    const drew = events.find(e => e.type === "dawn")?.data?.drew || [];
+    if (drew.length) badges.push({ tone: "pale", text: `drew ${drew.length} to hand` });
+    return { kind: "dawn", title: `Dawn — Morning ${state.calendar.morning}, ${E.LEG_NAMES[state.calendar.leg]}`, sub: `room ${E.r1(inc.total)}`, badges };
+  }
+
+  // ---- actions ----
+  pick = (id) => {
+    const s = this.state.run.s, E = this.E;
+    const card = E.cardOf(s.pieces.find(p => p.instanceId === id).cardId);
+    this.setState({ selected: id, pour: Math.min(Math.floor(s.turn.room), card.mark) });
+  };
+  setPour = (v) => this.setState({ pour: v });
+  play = () => {
+    const { run, selected, pour } = this.state, E = this.E, s = run.s;
+    const spend = Math.min(pour, Math.floor(s.turn.room));
+    const card = E.cardOf(s.pieces.find(p => p.instanceId === selected).cardId);
+    const r = E.playPiece(s, selected, spend);
+    const title = spend > 0 ? `You pour ${spend} onto ${card.name}` : `You bank ${card.name} cold`;
+    const m = E.buildMoment(r.state, r.events, { kind: "play", title, sub: `link ${r.state.turn.chainLinks} · ×${E.r1(E.chainMultiplier(r.state.turn.chainLinks))}`, accent: this.palette.grain[card.grain] });
+    this.commit(r, m, { selected: null, pour: 0 });
+  };
+  stall = () => {
+    const { run } = this.state, E = this.E, s = run.s;
+    const r = E.stallAction(s);
+    const braced = r.events.some(e => e.type === "brace-held");
+    const m = E.buildMoment(r.state, r.events, { kind: "stall", title: "You run an errand", sub: braced ? "the brace holds" : "the chain breaks", accent: this.palette.tone.need });
+    this.commit(r, m, { selected: null });
+  };
+  end = () => {
+    const { run } = this.state, E = this.E;
+    const r = E.dusk(run.s);
+    const duskEv = r.events.find(e => e.type === "dusk");
+    this.setState({ run: { ...run, s: r.state, phase: "dusk", duskEv, seen: [...new Set([...run.seen, ...this.markers(r.events)])] }, selected: null });
+  };
+  nextDawn = () => {
+    const { run } = this.state, E = this.E;
+    const s2 = structuredClone(run.s);
+    E.refreshAsking(s2);
+    const r = E.dawn(s2);
+    this.setState({ run: { s: r.state, phase: "play", moments: [this.dawnMoment(r.state, r.events), ...run.moments].slice(0, 12), seen: [...new Set([...run.seen, ...this.markers(r.events)])] }, selected: null, pour: 0 });
+  };
+  commit(r, moment, extra = {}) {
+    const run = this.state.run;
+    this.setState({ run: { ...run, s: r.state, moments: [moment, ...run.moments].slice(0, 12), seen: [...new Set([...run.seen, ...this.markers(r.events)])] }, ...extra });
+  }
+  reset(deck, seed) { this.setState({ deck, seed, selected: null, pour: 0, run: this.makeRun(seed, deck) }); }
+
+  // ---- vessel geometry -> style strings ----
+  vessel(set, mark, ceiling, previewAfter) {
+    const max = ceiling + 2;
+    const pct = v => Math.max(0, Math.min(100, (v / max) * 100));
+    const fillH = pct(Math.min(set, ceiling));
+    const ceilB = pct(ceiling);
+    const overH = Math.max(0, pct(set) - ceilB);
+    const markB = pct(mark);
+    const out = {
+      fillStyle: `position:absolute;left:0;right:0;bottom:0;height:${fillH}%;background:linear-gradient(180deg,#63b0c4,#3f8fa6);transition:height .4s cubic-bezier(.2,.7,.2,1)`,
+      overStyle: `position:absolute;left:0;right:0;bottom:${ceilB}%;height:${overH}%;background:linear-gradient(180deg,#e7b647,#d99a2a);transition:all .4s ease`,
+      markStyle: `position:absolute;left:-1px;right:-1px;bottom:${markB}%;border-top:2px dashed #b8862e`,
+      ceilStyle: `position:absolute;left:-1px;right:-1px;bottom:${ceilB}%;border-top:2px dashed #d99a2a`,
+      ghostStyle: "display:none",
+    };
+    if (previewAfter != null && previewAfter > set) {
+      const gB = pct(set), gTop = pct(previewAfter);
+      out.ghostStyle = `position:absolute;left:0;right:0;bottom:${gB}%;height:${Math.max(0, gTop - gB)}%;background:repeating-linear-gradient(45deg,rgba(99,176,196,.55),rgba(99,176,196,.55) 5px,rgba(140,200,215,.75) 5px,rgba(140,200,215,.75) 10px);animation:tmGhost 1.1s ease-in-out infinite`;
+    }
+    return out;
+  }
+  badge(tone, text, big) {
+    const c = this.palette.tone[tone] || "#8a765b";
+    return { tone, text, big, style: `display:inline-block;font-family:'Mulish',sans-serif;font-weight:${big ? 800 : 700};font-size:${big ? 12 : 10.5}px;letter-spacing:.02em;color:${c};background:${c}1c;border:1px solid ${c}59;border-radius:7px;padding:${big ? "3px 9px" : "2px 7px"}` };
+  }
+
+  renderVals() {
+    if (!this.state.loaded || !this.state.run) return { loaded: false, notLoaded: true };
+    const E = this.E, P = this.palette, R = this.state.run, s = R.s, sel = this.state.selected;
+    const g = k => P.grain[k];
+    const dot = (c, sz = 8) => `display:inline-block;width:${sz}px;height:${sz}px;border-radius:50%;background:${c};flex:none`;
+
+    const hand = s.pieces.filter(p => p.zone === "hand");
+    const inPlay = s.pieces.filter(p => p.zone === "in-play");
+    const fired = s.pieces.filter(p => p.fired);
+    const maxPour = Math.floor(s.turn.room);
+    const hasAsking = !!s.asking;
+
+    // ---- header ----
+    const seasonDots = E.LEG_NAMES.map((nm, i) => {
+      const on = i === s.calendar.leg, past = i < s.calendar.leg;
+      return { style: `width:${on ? 22 : 8}px;height:8px;border-radius:99px;background:${on ? "#b8862e" : past ? "#caa044" : "rgba(74,54,32,0.2)"};transition:all .3s` };
+    });
+    const deckChips = E.DECKS.map(d => {
+      const active = this.state.deck === d, ac = P.way[d];
+      return {
+        label: E.DECK_META[d].name, onClick: () => this.reset(d, this.state.seed),
+        style: `cursor:pointer;font-family:'Mulish',sans-serif;font-weight:700;font-size:9.5px;letter-spacing:.04em;text-transform:uppercase;padding:4px 8px;border-radius:99px;transition:all .15s;border:1px solid ${active ? ac : "rgba(74,54,32,0.15)"};color:${active ? "#fffaf0" : "#8a765b"};background:${active ? ac : "transparent"}`,
+      };
+    });
+
+    // ---- room ----
+    const inc = s.turn.dawnIncome;
+    const income = [{ label: "base gathering", val: `+${inc.base}`, tone: "flow" }, { label: `${inc.seats} seated`, val: `+${E.r1(inc.seatRoom)}`, tone: "flow" }];
+    if (inc.ringDraw > 0) income.push({ label: "grey rings", val: `+${E.r1(inc.ringDraw)}`, tone: "pale" });
+    if (inc.tableDraw > 0) income.push({ label: "table (camped ⅔)", val: `+${E.r1(inc.tableDraw)}`, tone: "moss" });
+    income.forEach(r => { r.valStyle = `color:${P.tone[r.tone]};font-weight:600`; r.chipStyle = `font-family:'Spline Sans Mono',monospace;font-size:9px;color:${P.tone[r.tone]};background:${P.tone[r.tone]}1c;border-radius:5px;padding:1px 6px`; });
+    const roomFillStyle = `position:absolute;left:0;top:0;bottom:0;width:${inc.total > 0 ? Math.min(100, (s.turn.room / inc.total) * 100) : 0}%;background:linear-gradient(90deg,#8ccadb,#3f8fa6);border-radius:99px;transition:width .4s ease`;
+
+    // ---- chain ----
+    const links = s.turn.chainLinks;
+    const beads = [];
+    const nBeads = Math.max(links, 1);
+    for (let i = 0; i < nBeads; i++) beads.push({ style: `${dot(i < links ? "#b8862e" : "rgba(74,54,32,0.18)", 12)};box-shadow:${i < links ? "0 0 8px rgba(184,134,46,.5)" : "none"}` });
+    const stallBraced = s.turn.braced;
+    const stallCost = stallBraced ? "brace absorbs it" : `${maxPour} → ${Math.floor(maxPour * 0.5)}`;
+
+    // ---- need ----
+    const needFillers = hand.filter(p => E.cardOf(p.cardId).fillsNeed);
+    let needFillerText = "no card in hand can fill it right now";
+    if (hasAsking && needFillers.length) needFillerText = `can fill: ${needFillers.map(p => E.cardOf(p.cardId).name).join(", ")}`;
+    const needPct = hasAsking ? Math.min(100, (s.asking.progress / s.asking.needFill) * 100) : 0;
+
+    // ---- hand vessels ----
+    const handVM = hand.map(p => {
+      const c = E.cardOf(p.cardId), v = this.vessel(p.set, c.mark, c.ceiling);
+      const selected = sel === p.instanceId, canFill = hasAsking && c.fillsNeed;
+      const effects = c.effects.filter(e => e.when !== "on-chain" || true).map(e => {
+        const gl = E.glossEffect(e, s);
+        return {
+          whenLabel: gl.whenLabel, text: gl.text,
+          liveText: gl.live ? `  ·  ${gl.zero ? gl.live + " — nothing to feed yet" : gl.live}` : "",
+          whenStyle: `flex:none;font-family:'Spline Sans Mono',monospace;font-size:8px;letter-spacing:.08em;text-transform:uppercase;color:#8a765b;background:rgba(74,54,32,0.06);border-radius:5px;padding:1px 5px;margin-top:1px`,
+          textStyle: `font-family:'Mulish',sans-serif;font-size:11.5px;line-height:1.35;color:${gl.zero ? "#a8552f" : "#5c4a33"}`,
+          liveStyle: `font-family:'Spline Sans Mono',monospace;font-size:10px;color:${gl.zero ? "#a8552f" : "#8f671d"}`,
+        };
+      });
+      return {
+        onPick: () => this.pick(p.instanceId), name: c.name, grain: c.grain, grainColor: g(c.grain),
+        mark: c.mark, ceiling: c.ceiling, delight: c.woken_delight,
+        setChip: p.set > 0 ? `set ${E.r1(p.set)}` : "",
+        setChipStyle: p.set > 0 ? `font-family:'Spline Sans Mono',monospace;font-size:9px;color:#3f8fa6;background:rgba(63,143,166,0.14);border-radius:5px;padding:2px 6px` : "display:none",
+        grainDotStyle: dot(g(c.grain), 8), effects,
+        wakeMarkStyle: p.fired ? "color:#b8862e" : "display:none",
+        cardStyle: `appearance:none;cursor:pointer;text-align:left;min-height:150px;display:flex;flex-direction:column;background:linear-gradient(168deg,#fffdf7,#fffaf0);border:1px solid ${selected ? g(c.grain) : canFill ? "rgba(193,101,58,0.55)" : "rgba(74,54,32,0.15)"};border-top:4px solid ${g(c.grain)};border-radius:11px;padding:9px 11px;transition:border-color .15s,box-shadow .15s;box-shadow:${selected ? `0 0 0 1px ${g(c.grain)},0 6px 18px rgba(74,54,32,.14)` : "0 2px 8px rgba(74,54,32,.06)"}`,
+      };
+    });
+
+    // ---- pour panel ----
+    let selVM = null;
+    if (sel) {
+      const p = s.pieces.find(x => x.instanceId === sel), c = E.cardOf(p.cardId);
+      const pour = Math.min(this.state.pour, maxPour);
+      const pv = E.previewPlay(s, sel, pour);
+      const v = this.vessel(p.set, c.mark, c.ceiling, pv.setAfter);
+      const badges = [];
+      if (pv.banks) badges.push(this.badge("pale", "banks it cold — pour nothing"));
+      if (pv.wakes) badges.push(this.badge("gold", `✦ WAKES (reaches mark ${c.mark})`, true));
+      else if (!pv.alreadyFired && !pv.banks) badges.push(this.badge("pale", `stays cold — ${E.r1(pv.setAfter)} of mark ${c.mark}`));
+      if (pv.excess > 0) badges.push(this.badge("gleam", `${E.r1(pv.excess)} past the ceiling`));
+      if (pv.gleamGain > 0) badges.push(this.badge("gleam", `+${pv.gleamGain} Standing`, true));
+      if (pv.fillGain > 0) badges.push(this.badge("need", pv.fillDone ? `+${pv.fillGain} — COMPLETES the need 🌼` : `+${pv.fillGain} into the need`, pv.fillDone));
+      badges.push(this.badge("flow", `room after: ${E.r1(pv.roomAfter)}`));
+      selVM = {
+        name: c.name, grain: c.grain, grainColor: g(c.grain), mark: c.mark, ceiling: c.ceiling, delight: c.woken_delight,
+        setLabel: p.set > 0 ? E.r1(p.set) : "empty", maxPour, pour, onPour: e => this.setPour(+e.target.value),
+        onPlay: this.play, onCancel: () => this.setState({ selected: null }),
+        playLabel: pv.banks ? "Bank it cold" : "Pour it",
+        ...v,
+        pv: { spend: pv.spend, m: `${E.r1(pv.m)}`, landed: E.r1(pv.landed), badges },
+      };
+    }
+
+    // ---- table ----
+    const tableVM = inPlay.map(p => {
+      const c = E.cardOf(p.cardId), v = this.vessel(p.set, c.mark, c.ceiling);
+      return {
+        name: c.name, firedMark: p.fired ? " ✦" : "", grainColor: g(c.grain),
+        stateLabel: p.fired ? "woken" : `${E.r1(p.set)}/${c.mark} cold`,
+        ...v,
+        cardStyle: `display:flex;gap:9px;align-items:center;background:linear-gradient(168deg,#fffdf7,#fffaf0);border:1px solid rgba(74,54,32,0.15);border-left:3px solid ${p.fired ? "#b8862e" : g(c.grain)};border-radius:10px;padding:8px 11px;${p.fired ? "animation:tmWake 1.4s ease 1" : ""}`,
+      };
+    });
+
+    // ---- woken crowd ----
+    const homeSeat = E.r1(E.seatContribution(0));
+    const crowdVM = fired.map((p, i) => {
+      const c = E.cardOf(p.cardId), seatIndex = i + 1, seatNo = i + 2;
+      const grants = [
+        { icon: "☼", tone: "flow", text: `seats the room +${E.r1(E.seatContribution(seatIndex))} at dawn` },
+        { icon: "◈", tone: c.grain, text: `feeds “woken:${c.grain}” reads` },
+      ];
+      const dawnFx = c.effects.find(e => e.when === "on-dawn");
+      if (dawnFx) grants.push({ icon: "✦", tone: "gold", text: `each dawn: ${E.glossEffect(dawnFx, s).text}` });
+      const payoff = c.effects.find(e => e.when === "on-wake" || e.when === "on-fulfil");
+      if (payoff) { const gl = E.glossEffect(payoff, s); grants.push({ icon: "✧", tone: "gleam", text: `${gl.whenLabel}: ${gl.text}` }); }
+      if (c.woken_delight > 0) grants.push({ icon: "❀", tone: "need", text: `pours ${c.woken_delight} delight into needs` });
+      grants.forEach(gr => {
+        const col = P.tone[gr.tone] || P.grain[gr.tone] || "#8a765b";
+        gr.iconStyle = `color:${col}`; gr.textStyle = `color:#5c4a33`;
+      });
+      return {
+        name: c.name, grainDotStyle: dot(g(c.grain), 9), seatNo, grants,
+        cardStyle: `background:#fffaf0;border:1px solid rgba(74,54,32,0.13);border-left:3px solid ${g(c.grain)};border-radius:10px;padding:9px 11px`,
+      };
+    });
+
+    // ---- moments ----
+    const momentVM = R.moments.map(m => {
+      const ac = m.kind === "dawn" ? "#b8862e" : m.kind === "stall" ? "#c1653a" : (m.accent || "#8f671d");
+      return {
+        title: m.title, sub: m.sub, dotStyle: dot(ac, 9),
+        badges: (m.badges || []).map(b => this.badge(b.tone, b.text, b.big)),
+        cardStyle: `background:#fffaf0;border:1px solid rgba(74,54,32,0.12);border-left:3px solid ${ac};border-radius:10px;padding:9px 12px;animation:tmRise .3s ease both`,
+      };
+    });
+
+    // ---- dusk ----
+    let duskVM = null;
+    if (R.phase === "dusk") {
+      const d = R.duskEv?.data || { unspent: 0, coldSet: 0, sweep: 0, table: 0 };
+      const rows = [{ label: "unspent room", val: `${E.r1(d.unspent)}`, tone: "flow" }, { label: "cold pieces released", val: `${E.r1(d.coldSet)}`, tone: "pale" }];
+      rows.forEach(r => r.valStyle = `color:${P.tone[r.tone]};font-weight:600`);
+      const nextSeats = 1 + fired.length; let seatPrev = 0; for (let i = 0; i < nextSeats; i++) seatPrev += E.seatContribution(i);
+      duskVM = {
+        blurb: "Unspent attention isn't lost — it seeps to the town's table. Camp here and two-thirds of it returns at dawn.",
+        rows, totalLabel: d.camped ? "to the table (⅔ returns at dawn)" : "to the table", total: `${E.r1(d.sweep)}`,
+        wokenCount: fired.length, wokenPlural: fired.length === 1 ? "" : "s", seatPreview: E.r1(seatPrev),
+        onNext: this.nextDawn,
+      };
+    }
+
+    // ---- guide ----
+    const next = this.GUIDE.find(st => !st.done(R, sel));
+    const guideText = next ? next.text : this.GRADUATED;
+
+    return {
+      loaded: true, notLoaded: false, isPlay: R.phase === "play", isDusk: R.phase === "dusk",
+      morning: s.calendar.morning, legName: E.LEG_NAMES[s.calendar.leg], seasonDots,
+      gleam: s.player.gleam, wokenCount: fired.length, purse: s.player.handsels.length,
+      deckChips, seed: this.state.seed, onSeed: e => this.reset(this.state.deck, Number(e.target.value) || 1),
+      guideOn: this.state.guideOn, guideText, onGuideToggle: () => this.setState({ guideOn: !this.state.guideOn }),
+      guideBtnLabel: this.state.guideOn ? "guide off" : "🧭 guide", guideBtnStyle: `cursor:pointer;font-family:'Spline Sans Mono',monospace;font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:#8a765b;background:transparent;border:1px solid rgba(74,54,32,0.15);border-radius:99px;padding:6px 10px`,
+      roomNow: E.r1(s.turn.room), roomFillStyle, income, poured: E.r1(s.turn.pouredThisMorning),
+      links, linkPlural: links === 1 ? "" : "s", curMult: E.r1(E.chainMultiplier(links)), nextMult: E.r1(E.chainMultiplier(links + 1)), beads,
+      bracedLabel: stallBraced ? "braced ✓" : "unbraced", bracedStyle: `font-family:'Mulish',sans-serif;font-size:11px;font-weight:700;color:${stallBraced ? "#6f8f4a" : "#8a765b"}`,
+      stallCostLabel: stallCost, stallCostStyle: `font-family:'Spline Sans Mono',monospace;font-size:11px;color:${stallBraced ? "#6f8f4a" : "#c1653a"}`,
+      needTier: hasAsking ? s.asking.tier : "—", needProgress: hasAsking ? s.asking.progress : 0, needFill: hasAsking ? s.asking.needFill : 0,
+      needBarStyle: `position:absolute;left:0;top:0;bottom:0;width:${needPct}%;background:linear-gradient(90deg,#d98a5f,#c1653a);border-radius:99px;transition:width .4s ease`,
+      needFillerText, needBorder: needFillers.length && hasAsking ? "rgba(193,101,58,0.5)" : "rgba(74,54,32,0.15)",
+      hand: handVM, handEmpty: hand.length === 0,
+      hasSelected: !!selVM, sel: selVM || {},
+      table: tableVM, hasTable: inPlay.length > 0,
+      crowd: crowdVM, crowdEmpty: fired.length === 0, homeSeatLabel: homeSeat,
+      moments: momentVM,
+      dusk: duskVM || {},
+      onStall: this.stall, onEnd: this.end,
+    };
+  }
+}
+</script>
+</body>
+</html>

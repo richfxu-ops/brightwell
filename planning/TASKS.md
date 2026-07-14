@@ -18,6 +18,7 @@
 
 ## In Progress
 - [ ] (P2) [Toy morning](tasks/toy-morning.md) #prototype #m3 #review
+- [ ] (P2) [Toy Morning redesign](tasks/toy-morning-redesign.md) #prototype #ui #review
 
 ## Done
 - [x] Stage 1 (world-architect): WORLD.md, ledger, terms — all layers locked #m1

@@ -227,10 +227,12 @@ export function dusk(stateIn: GameState, ctx: MorningContext, choice: DuskChoice
 
   // the B1 dusk sweep: unspent room + cold pieces' rested attention → THIS node's table
   const node = currentNode(state);
-  let sweep = state.turn.room;
+  const unspent = state.turn.room;
+  let coldSet = 0;
   for (const p of state.pieces) {
-    if (!p.fired && p.set > 0) { sweep += p.set; p.set = 0; }
+    if (!p.fired && p.set > 0) { coldSet += p.set; p.set = 0; }
   }
+  const sweep = unspent + coldSet;
   state.turn.room = 0;
   node.localTable += sweep;
 
@@ -248,6 +250,6 @@ export function dusk(stateIn: GameState, ctx: MorningContext, choice: DuskChoice
   });
 
   state.board.camped = choice.camp !== false;
-  emit(state, "dusk", { sweep, table: node.localTable, camped: state.board.camped });
+  emit(state, "dusk", { sweep, unspent, coldSet, table: node.localTable, camped: state.board.camped });
   return { state, events: state.events.slice(before) };
 }
