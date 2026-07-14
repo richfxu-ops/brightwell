@@ -17,8 +17,20 @@ import { evaluateRead } from "../engine/reads.js";
 import starterPool from "../content/cards/starter-pool.json" with { type: "json" };
 
 const CARDS = new Map((starterPool.cards as unknown as Card[]).map(c => [c.id, c]));
-const ctx: MorningContext = { cardOf: id => CARDS.get(id)! };
-const readCtx = { grainOf: (id: string) => CARDS.get(id)!.grain };
+/** Card lookup that fails loud on a missing id — the pool is fixed, so a miss is a bug, not a null. */
+function cardOf(id: string): Card {
+  const c = CARDS.get(id);
+  if (!c) throw new Error(`no card ${id}`);
+  return c;
+}
+/** Find a piece by instanceId, failing loud if absent — callers always hold a live id. */
+function pieceOf(s: GameState, id: string): GameState["pieces"][number] {
+  const p = s.pieces.find(x => x.instanceId === id);
+  if (!p) throw new Error(`no piece ${id}`);
+  return p;
+}
+const ctx: MorningContext = { cardOf };
+const readCtx = { grainOf: (id: string) => cardOf(id).grain };
 const DECKS = ["apprentice", "kilnfast", "eveners", "untold", "fairwrights", "mannerly", "gleaners"] as const;
 const LEG_NAMES = ["Green Going", "Long Light", "Deep Gold", "Red Walk", "the Wintering"];
 const r1 = (n: number): string => (Math.round(n * 10) / 10).toString();
@@ -27,8 +39,8 @@ const grainVar = (g: string): string => `var(--${g})`;
 const fillsNeed = (c: Card): boolean => c.effects.some(e => e.do === "fill");
 // Ways whose teaching bundle carries a fill card — derived from the pool, not hardcoded
 const FILL_WAYS = [...new Set((starterPool.cards as unknown as Card[])
-  .filter(c => c.archetype != null && fillsNeed(c))
-  .map(c => c.archetype![0].toUpperCase() + c.archetype!.slice(1)))];
+  .filter((c): c is Card & { archetype: string } => c.archetype != null && fillsNeed(c))
+  .map(c => c.archetype[0].toUpperCase() + c.archetype.slice(1)))];
 
 // ---------- run state (immutable snapshots; every action = one engine call) ----------
 
@@ -346,13 +358,13 @@ interface Preview {
 }
 
 function previewPlay(s: GameState, id: string, pour: number): Preview {
-  const before = s.pieces.find(p => p.instanceId === id)!;
-  const card = CARDS.get(before.cardId)!;
+  const before = pieceOf(s, id);
+  const card = cardOf(before.cardId);
   const spend = Math.min(pour, Math.floor(s.turn.room));
   const m = chainMultiplier(s.turn.chainLinks + 1);
   const landed = spend * m;   // what the direct pour lands (the spend × chain → lands row)
   const { state: after, events } = playPiece(s, id, spend, ctx);
-  const played = after.pieces.find(p => p.instanceId === id)!;
+  const played = pieceOf(after, id);
   // setAfter is the engine's truth, not before.set + landed: on-play effects that rest more
   // onto the piece (Fired Beam, Even the Rim, Seasoned Timber) push its set past the pour.
   const setAfter = played.set;
@@ -445,8 +457,8 @@ function Masthead({ run, deck, seed, guideOn, onDeck, onSeed, onGuide }: {
       <div className="tm-mast-left">
         <span className="tm-morn">Morning <b>{s.calendar.morning}</b> · {LEG_NAMES[s.calendar.leg]}</span>
         <span className="tm-dots">
-          {LEG_NAMES.map((_, i) => (
-            <span key={i} className={`tm-dot${i === s.calendar.leg ? " on" : i < s.calendar.leg ? " past" : ""}`} />
+          {LEG_NAMES.map((leg, i) => (
+            <span key={leg} className={`tm-dot${i === s.calendar.leg ? " on" : i < s.calendar.leg ? " past" : ""}`} />
           ))}
         </span>
       </div>
@@ -499,7 +511,7 @@ function StatusStrip({ run }: { run: Run }) {
           <div className="tm-bar"><div className="tm-barfill" style={{ width: `${run.income.room > 0 ? Math.min(100, (s.turn.room / run.income.room) * 100) : 0}%` }} /></div>
           <div className="tm-incrow">
             <span className="tm-from">from</span>
-            {incomeChips.map((c, i) => <span key={i} className={`tm-inc tm-t-${c.tone}`}>{c.text}</span>)}
+            {incomeChips.map(c => <span key={`${c.tone}-${c.text}`} className={`tm-inc tm-t-${c.tone}`}>{c.text}</span>)}
             <span className="tm-inc tm-t-need">poured {r1(run.poured)}</span>
           </div>
         </div>
@@ -508,7 +520,9 @@ function StatusStrip({ run }: { run: Run }) {
         <div>
           <div className="tm-lbl">The Chain</div>
           <div className="tm-beadrow">
-            {Array.from({ length: beads }, (_, i) => <span key={i} className={`tm-bead${i < links ? " lit" : ""}`} />)}
+            {Array.from({ length: beads }, (_, i) => i).map(slot => (
+              <span key={`bead-${slot}`} className={`tm-bead${slot < links ? " lit" : ""}`} />
+            ))}
             <span className="tm-linkct">{links} link{links === 1 ? "" : "s"}</span>
           </div>
         </div>
@@ -529,15 +543,15 @@ function NeedPanel({ run }: { run: Run }) {
   const ask = s.asking;
   // every distinct card in this run's pieces that carries a fill effect
   const fillCards = [...new Map(
-    s.pieces.map(p => CARDS.get(p.cardId)!).filter(fillsNeed).map(c => [c.id, c]),
+    s.pieces.map(p => cardOf(p.cardId)).filter(fillsNeed).map(c => [c.id, c]),
   ).values()];
-  const handFillers = s.pieces.filter(p => p.zone === "hand" && fillsNeed(CARDS.get(p.cardId)!));
+  const handFillers = s.pieces.filter(p => p.zone === "hand" && fillsNeed(cardOf(p.cardId)));
   const rings = currentNode(s).rings;
   const ringNote = rings > 0 ? ` · ${rings} grey ring${rings === 1 ? "" : "s"} (bigger need & pay next)` : "";
   const status = !ask
     ? "🌼 re-made — a fresh need hangs at next dawn"
     : (handFillers.length
-      ? `in hand now: ${handFillers.map(p => CARDS.get(p.cardId)!.name).join(", ")}`
+      ? `in hand now: ${handFillers.map(p => cardOf(p.cardId).name).join(", ")}`
       : fillCards.length
         ? "no fill card in hand — draw one"
         : "this Way fills needs another way") + ringNote;
@@ -562,7 +576,9 @@ function NeedPanel({ run }: { run: Run }) {
             <p className="tm-howtext"><i>None. This Way answers needs another way — through the purse
               and its own payoffs, not by filling.</i> Try the {FILL_WAYS.join(" / ")} decks.</p>
           ) : fillCards.map(c => {
-            const g = glossEffect(c.effects.find(e => e.do === "fill")!, s);
+            const fillFx = c.effects.find(e => e.do === "fill");
+            if (!fillFx) return null;   // fillCards are pre-filtered by fillsNeed, but narrow anyway
+            const g = glossEffect(fillFx, s);
             return (
               <div key={c.id} className="tm-howrow">
                 <span className="tm-gdot" style={{ background: grainVar(c.grain) }} />
@@ -583,8 +599,8 @@ function PourPanel({ run, selected, pour, onPour, onPlay, onCancel, onRelease }:
   onPour: (n: number) => void; onPlay: () => void; onCancel: () => void; onRelease: () => void;
 }) {
   const s = run.s;
-  const piece = s.pieces.find(p => p.instanceId === selected)!;
-  const card = CARDS.get(piece.cardId)!;
+  const piece = pieceOf(s, selected);
+  const card = cardOf(piece.cardId);
   const maxPour = Math.floor(s.turn.room);
   const clamped = Math.min(pour, maxPour);
   const pv = useMemo(() => previewPlay(s, selected, clamped), [s, selected, clamped]);
@@ -616,7 +632,7 @@ function PourPanel({ run, selected, pour, onPour, onPlay, onCancel, onRelease }:
           <span className="tm-op">→</span>
           <span className="tm-pv flow"><span>lands</span><b>{r1(pv.landed)}</b></span>
         </div>
-        <div className="tm-badges">{badges.map((b, i) => <BadgeChip key={i} b={b} />)}</div>
+        <div className="tm-badges">{badges.map(b => <BadgeChip key={`${b.tone}-${b.text}`} b={b} />)}</div>
         <div className="tm-pour-btns">
           <button type="button" className="tm-btn primary" onClick={onPlay}>{pv.banks ? "Bank it cold" : "Pour it"}</button>
           <button type="button" className="tm-btn" onClick={onCancel}>Never mind</button>
@@ -634,8 +650,8 @@ function HandCard({ run, id, selected, onPick }: {
   run: Run; id: string; selected: boolean; onPick: (id: string) => void;
 }) {
   const s = run.s;
-  const piece = s.pieces.find(p => p.instanceId === id)!;
-  const card = CARDS.get(piece.cardId)!;
+  const piece = pieceOf(s, id);
+  const card = cardOf(piece.cardId);
   const canFill = s.asking != null && fillsNeed(card);
   const glosses = card.effects.map(e => glossEffect(e, s));
   return (
@@ -655,8 +671,8 @@ function HandCard({ run, id, selected, onPick }: {
         {piece.set > 0 && <span className="tm-cchip set">set {r1(piece.set)}</span>}
       </div>
       <div className="tm-cfx">
-        {glosses.map((g, i) => (
-          <div key={i} className="tm-fx">
+        {glosses.map(g => (
+          <div key={`${g.whenLabel}-${g.text}`} className="tm-fx">
             <span className="tm-when">{g.whenLabel}</span>
             <span className={`tm-fxtext${g.zero ? " zero" : ""}`}>
               {g.text}
@@ -675,7 +691,7 @@ function OfferRow({ run, onDraft }: { run: Run; onDraft: (cardId: string) => voi
   const purse = run.s.player.handsels.length;
   const tier = unlockedTier(run.s.player.gleam);
   const tierWord = ["", "apprentice", "mid", "capstone"][tier];
-  const canAffordAny = run.offers.some(id => purse >= priceOf(CARDS.get(id)!));
+  const canAffordAny = run.offers.some(id => purse >= priceOf(cardOf(id)));
   return (
     <div className="tm-offer">
       <div className="tm-offerhead">
@@ -689,7 +705,7 @@ function OfferRow({ run, onDraft }: { run: Run; onDraft: (cardId: string) => voi
       )}
       <div className="tm-offerrow">
         {run.offers.map(cardId => {
-          const c = CARDS.get(cardId)!;
+          const c = cardOf(cardId);
           const price = priceOf(c);
           const unaffordable = purse < price;
           const disabled = capped || unaffordable;
@@ -730,7 +746,7 @@ function TableRow({ run }: { run: Run }) {
       <div className="tm-sechead">On the table — banked &amp; woken vessels</div>
       <div className="tm-table">
         {inPlay.map(p => {
-          const c = CARDS.get(p.cardId)!;
+          const c = cardOf(p.cardId);
           return (
             <div key={p.instanceId}
               className={`tm-titem${p.wokeThisMorning ? " fresh" : ""}`}
@@ -767,7 +783,7 @@ function CrowdPanel({ run }: { run: Run }) {
           <p className="tm-empty">No one woken yet. Pour a card to its mark and it joins the crowd — the snowball starts here.</p>
         )}
         {fired.map((p, i) => {
-          const c = CARDS.get(p.cardId)!;
+          const c = cardOf(p.cardId);
           const grants: { icon: string; tone: string; text: string }[] = [
             { icon: "☼", tone: "flow", text: `seats the room +${r1(seatContribution(i + 1))} at dawn` },
             { icon: "◈", tone: "grain", text: `feeds “woken:${c.grain}” reads` },
@@ -787,8 +803,8 @@ function CrowdPanel({ run }: { run: Run }) {
                 <span className="tm-wname">{c.name}</span>
                 <span className="tm-wseat">seat #{i + 2}</span>
               </div>
-              {grants.map((g, j) => (
-                <div key={j} className="tm-grant">
+              {grants.map(g => (
+                <div key={`${g.icon}-${g.text}`} className="tm-grant">
                   <span className="tm-grant-ic" style={{ color: g.tone === "grain" ? grainVar(c.grain) : `var(--${g.tone === "gold" ? "gold" : g.tone})` }}>{g.icon}</span>
                   <span>{g.text}</span>
                 </div>
@@ -814,7 +830,7 @@ function MomentsPanel({ moments }: { moments: Moment[] }) {
               <span className="tm-msub">{m.sub}</span>
             </div>
             {m.badges.length > 0 && (
-              <div className="tm-mbadges">{m.badges.map((b, j) => <BadgeChip key={j} b={b} />)}</div>
+              <div className="tm-mbadges">{m.badges.map(b => <BadgeChip key={`${b.tone}-${b.text}`} b={b} />)}</div>
             )}
           </div>
         ))}
@@ -863,7 +879,8 @@ const ENDINGS: Record<string, { eyebrow: string; title: string; blurb: string }>
 };
 
 function RunEndScreen({ run, onRestart }: { run: Run; onRestart: () => void }) {
-  const end = run.s.runEnded!;
+  const end = run.s.runEnded;
+  if (!end) return null;   // only rendered once the run has concluded; narrow for the type
   const copy = ENDINGS[end.reason] ?? ENDINGS.drifted;
   const fired = run.s.pieces.filter(p => p.fired).length;
   // the year is WORKED_MORNINGS_TOTAL long; a drift is detected at the first still dawn (one past
@@ -888,7 +905,7 @@ function RunEndScreen({ run, onRestart }: { run: Run; onRestart: () => void }) {
             <div className="tm-lbl">how it ended</div>
             <div className="tm-end-lasttitle">{last.title}</div>
             {last.badges.length > 0 && (
-              <div className="tm-mbadges">{last.badges.map((b, i) => <BadgeChip key={i} b={b} />)}</div>
+              <div className="tm-mbadges">{last.badges.map(b => <BadgeChip key={`${b.tone}-${b.text}`} b={b} />)}</div>
             )}
           </div>
         )}
@@ -915,14 +932,14 @@ function App() {
     setRun(makeRun(nextSeed, nextDeck));
   };
   const pick = (id: string) => {
-    const card = CARDS.get(s.pieces.find(p => p.instanceId === id)!.cardId)!;
+    const card = cardOf(pieceOf(s, id).cardId);
     setSelected(id);
     setPour(Math.min(maxPour, card.mark));   // default: just enough to wake
   };
   const play = () => {
     if (!selected) return;
     const spend = Math.min(pour, maxPour);
-    const card = CARDS.get(s.pieces.find(p => p.instanceId === selected)!.cardId)!;
+    const card = cardOf(pieceOf(s, selected).cardId);
     const r = playPiece(s, selected, spend, ctx);
     const moment = buildMoment(r.state, r.events, {
       kind: "play",
@@ -965,7 +982,7 @@ function App() {
   const release = (instanceId: string) => {
     const piece = s.pieces.find(p => p.instanceId === instanceId);
     if (!piece || piece.fired || run.released >= DRAFT_TUNABLES.RELEASE_PER_MORNING) return;
-    const card = CARDS.get(piece.cardId)!;
+    const card = cardOf(piece.cardId);
     const clone = structuredClone(s);
     clone.pieces = clone.pieces.filter(p => p.instanceId !== instanceId);
     const moment: Moment = {
@@ -977,7 +994,7 @@ function App() {
     setSelected(null);
   };
   const draft = (cardId: string) => {
-    const card = CARDS.get(cardId)!;
+    const card = cardOf(cardId);
     const price = priceOf(card);
     if (run.drafted >= DRAFT_TUNABLES.TAKE_PER_MORNING || s.player.handsels.length < price) return;
     const clone = structuredClone(s);
