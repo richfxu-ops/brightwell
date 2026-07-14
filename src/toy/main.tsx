@@ -7,7 +7,7 @@
 import { StrictMode, useMemo, useState } from "react";
 import { createRoot } from "react-dom/client";
 import { type Card, type Effect, isReadExpr, type ReadSource } from "../engine/vocabulary.js";
-import { createInitialState, currentNode, type GameEvent, type GameState } from "../engine/state.js";
+import { createInitialState, currentNode, type GameEvent, type GameState, WORKED_MORNINGS_TOTAL } from "../engine/state.js";
 import {
   DAWN_BASE, dawn, dusk, playPiece, STALL_ROOM_FACTOR, stallAction,
   type MorningContext, type MorningResult,
@@ -861,6 +861,10 @@ function RunEndScreen({ run, onRestart }: { run: Run; onRestart: () => void }) {
   const end = run.s.runEnded!;
   const copy = ENDINGS[end.reason] ?? ENDINGS.drifted;
   const fired = run.s.pieces.filter(p => p.fired).length;
+  // the year is WORKED_MORNINGS_TOTAL long; a drift is detected at the first still dawn (one past
+  // the last worked morning), so show the last worked morning rather than the out-of-range count.
+  const mornReached = Math.min(run.s.calendar.morning, WORKED_MORNINGS_TOTAL);
+  const last = run.moments[0];   // the beat that ended the run (finding #4 — surface it here)
   return (
     <div className="tm-duskwrap">
       <div className={`tm-dusk tm-end tm-end-${end.reason}`}>
@@ -869,11 +873,20 @@ function RunEndScreen({ run, onRestart }: { run: Run; onRestart: () => void }) {
         <p className="tm-dusk-blurb">{copy.blurb}</p>
         <div className="tm-dusk-tab">
           <div className="tm-lbl">the year you walked</div>
-          <div className="tm-drow"><span>morning reached</span><b>{run.s.calendar.morning} · {LEG_NAMES[run.s.calendar.leg]}</b></div>
+          <div className="tm-drow"><span>morning reached</span><b>{mornReached} · {LEG_NAMES[run.s.calendar.leg]}</b></div>
           <div className="tm-drow"><span>brightest Standing</span><b className="tm-t-gleam">✦ {end.peakStanding}</b></div>
           <div className="tm-drow"><span>woken pieces</span><b className="tm-t-gold">{fired}</b></div>
           <div className="tm-drow total"><span>the crown</span><b className={end.reason === "won" ? "tm-t-gold" : "tm-t-pale"}>{end.reason === "won" ? "stood 👑" : `unstood (demand ${end.crownDemand})`}</b></div>
         </div>
+        {last && (
+          <div className="tm-end-last">
+            <div className="tm-lbl">how it ended</div>
+            <div className="tm-end-lasttitle">{last.title}</div>
+            {last.badges.length > 0 && (
+              <div className="tm-mbadges">{last.badges.map((b, i) => <BadgeChip key={i} b={b} />)}</div>
+            )}
+          </div>
+        )}
         <button type="button" className="tm-btn primary wide" onClick={onRestart}>Begin the next verse →</button>
       </div>
     </div>
