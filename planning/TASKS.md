@@ -16,9 +16,9 @@
 ## Next
 
 ## In Progress
-- [ ] (P1) [Simulation harness](tasks/sim-harness.md) — engine Phase 7, bots + run-driver + the 57-key emitter #sim #m3 #review
 
 ## Done
+- [x] (P1) [Simulation harness](tasks/sim-harness.md) — engine Phase 7, bots + run-driver + the 57-key emitter #sim #m3
 - [x] (P1) [Acquisition (the Fair)](tasks/acquisition.md) — engine Phase 6, drafting #engine #m3
 - [x] (P1) [Run frame](tasks/run-frame.md) — engine Phase 5 #engine #m3
 - [x] (P1) [Asking lifecycle](tasks/asking-lifecycle.md) — engine Phase 4 #engine #m3

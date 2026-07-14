@@ -1,7 +1,8 @@
 ---
-status: In Review
+status: Complete
 size: Large
 created: 2026-07-14
+completed: 2026-07-14
 title: Simulation harness
 ---
 
