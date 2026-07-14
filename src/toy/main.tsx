@@ -34,7 +34,11 @@ const FILL_WAYS = [...new Set((starterPool.cards as unknown as Card[])
 // ---------- run state (immutable snapshots; every action = one engine call) ----------
 
 interface Badge { tone: string; text: string; big?: boolean }
-interface Moment { kind: "play" | "stall" | "dawn"; title: string; sub: string; accent: string; badges: Badge[] }
+interface Moment { id: number; kind: "play" | "stall" | "dawn"; title: string; sub: string; accent: string; badges: Badge[] }
+
+// stable, monotonic ids so the moments feed keys don't shift when the list caps and
+// drops its oldest entry (a positional key would remount every card each action)
+let nextMomentId = 0;
 
 // provenance of this morning's room, read from the emitted dawn event
 interface DawnIncome { room: number; seats: number; seatRoom: number; ringDraw: number; tableDraw: number }
@@ -153,14 +157,14 @@ function eventBadge(s: GameState, e: GameEvent): Badge | null {
   }
 }
 
-function buildMoment(after: GameState, events: GameEvent[], header: Omit<Moment, "badges">): Moment {
+function buildMoment(after: GameState, events: GameEvent[], header: Omit<Moment, "badges" | "id">): Moment {
   const badges: Badge[] = [];
   for (const e of events) {
     if (e.type === "played" || e.type === "dawn" || e.type === "dusk") continue;
     const b = eventBadge(after, e);
     if (b) badges.push(b);
   }
-  return { ...header, badges };
+  return { id: nextMomentId++, ...header, badges };
 }
 
 function dawnMoment(state: GameState, events: GameEvent[]): Moment {
@@ -174,7 +178,7 @@ function dawnMoment(state: GameState, events: GameEvent[]): Moment {
   const drew = (events.find(e => e.type === "dawn")?.data?.drew as string[]) ?? [];
   if (drew.length) badges.push({ tone: "pale", text: `drew ${drew.length} to hand` });
   return {
-    kind: "dawn",
+    id: nextMomentId++, kind: "dawn",
     title: `Dawn — Morning ${state.calendar.morning}, ${LEG_NAMES[state.calendar.leg]}`,
     sub: `room ${r1(inc.room)}`, accent: "var(--gold)", badges,
   };
@@ -289,10 +293,12 @@ function previewPlay(s: GameState, id: string, pour: number): Preview {
   const card = CARDS.get(before.cardId)!;
   const spend = Math.min(pour, Math.floor(s.turn.room));
   const m = chainMultiplier(s.turn.chainLinks + 1);
-  const landed = spend * m;
-  const setAfter = before.set + landed;
+  const landed = spend * m;   // what the direct pour lands (the spend × chain → lands row)
   const after = playPiece(s, id, spend, ctx).state;
   const played = after.pieces.find(p => p.instanceId === id)!;
+  // setAfter is the engine's truth, not before.set + landed: on-play effects that rest more
+  // onto the piece (Fired Beam, Even the Rim, Seasoned Timber) push its set past the pour.
+  const setAfter = played.set;
   const fillGain = (after.asking?.progress ?? 0) - (s.asking?.progress ?? 0);
   return {
     spend, m, landed, setAfter,
@@ -678,8 +684,8 @@ function MomentsPanel({ moments }: { moments: Moment[] }) {
     <div className="tm-rpanel tm-moments">
       <div className="tm-ph"><div className="tm-lbl">The Morning, moment by moment</div></div>
       <div className="tm-plist tm-scroll">
-        {moments.map((m, i) => (
-          <div key={`${moments.length - i}`} className="tm-mcard" style={{ borderLeftColor: m.accent }}>
+        {moments.map(m => (
+          <div key={m.id} className="tm-mcard" style={{ borderLeftColor: m.accent }}>
             <div className="tm-mhead">
               <span className="tm-mdot" style={{ background: m.accent }} />
               <span className="tm-mtitle">{m.title}</span>
