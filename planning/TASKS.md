@@ -27,3 +27,4 @@
 - [x] Emit game-loop seam: vocabulary.json, round_metrics.json, src/content, vocabulary.ts #m2
 - [x] Initialize planning scaffold (CLAUDE.md, PLAN, ARCHITECTURE, TASKS, dashboard, /task skills)
 - [x] Init git repository #infra
+- [x] Build roundelay-codex.html — single-file codex site, Daylight watercolor design #docs

@@ -1,0 +1,1583 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Roundelay — Codex</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Spectral:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Mulish:wght@400;600;700;800&family=Spline+Sans+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* ========== Roundelay Codex — warm dusk, lantern-lit, luminous ========== */
+:root{
+  /* ground — the lantern hour */
+  --bg: oklch(0.235 0.03 68);
+  --bg-deep: oklch(0.185 0.026 62);
+  --panel: oklch(0.275 0.032 72);
+  --panel-2: oklch(0.312 0.034 74);
+  --panel-hi: oklch(0.355 0.036 76);
+  --line: color-mix(in oklch, var(--gold) 24%, transparent);
+  --line-soft: color-mix(in oklch, var(--gold) 11%, transparent);
+  /* ink */
+  --ink: oklch(0.945 0.02 88);
+  --ink-dim: oklch(0.79 0.024 82);
+  --ink-faint: oklch(0.62 0.02 76);
+  /* the light */
+  --gold: oklch(0.82 0.125 86);
+  --gold-soft: oklch(0.9 0.082 90);
+  --gold-deep: oklch(0.67 0.108 76);
+  --gleam: oklch(0.86 0.135 92);
+  --pale: oklch(0.72 0.032 235);
+  --flow: oklch(0.77 0.08 200);
+  --need: oklch(0.73 0.1 35);
+  --moss: oklch(0.76 0.09 140);
+  /* the six grains */
+  --joinery:#cf9a56; --thread:#77a8de; --song:#b088e0; --glaze:#5fb8b2; --dance:#dd7aa8; --dough:#d4b16a;
+  /* the six ways */
+  --w-kilnfast:#d98f3d; --w-eveners:#58b394; --w-untold:#6ea9dd; --w-fairwrights:#dd7aa8; --w-mannerly:#b088e0; --w-gleaners:#9ab86a; --w-shared:#d4b16a;
+  /* type */
+  --display:"Fraunces", Georgia, serif;
+  --body:"Alegreya", Georgia, serif;
+  --ui:"Alegreya Sans", ui-sans-serif, sans-serif;
+  --code:"IBM Plex Mono", ui-monospace, monospace;
+  /* metrics */
+  --gap:20px; --radius:10px; --maxw:1280px;
+  color-scheme: dark;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  font-family:var(--body); background:var(--bg-deep); color:var(--ink);
+  font-size:16.5px; line-height:1.58; min-height:100vh;
+  -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility; overflow-x:hidden;
+}
+::selection{background:color-mix(in oklch, var(--gold) 42%, transparent); color:var(--ink)}
+a{color:var(--gold-soft)}
+
+/* ========== Atmosphere — dusk, lantern orbs, round-song rings ========== */
+.bg-atmos{position:fixed; inset:0; z-index:0; pointer-events:none; overflow:hidden}
+.bg-atmos .vignette{position:absolute; inset:0;
+  background:
+    radial-gradient(120% 90% at 50% -10%, color-mix(in oklch, var(--gold) 13%, transparent), transparent 55%),
+    radial-gradient(90% 70% at 10% 12%, color-mix(in oklch, var(--flow) 9%, transparent), transparent 60%),
+    radial-gradient(100% 80% at 92% 100%, color-mix(in oklch, var(--need) 10%, transparent), transparent 60%),
+    linear-gradient(180deg, var(--bg) 0%, var(--bg-deep) 72%);
+}
+.bg-atmos .vignette::after{content:""; position:absolute; inset:0;
+  background:radial-gradient(140% 120% at 50% 35%, transparent 55%, oklch(0.1 0.02 60 / 0.66) 100%);}
+.ringfield{position:absolute; inset:-8%; opacity:0.5}
+.ringfield svg{width:100%; height:100%}
+.ringfield circle{stroke:color-mix(in oklch, var(--gold) 11%, transparent); stroke-width:1; fill:none}
+.bg-orb{position:absolute; border-radius:50%; filter:blur(64px); opacity:0.4}
+.mote{position:absolute; width:5px; height:5px; border-radius:50%;
+  background:var(--gold-soft); opacity:0; filter:blur(0.5px);
+  box-shadow:0 0 12px 3px color-mix(in oklch, var(--gold) 45%, transparent);
+  animation:drift 16s linear infinite;}
+@keyframes drift{
+  0%{transform:translateY(30px); opacity:0}
+  12%{opacity:0.55} 82%{opacity:0.35}
+  100%{transform:translateY(-72vh); opacity:0}
+}
+.grainov{position:fixed; inset:0; z-index:6; pointer-events:none; opacity:0.055; mix-blend-mode:soft-light;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");}
+
+/* ========== Shell / masthead ========== */
+.shell{position:relative; z-index:1; max-width:var(--maxw); margin:0 auto; padding:0 28px 96px}
+.masthead{position:relative; padding:42px 0 20px}
+.crest{display:flex; align-items:center; gap:18px}
+.crest .mark{width:60px; height:60px; flex:none; display:grid; place-items:center; border-radius:50%;
+  background:radial-gradient(circle at 50% 34%, var(--panel-hi), var(--panel) 75%);
+  border:1px solid var(--line);
+  box-shadow:inset 0 0 20px color-mix(in oklch, var(--gold) 20%, transparent), 0 6px 24px oklch(0.1 0.02 60 / 0.6);}
+.crest .mark span{font-family:var(--display); font-size:28px; color:var(--gold-soft);
+  text-shadow:0 0 16px color-mix(in oklch, var(--gold) 60%, transparent);}
+.crest h1{font-family:var(--display); font-weight:600; font-size:31px; letter-spacing:0.05em;
+  margin:0; color:var(--ink); text-transform:uppercase;}
+.crest h1 b{font-weight:500; color:var(--gold-soft)}
+.crest .tagline{font-family:var(--body); font-style:italic; color:var(--ink-faint);
+  font-size:14.5px; letter-spacing:0.02em; margin-top:3px;}
+.version-stamp{position:absolute; top:16px; right:0; font-family:var(--code);
+  font-size:10.5px; letter-spacing:0.05em; color:var(--ink-faint);}
+
+/* ========== Top nav ========== */
+.topnav{display:flex; flex-wrap:wrap; gap:6px; margin-top:26px; border-bottom:1px solid var(--line-soft)}
+.topnav button{appearance:none; background:none; border:none; cursor:pointer; white-space:nowrap;
+  font-family:var(--ui); font-weight:700; font-size:12.5px; letter-spacing:0.18em; text-transform:uppercase;
+  color:var(--ink-faint); padding:12px 18px 14px; position:relative; transition:color .2s ease;}
+.topnav button:hover{color:var(--ink-dim)}
+.topnav button.active{color:var(--gold-soft)}
+.topnav button.active::after{content:""; position:absolute; left:10px; right:10px; bottom:-1px; height:2px;
+  background:linear-gradient(90deg, transparent, var(--gold), transparent);
+  box-shadow:0 0 9px color-mix(in oklch, var(--gold) 60%, transparent);}
+.topnav .nav-glyph{opacity:0.75; margin-right:8px}
+
+/* ========== Sections / heads / subtabs ========== */
+.section{display:none}
+.section.visible{display:block}
+.data-tab{display:none}
+.data-tab.visible{display:block}
+.sec-head{display:flex; align-items:flex-end; justify-content:space-between; gap:18px;
+  margin:30px 0 18px; flex-wrap:wrap;}
+.sec-head .title{font-family:var(--display); font-weight:600; font-size:23px; letter-spacing:0.07em;
+  text-transform:uppercase; color:var(--ink); margin:0;}
+.sec-head .sub{font-style:italic; color:var(--ink-faint); font-size:14.5px; margin-top:3px}
+.eyebrow{font-family:var(--code); font-size:11px; letter-spacing:0.3em; text-transform:uppercase;
+  color:var(--gold-deep); display:block; margin-bottom:8px;}
+.eyebrow::before{content:"❂  "; color:var(--gold); opacity:0.7}
+.subtabs{display:flex; gap:8px; flex-wrap:wrap}
+.subtabs button{appearance:none; cursor:pointer; font-family:var(--ui); font-weight:700; font-size:12px;
+  letter-spacing:0.14em; text-transform:uppercase; color:var(--ink-dim);
+  background:color-mix(in oklch, var(--panel) 70%, transparent);
+  border:1px solid var(--line-soft); border-radius:999px; padding:9px 17px;
+  transition:all .18s ease; display:flex; align-items:center; gap:8px;}
+.subtabs button .g{color:var(--ink-faint); font-size:13px}
+.subtabs button:hover{border-color:var(--line); color:var(--ink); background:var(--panel)}
+.subtabs button.active{color:var(--bg-deep); background:linear-gradient(160deg, var(--gold-soft), var(--gold));
+  border-color:var(--gold); box-shadow:0 4px 18px color-mix(in oklch, var(--gold) 32%, transparent);}
+.subtabs button.active .g{color:color-mix(in oklch, var(--bg-deep) 80%, var(--gold-deep))}
+
+/* ========== Toolbar ========== */
+.toolbar{display:flex; align-items:center; gap:14px; flex-wrap:wrap; margin:20px 0}
+.searchbox{position:relative; flex:1; min-width:210px; max-width:340px}
+.searchbox input{width:100%; appearance:none; background:var(--bg); border:1px solid var(--line-soft);
+  border-radius:999px; color:var(--ink); font-family:var(--body); font-size:15px;
+  padding:9px 16px 9px 38px; transition:border-color .18s ease, box-shadow .18s ease;}
+.searchbox input::placeholder{color:var(--ink-faint); font-style:italic}
+.searchbox input:focus{outline:none; border-color:var(--gold-deep);
+  box-shadow:0 0 0 3px color-mix(in oklch, var(--gold) 17%, transparent);}
+.searchbox .ic{position:absolute; left:14px; top:50%; transform:translateY(-50%);
+  color:var(--ink-faint); font-size:14px; pointer-events:none;}
+.filterset{display:flex; align-items:center; gap:7px; flex-wrap:wrap}
+.filterset .lbl{font-family:var(--code); font-size:10px; letter-spacing:0.22em; text-transform:uppercase;
+  color:var(--ink-faint); margin-right:2px;}
+.chip{appearance:none; cursor:pointer; font-family:var(--ui); font-weight:500; font-size:12px;
+  letter-spacing:0.05em; white-space:nowrap; color:var(--ink-dim); background:transparent;
+  border:1px solid var(--line-soft); border-radius:99px; padding:5px 12px;
+  transition:all .16s ease; display:inline-flex; align-items:center; gap:6px; --cc:var(--gold);}
+.chip:hover{color:var(--ink); border-color:var(--line)}
+.chip .dot{width:8px; height:8px; border-radius:50%; background:var(--cc); opacity:0.85}
+.chip.active{color:var(--gold-soft); border-color:color-mix(in oklch, var(--cc) 60%, transparent);
+  background:color-mix(in oklch, var(--cc) 14%, transparent);}
+.count-note{font-family:var(--code); font-size:11px; color:var(--ink-faint);
+  letter-spacing:0.08em; margin-left:auto;}
+
+/* ========== Data viewer: grid + inspector ========== */
+.viewer-split{display:grid; grid-template-columns:1fr 384px; gap:var(--gap); align-items:start}
+@media (max-width:980px){.viewer-split{grid-template-columns:1fr}}
+.card-grid{display:grid; grid-template-columns:repeat(auto-fill, minmax(228px,1fr)); gap:var(--gap)}
+.ecard{position:relative; text-align:left; cursor:pointer; appearance:none; width:100%;
+  font-family:var(--body); font-size:inherit;
+  background:linear-gradient(168deg, var(--panel-2), var(--panel));
+  border:1px solid var(--line-soft); border-radius:var(--radius);
+  padding:15px 16px 13px; overflow:hidden; --accent:var(--gold);
+  transition:transform .18s ease, border-color .18s ease, box-shadow .18s ease;}
+.ecard::before{content:""; position:absolute; inset:0; pointer-events:none;
+  background:radial-gradient(85% 62% at 50% -12%, color-mix(in oklch, var(--accent) 19%, transparent), transparent 60%);
+  opacity:0; transition:opacity .2s ease;}
+.ecard:hover{transform:translateY(-3px); border-color:color-mix(in oklch, var(--accent) 48%, transparent);
+  box-shadow:0 14px 34px oklch(0.1 0.02 60 / 0.55);}
+.ecard:hover::before{opacity:1}
+.ecard[data-sel="true"]{border-color:var(--accent);
+  box-shadow:0 0 0 1px var(--accent), 0 14px 34px oklch(0.1 0.02 60 / 0.55);}
+.ecard[data-sel="true"]::before{opacity:1}
+.ecard .topline{display:flex; align-items:center; gap:12px}
+.medallion{width:44px; height:44px; flex:none; display:grid; place-items:center; border-radius:50%;
+  background:radial-gradient(circle at 50% 32%, color-mix(in oklch, var(--accent) 34%, var(--panel-hi)), var(--panel) 80%);
+  border:1px solid color-mix(in oklch, var(--accent) 46%, transparent);
+  font-family:var(--display); font-weight:600; font-size:18px;
+  color:color-mix(in oklch, var(--accent) 78%, white);
+  text-shadow:0 0 8px color-mix(in oklch, var(--accent) 40%, transparent);}
+.ecard .nm{font-family:var(--display); font-weight:600; font-size:16.5px; letter-spacing:0.01em;
+  color:var(--ink); line-height:1.15;}
+.ecard .rl{font-family:var(--code); font-size:10px; letter-spacing:0.13em; text-transform:uppercase;
+  color:color-mix(in oklch, var(--accent) 68%, var(--ink-faint)); margin-top:4px;}
+.ecard .statrow{display:flex; gap:14px; margin-top:13px; padding-top:11px; border-top:1px solid var(--line-soft)}
+.ecard .stat{display:flex; flex-direction:column; gap:1px}
+.ecard .stat .v{font-family:var(--code); font-weight:600; font-size:14px; color:var(--ink); white-space:nowrap}
+.ecard .stat .k{font-family:var(--code); font-size:8.5px; letter-spacing:0.16em; text-transform:uppercase; color:var(--ink-faint)}
+.ecard .desc{font-size:13.5px; color:var(--ink-dim); margin-top:10px; line-height:1.48}
+.cardclamp{display:-webkit-box; -webkit-line-clamp:3; line-clamp:3; -webkit-box-orient:vertical; overflow:hidden}
+.ecard .metaline{display:flex; align-items:center; gap:7px; margin-top:12px; flex-wrap:wrap}
+.tag{font-family:var(--code); font-size:9.5px; letter-spacing:0.1em; text-transform:uppercase; white-space:nowrap;
+  padding:3px 8px; border-radius:99px; --accent:var(--gold);
+  border:1px solid color-mix(in oklch, var(--accent) 42%, transparent);
+  color:color-mix(in oklch, var(--accent) 74%, white);
+  background:color-mix(in oklch, var(--accent) 13%, transparent);}
+.tag.plain{--accent:var(--ink-faint); color:var(--ink-dim)}
+.noresult{grid-column:1/-1; text-align:center; padding:50px 20px; color:var(--ink-faint); font-style:italic}
+
+/* ========== Inspector ========== */
+.inspector-col{position:static}
+@media (min-width:981px){.inspector-col{position:sticky; top:18px}}
+.inspector{position:relative; background:linear-gradient(172deg, var(--panel-2), var(--panel));
+  border:1px solid var(--line); border-radius:var(--radius); overflow:hidden;
+  --accent:var(--gold); min-height:420px;}
+.inspector .ribbon{position:absolute; inset:0 0 auto 0; height:130px; pointer-events:none;
+  background:radial-gradient(120% 100% at 50% 0, color-mix(in oklch, var(--accent) 28%, transparent), transparent 70%);}
+.inspector::after{content:""; position:absolute; inset:8px; border:1px solid var(--line-soft);
+  border-radius:calc(var(--radius) - 4px); pointer-events:none;}
+.inspector .corner{position:absolute; width:7px; height:7px; border-radius:50%;
+  background:color-mix(in oklch, var(--accent) 75%, transparent);
+  box-shadow:0 0 8px color-mix(in oklch, var(--accent) 50%, transparent);}
+.inspector .corner.tl{top:11px; left:11px} .inspector .corner.tr{top:11px; right:11px}
+.inspector .corner.bl{bottom:11px; left:11px} .inspector .corner.br{bottom:11px; right:11px}
+.insp-body{position:relative; padding:26px 24px 24px}
+.insp-empty{display:grid; place-items:center; min-height:420px; text-align:center;
+  color:var(--ink-faint); padding:30px;}
+.insp-empty .bigring{width:76px; height:76px; display:grid; place-items:center; border-radius:50%;
+  border:1px dashed var(--line); margin:0 auto 18px; font-size:28px; color:var(--ink-faint);}
+.insp-empty p{font-style:italic; max-width:240px; line-height:1.5; margin:0 auto}
+.insp-head{display:flex; align-items:center; gap:16px}
+.insp-head .medallion{width:58px; height:58px; font-size:24px}
+.insp-head .nm{font-family:var(--display); font-weight:600; font-size:23px; color:var(--ink);
+  margin:0; letter-spacing:0.01em; line-height:1.12;}
+.insp-head .rl{font-family:var(--code); font-size:10.5px; letter-spacing:0.15em; text-transform:uppercase;
+  color:color-mix(in oklch, var(--accent) 70%, var(--ink-faint)); margin-top:5px;}
+.insp-tags{display:flex; gap:7px; flex-wrap:wrap; margin-top:16px}
+.insp-stats{display:grid; grid-template-columns:repeat(auto-fit, minmax(64px,1fr)); gap:1px;
+  margin-top:20px; background:var(--line-soft); border:1px solid var(--line-soft);
+  border-radius:8px; overflow:hidden;}
+.insp-stats .cell{background:color-mix(in oklch, var(--bg) 58%, var(--panel)); padding:11px 8px; text-align:center}
+.insp-stats .cell .v{font-family:var(--code); font-weight:600; font-size:18px; color:var(--ink)}
+.insp-stats .cell .k{font-family:var(--code); font-size:8.5px; letter-spacing:0.15em; text-transform:uppercase;
+  color:var(--ink-faint); margin-top:3px;}
+.insp-block{margin-top:20px}
+.insp-block .h{font-family:var(--code); font-size:10px; letter-spacing:0.22em; text-transform:uppercase;
+  color:var(--gold-deep); margin-bottom:8px;}
+.subcard{background:color-mix(in oklch, var(--bg) 52%, var(--panel)); border:1px solid var(--line-soft);
+  border-left:2px solid color-mix(in oklch, var(--accent) 55%, transparent);
+  border-radius:8px; padding:11px 13px;}
+.subcard + .subcard{margin-top:9px}
+.schead{display:flex; align-items:center; gap:8px; margin-bottom:6px; flex-wrap:wrap}
+.whenchip{font-family:var(--code); font-size:9.5px; letter-spacing:0.1em; text-transform:uppercase;
+  color:var(--gold-soft); border:1px solid color-mix(in oklch, var(--gold) 40%, transparent);
+  background:color-mix(in oklch, var(--gold) 11%, transparent); border-radius:5px; padding:2px 7px;}
+.subcard .gl{font-size:13.5px; color:var(--ink-dim); line-height:1.5}
+.subcard .raw{font-family:var(--code); font-size:11px; color:var(--ink-faint); margin-top:6px; word-break:break-word}
+.subcard .raw b{color:color-mix(in oklch, var(--accent) 75%, white); font-weight:500}
+.flavor{font-style:italic; color:var(--ink-dim); font-size:14.5px; line-height:1.55;
+  border-left:2px solid color-mix(in oklch, var(--accent) 42%, transparent); padding-left:13px; margin:0;}
+.usedby{display:flex; gap:6px; flex-wrap:wrap}
+.usedby button{appearance:none; cursor:pointer; font-family:var(--body); font-size:12.5px;
+  color:var(--ink-dim); background:transparent; border:1px solid var(--line-soft); border-radius:99px;
+  padding:4px 11px; transition:all .15s ease;}
+.usedby button:hover{color:var(--gold-soft); border-color:var(--gold-deep);
+  background:color-mix(in oklch, var(--gold) 10%, transparent);}
+.kv{display:flex; flex-direction:column; gap:8px}
+.kv .row{display:flex; gap:10px; font-size:14px; line-height:1.5}
+.kv .row .k{font-family:var(--code); font-size:9.5px; letter-spacing:0.14em; text-transform:uppercase;
+  color:color-mix(in oklch, var(--accent) 66%, var(--ink-faint)); min-width:64px; flex:none; padding-top:3px;}
+.kv .row .v{color:var(--ink-dim)}
+.kv .row .v b{color:var(--ink)}
+
+/* ========== World (landing) ========== */
+.hero{text-align:center; padding:42px 0 8px}
+.hero .kick{font-family:var(--code); letter-spacing:0.3em; text-transform:uppercase; font-size:11.5px;
+  color:var(--ink-faint); margin-bottom:16px;}
+.hero h2{font-family:var(--display); font-weight:600; font-size:clamp(38px,6.5vw,64px); line-height:1.04;
+  margin:0; letter-spacing:0;
+  background:linear-gradient(180deg, var(--ink) 30%, var(--gold)); -webkit-background-clip:text;
+  background-clip:text; color:transparent;}
+.hero .tagline2{font-family:var(--body); font-style:italic; font-size:clamp(17px,2.6vw,21px);
+  color:var(--ink-dim); margin:16px auto 0; max-width:44ch;}
+.motto{margin:26px auto 0; display:inline-flex; flex-wrap:wrap; justify-content:center;
+  font-family:var(--display); font-size:15px;}
+.motto span{padding:7px 18px; border:1px solid var(--line); background:color-mix(in oklch, var(--panel) 80%, transparent)}
+.motto span:nth-child(1){border-radius:999px 0 0 999px; color:var(--pale)}
+.motto span:nth-child(2){border-left:none; border-right:none; color:var(--gleam)}
+.motto span:nth-child(3){border-radius:0 999px 999px 0; color:var(--gold)}
+.lede{background:linear-gradient(168deg, var(--panel-2), var(--panel)); border:1px solid var(--line);
+  border-radius:14px; padding:26px 30px; margin:34px auto 0; max-width:860px;
+  box-shadow:0 14px 40px oklch(0.1 0.02 60 / 0.4);}
+.lede p{margin:0 0 13px; font-size:17px; color:var(--ink-dim)}
+.lede p:last-child{margin-bottom:0}
+.lede b{color:var(--ink); font-weight:600}
+.term{color:var(--gold-soft); font-weight:500; font-style:normal}
+.pillars{display:grid; grid-template-columns:repeat(auto-fit, minmax(215px,1fr)); gap:14px;
+  margin:26px auto 0; max-width:1060px;}
+.pillar{background:var(--panel); border:1px solid var(--line-soft); border-radius:12px; padding:17px 18px; text-align:left}
+.pillar h4{margin:0 0 6px; font-family:var(--display); font-weight:600; font-size:16px; color:var(--gold-soft)}
+.pillar p{margin:0; font-size:14px; color:var(--ink-dim); line-height:1.5}
+.pillar p em{color:var(--ink-faint)}
+
+/* ========== Play ========== */
+.playnote{text-align:center; max-width:62ch; margin:0 auto 20px; color:var(--ink-dim); font-size:16px}
+.gloss{display:grid; grid-template-columns:repeat(auto-fit, minmax(230px,1fr)); gap:15px}
+.g{background:linear-gradient(168deg, var(--panel-2), var(--panel)); border:1px solid var(--line-soft);
+  border-radius:13px; padding:19px 21px;}
+.g .ic{font-size:27px; line-height:1; display:block; margin-bottom:10px}
+.g h4{font-family:var(--display); font-weight:600; font-size:19px; margin:0 0 6px; color:var(--gold-soft)}
+.g p{margin:0; font-size:14.5px; color:var(--ink-dim); line-height:1.52}
+.g p b{color:var(--ink)}
+.playhead{font-family:var(--code); font-size:11px; letter-spacing:0.3em; text-transform:uppercase;
+  color:var(--gold-deep); font-weight:400; margin:48px 4px 4px; text-align:center;}
+.playhead::before{content:"❂  "; color:var(--gold); opacity:0.7}
+.playtitle{font-family:var(--display); font-weight:600; font-size:clamp(22px,3.6vw,29px); text-align:center; margin:4px 4px 22px}
+.step{background:linear-gradient(168deg, var(--panel-2), var(--panel)); border:1px solid var(--line-soft);
+  border-radius:15px; padding:24px 26px; margin:18px 0;}
+.step .top{display:flex; align-items:center; gap:15px; margin-bottom:4px}
+.step .num{display:inline-flex; align-items:center; justify-content:center; width:38px; height:38px;
+  border-radius:50%; background:linear-gradient(160deg, var(--gold-soft), var(--gold)); color:var(--bg-deep);
+  font-family:var(--display); font-size:19px; font-weight:700; flex:none;
+  box-shadow:0 0 16px color-mix(in oklch, var(--gold) 35%, transparent);}
+.step h3{font-family:var(--display); font-weight:600; font-size:clamp(19px,3vw,23px); margin:0}
+.step p{margin:11px 0 0; font-size:15.5px; color:var(--ink-dim)}
+.step p b{color:var(--ink)}
+.ex{background:color-mix(in oklch, var(--bg) 55%, var(--panel)); border:1px dashed var(--gold-deep);
+  border-radius:11px; padding:12px 16px; margin-top:14px; font-size:14.5px; color:var(--ink-dim);}
+.ex b{color:var(--gold-soft); font-weight:600}
+.ex .k{color:var(--ink); font-weight:600}
+.step svg{display:block; width:100%; height:auto; margin-top:14px}
+.svgt{fill:var(--ink); font-family:var(--display)}
+.svgn{fill:var(--ink-faint); font-family:var(--ui)}
+.big{background:linear-gradient(168deg, var(--panel-2), var(--panel)); border:1px solid var(--line);
+  border-radius:14px; padding:22px 26px; margin-top:24px; font-family:var(--display);
+  font-size:clamp(17px,2.4vw,20px); line-height:1.5; text-align:center; color:var(--ink-dim);}
+.big b{color:var(--gold-soft); font-weight:600}
+.playlegend{display:flex; flex-wrap:wrap; gap:9px 24px; justify-content:center; margin:22px 6px 0;
+  font-size:14px; color:var(--ink-faint);}
+.playlegend b{color:var(--ink-dim); font-weight:600}
+.sw{display:inline-block; width:12px; height:12px; border-radius:4px; vertical-align:-1px; margin-right:7px}
+
+/* ========== Ways ========== */
+.waygrid{display:grid; grid-template-columns:repeat(auto-fit, minmax(370px,1fr)); gap:18px; margin-top:6px}
+@media (max-width:430px){.waygrid{grid-template-columns:1fr}}
+.way{background:linear-gradient(168deg, var(--panel-2), var(--panel)); border:1px solid var(--line-soft);
+  border-left:5px solid var(--acc, var(--gold)); border-radius:14px; padding:21px 23px 18px;
+  display:flex; flex-direction:column;}
+.whead{display:flex; align-items:center; gap:13px}
+.wchip{width:50px; height:50px; border-radius:50%; display:flex; align-items:center; justify-content:center;
+  font-size:25px; flex:none; border:1px solid color-mix(in oklch, var(--acc) 45%, transparent);
+  background:radial-gradient(circle at 50% 34%, color-mix(in oklch, var(--acc) 26%, var(--panel-hi)), var(--panel) 78%);}
+.wtitle h3{font-family:var(--display); font-weight:600; font-size:22px; margin:0; color:var(--acc)}
+.wtitle .wtag{font-family:var(--code); font-size:9.5px; letter-spacing:0.12em; text-transform:uppercase;
+  color:var(--ink-faint); font-weight:400;}
+.wquote{font-family:var(--display); font-style:italic; font-size:17px; color:var(--ink); margin:13px 0 2px}
+.wfantasy{font-size:14.5px; color:var(--ink-dim); margin:7px 0 0; line-height:1.52}
+.wfantasy b{color:var(--ink)}
+.wrows{margin:13px 0 4px; border-top:1px solid var(--line-soft); padding-top:11px}
+.wrow{display:flex; gap:10px; font-size:14px; margin:6px 0}
+.wrow .lab{color:var(--acc); font-weight:700; min-width:66px; flex:none; font-family:var(--ui); font-size:12.5px;
+  letter-spacing:0.06em; text-transform:uppercase; padding-top:2px;}
+.wrow .val{color:var(--ink-dim)}
+.meters{margin-top:13px; display:grid; gap:7px}
+.m{display:grid; grid-template-columns:88px 1fr; align-items:center; gap:12px;
+  font-family:var(--code); font-size:10.5px; letter-spacing:0.08em; text-transform:uppercase; color:var(--ink-faint);}
+.track{height:9px; border-radius:999px; background:color-mix(in oklch, var(--bg) 65%, var(--panel)); overflow:hidden;
+  border:1px solid var(--line-soft);}
+.track i{display:block; height:100%; border-radius:999px;
+  background:linear-gradient(90deg, color-mix(in oklch, var(--acc) 65%, transparent), var(--acc));
+  box-shadow:0 0 8px color-mix(in oklch, var(--acc) 40%, transparent);}
+.wfoot{margin-top:13px; font-size:13.5px; color:var(--ink-faint); border-top:1px dashed var(--line-soft);
+  padding-top:11px;}
+.wfoot b{color:var(--ink-dim)}
+.wfoot .good{color:var(--moss)} .wfoot .bad{color:var(--need)}
+.wbrowse{appearance:none; cursor:pointer; margin-top:13px; align-self:flex-start;
+  font-family:var(--ui); font-weight:700; font-size:11.5px; letter-spacing:0.12em; text-transform:uppercase;
+  color:color-mix(in oklch, var(--acc) 80%, white); background:color-mix(in oklch, var(--acc) 13%, transparent);
+  border:1px solid color-mix(in oklch, var(--acc) 45%, transparent); border-radius:99px; padding:7px 15px;
+  transition:all .16s ease;}
+.wbrowse:hover{background:color-mix(in oklch, var(--acc) 24%, transparent)}
+.wclose{background:linear-gradient(168deg, var(--panel-2), var(--panel)); border:1px solid var(--line);
+  border-radius:14px; padding:22px 26px; margin-top:22px; text-align:center;
+  font-family:var(--display); font-size:18px; line-height:1.55; color:var(--ink-dim);}
+.wclose b{color:var(--gold-soft)}
+
+/* ========== Codex (design layers) ========== */
+.cdx details{background:linear-gradient(168deg, var(--panel-2), var(--panel)); border:1px solid var(--line-soft);
+  border-radius:13px; margin:12px 0; overflow:hidden;}
+.cdx details[open]{border-color:var(--gold-deep)}
+.cdx summary{cursor:pointer; list-style:none; padding:17px 22px; display:flex; align-items:baseline; gap:14px}
+.cdx summary::-webkit-details-marker{display:none}
+.cdx summary .lyr{font-family:var(--code); font-size:10.5px; letter-spacing:0.08em; color:var(--gold);
+  min-width:58px; text-transform:uppercase; padding-top:4px;}
+.cdx summary .ttl{font-family:var(--display); font-weight:600; font-size:19.5px; color:var(--ink)}
+.cdx summary .sub{margin-left:auto; color:var(--ink-faint); font-size:13px; font-style:italic; text-align:right}
+.cdx summary .chev{margin-left:6px; color:var(--ink-faint); transition:transform .2s ease; font-size:12px; display:inline-block}
+.cdx details[open] summary .chev{transform:rotate(90deg)}
+.cdx summary:hover .ttl{color:var(--gold-soft)}
+.cdx .body{padding:2px 24px 22px; border-top:1px solid var(--line-soft)}
+.cdx .body h3{font-family:var(--display); font-weight:600; font-size:16.5px; margin:20px 0 6px; color:var(--ink)}
+.cdx .body p{margin:10px 0; font-size:15px; color:var(--ink-dim)}
+.cdx .body ul{margin:10px 0; padding-left:20px}
+.cdx .body li{margin:6px 0; font-size:15px; color:var(--ink-dim)}
+.cdx .body b{color:var(--ink)}
+.cdx em.q{color:var(--ink-faint)}
+.cdx code{font-family:var(--code); font-size:12.5px; background:color-mix(in oklch, var(--bg) 60%, var(--panel));
+  padding:1.5px 6px; border-radius:6px; color:var(--gold-soft);}
+.cdx .scroll{overflow-x:auto; margin:14px 0}
+.cdx table{border-collapse:collapse; width:100%; font-size:13.5px; min-width:460px}
+.cdx th,.cdx td{text-align:left; padding:8px 12px; border-bottom:1px solid var(--line-soft); vertical-align:top; color:var(--ink-dim)}
+.cdx th{color:var(--ink-faint); font-family:var(--code); font-weight:400; font-size:10.5px;
+  letter-spacing:0.08em; text-transform:uppercase;}
+.cdx td b{color:var(--gold-soft)}
+.cdx pre{background:color-mix(in oklch, var(--bg) 60%, var(--panel)); border:1px solid var(--line-soft);
+  border-radius:10px; padding:14px 16px; overflow-x:auto; font-family:var(--code);
+  font-size:12px; line-height:1.55; color:var(--ink-dim); margin:14px 0;}
+.cdx pre .c{color:var(--ink-faint)}
+.cdx .callout{border-left:3px solid var(--gold-deep); background:color-mix(in oklch, var(--bg) 55%, var(--panel));
+  padding:12px 16px; border-radius:0 10px 10px 0; margin:16px 0; font-size:14px; color:var(--ink-dim);}
+.cdx .callout b{color:var(--gold-soft)}
+
+/* ========== Footer ========== */
+.footer{text-align:center; margin-top:64px; padding-top:26px; border-top:1px solid var(--line-soft);
+  color:var(--ink-faint); font-style:italic; font-size:13.5px;}
+.footer .fring{color:var(--gold-deep); margin:0 8px}
+.sisters{display:flex; gap:9px; justify-content:center; flex-wrap:wrap; margin-bottom:16px; font-style:normal}
+.sisters a{font-family:var(--ui); font-size:12px; letter-spacing:0.06em; text-decoration:none;
+  color:var(--ink-dim); border:1px solid var(--line-soft); border-radius:99px; padding:6px 13px;
+  transition:all .16s ease; background:color-mix(in oklch, var(--panel) 70%, transparent);}
+.sisters a:hover{color:var(--gold-soft); border-color:var(--gold-deep)}
+
+/* ========== Entrance / misc ========== */
+.fade-in{animation:riseIn .5s cubic-bezier(.2,.7,.2,1) both}
+@keyframes riseIn{from{transform:translateY(9px)} to{transform:none}}
+@media (prefers-reduced-motion:reduce){.fade-in,.mote{animation:none}}
+@media (max-width:720px){
+  .shell{padding:0 16px 64px}
+  .crest h1{font-size:24px}
+  .sec-head{align-items:flex-start}
+  .count-note{margin-left:0}
+  .cdx summary{flex-wrap:wrap}
+  .cdx summary .sub{margin-left:0; width:100%; text-align:left; margin-top:4px}
+}
+
+/* ================= DAYLIGHT WATERCOLOR — theme override ================= */
+:root{
+  --bg:#f7f1e4; --bg-deep:#efe6d3; --panel:#fffaf0; --panel-2:#fdf5e6; --panel-hi:#fffdf7;
+  --line:rgba(74,54,32,0.30); --line-soft:rgba(74,54,32,0.15);
+  --ink:#33271a; --ink-dim:#5c4a33; --ink-faint:#8a765b;
+  --gold:#b8862e; --gold-soft:#caa044; --gold-deep:#8f671d;
+  --gleam:#d99a2a; --pale:#7f92a6; --flow:#3f8fa6; --need:#c1653a; --moss:#6f8f4a;
+  --joinery:#bf8a34; --thread:#4f7fb0; --song:#8a63b8; --glaze:#2f9e90; --dance:#c85f8c; --dough:#b7973f;
+  --w-kilnfast:#c47b2b; --w-eveners:#3f9977; --w-untold:#4f83bf; --w-fairwrights:#c85f8c; --w-mannerly:#8a63b8; --w-gleaners:#6f9440; --w-shared:#b7973f;
+  --display:"Cormorant Garamond", Georgia, serif;
+  --body:"Spectral", Georgia, serif;
+  --ui:"Mulish", ui-sans-serif, sans-serif;
+  --code:"Spline Sans Mono", ui-monospace, monospace;
+  --radius:9px;
+  color-scheme:light;
+}
+
+/* ---- ground: warm paper + faint wash ---- */
+body{ background:
+   radial-gradient(120% 80% at 12% 0%, rgba(184,134,46,0.06), transparent 55%),
+   radial-gradient(120% 90% at 100% 100%, rgba(63,143,166,0.06), transparent 55%),
+   var(--bg-deep);
+  font-size:17px; letter-spacing:0.002em; }
+::selection{ background:rgba(184,134,46,0.28); color:var(--ink) }
+a{ color:var(--gold-deep) } a:hover{ color:var(--gold) }
+
+/* ---- atmosphere: watercolor blooms + pencil rings, no glow ---- */
+.bg-atmos .vignette{ background:
+   radial-gradient(70% 55% at 18% 12%, rgba(80,127,176,0.10), transparent 60%),
+   radial-gradient(60% 50% at 86% 20%, rgba(200,95,140,0.08), transparent 60%),
+   radial-gradient(80% 60% at 60% 100%, rgba(47,158,144,0.09), transparent 62%),
+   linear-gradient(180deg, var(--bg) 0%, var(--bg-deep) 85%); }
+.bg-atmos .vignette::after{ background:
+   radial-gradient(140% 120% at 50% 40%, transparent 62%, rgba(74,54,32,0.08) 100%); }
+.ringfield{ opacity:0.4 }
+.ringfield circle{ stroke:rgba(74,54,32,0.10); stroke-dasharray:2 6 }
+.bg-orb{ filter:blur(72px); opacity:0.22; mix-blend-mode:multiply }
+.mote{ background:var(--gold-deep); box-shadow:none; width:4px; height:4px; opacity:0; filter:blur(0.6px) }
+.grainov{ opacity:0.10; mix-blend-mode:multiply }
+
+/* ---- masthead crest as an inked seal ---- */
+.crest .mark{ background:radial-gradient(circle at 50% 34%, #fffdf7, #f3e8d0 78%);
+  border:1px solid var(--line); box-shadow:inset 0 1px 3px rgba(255,255,255,0.7), 0 3px 12px rgba(74,54,32,0.14) }
+.crest .mark span{ color:var(--gold-deep); text-shadow:none }
+.crest h1{ letter-spacing:0.04em; font-weight:600 }
+.crest h1 b{ color:var(--gold-deep) }
+
+/* ---- soft ink-and-wash shadows everywhere ---- */
+.ecard{ background:linear-gradient(168deg, var(--panel-hi), var(--panel));
+  box-shadow:0 1px 0 rgba(255,255,255,0.6) inset, 0 2px 10px rgba(74,54,32,0.06) }
+.ecard:hover{ box-shadow:0 10px 26px rgba(74,54,32,0.14); border-color:color-mix(in srgb, var(--accent) 55%, transparent) }
+.ecard[data-sel="true"]{ box-shadow:0 0 0 1px var(--accent), 0 10px 26px rgba(74,54,32,0.16) }
+.medallion{ background:radial-gradient(circle at 50% 34%, color-mix(in srgb, var(--accent) 22%, #fffdf7), #fbf3e2 82%);
+  color:color-mix(in srgb, var(--accent) 82%, #4a3620); text-shadow:none;
+  border:1px solid color-mix(in srgb, var(--accent) 45%, transparent) }
+.lede{ box-shadow:0 8px 30px rgba(74,54,32,0.08) }
+.subtabs button.active{ color:#fffaf0; box-shadow:0 4px 14px rgba(184,134,46,0.28) }
+.crest .mark, .lede, .step, .g, .way, .cdx details, .inspector, .big, .wclose{ box-shadow:0 3px 16px rgba(74,54,32,0.07) }
+.step .num{ color:#fffaf0; box-shadow:0 3px 12px rgba(184,134,46,0.30) }
+
+/* ---- headings in the high-contrast display serif ---- */
+.crest h1, .sec-head .title, .hero h2, .playtitle, .step h3, .way .wtitle h3, .cdx summary .ttl, .g h4, .pillar h4, .insp-head .nm, .ecard .nm{
+  font-family:var(--display); }
+.hero h2{ font-weight:700; letter-spacing:-0.01em;
+  background:linear-gradient(160deg, var(--ink) 20%, var(--gold-deep)); -webkit-background-clip:text; background-clip:text; }
+.eyebrow{ color:var(--gold-deep) } .eyebrow::before{ color:var(--gold) }
+
+/* ---- inspector: gilt-edged watercolor plate ---- */
+.inspector{ background:linear-gradient(172deg, var(--panel-hi), var(--panel)) }
+.inspector .ribbon{ background:radial-gradient(120% 100% at 50% 0, color-mix(in srgb, var(--accent) 20%, transparent), transparent 72%) }
+.whenchip{ color:var(--gold-deep) }
+.cdx code, .cdx td b, .cdx .callout b{ color:var(--gold-deep) }
+.cdx pre code, .cdx pre{ color:var(--ink-dim) }
+
+</style>
+</head>
+<body>
+<div class="bg-atmos" aria-hidden="true">
+  <div class="vignette"></div>
+  <div class="ringfield" id="ringfield"></div>
+  <div class="bg-orb" style="width:420px;height:420px;left:-120px;top:120px;background:#3f8fa6;"></div>
+  <div class="bg-orb" style="width:360px;height:360px;right:-90px;bottom:90px;background:#c85f8c;"></div>
+  <div class="bg-orb" style="width:280px;height:280px;right:22%;top:-70px;background:#b8862e;opacity:.16"></div>
+  <div id="motes"></div>
+</div>
+<div class="grainov" aria-hidden="true"></div>
+
+<div class="shell">
+  <header class="masthead">
+    <span class="version-stamp">GDD v1 · all 7 layers locked · pre-balance</span>
+    <div class="crest">
+      <div class="mark"><span>❂</span></div>
+      <div>
+        <h1>Round<b>elay</b></h1>
+        <div class="tagline">~ a round-song of a game, still being sung ~</div>
+      </div>
+    </div>
+    <nav class="topnav" id="sectionNav">
+      <button type="button" data-section="world" class="active"><span class="nav-glyph">❂</span>World</button>
+      <button type="button" data-section="play"><span class="nav-glyph">☼</span>Play</button>
+      <button type="button" data-section="cards"><span class="nav-glyph">❖</span>Cards</button>
+      <button type="button" data-section="ways"><span class="nav-glyph">♪</span>Ways</button>
+      <button type="button" data-section="codex"><span class="nav-glyph">✒</span>Codex</button>
+    </nav>
+  </header>
+
+  <main>
+    <!-- ===== WORLD ===== -->
+    <div id="section-world" class="section visible">
+      <div class="hero">
+        <div class="kick">a roguelike economy deckbuilder</div>
+        <h2>Attention is a<br>physical force</h2>
+        <p class="tagline2">You are a maker walking one wander-year through a countryside that is quietly fading — and everything you truly attend to wakes.</p>
+        <div class="motto"><span>places pale</span><span>people gleam</span><span>things wake</span></div>
+      </div>
+
+      <section class="lede">
+        <p>Each turn is one <b>worked morning</b>: you gather <span class="term">the room</span> (a pool of attention), play <b>journey-pieces</b> from your deck in an unbroken chain, and — when a piece has rested enough attention past its <b>waking-mark</b> — it <b>wakes</b>: it takes a thin gold working-edge, fires permanently into your deck, and starts drawing a crowd of its own. Pour attention past a card's ceiling and the overflow runs to <span class="term">Standing</span> — your gleam, the light the world holds you in.</p>
+        <p>The pressure is the <b>weather</b>. The land's fading (the <span class="term">Paling</span>) grows stronger through the year, raising the size of the <b>askings</b> — contracts you take off town lanterns — toward a calendar-floored <b>crown</b> at winter. You never lose Standing by sitting still; you lose it only by <b>reaching and falling short</b> (the spilling). To <b>win</b> you must stand the crown — which means you must have grown, which means you must have risked.</p>
+        <p>Six playstyles (the <b>Walking Ways</b>), one gorgeous economy of light, and a deck that is an autobiography of everyone who ever taught you a piece.</p>
+      </section>
+
+      <div class="pillars">
+        <div class="pillar"><h4>Attention as physics</h4><p>Every number a card pays is a <em>read</em> of shared state an earlier card wrote. The room you build with card&nbsp;1 is the number card&nbsp;3 dumps.</p></div>
+        <div class="pillar"><h4>Failure is a reach, not a bar</h4><p>No ambient decay. Standing falls only when a performance falls short — so growth and risk are the same act.</p></div>
+        <div class="pillar"><h4>Escalation is weather</h4><p>The season's fading raises the stakes on its own. A turtle who skips nothing still walks into autumn.</p></div>
+        <div class="pillar"><h4>Wonder, not grimdark</h4><p>No debt, no fees, no paperwork. Every mechanic is the world's own craft-physics — a lifting room, a gold edge taking, grey ground held back.</p></div>
+      </div>
+    </div>
+
+    <!-- ===== PLAY ===== -->
+    <div id="section-play" class="section">
+      <div class="sec-head">
+        <div>
+          <span class="eyebrow">The Worked Morning</span>
+          <h2 class="title">Play</h2>
+          <div class="sub">The whole core loop, in plain English.</div>
+        </div>
+      </div>
+
+      <div class="playhead">First — five words</div>
+      <div class="playtitle">The whole game in five ideas</div>
+      <div class="gloss">
+        <div class="g"><span class="ic">🔦</span><h4>Attention</h4><p>Your energy for the morning — like a <b>spotlight</b> you shine on your cards to bring them to life. You get a fresh pool every dawn.</p></div>
+        <div class="g"><span class="ic">🎴</span><h4>A piece</h4><p>A card — one little act you perform. Your <b>deck is your troupe.</b> It starts tiny and grows as pieces "wake."</p></div>
+        <div class="g"><span class="ic">👥</span><h4>The room</h4><p>How big a <b>crowd</b> you've gathered right now. A bigger room lets you wake bigger, better pieces this turn.</p></div>
+        <div class="g"><span class="ic">🌡️</span><h4>Waking-mark</h4><p>Each piece needs a certain amount of attention to <b>wake up</b>. Give it more than its <b>ceiling</b> and the extra spills over.</p></div>
+        <div class="g"><span class="ic">✦</span><h4>Standing</h4><p>Your <b>reputation</b> — and it's both your <b>score and your life bar.</b> Hits zero, the run ends. You earn it by <b>over</b>-delivering.</p></div>
+      </div>
+
+      <div class="playhead">Now — watch one morning</div>
+      <div class="playtitle">A single turn, with real numbers</div>
+
+      <div class="step">
+        <div class="top"><span class="num">1</span><h3>The town posts a need</h3></div>
+        <p>You arrive at a pale little town. Its lantern shows an <b>asking</b> — a job with a size. Deliver that much <b>delight</b> and the town is re-made (and pays you). Early in the year the needs are small; they grow as winter nears.</p>
+        <div class="ex">Today's asking: <span class="k">a NEED of size 3.</span> &nbsp;Your job this morning is to pay <b>3 delight</b> into it.</div>
+      </div>
+
+      <div class="step">
+        <div class="top"><span class="num">2</span><h3>Gather a crowd (build the room)</h3></div>
+        <p>You play a card whose job is to <b>draw a crowd</b>. That raises <b>the room</b> — your pool of attention for the pieces you play next. The bigger the room, the bigger the piece you can wake.</p>
+        <div class="ex">You play a room-builder. <span class="k">The room is now 6.</span> &nbsp;You have <b>6 attention</b> to pour onto your next piece.</div>
+      </div>
+
+      <div class="step">
+        <div class="top"><span class="num">3</span><h3>Wake your star piece — the core move</h3></div>
+        <p>Now you <b>pour the room onto a piece.</b> Every piece has a <b>waking-mark</b> (how much it needs to come alive) and a <b>ceiling</b> (how much it can hold). Reach the mark and it <b>WAKES</b>: it fires into your deck <b>permanently</b> and joins your crowd on future mornings. Pour <b>past</b> the ceiling and the leftover <b>spills into Standing.</b></p>
+        <div class="ex">Your star piece has <span class="k">waking-mark 4, ceiling 5.</span> You pour all <b>6</b> onto it: 6 ≥ 4, so it <b class="k">WAKES</b> ✦ — and 6 is <b>1 past</b> its ceiling of 5, so <b>+1 Standing.</b></div>
+        <svg viewBox="0 0 860 400" role="img" aria-label="A piece meter: pouring 6 attention onto a piece with mark 4 and ceiling 5">
+          <rect x="120" y="40" width="150" height="310" rx="18" fill="var(--panel-hi)" stroke="var(--line)" stroke-width="2"/>
+          <rect x="122" y="129" width="146" height="219" rx="14" fill="var(--flow)" opacity="0.75"/>
+          <rect x="122" y="84"  width="146" height="46" fill="var(--gleam)" opacity="0.9"/>
+          <text x="195" y="250" text-anchor="middle" font-size="26" fill="var(--bg-deep)" font-weight="700" class="svgt">poured</text>
+          <text x="195" y="284" text-anchor="middle" font-size="34" fill="var(--bg-deep)" font-weight="700" class="svgt">6</text>
+          <line x1="104" y1="173" x2="286" y2="173" stroke="var(--gold)" stroke-width="3" stroke-dasharray="7 5"/>
+          <line x1="104" y1="129" x2="286" y2="129" stroke="var(--gleam)" stroke-width="3" stroke-dasharray="7 5"/>
+          <text x="300" y="168" font-size="20" class="svgt" font-weight="700" fill="var(--gold)">▲ waking-mark = 4</text>
+          <text x="300" y="192" font-size="15" class="svgn">reach this and the piece WAKES ✦</text>
+          <text x="300" y="118" font-size="20" class="svgt" font-weight="700" fill="var(--gleam)">▲ ceiling = 5</text>
+          <text x="300" y="142" font-size="15" class="svgn">anything above here spills over →</text>
+          <rect x="300" y="238" width="480" height="66" rx="14" fill="var(--panel)" stroke="var(--gold)" stroke-width="2"/>
+          <text x="318" y="266" font-size="20" class="svgt" font-weight="700" fill="var(--gold)">✦ IT WAKES</text>
+          <text x="318" y="290" font-size="15.5" class="svgn">gold edge — added to your deck <tspan font-weight="700" fill="var(--ink)">forever</tspan>, and joins your crowd next time</text>
+          <rect x="300" y="46" width="480" height="52" rx="14" fill="var(--panel)" stroke="var(--gleam)" stroke-width="2"/>
+          <text x="318" y="70" font-size="18" class="svgt" font-weight="700" fill="var(--gleam)">the 1 spilled over → +1 Standing ✦</text>
+          <text x="318" y="90" font-size="14.5" class="svgn">doing MORE than needed builds your reputation</text>
+        </svg>
+      </div>
+
+      <div class="step">
+        <div class="top"><span class="num">4</span><h3>Deliver — and get paid</h3></div>
+        <p>The piece you just woke <b>pays its delight into the town's need.</b> Fill the need and the town is <b>re-made</b>: the square blooms back into colour, and you're paid a bundle — a new taught card, bright money, map hints. Your deck just grew, and your show is a little bigger tomorrow.</p>
+        <div class="ex">Your woken piece pays <b>3 delight</b> → the need of <span class="k">3 is filled</span> → town re-made, you're paid. And the piece you woke is now <b>in your deck for good.</b></div>
+      </div>
+
+      <div class="big">
+        Then dawn comes again — and <b>the piece you woke is back, bringing its crowd.</b><br>
+        Each morning your show gets bigger. That snowball is the whole game.
+      </div>
+
+      <div class="playhead">The key rule</div>
+      <div class="playtitle">Every drop of attention goes somewhere</div>
+      <p class="playnote">Nothing is ever wasted — when you pour attention onto a piece, it takes one of these four paths. Learning to steer it is the skill.</p>
+      <div class="gloss">
+        <div class="g" style="border-color:color-mix(in oklch, var(--gold) 45%, transparent)"><span class="ic" style="color:var(--gold)">✦</span><h4 style="color:var(--gold)">It wakes</h4><p>Reached the mark → fired into your deck <b>forever</b> and joins your crowd. <b>This is how you grow.</b></p></div>
+        <div class="g" style="border-color:color-mix(in oklch, var(--gleam) 45%, transparent)"><span class="ic" style="color:var(--gleam)">⤴</span><h4 style="color:var(--gleam)">It overflows</h4><p>Poured past the ceiling → the extra becomes <b>Standing</b> (your score + life bar). Showing off pays.</p></div>
+        <div class="g" style="border-color:color-mix(in oklch, var(--flow) 45%, transparent)"><span class="ic" style="color:var(--flow)">↩</span><h4 style="color:var(--flow)">It returns</h4><p>Attention you didn't spend isn't lost — it <b>waits on the town's table</b> and gives you a richer dawn tomorrow.</p></div>
+        <div class="g" style="border-color:color-mix(in oklch, var(--pale) 45%, transparent)"><span class="ic" style="color:var(--pale)">○</span><h4 style="color:var(--pale)">It stays cold</h4><p>Not enough to reach the mark → the piece does its bit once, then <b>stays asleep</b> and slowly fades.</p></div>
+      </div>
+
+      <div class="playhead">The big picture</div>
+      <div class="playtitle">One run is one year — and it keeps getting harder</div>
+      <p class="playnote">You get about <b style="color:var(--ink)">27 mornings</b>, spring to winter. The land's fading rises <b>on its own</b> — the needs grow whether you engage or not — building to a final job you must be strong enough to answer. Grow, or get left behind by the weather.</p>
+      <div class="step" style="padding:22px 20px">
+        <svg viewBox="0 0 860 270" role="img" aria-label="The year rising from small needs to the crown">
+          <defs>
+            <linearGradient id="pf" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="var(--pale)" stop-opacity="0.34"/>
+              <stop offset="1" stop-color="var(--pale)" stop-opacity="0.05"/>
+            </linearGradient>
+          </defs>
+          <path d="M40,206 L40,190 C200,184 280,158 430,126 C560,98 660,66 830,40 L830,206 Z"
+                fill="url(#pf)" stroke="var(--pale)" stroke-width="1.8" stroke-opacity="0.7"/>
+          <line x1="40" y1="206" x2="830" y2="206" stroke="var(--line)" stroke-width="1.8"/>
+          <text x="60" y="60" font-size="15" class="svgn">the Paling rises →</text>
+          <circle cx="120" cy="186" r="9"  fill="var(--need)" opacity="0.9"/><text class="svgt" x="120" y="165" text-anchor="middle" font-size="17" font-weight="700" fill="var(--need)">1</text>
+          <circle cx="290" cy="164" r="13" fill="var(--need)" opacity="0.9"/><text class="svgt" x="290" y="139" text-anchor="middle" font-size="17" font-weight="700" fill="var(--need)">3</text>
+          <circle cx="460" cy="136" r="17" fill="var(--need)" opacity="0.9"/><text class="svgt" x="460" y="106" text-anchor="middle" font-size="17" font-weight="700" fill="var(--need)">5</text>
+          <circle cx="620" cy="102" r="21" fill="var(--need)" opacity="0.9"/><text class="svgt" x="620" y="68"  text-anchor="middle" font-size="17" font-weight="700" fill="var(--need)">7</text>
+          <text x="775" y="52" text-anchor="middle" font-size="38" fill="var(--gleam)">♛</text>
+          <text class="svgt" x="775" y="84" text-anchor="middle" font-size="16" font-weight="700" fill="var(--gleam)">THE CROWN</text>
+          <text class="svgn" x="775" y="104" text-anchor="middle" font-size="13.5">need 10 · stand it to win</text>
+          <g font-size="15">
+            <text class="svgt" x="120" y="234" text-anchor="middle">spring</text>
+            <text class="svgt" x="290" y="234" text-anchor="middle">early summer</text>
+            <text class="svgt" x="460" y="234" text-anchor="middle">late summer</text>
+            <text class="svgt" x="620" y="234" text-anchor="middle">autumn</text>
+            <text class="svgt" x="775" y="234" text-anchor="middle">winter</text>
+          </g>
+          <text class="svgn" x="435" y="262" text-anchor="middle" font-size="14.5">small needs → bigger needs → a boss-sized finale you must have grown to meet</text>
+        </svg>
+      </div>
+
+      <div class="big">
+        The one idea that makes it clever:<br><b>a card's payoff isn't a fixed number — it reads what your earlier cards built.</b><br>
+        The crowd you gather with card 1 is the amount card 3 pours. Right cards, wrong order → your reach falls short.
+      </div>
+
+      <div class="playlegend">
+        <span><span class="sw" style="background:var(--flow)"></span><b>attention</b> — your spotlight</span>
+        <span><span class="sw" style="background:var(--gold)"></span><b>waking</b> — your growing deck</span>
+        <span><span class="sw" style="background:var(--gleam)"></span><b>Standing</b> — score &amp; life</span>
+        <span><span class="sw" style="background:var(--need)"></span><b>the need</b> — the town's job</span>
+        <span><span class="sw" style="background:var(--pale)"></span><b>the Paling</b> — the rising difficulty</span>
+      </div>
+    </div>
+
+    <!-- ===== CARDS (data viewer) ===== -->
+    <div id="section-cards" class="section">
+      <div class="sec-head">
+        <div>
+          <span class="eyebrow">The Pack, Opened</span>
+          <h2 class="title">Cards</h2>
+          <div class="sub">Everything the design currently knows about itself.</div>
+        </div>
+        <div class="subtabs" id="dataTabs">
+          <button type="button" class="active" data-tab="cards"><span class="g">❖</span>Cards</button>
+          <button type="button" data-tab="effects"><span class="g">✧</span>Effects</button>
+          <button type="button" data-tab="resources"><span class="g">◉</span>Resources</button>
+        </div>
+      </div>
+
+      <div id="dataTab-cards" class="data-tab visible">
+        <div class="toolbar">
+          <div class="searchbox">
+            <span class="ic">⌕</span>
+            <input type="search" id="cardSearch" placeholder="Search the pack…">
+          </div>
+          <div class="filterset" id="wayFilters"></div>
+          <span class="count-note" id="cardCount"></span>
+        </div>
+        <div class="toolbar" style="margin-top:-8px">
+          <div class="filterset" id="grainFilters"></div>
+          <div class="filterset" id="roleFilters"></div>
+        </div>
+        <div class="viewer-split">
+          <div class="card-grid" id="cardGrid"></div>
+          <div class="inspector-col" id="cardInspector"></div>
+        </div>
+      </div>
+
+      <div id="dataTab-effects" class="data-tab">
+        <div class="toolbar">
+          <div class="searchbox">
+            <span class="ic">⌕</span>
+            <input type="search" id="fxSearch" placeholder="Search the fourteen verbs…">
+          </div>
+          <div class="filterset" id="fxFilters"></div>
+          <span class="count-note" id="fxCount"></span>
+        </div>
+        <div class="viewer-split">
+          <div class="card-grid" id="fxGrid"></div>
+          <div class="inspector-col" id="fxInspector"></div>
+        </div>
+      </div>
+
+      <div id="dataTab-resources" class="data-tab">
+        <div class="toolbar">
+          <div class="searchbox">
+            <span class="ic">⌕</span>
+            <input type="search" id="resSearch" placeholder="Search the economy…">
+          </div>
+          <div class="filterset" id="resFilters"></div>
+          <span class="count-note" id="resCount"></span>
+        </div>
+        <div class="viewer-split">
+          <div class="card-grid" id="resGrid"></div>
+          <div class="inspector-col" id="resInspector"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== WAYS ===== -->
+    <div id="section-ways" class="section">
+      <div class="sec-head">
+        <div>
+          <span class="eyebrow">Six Temperaments</span>
+          <h2 class="title">The Walking Ways</h2>
+          <div class="sub">One game, six completely different ways to play it. You never pick a class — the country teaches you into one.</div>
+        </div>
+      </div>
+      <div class="waygrid" id="wayGrid"></div>
+      <div class="wclose">
+        Same five rules, six temperaments. <b>Kilnfast</b> out-grows you, <b>Eveners</b> out-lasts you,
+        <b>Untold</b> out-runs you, <b>Fairwrights</b> out-dazzle you, <b>Mannerly</b> out-class you,
+        and <b>Gleaners</b> walk somewhere you wouldn't dare.<br>
+        Start with a starter; you'll drift into your own.
+      </div>
+    </div>
+
+    <!-- ===== CODEX ===== -->
+    <div id="section-codex" class="section">
+      <div class="sec-head">
+        <div>
+          <span class="eyebrow">The Design, Layer by Layer</span>
+          <h2 class="title">Codex</h2>
+          <div class="sub">The locked GDD, condensed — tap a layer to unfold it.</div>
+        </div>
+      </div>
+      <div class="cdx">
+
+        <details>
+          <summary><span class="lyr">World</span><span class="ttl">Roundelay &amp; the Paling</span><span class="sub">theme, tone, the six Ways<span class="chev">›</span></span></summary>
+          <div class="body">
+            <p>Roundelay is a made world — not made once, long ago, but made <b>continuously, by hands</b>. It is named for a round-song passed voice to voice around a circle, that only stays wonderful as long as someone keeps singing their bars.</p>
+            <p>The <b>Paling</b> is the world exhaling: a tide, not a villain, that takes knack from made things first and color after. It never touches people or the light itself — it is the reason makers exist at all. Answering a town's need <b>re-makes</b> it: the square re-colors in watercolor strokes, and the maker is paid in the town's own overflow of gladness (the <span class="term">glad-load</span>).</p>
+            <p>The board is painted in <b>one light and three brushes</b> — <em class="q">places pale, people gleam, things wake</em> — three channels that never cross, plus attention as the medium that carries between them.</p>
+            <h3>The six Walking Ways</h3>
+            <p>Makers travel in loose traditions, each a different answer to the same fading. They are the game's six archetypes: the <b>Kilnfast</b> (fire it, keep it), the <b>Eveners</b> (keep the evening moving), the <b>Untold</b> (outrun the tale), the <b>Fairwrights</b> (make the watching), the <b>Mannerly</b> (mind your courtships), and the <b>Morning-Gleaners</b> (glean the grey left behind).</p>
+            <div class="callout"><b>Aesthetic target:</b> wonder, fantasy, whimsy, elegance — closer to Miyazaki or Le&nbsp;Guin or a beautifully illustrated picture-book than to grimdark or bureaucratic satire. Every layer must generate imagery an artist could paint.</div>
+          </div>
+        </details>
+
+        <details open>
+          <summary><span class="lyr">Layer 1</span><span class="ttl">The Core Loop</span><span class="sub">the worked morning &amp; the win<span class="chev">›</span></span></summary>
+          <div class="body">
+            <p>A run is <b>one wander-year of fixed length</b> — ~27 worked mornings across five legs (Green&nbsp;Going → Long&nbsp;Light → Deep&nbsp;Gold → Red&nbsp;Walk → the Wintering finale). The calendar advances by <b>worked mornings only</b>, never by travel — so a camp-in-place player evades nothing.</p>
+            <h3>One play at a time</h3>
+            <ul>
+              <li><b>Dawn (income).</b> The morning issues attention: a flat base + a draw from the local table (a paler node gives a richer dawn) + yesterday's returned surplus. The base always wakes at least the cheapest piece — <em class="q">no morning is ever decision-free.</em> Draw a hand of five.</li>
+              <li><b>Gather the room.</b> Your pool = the morning draw + the gathered room (woken audience-things you own, townsfolk, a venue). A thin room caps how bright anything can wake.</li>
+              <li><b>Play a chain.</b> Each play spends attention as a <b>multiplier</b>; back-to-back plays hold the room high, a stall lets it cool. Attention is a budget and a momentum at once.</li>
+              <li><b>The waking line.</b> Rest a piece's attention <b>at or above its fixed waking-mark</b> and it wakes — fired to your deck permanently, paying delight into the need's fill and joining the room as a new audience-thing. Below its mark it still resolves once but stays inert and paling-prone.</li>
+              <li><b>The full cup.</b> Attention poured <b>past a card's ceiling</b> converts to Standing at full rate — <em class="q">a full cup runs to the pourer.</em> The run's biggest gleam swings happen here, on stage, in public.</li>
+              <li><b>Fulfil.</b> When the need's fill completes, the node is re-made and the glad-load pays out.</li>
+            </ul>
+            <h3>Standing, and how you lose</h3>
+            <p>Standing <b>is</b> gleam — the world's trust worn as a key-light behind the shoulder. It rises on overflow, glad palms, and delayed tellings. It falls only by <b>the spilling</b>: an unmoved room, or an asking carried past its season. There is <b>no ambient decay</b>. At Standing-zero the run ends into the <b>Quiet Walk</b> — not death, the world going shy.</p>
+            <div class="callout"><b>The win:</b> reach the first still dawn of winter still lit <b>and</b> having stood your <b>crown</b> — a boss-tier performance the whole engine you built must answer. The turtle-dodge is closed not by a decay meter but by the crown being <b>un-standable without a grown deck</b>. Opting out of risk means opting out of winning.</div>
+          </div>
+        </details>
+
+        <details>
+          <summary><span class="lyr">Layer 2</span><span class="ttl">Resources</span><span class="sub">four interacting systems<span class="chev">›</span></span></summary>
+          <div class="body">
+            <p>A lean set of resources, each on a <b>different clock</b> so none can substitute for another:</p>
+            <div class="scroll"><table>
+              <tr><th>Resource</th><th>What it is</th><th>Its clock</th></tr>
+              <tr><td><b>Attention</b> — the room</td><td>The per-turn pool you spend to wake pieces. Never banked; unspent attention returns to the local table.</td><td>the dawn</td></tr>
+              <tr><td><b>Handsels</b></td><td>A decaying currency. Bright only while it keeps moving; idle money dims and seeps back to tomorrow's dawn.</td><td>the rest</td></tr>
+              <tr><td><b>Gleam</b> — Standing</td><td>The never-spent gate + fail-resource. Gates which askings and materials answer you; ends the run at zero.</td><td>the run</td></tr>
+              <tr><td><b>The Paling</b></td><td>Board pressure. Accretes as spiral rings on skipped nodes; raises askings and richens dawns.</td><td>the season</td></tr>
+            </table></div>
+            <p>Plus <b>journey-pieces</b> (your deck) and <b>courted stock</b> (shy materials). Everything rides one conservation substrate — <em class="q">nothing is noticed away; nothing is minted.</em> Four subsystems (the Bench, the Handsel Round, the Courting Web, the Paling Market) tap and feed that single circulation. The full square is browsable under <b>Cards → Resources</b>.</p>
+            <div class="callout"><b>The firewall:</b> Standing never interacts with the Paling. Board pressure can never touch the gleam meter — so players always know which losses are the world's weather and which are their own.</div>
+          </div>
+        </details>
+
+        <details>
+          <summary><span class="lyr">Layer 3</span><span class="ttl">Effect Vocabulary</span><span class="sub">14 primitives; cards are data<span class="chev">›</span></span></summary>
+          <div class="body">
+            <p>A card is <b>declarative data</b>: a craft-suit, a fixed waking-mark, a ceiling, a printed delight, and an ordered list of effects. Each effect is <code>{ when, if?, do, params }</code>. The depth comes from one idea: <b>amounts are references, not constants</b> — the single primitive <code>read</code> turns any live quantity into the <em>amount</em> of another effect. All fourteen verbs are browsable under <b>Cards → Effects</b>.</p>
+            <div class="callout"><b>The grammar of light is compiler-enforced.</b> A gleam-write (<code>brim</code>) can only read the room / chain / genuine overflow — never a board surface. Paleness may scale attention, handsels, and harvest — <b>never Standing</b>. And no waking-mark can ever be lowered; the only lever is bringing more attention.</div>
+          </div>
+        </details>
+
+        <details>
+          <summary><span class="lyr">Layer 4</span><span class="ttl">Acquisition</span><span class="sub">how the deck grows — no card-shop<span class="chev">›</span></span></summary>
+          <div class="body">
+            <p>Only three things ever newly enter a run — <b>journey-pieces, courted stock, handsels</b> — and never through a shop. Acquisition is a bundle paid across the existing economies, gated by two independent things at once:</p>
+            <ul>
+              <li><b>The glad-load</b> — the passive spine. Answering a town's asking loads your pack across everything at once: one pressed <b>taught piece</b> (arriving with that town's name on it), one <b>introduction-jar</b> of local material, <b>bright handsels</b>, and map-intel chalked a day ahead. Its richness scales off the node's spiral rings — <em class="q">rings-in equals load-out</em>, so the same number raises both the difficulty and the reward.</li>
+              <li><b>The Round-Fair</b> — the active hub, and where <b>choice</b> lives: teach / win / delight lanes, priced in wakefulness, that you must route to intercept.</li>
+              <li><b>The gleaning</b> — walk the pale, left-behind country for last-red and salvage. Highest route risk; the Gleaner's home.</li>
+              <li><b>Courting</b> — proud materials are never bought. You spend <b>gleam as a gate</b> (which stalls will deal with you) then perform a term to draw the stuff in.</li>
+            </ul>
+            <p>Every acquired piece arrives <b>inert</b> — the room still has to wake it. That is why a fast draft can never trivialize the run: you cannot draft your way past the requirement to <em>perform</em>. Every faucet pairs with a canon drain (retire, gifting, exhaust), so the deck is a garden, not a hoard.</p>
+            <div class="callout"><b>The intersection is the strategy:</b> your <b>shine</b> decides who will deal with you; your <b>route + season</b> decides what a place even has. You need both gates open at once — the mending question worn as a supply chain.</div>
+          </div>
+        </details>
+
+        <details>
+          <summary><span class="lyr">Layer 5</span><span class="ttl">The Six Archetypes</span><span class="sub">six engines, not palette-swaps<span class="chev">›</span></span></summary>
+          <div class="body">
+            <p>Each Walking Way pulls one lever of the resource square hardest, wins the same crown by a <b>different route</b>, and sits on a different risk axis. You are never handed a class menu — <b>the country teaches you into the maker you are being</b>, by the grain your gleam shows.</p>
+            <div class="scroll"><table>
+              <tr><th>Way</th><th>Lever</th><th>Feel</th><th>How it wins</th></tr>
+              <tr><td><b>Kilnfast</b></td><td>the fired, held</td><td>lowest variance; a curve that out-scales the boss</td><td>a compounding fired-audience floor (<code>read(woken)</code> → bigger room, no spike)</td></tr>
+              <tr><td><b>Eveners</b></td><td>the purse, moving</td><td>the control deck; highest consistency</td><td>composts dead cards into room + keeps money bright by moving it</td></tr>
+              <tr><td><b>Untold</b></td><td>the pace, ratcheted</td><td>thin, fast, cool</td><td>clears <em>many small</em> needs; pressure is count-and-pace, not tonnage</td></tr>
+              <tr><td><b>Fairwrights</b></td><td>the room, spiked</td><td>highest variance; feast or famine</td><td>one enormous crowd dumped past a ceiling — the biggest gleam swing (<code>brim</code>)</td></tr>
+              <tr><td><b>Mannerly</b></td><td>the proud, courted</td><td>greedy, swingy; highest ceiling</td><td><b>court</b> a term-state, then one proud piece pays by the <b>courtship's depth</b></td></tr>
+              <tr><td><b>Gleaners</b></td><td>the grey, harvested</td><td>highest route risk; boss-affine</td><td>the fading itself is fuel — richest dawns, then <b>soothe</b> the ground you farmed</td></tr>
+            </table></div>
+            <div class="callout"><b>A late design pass</b> gave the Gleaner and the Mannerly their own <b>winning verbs</b> so no two builds win the same way. The Gleaner's marquee is now <b>mending the ripened grey it just harvested</b> (<code>soothe</code>); the Mannerly's is <b>the courtship landing</b> (<code>court</code>, with gleam a pure gate). Only two builds still win by a raw grain-count — and those two are set apart by other levers entirely.</div>
+          </div>
+        </details>
+
+        <details>
+          <summary><span class="lyr">Layer 6</span><span class="ttl">Numbers &amp; Curves</span><span class="sub">the economy, made concrete<span class="chev">›</span></span></summary>
+          <div class="body">
+            <p>Concrete numbers fitted to the design and proven by an executable economy model. Every worked morning offers a median of <b>four meaningful decisions</b>.</p>
+            <div class="scroll"><table>
+              <tr><th>Dial</th><th>Value</th></tr>
+              <tr><td>Deck size over the run</td><td>~7 → ~20 (grown enough to stand the crown, thinned along the way)</td></tr>
+              <tr><td>Hand size</td><td>5, refilled each morning</td></tr>
+              <tr><td>The rising need (per morning, by leg)</td><td>1 → 3 → 5 → 7, climbing to a <b>crown demand of 10</b></td></tr>
+              <tr><td>Card tiers (fixed marks)</td><td>apprentice 1–2 · mid 3–5 · proud 6–7 · capstone 7–8</td></tr>
+              <tr><td>Spiral rings</td><td>3 = a plea · 5 = a poem · 7 = a great asking born</td></tr>
+              <tr><td>Overflow → gleam</td><td>full rate for the first 6 points past a ceiling, then diminishing (closes bank-then-dump)</td></tr>
+              <tr><td>Handsels</td><td>dull 1 · warm 2 · singing 3; brightened only by circulation</td></tr>
+              <tr><td>Archetype balance</td><td>six power totals inside a 4-point band; each best on exactly one axis; zero dominated pairs</td></tr>
+            </table></div>
+            <p>The crown's 8.5-of-10 gap is deliberately closed by the <b>whole engine</b> — chain multiplier, overflow, and count-stacking — never by a single card. A static apprentice deck simply cannot reach it: <b>growth is forced by the weather, not optional.</b></p>
+            <div class="callout"><b>The commerce ban holds even in the numbers:</b> the shy-material stalls render diegetically as <em>the-vouching</em> / <em>the-stalls-that-lean-in</em> — never an in-world "market".</div>
+          </div>
+        </details>
+
+        <details>
+          <summary><span class="lyr">Layer 7</span><span class="ttl">The Starter Pool</span><span class="sub">49 cards, ready to play<span class="chev">›</span></span></summary>
+          <div class="body">
+            <p>The concrete opening cards, as data: a shared <b>7-card apprentice deck</b> every run begins with, plus ~7 cards for each of the six Ways so its signature chain opens from turn one. <b>84% of the pool participates in a combo</b> — the standalones are the deliberate legible floor. Every card is browsable under <b>Cards</b>.</p>
+            <h3>A signature chain, as the engine sees it — the Kilnfast's compounding hearth</h3>
+            <pre><span class="c">// C1 — Setterby Trestle: the room grows by every joinery piece already fired (cross-turn)</span>
+{ "grain":"joinery", "mark":2, "ceiling":4, effects:[
+    gather( read <span class="c">woken:joinery</span> ),   <span class="c">// +room per fired joinery</span>
+    steady( links:1, brace )  ]}                 <span class="c">// hold the room across a pause</span>
+
+<span class="c">// C2 — Calipers at the Bench: pre-rest the capstone toward its FIXED mark by the held room</span>
+{ "grain":"joinery", "mark":3, "ceiling":5, effects:[
+    rest( target: capstone, read <span class="c">room</span> ),
+    mark-grain( a hand piece → joinery )  ]}     <span class="c">// grows read(grain:joinery)</span>
+
+<span class="c">// C3 — The Fired Beam: clear it, pay by joinery-count, then wake and seat as one more piece</span>
+{ "grain":"joinery", "mark":7, "ceiling":8, tags:[capstone], effects:[
+    rest( self, read <span class="c">room</span> ),
+    fill( read <span class="c">grain:joinery</span> ),        <span class="c">// every number here was written by C1–C2</span>
+    steady( brace )  ]}</pre>
+            <p>Break the order and the capstone under-fills — <em class="q">a reach that falls short, the spilling.</em> The combo <b>is</b> the growth; the growth is the Standing at stake.</p>
+          </div>
+        </details>
+
+        <details>
+          <summary><span class="lyr">Next</span><span class="ttl">What the design leaves open</span><span class="sub">for the balance stage<span class="chev">›</span></span></summary>
+          <div class="body">
+            <p>This document is the finished <b>design</b>. Its balance is <em>asserted</em> over hand-authored economy checks — proven to hold its <b>shape</b>, not yet its exact values. The next stage (the <b>game-loop</b>) derives real balance from bot-played simulations and tunes the exact coefficients within these locked shapes:</p>
+            <ul>
+              <li>the six archetypes' true win-rates and the crown-stand spread;</li>
+              <li>whether the glad-load (the passive spine) flattens build diversity;</li>
+              <li>the exact coefficients — the Untold's per-leg counts, the last-red and Fair rates, the skip-can't-out-scale margin;</li>
+              <li>the Gleaner's flagged boss-affinity.</li>
+            </ul>
+            <p>The simulation is a <b>thermometer, not an oracle</b>: it proves the game is balanced and deep, not that it is fun. That last judgment stays human.</p>
+          </div>
+        </details>
+
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="sisters">
+      <a href="roundelay-how-it-works.html">How it works</a>
+      <a href="roundelay-the-six-ways.html">The six Ways</a>
+      <a href="roundelay-a-deck-in-play.html">A deck in play</a>
+      <a href="roundelay-card-gallery.html">Card gallery</a>
+      <a href="roundelay-gdd.html">Full design doc</a>
+    </div>
+    Sung with care <span class="fring">❂</span> Roundelay — rendered from the locked GDD &amp; <span style="font-family:var(--code);font-size:12px">src/content/cards/</span>
+  </footer>
+</div>
+
+<script>
+/* ================================================================
+   Roundelay Codex — data + viewer
+   Card data + glossers lifted verbatim from roundelay-card-gallery.html
+   (which renders src/content/cards/*.json). 49 cards.
+   ================================================================ */
+
+// ---- the real card data (from src/content/cards/*.json) ----
+const R = s => ({read:s});
+const GROUPS = [
+  {key:"shared", grain:"dough", name:"The Apprentice Hand", tl:"seven plain cards every run begins with", cards:[
+    {id:"sprig-trestle",n:"Sprig Trestle",g:"joinery",m:1,c:2,d:1,role:"apprentice",combo:true,fx:[{w:"on-play",do:"gather",amt:R("grain:joinery")}]},
+    {id:"pegged-bench",n:"Pegged Bench",g:"joinery",m:1,c:2,d:1,role:"apprentice",combo:true,fx:[{w:"on-chain",do:"steady",links:1}]},
+    {id:"loose-thread",n:"Loose Thread",g:"thread",m:1,c:2,d:1,role:"baseline",combo:false,fx:[{w:"on-play",do:"keep"}]},
+    {id:"kettle-loaf",n:"Kettle-Loaf",g:"dough",m:1,c:2,d:1,role:"baseline",combo:false,fx:[{w:"on-play",do:"warm",n:1}]},
+    {id:"hearth-hum",n:"Hearth-Hum",g:"song",m:2,c:3,d:1,role:"apprentice",combo:true,fx:[{w:"on-play",do:"gather",amt:R("grain:song")}]},
+    {id:"grey-bowl",n:"Grey Bowl",g:"glaze",m:2,c:3,d:1,role:"apprentice",combo:true,fx:[{w:"on-play",do:"gather",amt:R("grain:glaze")}]},
+    {id:"first-step",n:"First Step",g:"dance",m:2,c:3,d:1,role:"apprentice",combo:true,fx:[{w:"on-play",do:"gather",amt:R("grain:dance")}]},
+  ]},
+  {key:"kilnfast", grain:"joinery", name:"The Kilnfast", tl:"the fired, held — fire it once, keep it forever", cards:[
+    {id:"setterby-trestle",n:"Setterby Trestle",g:"joinery",m:2,c:4,d:1,role:"chain:C1",combo:true,fx:[{w:"on-play",do:"gather",amt:R("woken:joinery")},{w:"on-chain",do:"steady",links:1,brace:true}]},
+    {id:"calipers-at-the-bench",n:"Calipers at the Bench",g:"joinery",m:3,c:5,d:2,role:"chain:C2",combo:true,fx:[{w:"on-play",do:"rest",tgt:"held:capstone",amt:R("room")},{w:"on-wake",do:"mark-grain",tgt:"hand:offgrain",suit:"joinery"}]},
+    {id:"the-fired-beam",n:"The Fired Beam",g:"joinery",m:7,c:8,d:3,role:"capstone",combo:true,fx:[{w:"on-play",do:"rest",tgt:"self",amt:R("room")},{w:"on-wake",do:"fill",amt:R("grain:joinery")},{w:"on-chain",do:"steady",brace:true}]},
+    {id:"bank-the-coals",n:"Bank the Coals",g:"joinery",m:3,c:5,d:2,role:"support",combo:true,fx:[{w:"on-play",do:"gather",amt:R("grain:joinery")},{w:"on-chain",do:"steady",links:1}]},
+    {id:"seasoned-timber",n:"Seasoned Timber",g:"joinery",m:3,c:5,d:2,role:"support",combo:true,fx:[{w:"on-play",do:"rest",tgt:"self",amt:R("room")},{w:"on-wake",do:"mark-grain",tgt:"hand:offgrain",suit:"joinery"}]},
+    {id:"keep-the-kiln",n:"Keep the Kiln",g:"joinery",m:2,c:3,d:1,role:"support",combo:true,fx:[{w:"on-chain",do:"steady",brace:true},{w:"on-play",do:"keep"}]},
+    {id:"dovetail-draw",n:"Dovetail Draw",g:"joinery",m:3,c:5,d:2,role:"utility",combo:false,fx:[{w:"on-dawn",do:"draw",nn:1,suit:"joinery"}]},
+  ]},
+  {key:"eveners", grain:"dance", name:"The Eveners", tl:"the purse, moving — waste nothing, keep it bright", cards:[
+    {id:"the-last-lighting",n:"The Last Lighting",g:"dance",m:3,c:5,d:2,role:"chain:C1",combo:true,fx:[{w:"on-play",do:"retire",tgt:"inert:hand",to:"room"},{w:"on-play",do:"retire",tgt:"inert:pack",to:"table"}]},
+    {id:"bright-hand-to-hand",n:"Bright Hand to Hand",g:"thread",m:3,c:5,d:1,role:"chain:C2",combo:true,fx:[{w:"on-play",do:"whittle",amt:R("room")},{w:"on-chain",do:"steady",links:1}]},
+    {id:"even-the-rim",n:"Even the Rim",g:"dance",m:6,c:8,d:3,role:"capstone",combo:true,fx:[{w:"on-play",do:"rest",tgt:"self",amt:R("room")},{w:"on-fulfil",do:"draw",nn:2}]},
+    {id:"waymeet-gift",n:"Waymeet Gift",g:"thread",m:2,c:3,d:1,role:"support",combo:true,fx:[{w:"on-play",do:"retire",tgt:"inert:hand",to:"table"},{w:"on-chain",do:"steady",links:1}]},
+    {id:"the-turning-purse",n:"The Turning Purse",g:"thread",m:3,c:5,d:1,role:"support",combo:true,fx:[{w:"on-play",do:"whittle",amt:R("room")},{w:"on-play",do:"draw",nn:1}]},
+    {id:"even-fuel",n:"Even Fuel",g:"dance",m:2,c:3,d:1,role:"support",combo:true,fx:[{w:"on-play",do:"retire",tgt:"inert:hand",to:"room"},{w:"on-chain",do:"steady",links:1}]},
+    {id:"quick-feet",n:"Quick Feet",g:"dance",m:3,c:5,d:2,role:"utility",combo:false,fx:[{w:"on-dawn",do:"draw",nn:1,suit:"dance"}]},
+  ]},
+  {key:"untold", grain:"thread", name:"The Untold", tl:"the pace, ratcheted — many small, very fast", cards:[
+    {id:"paper-bird",n:"Paper-Bird",g:"thread",m:1,c:2,d:1,role:"chain:C1",combo:true,tag:"one-shot",fx:[{w:"on-play",do:"fill",amt:R("grain:thread")},{w:"on-play",do:"draw",nn:1,suit:"thread"}]},
+    {id:"quick-hand",n:"Quick-Hand",g:"thread",m:2,c:3,d:1,role:"chain:C2",combo:true,fx:[{w:"on-play",do:"draw",nn:1,suit:"thread"},{w:"on-chain",do:"steady",links:1,brace:true}]},
+    {id:"the-standing-count",n:"The Standing Count",g:"thread",m:4,c:6,d:2,role:"capstone",combo:true,fx:[{w:"on-play",do:"rest",tgt:"self",amt:R("chain")},{w:"on-wake",do:"fill",amt:R("grain:thread")},{w:"on-fulfil",do:"draw",nn:2,suit:"thread"}]},
+    {id:"thread-the-needle",n:"Thread the Needle",g:"thread",m:2,c:3,d:1,role:"support",combo:true,fx:[{w:"on-play",do:"mark-grain",tgt:"hand:offgrain",suit:"thread"},{w:"on-play",do:"draw",nn:1,suit:"thread"}]},
+    {id:"swift-tally",n:"Swift Tally",g:"thread",m:1,c:2,d:1,role:"support",combo:true,tag:"one-shot",fx:[{w:"on-play",do:"fill",amt:R("grain:thread")},{w:"on-play",do:"draw",nn:1,suit:"thread"}]},
+    {id:"keep-the-pace",n:"Keep the Pace",g:"thread",m:2,c:3,d:1,role:"support",combo:true,fx:[{w:"on-chain",do:"steady",links:1,brace:true},{w:"on-play",do:"draw",nn:1,suit:"thread"}]},
+    {id:"morning-flock",n:"Morning Flock",g:"thread",m:1,c:2,d:1,role:"utility",combo:false,fx:[{w:"on-dawn",do:"draw",nn:1,suit:"thread"}]},
+  ]},
+  {key:"fairwrights", grain:"dance", name:"The Fairwrights", tl:"the room, spiked — one enormous show", cards:[
+    {id:"raise-the-wain-stage",n:"Raise the Wain-Stage",g:"dance",m:2,c:4,d:1,role:"chain:C1",combo:true,tag:"venue",fx:[{w:"on-play",do:"gather",amt:6},{w:"on-chain",do:"steady",brace:true}]},
+    {id:"pitch-the-ring",n:"Pitch the Ring",g:"dance",m:2,c:4,d:1,role:"chain:C2",combo:true,tag:"venue",fx:[{w:"on-play",do:"gather",amt:R("room")},{w:"on-play",do:"mark-grain",tgt:"hand:offgrain",suit:"dance"}]},
+    {id:"the-whole-fair-turn",n:"The Whole-Fair Turn",g:"dance",m:8,c:9,d:3,role:"capstone",combo:true,fx:[{w:"on-play",do:"rest",tgt:"self",amt:R("room")},{w:"on-overkill",do:"brim",band:R("over-ceiling")},{w:"on-fulfil",do:"whittle",amt:1}]},
+    {id:"bunting-and-banners",n:"Bunting and Banners",g:"dance",m:3,c:5,d:2,role:"support",combo:true,tag:"venue",fx:[{w:"on-play",do:"gather",amt:R("room")},{w:"on-play",do:"mark-grain",tgt:"hand:offgrain",suit:"dance"}]},
+    {id:"call-the-crowd",n:"Call the Crowd",g:"dance",m:3,c:5,d:2,role:"support",combo:true,tag:"venue",fx:[{w:"on-play",do:"gather",amt:4},{w:"on-chain",do:"steady",brace:true}]},
+    {id:"string-the-bunting",n:"String the Bunting",g:"dance",m:3,c:5,d:2,role:"support",combo:true,fx:[{w:"on-play",do:"gather",amt:R("room")},{w:"on-chain",do:"steady",links:1}]},
+    {id:"the-ringmasters-draw",n:"The Ringmaster's Draw",g:"dance",m:3,c:5,d:2,role:"utility",combo:false,fx:[{w:"on-dawn",do:"draw",nn:1,suit:"dance"}]},
+  ]},
+  {key:"mannerly", grain:"song", name:"The Mannerly", tl:"the proud, courted — win over the shy silver", cards:[
+    {id:"keep-the-silver-singing",n:"Keep the Silver Singing",g:"song",m:2,c:4,d:1,role:"chain:C1",combo:true,fx:[{w:"on-play",do:"steady",links:2,brace:true},{w:"on-play",do:"mark-grain",tgt:"hand:cheapest",suit:"song"}]},
+    {id:"court-the-singing-silver",n:"Court the Singing-Silver",g:"song",m:3,c:5,d:2,role:"chain:C2",combo:true,fx:[{w:"on-play",do:"court",stock:"singing-silver",term:3}]},
+    {id:"the-silver-refrain",n:"The Silver Refrain",g:"song",m:6,c:8,d:5,role:"proud",combo:true,fx:[{w:"on-play",do:"rest",tgt:"self",amt:R("room")},{w:"on-wake",do:"fill",amt:R("chain")},{w:"on-fulfil",do:"draw",nn:1,suit:"song"}]},
+    {id:"tune-the-strings",n:"Tune the Strings",g:"song",m:2,c:3,d:1,role:"support",combo:true,fx:[{w:"on-chain",do:"steady",links:2,brace:true},{w:"on-play",do:"mark-grain",tgt:"hand:cheapest",suit:"song"}]},
+    {id:"the-standing-introduction",n:"The Standing Introduction",g:"song",m:3,c:5,d:2,role:"support",combo:true,fx:[{w:"on-play",do:"court",stock:"singing-silver",term:1}]},
+    {id:"grace-note",n:"Grace-Note",g:"song",m:2,c:3,d:1,role:"support",combo:true,fx:[{w:"on-play",do:"gather",amt:R("grain:song")},{w:"on-chain",do:"steady",links:1}]},
+    {id:"silver-warm-up",n:"Silver Warm-Up",g:"song",m:3,c:5,d:2,role:"utility",combo:false,fx:[{w:"on-dawn",do:"draw",nn:1,suit:"song"}]},
+  ]},
+  {key:"gleaners", grain:"glaze", name:"The Morning-Gleaners", tl:"the grey, harvested — feed on the fading, then mend it", cards:[
+    {id:"walk-the-pale",n:"Walk the Pale",g:"glaze",m:3,c:5,d:2,role:"chain:C1",combo:true,fx:[{w:"on-play",do:"gather",amt:R("spiral")},{w:"on-play",do:"whittle",amt:R("season")}]},
+    {id:"glean-the-ground",n:"Glean the Ground",g:"glaze",m:3,c:5,d:2,role:"chain:C2",combo:true,fx:[{w:"on-play",do:"rest",tgt:"held:capstone",amt:R("room")},{w:"on-play",do:"gather",amt:R("spiral")}]},
+    {id:"ripe-mending",n:"Ripe Mending",g:"glaze",m:7,c:9,d:3,role:"capstone",combo:true,fx:[{w:"on-play",do:"rest",tgt:"self",amt:R("room")},{w:"on-wake",do:"fill",amt:R("room")},{w:"on-fulfil",do:"soothe"}]},
+    {id:"grey-gleaning",n:"Grey-Gleaning",g:"glaze",m:3,c:5,d:2,role:"support",combo:true,fx:[{w:"on-play",do:"gather",amt:R("spiral")},{w:"on-play",do:"mark-grain",tgt:"hand:offgrain",suit:"glaze"}]},
+    {id:"mend-the-verge",n:"Mend the Verge",g:"glaze",m:5,c:6,d:2,role:"support",combo:true,fx:[{w:"on-play",do:"rest",tgt:"self",amt:R("room")},{w:"on-fulfil",do:"soothe"}]},
+    {id:"slow-the-grey",n:"Slow the Grey",g:"glaze",m:2,c:3,d:1,role:"support",combo:true,fx:[{w:"on-play",do:"gather",amt:R("grain:glaze")},{w:"on-chain",do:"steady",links:1}]},
+    {id:"pale-harvest",n:"Pale Harvest",g:"glaze",m:3,c:5,d:2,role:"utility",combo:false,fx:[{w:"on-dawn",do:"draw",nn:1,suit:"glaze"}]},
+  ]},
+];
+
+// ---- plain-English glossers (verified in the gallery) ----
+const readPhrase = s => ({
+  "room":"the room", "chain":"your chain", "spiral":"this node's grey",
+  "season":"the season's fade", "over-ceiling":"the overflow"
+}[s] || (s.startsWith("grain:") ? "your "+s.slice(6)+" count"
+      : s.startsWith("woken:") ? s.slice(6)+" you've fired before" : s));
+const amtPhrase = a => (a && a.read!==undefined) ? readPhrase(a.read) : ("+"+a);
+const tgtPhrase = t => ({
+  "self":"itself", "held:capstone":"your held capstone",
+  "hand:offgrain":"a spare off-suit card", "hand:cheapest":"your cheapest card",
+  "inert:hand":"a dead card in hand", "inert:pack":"a dead card in your deck"
+}[t] || t);
+const toPhrase = t => ({room:"the room now", table:"the town's table"}[t]||t);
+const WHEN = {"on-play":"play","on-wake":"wake","on-chain":"chain","on-fulfil":"fulfil","on-overkill":"overkill","on-dawn":"dawn"};
+
+function gloss(e){
+  switch(e.do){
+    case "gather": return (typeof e.amt==="number") ? `Gather a crowd of +${e.amt}` : `Gather a crowd by ${amtPhrase(e.amt)}`;
+    case "rest":   return `Pour ${amtPhrase(e.amt)} onto ${tgtPhrase(e.tgt)}`;
+    case "steady": {let p=[]; if(e.links) p.push(`+${e.links} chain link${e.links>1?"s":""}`); if(e.brace) p.push("brace the chain"); return "Steady: "+p.join(" & ");}
+    case "fill":   return `Fill the need by ${amtPhrase(e.amt)}`;
+    case "brim":   return `Spill the overflow (${amtPhrase(e.band)}) into Standing`;
+    case "mark-grain": return `Stamp ${tgtPhrase(e.tgt)} as “${e.suit}”`;
+    case "draw":   return `Draw ${e.nn} ${e.suit?e.suit+" ":""}card${e.nn>1?"s":""}`;
+    case "retire": return `Last-light ${tgtPhrase(e.tgt)} → ${toPhrase(e.to)}`;
+    case "whittle":return (typeof e.amt==="number") ? `Carve +${e.amt} bright money` : `Carve bright money from ${amtPhrase(e.amt)}`;
+    case "court":  return `Court the singing-silver — needs a chain of ${e.term}+ (gleam is the key, never spent)`;
+    case "soothe": return `Mend this node's fading (scaled by the grey, capped)`;
+    case "warm":   return `+${e.n} delight`;
+    case "keep":   return `Stays fresh one extra season`;
+    default: return e.do;
+  }
+}
+const roleLabel = r => ({
+  "apprentice":"Apprentice","baseline":"Baseline","chain:C1":"Chain ①","chain:C2":"Chain ②",
+  "capstone":"★ Capstone","proud":"★ Proud payoff","support":"Support","utility":"Utility"
+}[r]||r);
+const roleKey = r => (r==="capstone"||r==="proud") ? "capstone"
+  : r.startsWith("chain") ? "chain"
+  : (r==="apprentice"||r==="baseline") ? "baseline" : r;
+
+// raw one-liner for an effect, engine-eye view
+function rawFx(e){
+  const fmt = v => (v && v.read!==undefined) ? `read(${v.read})` : JSON.stringify(v);
+  const parts = [];
+  for (const k of ["amt","band","tgt","suit","nn","to","stock","term","links","brace","n"]){
+    if (e[k]!==undefined) parts.push(`${k}:${fmt(e[k])}`);
+  }
+  return `${e.do}(${parts.join(", ")})`;
+}
+
+// ---- flattened card list ----
+const ALL_CARDS = GROUPS.flatMap(G => G.cards.map(c => ({...c, way:G.key, wayName:G.name, wayTl:G.tl})));
+
+// ---- the six Ways (from planning/roundelay-the-six-ways.html + GDD L5) ----
+const WAYS = [
+  {key:"kilnfast", name:"The Kilnfast", emoji:"🔥", acc:"var(--w-kilnfast)", tag:"starter · the patient snowball",
+   quote:"“Fire it once, keep it forever.”",
+   fantasy:"The patient collector. You keep a small, tight deck and slowly turn pieces <b>permanent</b>, so the crowd you can call on grows every single morning. No showy turns — just a quiet curve that climbs until it towers over the winter finale.",
+   does:"wake sturdy pieces and keep them — each one makes tomorrow's crowd bigger",
+   wins:"by out-growing the boss: by winter your ordinary morning beats everyone's best",
+   risk:25, swing:45, speed:28,
+   shines:"late.", watch:"slow to start — you can be rushed before the engine matures."},
+  {key:"eveners", name:"The Eveners", emoji:"♻️", acc:"var(--w-eveners)", tag:"starter · the steady hand",
+   quote:"“Waste nothing, keep it moving.”",
+   fantasy:"The unflappable one. You compost dead cards and keep your money <b>circulating</b> so it never goes dull. Nothing dramatic ever happens — and nothing ever goes wrong. The safest hands in the country.",
+   does:"turn spent pieces and idle coins into fresh fuel; always have an answer ready",
+   wins:"by reliability — you arrive at the crown prepared instead of gambling on it",
+   risk:15, swing:25, speed:62,
+   shines:"the whole run.", watch:"rarely explosive — a tight finale can come down to the wire."},
+  {key:"untold", name:"The Untold", emoji:"🕊️", acc:"var(--w-untold)", tag:"starter · the quick tempo",
+   quote:"“Many small, very fast.”",
+   fantasy:"The quick one who outruns the tale. A thin, fast deck of cheap little acts. You don't do one big job — you do <b>lots of tiny ones</b>, faster than trouble can catch you. Your pressure isn't how <em>big</em> a need is, it's how <em>many</em>.",
+   does:"cycle a lean deck, clearing many small needs each morning",
+   wins:"by sheer pace — and bundle all that speed into one burst for the finale",
+   risk:35, swing:35, speed:98,
+   shines:"mid-run.", watch:"thin late — the boss can demand more tonnage than tempo likes."},
+  {key:"fairwrights", name:"The Fairwrights", emoji:"🎪", acc:"var(--w-fairwrights)", tag:"second wave · the high roller",
+   quote:"“One enormous show.”",
+   fantasy:"The showman. You spend the whole run assembling a <b>giant crowd</b>, then dump all of it in one spectacular turn — the single biggest reputation swing in the game. When it lands, it wins the run. When the room's empty, it's a disaster.",
+   does:"hoard crowd, then unload it all past the ceiling at once for a massive overflow",
+   wins:"one colossal turn of showing-off that floods your Standing",
+   risk:95, swing:98, speed:40,
+   shines:"in bursts.", watch:"the highest variance in the game — a flat turn spills hard."},
+  {key:"mannerly", name:"The Mannerly", emoji:"🤝", acc:"var(--w-mannerly)", tag:"second wave · the setup artist",
+   quote:"“Court the proud stuff.”",
+   fantasy:"The one with taste. Your best pieces are <b>shy</b> — proud materials that sit dead in your hand until you perform exactly the right courtship to win them over. Set it up right and one piece lands like a wedding. It has the single highest ceiling in the game.",
+   does:"build up a condition, then “court” a proud piece to unlock its huge payoff",
+   wins:"the courtship landing — reputation is the key that opens the door, never a coin you spend",
+   risk:78, swing:90, speed:45,
+   shines:"on a good setup.", watch:"swingy — a courtship gone stale is a wasted hand."},
+  {key:"gleaners", name:"The Morning-Gleaners", emoji:"🌾", acc:"var(--w-gleaners)", tag:"second wave · the risk-taker",
+   quote:"“Harvest the grey.”",
+   fantasy:"The brave one who walks <b>toward</b> the fading. The greyer and more forgotten a place is, the richer it is to harvest — you feed on the very decay everyone else avoids, then mend the ground behind you. You steer the map toward danger on purpose.",
+   does:"route into the most faded country, let the paleness fuel huge mornings, then heal the land",
+   wins:"big harvests fed by the grey — the only Way that mends the board as it goes",
+   risk:90, swing:70, speed:55,
+   shines:"in the deep grey.", watch:"the highest route risk — mistime a season and you're stuck with a job too big for your hands."},
+];
+
+// ---- the 14 effect primitives (from src/engine/vocabulary.ts, GDD Layer 3 — locked) ----
+const PRIMS = [
+  {id:"gather", glyph:"👥", gloss:"Seat more of the present audience into the room (soft-capped).",
+   note:"seat present audience into the room (soft-capped, plateau ~10)", interacts:true, playGated:false, gleamWriter:false},
+  {id:"rest", glyph:"⤵", gloss:"Spend the room to rest attention on a piece × the chain; at its mark it wakes, past its ceiling it overkills.",
+   note:"spend room x chain onto a piece; at/above fixed mark it wakes, past ceiling it overkills", interacts:true, playGated:true, gleamWriter:false},
+  {id:"steady", glyph:"🔗", gloss:"Manipulate the work-chain — extra links, or brace it against a stall.",
+   note:"count extra links and/or brace so the next stall does not cool the room", interacts:true, playGated:false, gleamWriter:false},
+  {id:"fill", glyph:"🫗", gloss:"Pour woken delight into the accepted need's fill.",
+   note:"pour woken delight into the accepted need's fill; amount may read room/grain/chain", interacts:true, playGated:true, gleamWriter:false},
+  {id:"brim", glyph:"✦", gloss:"Widen the overkill→gleam band. The ONLY card that writes gleam.",
+   note:"THE ONLY card gleam-writer; widens overkill->gleam on genuine excess; band reads room/chain/over-ceiling only", interacts:true, playGated:true, gleamWriter:true},
+  {id:"mark-grain", glyph:"🏷", gloss:"Stamp a craft-suit onto a piece (feeds its audience-type and its grain-of-gleam).",
+   note:"stamp a craft-suit; flows to seated-audience type, grain-of-gleam, and court terms", interacts:true, playGated:false, gleamWriter:false},
+  {id:"draw", glyph:"🎴", gloss:"Draw pieces; with a filter, search the pack for the combo piece.",
+   note:"draw pieces; with a suit/tag filter it searches the pack", interacts:true, playGated:false, gleamWriter:false},
+  {id:"retire", glyph:"🕯", gloss:"Last-light a piece to destruction, returning its worth to the table or the room.",
+   note:"last-light a piece; RETURN worth to this node's table or the room; residual-only", interacts:true, playGated:false, gleamWriter:false},
+  {id:"whittle", glyph:"🪙", gloss:"Carve the shavings-share of a play's return into handsels.",
+   note:"carve the-shavings-share (0.333 of RETURN) into handsels; read(season) may scale (yield, never gleam)", interacts:true, playGated:true, gleamWriter:false},
+  {id:"court", glyph:"🤝", gloss:"Perform a term to draw in a shy material. Reads gleam as a gate, never spent.",
+   note:"perform a term; gleam is read as a pure GATE, never spent; a stamped suit or chain-state satisfies the term", interacts:true, playGated:true, gleamWriter:false},
+  {id:"soothe", glyph:"🌾", gloss:"Slow this node's fading — the one board-writer.",
+   note:"the ONE board-writer; node-local; slows this node's paling; capped to the last-red; never touches gleam", interacts:true, playGated:true, gleamWriter:false},
+  {id:"read", glyph:"👁", gloss:"The reference primitive — reads a live surface (room, chain, grain, a node's rings…) as an amount.",
+   note:"amount-syntax; the single reference primitive; source in the closed ReadSource enum", interacts:true, playGated:false, gleamWriter:false},
+  {id:"warm", glyph:"☕", gloss:"+delight on its own card. The legible no-combo floor.",
+   note:"flat +delight on its own card; no combo (legible baseline)", interacts:false, playGated:false, gleamWriter:false},
+  {id:"keep", glyph:"🧺", gloss:"Resist the Paling one extra season. The legible no-combo floor.",
+   note:"resist the Paling one extra season; no combo (legible baseline)", interacts:false, playGated:false, gleamWriter:false},
+];
+const FIREWALLS = [
+  ["gleam firewall","read(season|spiral) feeds gather / whittle / fill only — never gleam. A brim band reads room / chain / over-ceiling only."],
+  ["play is the only gate","cross-channel writers (brim, fill, court, whittle, soothe, rest-overkill) bind only to play events."],
+  ["fixed marks","no primitive lowers a waking-mark or ceiling; the only lever is bringing more room."],
+  ["gleam never spent","court reads gleam as a gate; no card spends or decrements gleam."],
+  ["the Paling is board-only","read(season|spiral) reads it, soothe writes it; it never touches the gleam meter."],
+];
+// which cards use a primitive (read counts as any read(...) amount/band)
+function usedBy(pid){
+  return ALL_CARDS.filter(c => c.fx.some(e =>
+    e.do===pid || (pid==="read" && [e.amt,e.band].some(v => v && v.read!==undefined))
+  ));
+}
+
+// ---- the resource square (GDD Layer 2 — locked) ----
+const RESOURCES = [
+  {id:"attention", name:"Attention — “the room”", kind:"currency", glyph:"🔦", acc:"var(--flow)",
+   rl:"R1 · tactical currency", clock:"the dawn", channel:"the current (the medium itself)",
+   blurb:"The only resource spent inside a worked morning — budget and momentum at once.",
+   rows:[["role","Spent as a multiplier on each play; sustained by an unbroken chain, sagging on a stall. <b>Never banked.</b>"],
+     ["source","The dawn: a flat base + the local table's draw (a paler node gives a richer dawn) + yesterday's returned surplus. Raised by <b>being worth watching</b>, never traded for."],
+     ["sink","Each play splits with nothing lost: a SET share works the piece, a RETURN share seeps to this node's table for tomorrow, and overkill past a ceiling converts to Standing at full rate."]]},
+  {id:"handsels", name:"Handsels — “the held”", kind:"currency", glyph:"🪙", acc:"var(--dough)",
+   rl:"R2 · strategic currency", clock:"the rest", channel:"things wake (the held sheen)",
+   blurb:"The money — and its worth is how awake it is. Wealth is a juggling, never a pile.",
+   rows:[["role","Lives <b>between</b> turns, never inside one. Denominations dull / warm / <b>singing</b> — what stops moving, dims. No debt, no fee, no wage."],
+     ["source","Whittled from apprentice-stuffs and the shavings-share of the bench's RETURN; brightened only by circulation."],
+     ["sink","Spent into delight — jars, taught pieces, apprentice-stuffs, hearth-goods; change returns a shade brighter. Idle money lapses to the gloaming-table and returns as tomorrow's dawn: <b>the money's only sink is the world's only income.</b>"]]},
+  {id:"standing", name:"Standing — the gleam", kind:"currency", glyph:"✦", acc:"var(--gleam)",
+   rl:"R3 · gate + fail-resource", clock:"the run", channel:"people gleam",
+   blurb:"The never-spent regard that ends the run at zero — a key that turns, never a coin that leaves.",
+   rows:[["role","Worn as a key-light behind the maker's shoulder. Gates soft benefits — lantern offers, the vouching, the glad-price — and build identity via grain. <b>Never spent.</b>"],
+     ["source","Overflow in performance (the big on-stage swings), glad palms, and delayed tellings that credit only when seen landing."],
+     ["sink","None by spending. It falls only through <b>the spilling</b> — an unmoved room or an asking carried past its season. No ambient decay. At zero: the Quiet Walk."]]},
+  {id:"paling", name:"The Paling — season-seep", kind:"currency", glyph:"🌫", acc:"var(--pale)",
+   rl:"R4 · board pressure", clock:"the season", channel:"places pale",
+   blurb:"The run's escalation worn as weather — a rate that rises with the year and compounds on anything skipped.",
+   rows:[["role","The escalation clock and the seasonal seep are the same curve. Accretes as chalked spiral rings on skipped nodes: 3 = a plea, 5 = a poem, 7 = a great asking born."],
+     ["source","The calendar itself — an un-buyable master clock advancing by worked mornings, never travel."],
+     ["sink","Answered, never <i>paid</i>: fulfilling an asking re-makes the node and resets the spiral. No currency lowers it; the only lever is play. It <b>never touches the gleam meter.</b>"]]},
+  {id:"pieces", name:"Journey-pieces — the deck", kind:"substrate", glyph:"🎴", acc:"var(--joinery)",
+   rl:"R5 · the engine you build", clock:"the run — the fired never unfires", channel:"things wake (the fired edge)",
+   blurb:"The deckbuilder substrate — craft-fragments in six suits; the thing attention wakes.",
+   rows:[["role","Not fungible, not a currency. A woken piece fires to the run-deck permanently and joins the room as a new audience-thing. The deck is an autobiography of everyone who taught you a piece."],
+     ["source","Taught at fulfilled askings, gifted, traded, won, swapped at the waymeet-table, crafted at the bench from courted stock — never bought from a shop."],
+     ["sink","Played (the exchange gate); exhausted, given away, performed to destruction; retired by last-lighting into the twice-benched stock."]]},
+  {id:"stock", name:"Courted stock — shy materials", kind:"substrate", glyph:"🕊", acc:"var(--song)",
+   rl:"R6 · one graded resource class", clock:"the season — freshness in place of weight", channel:"the loose → things wake, once benched",
+   blurb:"The inputs the bench works into pieces — one class with a quality axis, not a wallet per material.",
+   rows:[["role","Grades run apprentice-stuffs → singing-silver, laughing-riverwood, festival-glass → local characters → twice-benched. Inventory is a garden: stock reverts to ordinary if not kept warm within a season."],
+     ["source","Courted, never purchased: first <b>the vouching</b> (a gleam gate — no coin's business), then <b>the terms</b> (a performable micro-condition). Introduction-jars collapse a courtship into a gift."],
+     ["sink","Worked into pieces at the bench; the bench's RETURN throws off the shavings-share. An accepted term gone stale is itself a spilling."]]},
+  {id:"sys-bench", name:"System A — the Bench Engine", kind:"system", glyph:"🔨", acc:"var(--gold)",
+   rl:"attention → pieces → gleam + handsel-fuel", clock:"harvest → court → wake → weather → seep", channel:"rides the Breath substrate",
+   blurb:"The core transform: the room spent through play wakes pieces, overflows to gleam, and its leavings feed the purse.",
+   rows:[["flow","R1 spent through play → R5 woken (deck grows, fired) → delight given → <b>overflow → R3</b>, and the RETURN's shavings-share → R2. Unspent attention returns to the node's table → tomorrow's dawn."],
+     ["couples with","B (its leavings are B's premium faucet) · C (consumes what C gates) · D (its overflow raises the next lantern's tier)."]]},
+  {id:"sys-handsel", name:"System B — the Handsel Round", kind:"system", glyph:"♻️", acc:"var(--w-eveners)",
+   rl:"handsels ⇄ trade; idle → dawn", clock:"closed & mint-clean", channel:"rides the Breath substrate",
+   blurb:"The money's circulation: spent well it brightens; left idle it seeps back as tomorrow's dawn.",
+   rows:[["flow","R2 spent at the glad-price → jars / taught pieces / apprentice-stuffs / hearth-goods → change returns brighter. Idle handsels lapse → gloaming-table → R1 dawn income."],
+     ["couples with","A (faucet = A's RETURN-leavings; lapse = A's fuel) · C (buys the jars and apprentice-stuffs — never the proud stock itself) · D (the glad-load pays fresh bright handsels in)."]]},
+  {id:"sys-courting", name:"System C — the Courting Web", kind:"system", glyph:"🤝", acc:"var(--w-mannerly)",
+   rl:"gleam gates materials; materials feed the bench", clock:"the vouching, then the terms", channel:"rides the Breath substrate",
+   blurb:"Proud materials are never bought: gleam opens the door, a performance seals the deal.",
+   rows:[["flow","R3 (gate, never spent) opens the vouching → R6 states its terms → the maker performs the term (a play) → stock into the pack → fed to the bench → leavings to the purse."],
+     ["couples with","A (supplies its inputs) · B (jars and apprentice-stock) · D (grain decides which materials the country answers with). A stale term → the spilling."]]},
+  {id:"sys-paling", name:"System D — the Paling Market", kind:"system", glyph:"🌀", acc:"var(--pale)",
+   rl:"pressure → bigger askings + richer dawns", clock:"rings-in = load-out", channel:"rides the Breath substrate",
+   blurb:"The system that couples the other three into one number: the same rings raise the difficulty and the reward.",
+   rows:[["flow","R4 compounds on skipped nodes → bigger askings + richer local-table dawns + last-red abundance. Answering re-colors the node and the glad-load pays <b>every system at once</b>: handsels → B, a taught piece → A, a jar → C, map-intel outward, overflow → R3."],
+     ["couples with","all three — seven rings births the combing, a boss-tier great asking and the largest overflow event in the game."]]},
+];
+
+/* ================================================================ render ================================================================ */
+const GRAINS = ["joinery","thread","song","glaze","dance","dough"];
+const cardsState = {q:"", way:"all", grain:"all", role:"all", sel:null};
+const fxState = {q:"", kind:"all", sel:null};
+const resState = {q:"", kind:"all", sel:null};
+const esc = s => String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;");
+
+function wayAccent(w){ return `var(--w-${w})`; }
+function grainAccent(g){ return `var(--${g})`; }
+function initial(n){ return n.replace(/^The /,"").charAt(0); }
+
+/* ---------- Cards tab ---------- */
+function cardMatches(c){
+  const s = cardsState;
+  if (s.way!=="all" && c.way!==s.way) return false;
+  if (s.grain!=="all" && c.g!==s.grain) return false;
+  if (s.role!=="all" && roleKey(c.role)!==s.role) return false;
+  if (s.q){
+    const hay = (c.n+" "+c.id+" "+c.wayName+" "+c.g+" "+(c.tag||"")+" "+c.fx.map(e=>e.do+" "+gloss(e)).join(" ")).toLowerCase();
+    if (!hay.includes(s.q)) return false;
+  }
+  return true;
+}
+function renderCardGrid(){
+  const grid = document.getElementById("cardGrid");
+  const list = ALL_CARDS.filter(cardMatches);
+  document.getElementById("cardCount").textContent = `${list.length} of ${ALL_CARDS.length} pieces`;
+  if (!list.length){ grid.innerHTML = `<div class="noresult">No piece answers that call. Loosen the filters.</div>`; return; }
+  grid.innerHTML = list.map(c => `
+    <button type="button" class="ecard fade-in" data-id="${c.id}" data-sel="${cardsState.sel===c.id}" style="--accent:${grainAccent(c.g)}">
+      <div class="topline">
+        <div class="medallion">${esc(initial(c.n))}</div>
+        <div><div class="nm">${esc(c.n)}</div><div class="rl">${roleLabel(c.role)} · ${esc(c.g)}</div></div>
+      </div>
+      <div class="statrow">
+        <div class="stat"><span class="v">${c.m}</span><span class="k">wake</span></div>
+        <div class="stat"><span class="v">${c.c}</span><span class="k">ceiling</span></div>
+        <div class="stat"><span class="v">${c.d}</span><span class="k">delight</span></div>
+        <div class="stat" style="margin-left:auto"><span class="v">${c.fx.length}</span><span class="k">effects</span></div>
+      </div>
+      <div class="desc cardclamp">${esc(gloss(c.fx[0]))}${c.fx[1] ? " · " + esc(gloss(c.fx[1])) : ""}</div>
+      <div class="metaline">
+        <span class="tag" style="--accent:${wayAccent(c.way)}">${esc(c.wayName.replace(/^The /,""))}</span>
+        ${c.tag ? `<span class="tag plain">${esc(c.tag)}</span>` : ""}
+      </div>
+    </button>`).join("");
+  grid.querySelectorAll(".ecard").forEach(el => el.addEventListener("click", () => {
+    cardsState.sel = el.dataset.id; renderCardGrid(); renderCardInspector();
+  }));
+}
+function renderCardInspector(){
+  const col = document.getElementById("cardInspector");
+  const c = ALL_CARDS.find(x => x.id===cardsState.sel);
+  if (!c){
+    col.innerHTML = `<div class="inspector"><div class="ribbon"></div>
+      <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
+      <div class="insp-empty"><div><div class="bigring">❖</div><p>Take a piece down from the lantern to read it.</p></div></div></div>`;
+    return;
+  }
+  const fxHtml = c.fx.map(e => `
+    <div class="subcard">
+      <div class="schead"><span class="whenchip">${WHEN[e.w]||e.w}</span></div>
+      <div class="gl">${esc(gloss(e))}</div>
+      <div class="raw"><b>${esc(e.do)}</b> · ${esc(rawFx(e))}</div>
+    </div>`).join("");
+  col.innerHTML = `
+    <div class="inspector fade-in" style="--accent:${grainAccent(c.g)}">
+      <div class="ribbon"></div>
+      <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
+      <div class="insp-body">
+        <div class="insp-head">
+          <div class="medallion">${esc(initial(c.n))}</div>
+          <div><h3 class="nm">${esc(c.n)}</h3><div class="rl">${roleLabel(c.role)}</div></div>
+        </div>
+        <div class="insp-tags">
+          <span class="tag">${esc(c.g)}</span>
+          <span class="tag" style="--accent:${wayAccent(c.way)}">${esc(c.wayName)}</span>
+          ${c.tag ? `<span class="tag plain">${esc(c.tag)}</span>` : ""}
+          <span class="tag plain">${c.combo ? "combos" : "stands alone"}</span>
+        </div>
+        <div class="insp-stats">
+          <div class="cell"><div class="v">${c.m}</div><div class="k">waking-mark</div></div>
+          <div class="cell"><div class="v">${c.c}</div><div class="k">ceiling</div></div>
+          <div class="cell"><div class="v">${c.d}</div><div class="k">delight</div></div>
+        </div>
+        <div class="insp-block"><div class="h">Effects</div>${fxHtml}</div>
+        <div class="insp-block"><div class="h">Its Way</div>
+          <p class="flavor">${esc(c.wayTl)}</p>
+        </div>
+        <div class="insp-block"><div class="h">Engine id</div>
+          <div class="raw" style="font-family:var(--code);font-size:11.5px;color:var(--ink-faint)">${esc(c.id)} · src/content/cards/${esc(c.way)}.json</div>
+        </div>
+      </div>
+    </div>`;
+}
+function chipRow(el, items, activeKey, onPick){
+  el.innerHTML = items.map(it =>
+    `<button type="button" class="chip ${it.key===activeKey?"active":""}" data-k="${it.key}" ${it.cc?`style="--cc:${it.cc}"`:""}>
+       ${it.cc?'<span class="dot"></span>':""}${it.label}</button>`).join("");
+  el.querySelectorAll(".chip").forEach(b => b.addEventListener("click", () => onPick(b.dataset.k)));
+}
+function renderCardFilters(){
+  chipRow(document.getElementById("wayFilters"),
+    [{key:"all",label:"All"}, {key:"shared",label:"Apprentice",cc:wayAccent("shared")},
+     ...WAYS.map(w => ({key:w.key, label:w.name.replace(/^The /,"").replace("Morning-",""), cc:wayAccent(w.key)}))],
+    cardsState.way, k => { cardsState.way=k; renderCardFilters(); renderCardGrid(); });
+  chipRow(document.getElementById("grainFilters"),
+    [{key:"all",label:"every grain"}, ...GRAINS.map(g => ({key:g,label:g,cc:grainAccent(g)}))],
+    cardsState.grain, k => { cardsState.grain=k; renderCardFilters(); renderCardGrid(); });
+  chipRow(document.getElementById("roleFilters"),
+    [{key:"all",label:"every role"},{key:"capstone",label:"★ capstone"},{key:"chain",label:"chain"},
+     {key:"support",label:"support"},{key:"utility",label:"utility"},{key:"baseline",label:"baseline"}],
+    cardsState.role, k => { cardsState.role=k; renderCardFilters(); renderCardGrid(); });
+}
+function selectCard(id){
+  cardsState.q=""; cardsState.way="all"; cardsState.grain="all"; cardsState.role="all"; cardsState.sel=id;
+  document.getElementById("cardSearch").value = "";
+  showSection("cards"); showDataTab("cards");
+  renderCardFilters(); renderCardGrid(); renderCardInspector();
+  document.getElementById("section-cards").scrollIntoView({behavior:"smooth"});
+}
+function browseWay(way){
+  cardsState.q=""; cardsState.way=way; cardsState.grain="all"; cardsState.role="all"; cardsState.sel=null;
+  document.getElementById("cardSearch").value = "";
+  showSection("cards"); showDataTab("cards");
+  renderCardFilters(); renderCardGrid(); renderCardInspector();
+  window.scrollTo({top:0, behavior:"smooth"});
+}
+
+/* ---------- Effects tab ---------- */
+function fxMatches(p){
+  const s = fxState;
+  if (s.kind==="interacting" && !p.interacts) return false;
+  if (s.kind==="gated" && !p.playGated) return false;
+  if (s.kind==="gleam" && !p.gleamWriter) return false;
+  if (s.kind==="baseline" && p.interacts) return false;
+  if (s.q && !(p.id+" "+p.gloss+" "+p.note).toLowerCase().includes(s.q)) return false;
+  return true;
+}
+function renderFxGrid(){
+  const grid = document.getElementById("fxGrid");
+  const list = PRIMS.filter(fxMatches);
+  document.getElementById("fxCount").textContent = `${list.length} of ${PRIMS.length} verbs`;
+  if (!list.length){ grid.innerHTML = `<div class="noresult">No verb answers that call.</div>`; return; }
+  grid.innerHTML = list.map(p => {
+    const uses = usedBy(p.id).length;
+    return `
+    <button type="button" class="ecard fade-in" data-id="${p.id}" data-sel="${fxState.sel===p.id}" style="--accent:${p.gleamWriter?"var(--gleam)":p.interacts?"var(--gold)":"var(--pale)"}">
+      <div class="topline">
+        <div class="medallion" style="font-size:20px">${p.glyph}</div>
+        <div><div class="nm" style="font-family:var(--code);font-size:15px">${p.id}</div>
+        <div class="rl">${p.gleamWriter?"gleam-writer":p.playGated?"play-gated":p.interacts?"free verb":"no-combo baseline"}</div></div>
+      </div>
+      <div class="desc cardclamp">${esc(p.gloss)}</div>
+      <div class="statrow">
+        <div class="stat"><span class="v">${uses}</span><span class="k">cards use it</span></div>
+        <div class="stat"><span class="v">${p.interacts?"yes":"no"}</span><span class="k">interacts</span></div>
+      </div>
+    </button>`;}).join("");
+  grid.querySelectorAll(".ecard").forEach(el => el.addEventListener("click", () => {
+    fxState.sel = el.dataset.id; renderFxGrid(); renderFxInspector();
+  }));
+}
+function renderFxInspector(){
+  const col = document.getElementById("fxInspector");
+  const p = PRIMS.find(x => x.id===fxState.sel);
+  if (!p){
+    col.innerHTML = `<div class="inspector"><div class="ribbon"></div>
+      <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
+      <div class="insp-empty"><div><div class="bigring">✧</div>
+      <p>Fourteen verbs; every card is data over them. Pick one to see its law — and who speaks it.</p></div></div></div>`;
+    return;
+  }
+  const users = usedBy(p.id);
+  const fw = FIREWALLS.filter(([k,v]) =>
+    p.gleamWriter && k.startsWith("gleam") || p.id==="court" && k==="gleam never spent" ||
+    p.id==="soothe" && k.startsWith("the Paling") || p.id==="rest" && k==="fixed marks" ||
+    p.playGated && k==="play is the only gate");
+  col.innerHTML = `
+    <div class="inspector fade-in" style="--accent:${p.gleamWriter?"var(--gleam)":p.interacts?"var(--gold)":"var(--pale)"}">
+      <div class="ribbon"></div>
+      <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
+      <div class="insp-body">
+        <div class="insp-head">
+          <div class="medallion" style="font-size:24px">${p.glyph}</div>
+          <div><h3 class="nm" style="font-family:var(--code);font-size:20px">${p.id}</h3>
+          <div class="rl">effect primitive · Layer 3</div></div>
+        </div>
+        <div class="insp-tags">
+          <span class="tag ${p.interacts?"":"plain"}">${p.interacts?"interacting":"no-combo baseline"}</span>
+          <span class="tag ${p.playGated?"":"plain"}">${p.playGated?"play-gated":"free"}</span>
+          ${p.gleamWriter?'<span class="tag" style="--accent:var(--gleam)">the only gleam-writer</span>':""}
+        </div>
+        <div class="insp-block"><div class="h">In plain words</div><p class="flavor">${esc(p.gloss)}</p></div>
+        <div class="insp-block"><div class="h">Engine note</div>
+          <div class="subcard"><div class="gl" style="font-family:var(--code);font-size:12px">${esc(p.note)}</div></div>
+        </div>
+        ${fw.length?`<div class="insp-block"><div class="h">Firewalls it lives under</div>${
+          fw.map(([k,v])=>`<div class="subcard"><div class="schead"><span class="whenchip">${esc(k)}</span></div><div class="gl">${esc(v)}</div></div>`).join("")
+        }</div>`:""}
+        <div class="insp-block"><div class="h">Spoken by ${users.length} card${users.length===1?"":"s"}</div>
+          <div class="usedby">${users.map(c=>`<button type="button" onclick="selectCard('${c.id}')">${esc(c.n)}</button>`).join("") || '<span style="color:var(--ink-faint);font-style:italic">amount-syntax only — it appears inside other verbs</span>'}</div>
+        </div>
+      </div>
+    </div>`;
+}
+function renderFxFilters(){
+  chipRow(document.getElementById("fxFilters"),
+    [{key:"all",label:"All"},{key:"interacting",label:"interacting"},{key:"gated",label:"play-gated"},
+     {key:"gleam",label:"gleam-writer",cc:"var(--gleam)"},{key:"baseline",label:"baseline",cc:"var(--pale)"}],
+    fxState.kind, k => { fxState.kind=k; renderFxFilters(); renderFxGrid(); });
+}
+
+/* ---------- Resources tab ---------- */
+function resMatches(r){
+  const s = resState;
+  if (s.kind!=="all" && r.kind!==s.kind) return false;
+  if (s.q && !(r.name+" "+r.rl+" "+r.blurb+" "+r.rows.map(x=>x[1]).join(" ")).toLowerCase().includes(s.q)) return false;
+  return true;
+}
+function renderResGrid(){
+  const grid = document.getElementById("resGrid");
+  const list = RESOURCES.filter(resMatches);
+  document.getElementById("resCount").textContent = `${list.length} of ${RESOURCES.length} — 4 currencies · 2 substrates · 4 systems`;
+  if (!list.length){ grid.innerHTML = `<div class="noresult">Nothing in the economy answers that call.</div>`; return; }
+  grid.innerHTML = list.map(r => `
+    <button type="button" class="ecard fade-in" data-id="${r.id}" data-sel="${resState.sel===r.id}" style="--accent:${r.acc}">
+      <div class="topline">
+        <div class="medallion" style="font-size:20px">${r.glyph}</div>
+        <div><div class="nm" style="font-size:15.5px">${esc(r.name)}</div><div class="rl">${esc(r.rl)}</div></div>
+      </div>
+      <div class="desc cardclamp">${esc(r.blurb)}</div>
+      <div class="metaline"><span class="tag">${r.kind}</span><span class="tag plain">clock: ${esc(r.clock)}</span></div>
+    </button>`).join("");
+  grid.querySelectorAll(".ecard").forEach(el => el.addEventListener("click", () => {
+    resState.sel = el.dataset.id; renderResGrid(); renderResInspector();
+  }));
+}
+function renderResInspector(){
+  const col = document.getElementById("resInspector");
+  const r = RESOURCES.find(x => x.id===resState.sel);
+  if (!r){
+    col.innerHTML = `<div class="inspector"><div class="ribbon"></div>
+      <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
+      <div class="insp-empty"><div><div class="bigring">◉</div>
+      <p>Two things you spend, two you never spend but must read — and the engines that ride them. Pick one.</p></div></div></div>`;
+    return;
+  }
+  col.innerHTML = `
+    <div class="inspector fade-in" style="--accent:${r.acc}">
+      <div class="ribbon"></div>
+      <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
+      <div class="insp-body">
+        <div class="insp-head">
+          <div class="medallion" style="font-size:24px">${r.glyph}</div>
+          <div><h3 class="nm" style="font-size:19px">${esc(r.name)}</h3><div class="rl">${esc(r.rl)}</div></div>
+        </div>
+        <div class="insp-tags">
+          <span class="tag">${r.kind}</span>
+          <span class="tag plain">clock: ${esc(r.clock)}</span>
+        </div>
+        <div class="insp-block"><div class="h">In one line</div><p class="flavor">${esc(r.blurb)}</p></div>
+        <div class="insp-block"><div class="h">The law of it</div>
+          <div class="kv">${r.rows.map(([k,v])=>`<div class="row"><span class="k">${esc(k)}</span><span class="v">${v}</span></div>`).join("")}</div>
+        </div>
+        <div class="insp-block"><div class="h">Grammar of light</div>
+          <div class="subcard"><div class="gl">${esc(r.channel)}</div></div>
+        </div>
+      </div>
+    </div>`;
+}
+function renderResFilters(){
+  chipRow(document.getElementById("resFilters"),
+    [{key:"all",label:"All"},{key:"currency",label:"the four resources"},
+     {key:"substrate",label:"substrates"},{key:"system",label:"the four systems"}],
+    resState.kind, k => { resState.kind=k; renderResFilters(); renderResGrid(); });
+}
+
+/* ---------- Ways section ---------- */
+function renderWays(){
+  document.getElementById("wayGrid").innerHTML = WAYS.map(w => `
+    <div class="way fade-in" style="--acc:${w.acc}">
+      <div class="whead">
+        <div class="wchip">${w.emoji}</div>
+        <div class="wtitle"><div class="wtag">${esc(w.tag)}</div><h3>${esc(w.name)}</h3></div>
+      </div>
+      <p class="wquote">${w.quote}</p>
+      <p class="wfantasy">${w.fantasy}</p>
+      <div class="wrows">
+        <div class="wrow"><span class="lab">You do</span><span class="val">${w.does}</span></div>
+        <div class="wrow"><span class="lab">You win</span><span class="val">${w.wins}</span></div>
+      </div>
+      <div class="meters">
+        <div class="m">Risk<div class="track"><i style="width:${w.risk}%"></i></div></div>
+        <div class="m">Big swing<div class="track"><i style="width:${w.swing}%"></i></div></div>
+        <div class="m">Speed<div class="track"><i style="width:${w.speed}%"></i></div></div>
+      </div>
+      <div class="wfoot"><b class="good">Shines:</b> ${w.shines} &nbsp; <b class="bad">Watch out:</b> ${w.watch}</div>
+      <button type="button" class="wbrowse" onclick="browseWay('${w.key}')">Browse its 7 cards →</button>
+    </div>`).join("");
+}
+
+/* ---------- shell: nav, tabs, atmosphere ---------- */
+function showSection(key){
+  document.querySelectorAll(".section").forEach(s => s.classList.toggle("visible", s.id==="section-"+key));
+  document.querySelectorAll("#sectionNav button").forEach(b => b.classList.toggle("active", b.dataset.section===key));
+}
+function showDataTab(key){
+  document.querySelectorAll(".data-tab").forEach(t => t.classList.toggle("visible", t.id==="dataTab-"+key));
+  document.querySelectorAll("#dataTabs button").forEach(b => b.classList.toggle("active", b.dataset.tab===key));
+}
+function buildAtmosphere(){
+  // round-song rings — concentric faint circles drifting across the dusk
+  const seeds = [[12,20,5],[78,12,4],[50,55,6],[90,70,3],[22,80,4],[60,90,3]];
+  const c = seeds.map(([x,y,n]) => Array.from({length:n}, (_,i) =>
+    `<circle cx="${x}%" cy="${y}%" r="${(i+1)*34}"/>`).join("")).join("");
+  document.getElementById("ringfield").innerHTML = `<svg xmlns="http://www.w3.org/2000/svg">${c}</svg>`;
+  // drifting gleam-motes
+  const m = document.getElementById("motes");
+  m.innerHTML = Array.from({length:9}, (_,i) =>
+    `<span class="mote" style="left:${(i*11+5)%95}%;bottom:-10px;animation-delay:${i*1.9}s;animation-duration:${14+(i%5)*3}s"></span>`).join("");
+}
+function boot(){
+  buildAtmosphere();
+  document.querySelectorAll("#sectionNav button").forEach(b =>
+    b.addEventListener("click", () => showSection(b.dataset.section)));
+  document.querySelectorAll("#dataTabs button").forEach(b =>
+    b.addEventListener("click", () => showDataTab(b.dataset.tab)));
+  document.getElementById("cardSearch").addEventListener("input", e => {
+    cardsState.q = e.target.value.trim().toLowerCase(); renderCardGrid(); });
+  document.getElementById("fxSearch").addEventListener("input", e => {
+    fxState.q = e.target.value.trim().toLowerCase(); renderFxGrid(); });
+  document.getElementById("resSearch").addEventListener("input", e => {
+    resState.q = e.target.value.trim().toLowerCase(); renderResGrid(); });
+  renderCardFilters(); renderCardGrid(); renderCardInspector();
+  renderFxFilters(); renderFxGrid(); renderFxInspector();
+  renderResFilters(); renderResGrid(); renderResInspector();
+  renderWays();
+  // deep-link: #cards / #ways / #play / #codex / #world
+  const h = location.hash.replace("#","");
+  if (["world","play","cards","ways","codex"].includes(h)) showSection(h);
+}
+if (typeof document !== "undefined") boot();
+</script>
+</body>
+</html>
