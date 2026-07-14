@@ -26,6 +26,10 @@ const r1 = (n: number): string => (Math.round(n * 10) / 10).toString();
 const seatContribution = (index: number): number => SEAT_FIRST * SEAT_DECAY ** index;
 const grainVar = (g: string): string => `var(--${g})`;
 const fillsNeed = (c: Card): boolean => c.effects.some(e => e.do === "fill");
+// Ways whose teaching bundle carries a fill card — derived from the pool, not hardcoded
+const FILL_WAYS = [...new Set((starterPool.cards as unknown as Card[])
+  .filter(c => c.archetype != null && fillsNeed(c))
+  .map(c => c.archetype![0].toUpperCase() + c.archetype!.slice(1)))];
 
 // ---------- run state (immutable snapshots; every action = one engine call) ----------
 
@@ -394,7 +398,11 @@ function Masthead({ run, deck, seed, guideOn, onDeck, onSeed, onGuide }: {
         </label>
       </div>
       <div className="tm-stats">
-        <div className="tm-stat"><span className="tm-stat-l">Standing</span><span className="tm-stat-v gleam">✦ {s.player.gleam}</span></div>
+        <div className="tm-stat">
+          <span className="tm-stat-l">Standing</span>
+          <span className="tm-stat-v gleam">✦ {s.player.gleam}</span>
+          <span className="tm-stat-note">score for now — gates askings &amp; the crown in the full run</span>
+        </div>
         <div className="tm-stat"><span className="tm-stat-l">Woken</span><span className="tm-stat-v gold">{fired}</span></div>
         <div className="tm-stat"><span className="tm-stat-l">Purse</span><span className="tm-stat-v moss">{s.player.handsels.length}</span></div>
         <button type="button" className="tm-gbtn" onClick={onGuide}>{guideOn ? "guide off" : "🧭 guide"}</button>
@@ -406,17 +414,12 @@ function Masthead({ run, deck, seed, guideOn, onDeck, onSeed, onGuide }: {
 function StatusStrip({ run }: { run: Run }) {
   const s = run.s;
   const links = s.turn.chainLinks;
-  const ask = s.asking;
   const incomeChips: { tone: string; text: string }[] = [
     { tone: "flow", text: `base gathering +${DAWN_BASE}` },
     { tone: "flow", text: `${run.income.seats} seated +${r1(run.income.seatRoom)}` },
   ];
   if (run.income.ringDraw > 0) incomeChips.push({ tone: "pale", text: `grey rings +${r1(run.income.ringDraw)}` });
   if (run.income.tableDraw > 0) incomeChips.push({ tone: "moss", text: `table (camped ⅔) +${r1(run.income.tableDraw)}` });
-  const fillers = s.pieces.filter(p => p.zone === "hand" && fillsNeed(CARDS.get(p.cardId)!));
-  const fillerText = ask && fillers.length
-    ? `can fill: ${fillers.map(p => CARDS.get(p.cardId)!.name).join(", ")}`
-    : "no card in hand can fill it right now";
   const beads = Math.max(links, 1);
   return (
     <div className="tm-strip">
@@ -448,14 +451,58 @@ function StatusStrip({ run }: { run: Run }) {
         </div>
         <span className={`tm-braced${s.turn.braced ? " on" : ""}`}>{s.turn.braced ? "braced ✓" : "unbraced"}</span>
       </div>
-      <div className={`tm-panel tm-need${ask && fillers.length ? " lit" : ""}`}>
-        <div className="tm-needhead">
-          <span className="tm-lbl">The {ask?.tier ?? "—"}'s Need</span>
-          <span className="tm-neednum">{ask?.progress ?? 0}<i>/{ask?.needFill ?? 0}</i></span>
-        </div>
-        <div className="tm-bar"><div className="tm-barfill need" style={{ width: `${ask ? Math.min(100, (ask.progress / ask.needFill) * 100) : 0}%` }} /></div>
-        <div className="tm-fillers">{fillerText}</div>
+      <NeedPanel run={run} />
+    </div>
+  );
+}
+
+function NeedPanel({ run }: { run: Run }) {
+  const [howOpen, setHowOpen] = useState(false);
+  const s = run.s;
+  const ask = s.asking;
+  // every distinct card in this run's pieces that carries a fill effect
+  const fillCards = [...new Map(
+    s.pieces.map(p => CARDS.get(p.cardId)!).filter(fillsNeed).map(c => [c.id, c]),
+  ).values()];
+  const handFillers = s.pieces.filter(p => p.zone === "hand" && fillsNeed(CARDS.get(p.cardId)!));
+  const status = handFillers.length
+    ? `in hand now: ${handFillers.map(p => CARDS.get(p.cardId)!.name).join(", ")}`
+    : fillCards.length
+      ? "no fill card in hand — draw one"
+      : "this Way fills needs another way";
+  return (
+    <div className={`tm-panel tm-need${ask && handFillers.length ? " lit" : ""}`}>
+      <div className="tm-needhead">
+        <span className="tm-lbl">The {ask?.tier ?? "—"}'s Need</span>
+        <button type="button" className={`tm-howbtn${howOpen ? " open" : ""}`}
+          aria-expanded={howOpen} onClick={() => setHowOpen(!howOpen)}>how?</button>
+        <span className="tm-neednum">{ask?.progress ?? 0}<i>/{ask?.needFill ?? 0}</i></span>
       </div>
+      <div className="tm-bar"><div className="tm-barfill need" style={{ width: `${ask ? Math.min(100, (ask.progress / ask.needFill) * 100) : 0}%` }} /></div>
+      <div className="tm-fillers">{status}</div>
+      {howOpen && (
+        <div className="tm-howpop">
+          <p className="tm-howtext">Play a card with a <b>fill</b> effect. It pours woken delight into
+            the need — the amount reads something live (your grain count, the room, or your chain), so
+            build that up first, then play the fill card. Reach <b>{ask?.needFill ?? "the fill"}</b> and
+            the town is re-made.</p>
+          <div className="tm-lbl" style={{ margin: "8px 0 5px" }}>Fill cards in this deck</div>
+          {fillCards.length === 0 ? (
+            <p className="tm-howtext"><i>None. This Way answers needs another way — through the purse
+              and its own payoffs, not by filling.</i> Try the {FILL_WAYS.join(" / ")} decks.</p>
+          ) : fillCards.map(c => {
+            const g = glossEffect(c.effects.find(e => e.do === "fill")!, s);
+            return (
+              <div key={c.id} className="tm-howrow">
+                <span className="tm-gdot" style={{ background: grainVar(c.grain) }} />
+                <span className="tm-howname">{c.name}</span>
+                <span className="tm-when">{g.whenLabel}</span>
+                <span className="tm-howfx">{g.text}{g.live && <i className="tm-live"> · {g.live}</i>}</span>
+              </div>
+            );
+          })}
+        </div>
+      )}
     </div>
   );
 }
