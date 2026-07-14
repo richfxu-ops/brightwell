@@ -47,8 +47,23 @@ const DRAFT_TUNABLES = {
   OFFER_N: 3,             // cards shown in the row each morning
   TAKE_PER_MORNING: 2,    // how many you may draft before the row locks until next dawn
   RELEASE_PER_MORNING: 1, // how many un-woken cards you may last-light out of the deck per morning
+  START_PURSE: 3,         // FIDELITY: a small starting stipend so drafting is feelable from morning 1
+  // Standing GATES the market (canon: "widens as gleam rises"): current Standing unlocks richer
+  // cards, keyed to a card's woken_delight tier. Bands mirror the stock-vouch ladder (6·12).
+  STANDING_TIER_BANDS: [{ atLeast: 0, tier: 1 }, { atLeast: 6, tier: 2 }, { atLeast: 12, tier: 3 }],
+  // handsels are the PRICE to take a card, by that card's tier (a toy experiment vs canon).
+  PRICE_BY_TIER: { 1: 1, 2: 2, 3: 3 } as Record<number, number>,
 };
 const ALL_CARDS = starterPool.cards as unknown as Card[];
+
+const cardTier = (c: Card): number => Math.min(3, Math.max(1, c.woken_delight));
+const priceOf = (c: Card): number => DRAFT_TUNABLES.PRICE_BY_TIER[cardTier(c)] ?? 1;
+/** The richest card tier this Standing unlocks in the market (Filter-2, current gleam). */
+function unlockedTier(standing: number): number {
+  let t = 1;
+  for (const band of DRAFT_TUNABLES.STANDING_TIER_BANDS) if (standing >= band.atLeast) t = band.tier;
+  return t;
+}
 
 /** A fresh un-woken (inert) piece — acquired pieces always arrive cold. */
 function newPiece(cardId: string, instanceId: string, zone: "pack" | "hand"): GameState["pieces"][number] {
@@ -59,10 +74,12 @@ function newPiece(cardId: string, instanceId: string, zone: "pack" | "hand"): Ga
   };
 }
 
-/** Roll OFFER_N random cards not already in the deck (a simple stand-in for the Fair's pool). */
+/** Roll OFFER_N cards not owned, filtered by the tier the maker's Standing has unlocked. */
 function rollOffers(s: GameState): string[] {
   const owned = new Set(s.pieces.map(p => p.cardId));
-  const pool = ALL_CARDS.filter(c => !owned.has(c.id));
+  const cap = unlockedTier(s.player.gleam);
+  let pool = ALL_CARDS.filter(c => !owned.has(c.id) && cardTier(c) <= cap);
+  if (pool.length === 0) pool = ALL_CARDS.filter(c => !owned.has(c.id));   // fallback: never an empty row
   const out: string[] = [];
   const bag = [...pool];
   while (out.length < DRAFT_TUNABLES.OFFER_N && bag.length) {
@@ -117,6 +134,9 @@ function markers(events: GameEvent[]): string[] {
 
 function makeRun(seed: number, deck: string): Run {
   const s = createInitialState(seed);
+  for (let i = 0; i < DRAFT_TUNABLES.START_PURSE; i++) {   // FIDELITY: a stipend to make drafting feelable
+    s.player.handsels.push({ brightness: 2, idleMornings: 0 });
+  }
   if (deck !== "apprentice") {
     const wayCards = (starterPool.cards as unknown as Card[]).filter(c => c.archetype === deck);
     for (const [i, card] of wayCards.entries()) {
@@ -647,21 +667,30 @@ function HandCard({ run, id, selected, onPick }: {
 }
 
 function OfferRow({ run, onDraft }: { run: Run; onDraft: (cardId: string) => void }) {
-  const locked = run.drafted >= DRAFT_TUNABLES.TAKE_PER_MORNING;
+  const capped = run.drafted >= DRAFT_TUNABLES.TAKE_PER_MORNING;
   const left = DRAFT_TUNABLES.TAKE_PER_MORNING - run.drafted;
+  const purse = run.s.player.handsels.length;
+  const tier = unlockedTier(run.s.player.gleam);
+  const tierWord = ["", "apprentice", "mid", "capstone"][tier];
   return (
     <div className="tm-offer">
       <div className="tm-sechead">
-        The Fair — {locked ? "drafted for today · fresh offers at next dawn" : `draft ${left} into your deck`}
+        The Fair — {capped
+          ? "drafted for today · fresh offers at next dawn"
+          : `draft ${left} · your Standing opens ${tierWord}-tier · purse ${purse}`}
       </div>
       <div className="tm-offerrow">
         {run.offers.map(cardId => {
           const c = CARDS.get(cardId)!;
+          const price = priceOf(c);
+          const unaffordable = purse < price;
+          const disabled = capped || unaffordable;
           return (
             <button key={cardId} type="button"
-              className={`tm-offercard${locked ? " locked" : ""}`}
+              className={`tm-offercard${disabled ? " locked" : ""}`}
               style={{ ["--gr" as string]: grainVar(c.grain) }}
-              disabled={locked} onClick={() => onDraft(cardId)}>
+              disabled={disabled} onClick={() => onDraft(cardId)}
+              title={unaffordable && !capped ? `needs ${price} handsels` : ""}>
               <div className="tm-crow1">
                 <span className="tm-gdot" />
                 <span className="tm-cname">{c.name}</span>
@@ -673,7 +702,9 @@ function OfferRow({ run, onDraft }: { run: Run; onDraft: (cardId: string) => voi
                 <span className="tm-cchip">gift {c.woken_delight}</span>
               </div>
               <div className="tm-offerfx">{c.effects.map(e => glossEffect(e, run.s).text).join(" · ")}</div>
-              <div className="tm-offertake">{locked ? "—" : "＋ take"}</div>
+              <div className="tm-offertake">
+                {capped ? "—" : unaffordable ? `need ${price}` : `＋ take · ${price} handsel${price === 1 ? "" : "s"}`}
+              </div>
             </button>
           );
         })}
@@ -888,11 +919,14 @@ function App() {
   };
   const draft = (cardId: string) => {
     const card = CARDS.get(cardId)!;
+    const price = priceOf(card);
+    if (run.drafted >= DRAFT_TUNABLES.TAKE_PER_MORNING || s.player.handsels.length < price) return;
     const clone = structuredClone(s);
+    clone.player.handsels.splice(0, price);   // pay the price from the purse (dullest first)
     clone.pieces.push(newPiece(cardId, `${cardId}#d${nextDraftId++}`, "pack"));
     const moment: Moment = {
       id: nextMomentId++, kind: "stall", accent: grainVar(card.grain),
-      title: `Drafted ${card.name}`, sub: "into your deck — arrives cold",
+      title: `Drafted ${card.name}`, sub: `−${price} handsels · into your deck`,
       badges: [{ tone: "pale", text: "joins the pack, un-woken" }],
     };
     setRun({ ...run, s: clone, moments: [moment, ...run.moments].slice(0, MOMENT_CAP), drafted: run.drafted + 1 });
