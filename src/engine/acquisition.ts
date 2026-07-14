@@ -30,6 +30,18 @@ export const ACQUISITION_TUNABLES = {
   // the glad-load leans into your Way: a journey-piece of your dominant gleam-grain is this many
   // times likelier to be taught (D1; the "asking's grain pool" half is deferred — FIDELITY).
   GLAD_GRAIN_WEIGHT: 3,
+
+  // --- the Fair (draft k=2 of N=5, QUESTIONS.md §D [CANON]) ---
+  OFFER_N: 5,               // cards shown in the row each dawn
+  DRAFT_PER_MORNING: 2,     // takes allowed before the row locks until next dawn
+  // Standing GATES which tier is offered — "the market widens as gleam rises" (gleam read, never
+  // spent). Bands mirror the vouch/peak-gleam ladder anchors (6·12) for one consistent Standing scale.
+  STANDING_TIER_BANDS: [{ atLeast: 0, tier: 1 }, { atLeast: 6, tier: 2 }, { atLeast: 12, tier: 3 }],
+  // the hybrid cost (D-013 option c): apprentice-floor tiers are BOUGHT with handsels (canon-legal —
+  // R2 buys low taught pieces); the proud tier is COURTED, never bought.
+  PRICE_BY_TIER: { 1: 1, 2: 2 } as Record<number, number>,
+  PROUD_TIER: 3,            // this tier and up is courted, not priced
+  PROUD_TERM_CHAIN: 3,      // the proud term: a chain of at least this many links performed this morning
 } as const;
 
 /** A fresh inert piece with a run-unique id — every acquisition channel mints through here. */
@@ -98,5 +110,85 @@ export function releaseCard(state: GameState, instanceId: string): boolean {
   state.pieces = state.pieces.filter(p => p.instanceId !== instanceId);
   state.turn.releasedThisMorning += 1;
   emit(state, "released", { cardId: piece.cardId });
+  return true;
+}
+
+// ----- the Fair: a per-morning draft (k=2 of N=5), Standing-gated, hybrid cost (D-013) -----
+
+/** A journey-piece's market tier (1..3) from its printed woken_delight. */
+export function cardTierOf(cardId: string): number {
+  return JOURNEY_POOL.find(c => c.id === cardId)?.tier ?? 1;
+}
+
+/** The richest tier the maker's current Standing opens at the Fair (gleam gates, never spent). */
+export function standingUnlockedTier(gleam: number): number {
+  let tier = 1;
+  for (const band of ACQUISITION_TUNABLES.STANDING_TIER_BANDS) if (gleam >= band.atLeast) tier = band.tier;
+  return tier;
+}
+
+/** How a Fair card is paid for: apprentice-floor tiers are bought; the proud tier is courted. */
+export type FairCost =
+  | { kind: "handsel"; price: number }
+  | { kind: "court"; termChain: number };
+
+export function fairCostOf(cardId: string): FairCost {
+  const tier = cardTierOf(cardId);
+  if (tier >= ACQUISITION_TUNABLES.PROUD_TIER) {
+    return { kind: "court", termChain: ACQUISITION_TUNABLES.PROUD_TERM_CHAIN };
+  }
+  return { kind: "handsel", price: ACQUISITION_TUNABLES.PRICE_BY_TIER[tier] ?? 1 };
+}
+
+/**
+ * Roll a fresh offer row at dawn: up to OFFER_N unowned journey-pieces the maker's Standing has
+ * unlocked (filter-2, current gleam). The row stays WITHIN the Standing gate — if you've drafted out
+ * everything your gleam opens, the row runs short (or empty): the honest signal to raise Standing,
+ * never a backdoor to higher-tier stock. Seeded via state.rng.
+ */
+export function rollFair(state: GameState): void {
+  const owned = new Set(state.pieces.map(p => p.cardId));
+  const cap = standingUnlockedTier(state.player.gleam);
+  const bag = JOURNEY_POOL.filter(c => !owned.has(c.id) && c.tier <= cap).map(c => c.id);
+  const offers: string[] = [];
+  while (offers.length < ACQUISITION_TUNABLES.OFFER_N && bag.length > 0) {
+    let idx: number;
+    [idx, state.rng] = nextInt(state.rng, bag.length);
+    offers.push(bag.splice(idx, 1)[0]);
+  }
+  state.turn.fairOffers = offers;
+}
+
+/**
+ * Take a card from the Fair. Standing already gated what was offered; the take is paid by tier —
+ * apprentice-floor with handsels, the proud tier by a performed term (a chain of PROUD_TERM_CHAIN
+ * links this morning; no coin leaves — canon). Mints the card inert into the pack,
+ * drops it from the row (each offer is drafted once), and caps the row at DRAFT_PER_MORNING. Returns
+ * true if the card joined the deck.
+ */
+export function draftFair(state: GameState, cardId: string): boolean {
+  if (!state.turn.fairOffers.includes(cardId)) {
+    emit(state, "refused", { do: "draft", why: "not on offer" });
+    return false;
+  }
+  if (state.turn.draftedThisMorning >= ACQUISITION_TUNABLES.DRAFT_PER_MORNING) {
+    emit(state, "refused", { do: "draft", why: "the row is drafted out for today" });
+    return false;
+  }
+  const cost = fairCostOf(cardId);
+  if (cost.kind === "handsel") {
+    if (state.player.handsels.length < cost.price) {
+      emit(state, "refused", { do: "draft", why: "too few handsels" });
+      return false;
+    }
+    state.player.handsels.splice(0, cost.price);   // pay from the purse
+  } else if (state.turn.chainLinks < cost.termChain) {
+    emit(state, "refused", { do: "draft", why: "the courting term is unmet" });
+    return false;
+  }
+  mintPiece(state, cardId, "pack");
+  state.turn.fairOffers = state.turn.fairOffers.filter(id => id !== cardId);
+  state.turn.draftedThisMorning += 1;
+  emit(state, "drafted", { cardId, tier: cardTierOf(cardId), cost: cost.kind });
   return true;
 }

@@ -77,6 +77,8 @@ export interface TurnState {
   playedOrder: string[];       // instanceIds in played order — cascade order (D-010 B3)
   firedEffectKeys: string[];   // "<instanceId>#<effectIndex>" — fire-once per morning (B3)
   releasedThisMorning: number; // last-lit pieces this morning — capped (acquisition, Phase 6)
+  fairOffers: string[];        // this dawn's Fair offer row (cardIds) — draft k of N (Phase 6)
+  draftedThisMorning: number;  // Fair takes this morning — capped (acquisition, Phase 6)
 }
 
 export interface GameEvent {
@@ -194,7 +196,7 @@ export function createInitialState(seed: number): GameState {
       room: 0, chainLinks: 0, braced: false, stalled: false,
       overCeiling: 0, overkillPieceId: null, seatedCount: 0, whittledThisMorning: false,
       dawned: false, pouredThisMorning: 0, playedOrder: [], firedEffectKeys: [],
-      releasedThisMorning: 0,
+      releasedThisMorning: 0, fairOffers: [], draftedThisMorning: 0,
     },
     events: [],
   };

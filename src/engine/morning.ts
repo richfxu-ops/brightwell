@@ -7,6 +7,7 @@ import type { GameEvent, GameState, PieceInstance } from "./state.js";
 import { MORNINGS_PER_LEG, currentNode } from "./state.js";
 import { applyEffect, emit, pourAttention, SEAT_FIRST, SEAT_DECAY } from "./effects.js";
 import { acceptAsking, checkFlopAtDusk, checkStaleAtDawn, payGladLoad } from "./asking.js";
+import { rollFair } from "./acquisition.js";
 import { acceptCrown, checkRunEnd, isWintering } from "./runframe.js";
 import { nextInt } from "./rng.js";
 
@@ -142,10 +143,11 @@ export function dawn(stateIn: GameState, ctx: MorningContext): MorningResult {
     overCeiling: 0, overkillPieceId: null,
     seatedCount: seats, whittledThisMorning: false,
     dawned: true, pouredThisMorning: 0, playedOrder: [], firedEffectKeys: [],
-    releasedThisMorning: 0,
+    releasedThisMorning: 0, fairOffers: [], draftedThisMorning: 0,
   };
 
   const drawn = refillHand(state);
+  rollFair(state);   // a fresh Fair offer row each dawn (Phase 6) — seeded, after the hand's draws
   emit(state, "dawn", {
     morning: state.calendar.morning, leg: state.calendar.leg,
     room: state.turn.room, seats, ringDraw, tableDraw, drew: drawn,

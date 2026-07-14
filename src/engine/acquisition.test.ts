@@ -5,7 +5,8 @@ import type { Grain } from "./vocabulary.js";
 import { createInitialState } from "./state.js";
 import { payGladLoad } from "./asking.js";
 import {
-  ACQUISITION_TUNABLES, JOURNEY_POOL, mintPiece, releaseCard, teachGladLoad,
+  ACQUISITION_TUNABLES, cardTierOf, draftFair, fairCostOf, JOURNEY_POOL, mintPiece,
+  releaseCard, rollFair, standingUnlockedTier, teachGladLoad,
 } from "./acquisition.js";
 import { testState, testPiece } from "./test-helpers.js";
 
@@ -132,8 +133,108 @@ describe("the glad-load teaches on fulfil (payGladLoad integration)", () => {
   });
 });
 
+describe("standingUnlockedTier / fairCostOf", () => {
+  it("gleam opens richer tiers by the bands (6·12)", () => {
+    expect(standingUnlockedTier(0)).toBe(1);
+    expect(standingUnlockedTier(5)).toBe(1);
+    expect(standingUnlockedTier(6)).toBe(2);
+    expect(standingUnlockedTier(12)).toBe(3);
+    expect(standingUnlockedTier(20)).toBe(3);
+  });
+
+  it("apprentice-floor tiers are bought, the proud tier is courted", () => {
+    const apprentice = JOURNEY_POOL.find(c => c.tier === 1) as { id: string };
+    const proud = JOURNEY_POOL.find(c => c.tier === ACQUISITION_TUNABLES.PROUD_TIER) as { id: string };
+    expect(fairCostOf(apprentice.id)).toEqual({ kind: "handsel", price: 1 });
+    expect(fairCostOf(proud.id)).toEqual({ kind: "court", termChain: ACQUISITION_TUNABLES.PROUD_TERM_CHAIN });
+    expect(cardTierOf(proud.id)).toBe(3);
+  });
+});
+
+describe("rollFair", () => {
+  it("offers OFFER_N unowned journey-pieces, gated to the Standing-unlocked tier, deterministically", () => {
+    const a = createInitialState(9);
+    const b = createInitialState(9);
+    rollFair(a);
+    rollFair(b);
+    expect(a.turn.fairOffers).toEqual(b.turn.fairOffers);          // same seed → same row
+    expect(a.turn.fairOffers).toHaveLength(ACQUISITION_TUNABLES.OFFER_N);
+    const owned = new Set(a.pieces.map(p => p.cardId));
+    for (const id of a.turn.fairOffers) {
+      expect(owned.has(id)).toBe(false);                            // never a card you already hold
+      expect(cardTierOf(id)).toBeLessThanOrEqual(standingUnlockedTier(a.player.gleam));  // gated (tier 1 at gleam 5)
+    }
+    expect(new Set(a.turn.fairOffers).size).toBe(a.turn.fairOffers.length);   // no duplicate offers
+  });
+
+  it("widens the row as Standing rises — proud cards only appear once gleam opens tier 3", () => {
+    const dim = createInitialState(3);            // gleam 5 → tier 1 only
+    rollFair(dim);
+    expect(Math.max(...dim.turn.fairOffers.map(cardTierOf))).toBe(1);
+    const bright = createInitialState(3);
+    bright.player.gleam = 20;                     // tier 3 open
+    rollFair(bright);
+    expect(Math.max(...bright.turn.fairOffers.map(cardTierOf))).toBeGreaterThan(1);
+  });
+
+  it("stays within the gate when the unlocked tier is drafted out — no backdoor to higher stock", () => {
+    const s = createInitialState(4);              // gleam 5 → tier 1 only
+    for (const c of JOURNEY_POOL.filter(c => c.tier === 1)) mintPiece(s, c.id, "pack");
+    rollFair(s);
+    expect(s.turn.fairOffers).toHaveLength(0);    // drafted out the gate → empty, NOT tier 2/3
+    s.player.gleam = 20;                          // raise Standing → the row repopulates with what it opens
+    rollFair(s);
+    expect(s.turn.fairOffers.length).toBeGreaterThan(0);
+    expect(Math.max(...s.turn.fairOffers.map(cardTierOf))).toBeGreaterThan(1);
+  });
+});
+
+describe("draftFair — the hybrid cost", () => {
+  it("bands 1–2 are bought with handsels; the take mints an inert piece and caps at 2/morning", () => {
+    const s = testState(x => {
+      x.turn.dawned = true;
+      x.player.handsels = [1, 2, 3].map(() => ({ brightness: 2 as const, idleMornings: 0 }));
+    });
+    const t1 = JOURNEY_POOL.filter(c => c.tier === 1).slice(0, 3).map(c => c.id);
+    s.turn.fairOffers = [...t1];
+    expect(draftFair(s, t1[0])).toBe(true);
+    expect(s.pieces.some(p => p.cardId === t1[0] && !p.fired && p.zone === "pack")).toBe(true);
+    expect(s.player.handsels).toHaveLength(2);              // paid 1
+    expect(s.turn.fairOffers).not.toContain(t1[0]);        // drafted offers leave the row
+    expect(draftFair(s, t1[1])).toBe(true);
+    expect(draftFair(s, t1[2])).toBe(false);               // capped at DRAFT_PER_MORNING (2)
+    expect(s.turn.draftedThisMorning).toBe(2);
+  });
+
+  it("refuses a handsel take you can't afford, and one that isn't on offer", () => {
+    const s = testState(x => { x.turn.dawned = true; x.player.handsels = []; });
+    const t1 = JOURNEY_POOL.find(c => c.tier === 1) as { id: string };
+    s.turn.fairOffers = [t1.id];
+    expect(draftFair(s, t1.id)).toBe(false);               // 0 handsels
+    expect(draftFair(s, "not-offered")).toBe(false);       // not in the row
+    expect(s.pieces).toHaveLength(0);
+  });
+
+  it("the proud tier is courted — refused until the term is performed, and no coin leaves", () => {
+    const proud = JOURNEY_POOL.find(c => c.tier === ACQUISITION_TUNABLES.PROUD_TIER) as { id: string };
+    const s = testState(x => {
+      x.turn.dawned = true; x.turn.chainLinks = 0;
+      x.player.handsels = [{ brightness: 2, idleMornings: 0 }];
+      x.turn.fairOffers = [proud.id];
+    });
+    expect(draftFair(s, proud.id)).toBe(false);            // chain 0 < PROUD_TERM_CHAIN
+    s.turn.chainLinks = ACQUISITION_TUNABLES.PROUD_TERM_CHAIN;
+    expect(draftFair(s, proud.id)).toBe(true);             // term performed
+    expect(s.player.handsels).toHaveLength(1);             // gleam gated, term performed — no coin spent
+    expect(s.pieces.some(p => p.cardId === proud.id)).toBe(true);
+    expect(s.events.some(e => e.type === "drafted" && e.data?.cost === "court")).toBe(true);
+  });
+});
+
 describe("ACQUISITION_TUNABLES", () => {
-  it("caps release at one a morning (D-013 draft-2 / release-1)", () => {
+  it("caps release at one a morning and drafts at two (D-013 draft-2 / release-1)", () => {
     expect(ACQUISITION_TUNABLES.RELEASE_PER_MORNING).toBe(1);
+    expect(ACQUISITION_TUNABLES.DRAFT_PER_MORNING).toBe(2);
+    expect(ACQUISITION_TUNABLES.OFFER_N).toBe(5);
   });
 });

@@ -1,5 +1,5 @@
 ---
-status: In Progress
+status: In Review
 size: Large
 created: 2026-07-14
 title: Acquisition (the Fair)
@@ -131,12 +131,22 @@ taught-card growth path is covered by the payGladLoad integration test (fulfil g
 inert piece; the crown does not teach). Part 2 (the Fair draft) is next.
 
 ### Part 2 — the Fair draft (2 of 5) + the hybrid cost  *(branch: `phase6-part2-fair`)*
-- [ ] State: `fairOffers` + `draftedThisMorning` (TurnState, dawn-reset)
-- [ ] `acquisition.ts`: `rollFair` (N=5, unowned, Standing-gated, `state.rng`),
-      `standingUnlockedTier`, `cardTierOf`, `draftFair` (handsel path bands 1–2 / court path band 3)
-- [ ] Hook `rollFair` + counter resets into `dawn()`
-- [ ] Toy: retire `DRAFT_TUNABLES`/`rollOffers`/`draft`; OfferRow reads `turn.fairOffers`, shows the
-      handsel price vs "perform the term"; wire to `draftFair`
-- [ ] Tests: seeded roll deterministic + tier-gated + unowned-only; handsel take pays / refuses when
-      short; proud take refused without the term, succeeds with it; draft cap = 2/morning
-- [ ] `npm run check` green; Review Card
+- [x] State: `fairOffers` + `draftedThisMorning` (TurnState, dawn-reset)
+- [x] `acquisition.ts`: `rollFair` (N=5, unowned, Standing-gated, `state.rng`),
+      `standingUnlockedTier`, `cardTierOf`, `fairCostOf`, `draftFair` (handsel bands 1–2 / court band 3)
+- [x] Hook `rollFair` + counter resets into `dawn()` (after `refillHand`, so hand draws are unperturbed)
+- [x] Toy: retired `DRAFT_TUNABLES`/`rollOffers`/`draft`/`newPiece`; OfferRow reads `turn.fairOffers`,
+      shows handsel price vs "court: chain N"; wired to `draftFair`
+- [x] Tests: seeded roll deterministic + tier-gated + unowned-only + no dups; handsel take pays /
+      refuses when short / not-on-offer; proud take refused without the term, succeeds with it, no coin;
+      draft cap = 2/morning; bands + `fairCostOf`
+- [x] `npm run check` green (126 pass, +8); code-review pass; Review Card
+
+Verified (2026-07-14): `npm run check` green — typecheck + lint + 126 tests. In-browser (the toy):
+the Fair shows 5 offers gated to apprentice-tier at Standing 5, drafting a card pays 1 handsel and
+drops it from the row, and a 3rd take is blocked (cap 2/morning); drafted cards land inert in the
+pack, not the hand. The proud/court path (gleam ≥ 12) is engine-tested (refused without the chain
+term, succeeds with it, no handsels spent) — not reachable at the starting Standing in the toy.
+Code-review (`/code-review medium`) caught a real bug: `rollFair`'s empty-pool fallback let a
+drafted-out low tier leak higher-tier stock past the Standing gate (a backdoor to proud cards). Fixed
+— the row now stays strictly within the gate (short/empty when drafted out), with a regression test.

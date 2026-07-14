@@ -16,7 +16,7 @@
 ## Next
 
 ## In Progress
-- [ ] (P1) [Acquisition (the Fair)](tasks/acquisition.md) — engine Phase 6, drafting #engine #m3
+- [ ] (P1) [Acquisition (the Fair)](tasks/acquisition.md) — engine Phase 6, drafting #engine #m3 #review
 
 ## Done
 - [x] (P1) [Run frame](tasks/run-frame.md) — engine Phase 5 #engine #m3
