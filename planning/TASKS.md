@@ -15,8 +15,8 @@
 - [ ] (P3) Decide prototype form (web/terminal) and sketch UI #prototype #m5
 
 ## Next
-- [ ] (P0) Decide stage-3 approach: game-loop skill pipeline vs hand-built (plan + token budget sign-off) #m3
 - [ ] (P1) Implement effects.ts: resolvers for the 14 primitives #engine #m3
+- [ ] (P2) Toy morning: playable single-turn slice over the engine — the "is it fun?" check (after Phase 3) #prototype #m3
 
 ## In Progress
 
@@ -29,3 +29,4 @@
 - [x] Build roundelay-codex.html — single-file codex site, Daylight watercolor design #docs
 - [x] (P1) [TS toolchain setup](tasks/set-up-ts-toolchain.md) #infra #m3
 - [x] (P1) [Engine state & reads](tasks/engine-state-and-reads.md) #engine #m3
+- [x] (P0) Decide stage-3 approach: hand-build the engine via /task (D-008); game-loop skill re-evaluated at M4 #m3
