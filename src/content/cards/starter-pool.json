@@ -1863,7 +1863,7 @@
           "params": {
             "amount": {
               "do": "read",
-              "source": "room"
+              "source": "chain"
             }
           }
         },
@@ -2105,7 +2105,7 @@
           "params": {
             "amount": {
               "do": "read",
-              "source": "room"
+              "source": "chain"
             }
           }
         }
@@ -2395,7 +2395,7 @@
           "params": {
             "amount": {
               "do": "read",
-              "source": "room"
+              "source": "grain:dance"
             }
           }
         },
@@ -2969,7 +2969,7 @@
           "params": {
             "amount": {
               "do": "read",
-              "source": "room"
+              "source": "grain:glaze"
             }
           }
         },
