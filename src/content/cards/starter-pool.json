@@ -789,10 +789,10 @@
         },
         {
           "when": "on-play",
-          "do": "draw",
+          "do": "steady",
           "params": {
-            "n": 1,
-            "suit": "thread"
+            "links": 1,
+            "brace": true
           }
         }
       ]
@@ -924,8 +924,8 @@
       "id": "the-whole-fair-turn",
       "name": "The Whole-Fair Turn",
       "grain": "dance",
-      "mark": 8,
-      "ceiling": 9,
+      "mark": 6,
+      "ceiling": 8,
       "woken_delight": 3,
       "tags": [
         "starter",
@@ -947,6 +947,16 @@
           }
         },
         {
+          "when": "on-play",
+          "do": "fill",
+          "params": {
+            "amount": {
+              "do": "read",
+              "source": "woken:dance"
+            }
+          }
+        },
+        {
           "when": "on-overkill",
           "do": "brim",
           "params": {
@@ -954,13 +964,6 @@
               "do": "read",
               "source": "over-ceiling"
             }
-          }
-        },
-        {
-          "when": "on-fulfil",
-          "do": "whittle",
-          "params": {
-            "amount": 1
           }
         }
       ]
@@ -1412,7 +1415,7 @@
           "params": {
             "amount": {
               "do": "read",
-              "source": "room"
+              "source": "woken:glaze"
             }
           }
         },
@@ -1822,11 +1825,11 @@
           }
         },
         {
-          "when": "on-chain",
-          "do": "steady",
+          "when": "on-fulfil",
+          "do": "draw",
           "params": {
-            "links": 1,
-            "brace": true
+            "n": 1,
+            "suit": "joinery"
           }
         }
       ]
@@ -2132,9 +2135,9 @@
         },
         {
           "when": "on-play",
-          "do": "draw",
+          "do": "mark-grain",
           "params": {
-            "n": 1,
+            "target": "hand:cheapest",
             "suit": "thread"
           }
         }
@@ -2355,7 +2358,7 @@
           "params": {
             "amount": {
               "do": "read",
-              "source": "chain"
+              "source": "woken:thread"
             }
           }
         },
