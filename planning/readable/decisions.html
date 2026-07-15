@@ -1,0 +1,115 @@
+<!-- SOURCE OF TRUTH for the codex Decisions tab. Edit here, then run: python3 scripts/bake-codex.py -->
+<div class="rdbl">
+  <div class="rd-intro">
+    <p><b>What this is.</b> The log of design choices already made — newest first, each with a code like
+      <span class="rd-code">D-014</span> and the reason behind it, in plain terms. The entries at the bottom
+      (<span class="rd-code">D-001</span>–<span class="rd-code">D-008</span>) set the ground rules before the
+      game existed. New here? The <b>Glossary</b> tab decodes the in-world words.</p>
+  </div>
+
+  <div class="rd-tl-wrap">
+
+    <div class="rd-tl">
+      <h4><span class="rd-code">D-022</span> Card-quality rulebook finalised <span class="date">Jul 14</span></h4>
+      <p>Locked the four remaining rules for judging cards (see §H on the Questions tab).</p>
+      <p class="rd-why"><b>Why:</b> so an automated card-checker can enforce a single, agreed standard.</p>
+    </div>
+
+    <div class="rd-tl">
+      <h4><span class="rd-code">D-021</span> Late-game cards now read your whole audience <span class="date">Jul 14</span></h4>
+      <p>Fixed three balance bugs found by playtesting: a card that trivially won the crown in one shot, cards that mysteriously stopped working late in a run, and one class that rewarded the wrong strategy.</p>
+      <p class="rd-why"><b>Why:</b> the "reward" cards counted only <i>this turn's</i> activity, which dries up once your deck is fully woken. Re-pointing them at your accumulated audience makes them scale with the engine you built all game. The final boss's demand was raised 10→20 to keep it a real climb.</p>
+    </div>
+
+    <div class="rd-tl">
+      <h4><span class="rd-code">D-020</span> Card pool doubled (49 → 97) <span class="date">Jul 14</span></h4>
+      <p>Roughly doubled the number of cards, and made the new ones draft-only (not in your starting deck).</p>
+      <p class="rd-why"><b>Why:</b> a small deck gets boring once every card is woken. A deeper pool means there's always something new to chase, while keeping starting decks lean so your <i>draft choices</i> — not a fixed deck — drive each run's variety. Result: every one of the six classes can now win (two previously couldn't).</p>
+    </div>
+
+    <div class="rd-tl">
+      <h4><span class="rd-code">D-019</span> More cards flow through the Fair <span class="date">Jul 14</span></h4>
+      <p>Widened the draft (5→7 cards offered, take up to 3 per turn instead of 2).</p>
+      <p class="rd-why"><b>Why:</b> to ease the "everything's woken, now what?" plateau by keeping fresh cards moving.</p>
+    </div>
+
+    <div class="rd-tl">
+      <h4><span class="rd-code">D-018</span> The lose-condition got teeth <span class="date">Jul 14</span></h4>
+      <p>Tightened how fast wasted effort converts into safety score, so reputation stops ballooning to untouchable levels.</p>
+      <p class="rd-why"><b>Why:</b> tests showed the safety resource maxed out trivially and the run was never actually threatened — a game with no real danger. This cut typical peak score nearly in half.</p>
+    </div>
+
+    <div class="rd-tl">
+      <h4><span class="rd-code">D-017</span> Filler cards fire every time you play them <span class="date">Jul 14</span></h4>
+      <p>Changed key cards to trigger on <i>play</i> rather than once on <i>waking</i>.</p>
+      <p class="rd-why"><b>Why:</b> firing only once made mature decks go passive and encouraged a boring "hoard the card until the finale" tactic. This single change took the win rate from 0 to ~11 in 350 — proving earlier zero-win results were this trap, not broken numbers.</p>
+    </div>
+
+    <div class="rd-tl">
+      <h4><span class="rd-code">D-016</span> Built the balance-testing robot <span class="date">Jul 14</span></h4>
+      <p>Created the simulation that plays thousands of bot games and records detailed stats.</p>
+      <p class="rd-why"><b>Why:</b> so balance decisions rest on real measured numbers instead of back-of-napkin guesses. Deliberately uses <i>simple</i> bots, so the numbers are treated as a floor, not gospel.</p>
+    </div>
+
+    <div class="rd-tl">
+      <h4><span class="rd-code">D-015</span> The deck can now grow <span class="date">Jul 14</span></h4>
+      <p>Built acquisition (the Fair, earned cards, and a way to thin the deck), letting a starting ~7 cards grow to ~20.</p>
+      <p class="rd-why"><b>Why:</b> a run needs to build an engine big enough to stand the crown. Also resolved how you pay for cards: cheap ones bought with money, the best ones won by performing.</p>
+    </div>
+
+    <div class="rd-tl">
+      <h4><span class="rd-code">D-014</span> The run now ends — three ways <span class="date">Jul 14</span></h4>
+      <p>Added win/lose conditions: lose your reputation any season → the Quiet Walk; reach the final still morning → win if you stood the crown, otherwise you "drift."</p>
+      <p class="rd-why"><b>Why:</b> it was previously an endless sandbox. A static deck literally cannot win, which closes the "turtle and never risk anything" exploit.</p>
+    </div>
+
+    <div class="rd-tl">
+      <h4><span class="rd-code">D-013</span> Card-drafting adopted — "the Fair" <span class="date">Jul 14</span></h4>
+      <p>Decided that acquiring cards should be a frequent, woven-in draft rather than a rare seasonal event.</p>
+      <p class="rd-why"><b>Why:</b> playtesting showed a small fully-woken deck plateaus — nothing new to do. Frequent drafting keeps every turn interesting.</p>
+    </div>
+
+    <div class="rd-tl">
+      <h4><span class="rd-code">D-012</span> Contract lifecycle built <span class="date">Jul 14</span></h4>
+      <p>Implemented accepting, fulfilling, escalating, and failing quests, and set the penalties for flopping one.</p>
+      <p class="rd-why"><b>Why:</b> to make contracts a real pressure system with genuine downside, not a stub.</p>
+    </div>
+
+    <div class="rd-tl">
+      <h4><span class="rd-code">D-011</span> The game is titled <b>Brightwell</b> <span class="date">Jul 14</span></h4>
+      <p>"Roundelay" stays the name of the world; the game itself becomes <i>Brightwell</i>.</p>
+      <p class="rd-why"><b>Why:</b> it rolls off the tongue better, and it has an in-world meaning — a town's pool of kept light, which is exactly what a maker leaves behind.</p>
+    </div>
+
+    <div class="rd-tl">
+      <h4><span class="rd-code">D-010</span> The five rules of a turn <span class="date">Jul 14</span></h4>
+      <p>Settled how a single morning plays, decided one rule at a time (see §B on the Questions tab).</p>
+      <p class="rd-why"><b>Why:</b> these five rules together define the moment-to-moment feel of playing a turn.</p>
+    </div>
+
+    <div class="rd-tl minor">
+      <h4><span class="rd-code">D-009</span> A card-counting rule clarified <span class="date">Jul 13</span></h4>
+      <p>Defined precisely what two "count my cards" effects measure — one counts <i>this turn's</i> activity, the other counts your <i>accumulated</i> audience across turns.</p>
+      <p class="rd-why"><b>Why:</b> a clarification, not a change — it matches how the locked design's example cards already work.</p>
+    </div>
+
+    <div class="rd-tl minor">
+      <h4><span class="rd-code">D-008</span> Engine ground rules <span class="date">Jul 13</span></h4>
+      <p>The technical spine: the game state is one plain object changed by pure functions; every change is logged; randomness comes from a single seeded source; early versions may simplify detail but never bend the rules.</p>
+      <p class="rd-why"><b>Why:</b> a deterministic, logged engine is testable and reproducible — the same game replays exactly.</p>
+    </div>
+
+    <div class="rd-tl minor">
+      <h4><span class="rd-code">D-007</span> Tooling choices <span class="date">Jul 13</span></h4>
+      <p>TypeScript in strict mode, modern Node, a lightweight test runner, no heavy build tooling yet.</p>
+      <p class="rd-why"><b>Why:</b> keep the toolchain minimal until there's actual engine code to justify more.</p>
+    </div>
+
+    <div class="rd-tl minor">
+      <h4><span class="rd-code">D-001 – D-006</span> The founding rules <span class="date">Jul 9–10</span></h4>
+      <p>The pre-game decisions from the design pipeline: it's a single-player roguelike deckbuilder built around escalating contracts and a depletable reputation (D-001); the aesthetic is wonder / whimsy / elegance, never grimdark (D-002); a list of worlds it must <i>not</i> resemble (D-003); plus setup and naming ratifications (D-004–D-006).</p>
+      <p class="rd-why"><b>Why:</b> these are the locked foundation everything else is built on.</p>
+    </div>
+
+  </div>
+</div>
