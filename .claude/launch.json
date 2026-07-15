@@ -1,0 +1,17 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "codex",
+      "runtimeExecutable": "python3",
+      "runtimeArgs": ["-m", "http.server", "8791"],
+      "port": 8791
+    },
+    {
+      "name": "toy-play",
+      "runtimeExecutable": "python3",
+      "runtimeArgs": ["-m", "http.server", "8799"],
+      "port": 8799
+    }
+  ]
+}

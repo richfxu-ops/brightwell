@@ -641,22 +641,32 @@ function HandCard({ run, id, selected, onPick }: {
   );
 }
 
-function OfferRow({ run, onDraft }: { run: Run; onDraft: (cardId: string) => void }) {
+/** The minimized Fair "window" bar — always visible; click to open the offers over your hand. */
+function FairBar({ run, open, onToggle }: { run: Run; open: boolean; onToggle: () => void }) {
   const s = run.s;
-  const { fairOffers, draftedThisMorning, chainLinks } = s.turn;
-  const capped = draftedThisMorning >= ACQUISITION_TUNABLES.DRAFT_PER_MORNING;
-  const left = ACQUISITION_TUNABLES.DRAFT_PER_MORNING - draftedThisMorning;
+  const capped = s.turn.draftedThisMorning >= ACQUISITION_TUNABLES.DRAFT_PER_MORNING;
+  const left = ACQUISITION_TUNABLES.DRAFT_PER_MORNING - s.turn.draftedThisMorning;
   const purse = s.player.handsels.length;
   const tierWord = ["", "apprentice", "mid", "proud"][standingUnlockedTier(s.player.gleam)];
   return (
-    <div className="tm-offer">
-      <div className="tm-offerhead">
-        <span className="tm-lbl">The Fair — {capped
-          ? "drafted for today · fresh offers at next dawn"
-          : `draft ${left} · your Standing opens ${tierWord}-tier`}</span>
-        <span className={`tm-purse${purse === 0 ? " empty" : ""}`}>💰 {purse} handsel{purse === 1 ? "" : "s"}</span>
-      </div>
-      <div className="tm-offerrow">
+    <button type="button" className={`tm-fairbar${open ? " open" : ""}`} onClick={onToggle} aria-expanded={open}>
+      <span className="tm-lbl">The Fair — {capped
+        ? "drafted for today · fresh offers at next dawn"
+        : `draft ${left} · your Standing opens ${tierWord}-tier`}</span>
+      <span className={`tm-purse${purse === 0 ? " empty" : ""}`}>💰 {purse} handsel{purse === 1 ? "" : "s"}</span>
+      <span className="tm-fairchev">{open ? "▾ close" : "▸ open"}</span>
+    </button>
+  );
+}
+
+/** The Fair's offer cards — rendered inside the open Fair window, which overlays the hand. */
+function OfferCards({ run, onDraft }: { run: Run; onDraft: (cardId: string) => void }) {
+  const s = run.s;
+  const { fairOffers, draftedThisMorning, chainLinks } = s.turn;
+  const capped = draftedThisMorning >= ACQUISITION_TUNABLES.DRAFT_PER_MORNING;
+  const purse = s.player.handsels.length;
+  return (
+    <div className="tm-offerrow">
         {fairOffers.map(cardId => {
           const c = cardOf(cardId);
           const cost = fairCostOf(cardId);
@@ -690,7 +700,6 @@ function OfferRow({ run, onDraft }: { run: Run; onDraft: (cardId: string) => voi
           );
         })}
       </div>
-    </div>
   );
 }
 
@@ -879,13 +888,14 @@ function App() {
   const [selected, setSelected] = useState<string | null>(null);
   const [pour, setPour] = useState(0);
   const [guideOn, setGuideOn] = useState(true);
+  const [fairOpen, setFairOpen] = useState(false);   // the Fair window starts minimized
 
   const s = run.s;
   const hand = s.pieces.filter(p => p.zone === "hand");
   const maxPour = Math.floor(s.turn.room);
 
   const reset = (nextDeck: string, nextSeed: number) => {
-    setDeck(nextDeck); setSeed(nextSeed); setSelected(null); setPour(0);
+    setDeck(nextDeck); setSeed(nextSeed); setSelected(null); setPour(0); setFairOpen(false);
     setRun(makeRun(nextSeed, nextDeck));
   };
   const pick = (id: string) => {
@@ -982,13 +992,13 @@ function App() {
           <div className="tm-body">
             <section className="tm-center">
               <div className="tm-scrollarea tm-scroll">
+                <FairBar run={run} open={fairOpen} onToggle={() => setFairOpen(o => !o)} />
                 {selected && (
                   <PourPanel run={run} selected={selected} pour={pour}
                     onPour={setPour} onPlay={play} onCancel={() => setSelected(null)}
                     onRelease={() => release(selected)} />
                 )}
-                <OfferRow run={run} onDraft={draft} />
-                <div>
+                <div className="tm-handzone">
                   <div className="tm-sechead">Your hand — pick a card to pour the room into it</div>
                   {hand.length === 0 && <p className="tm-empty">Your hand is empty — end the morning.</p>}
                   <div className="tm-hand">
@@ -997,6 +1007,16 @@ function App() {
                         selected={selected === p.instanceId} onPick={pick} />
                     ))}
                   </div>
+                  {fairOpen && (
+                    <div className="tm-fairwindow tm-scroll">
+                      <div className="tm-fairwinhead">
+                        <span className="tm-lbl">The Fair — draft what your Standing opens</span>
+                        <button type="button" className="tm-fairclose" onClick={() => setFairOpen(false)}
+                          aria-label="close the Fair">✕</button>
+                      </div>
+                      <OfferCards run={run} onDraft={draft} />
+                    </div>
+                  )}
                 </div>
                 <TableRow run={run} />
               </div>
