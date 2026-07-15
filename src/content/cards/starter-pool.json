@@ -266,7 +266,7 @@
           "params": {
             "amount": {
               "do": "read",
-              "source": "grain:joinery"
+              "source": "woken:joinery"
             }
           }
         },
@@ -328,12 +328,11 @@
       "effects": [
         {
           "when": "on-play",
-          "do": "rest",
+          "do": "gather",
           "params": {
-            "target": "self",
             "amount": {
               "do": "read",
-              "source": "room"
+              "source": "woken:joinery"
             }
           }
         },
@@ -481,12 +480,11 @@
       "effects": [
         {
           "when": "on-play",
-          "do": "rest",
+          "do": "fill",
           "params": {
-            "target": "self",
             "amount": {
               "do": "read",
-              "source": "room"
+              "source": "chain"
             }
           }
         },
@@ -640,7 +638,7 @@
           "params": {
             "amount": {
               "do": "read",
-              "source": "grain:thread"
+              "source": "chain"
             }
           }
         },
@@ -718,7 +716,7 @@
           "params": {
             "amount": {
               "do": "read",
-              "source": "grain:thread"
+              "source": "chain"
             }
           }
         },
@@ -785,7 +783,7 @@
           "params": {
             "amount": {
               "do": "read",
-              "source": "grain:thread"
+              "source": "chain"
             }
           }
         },
@@ -1494,12 +1492,11 @@
       "effects": [
         {
           "when": "on-play",
-          "do": "rest",
+          "do": "gather",
           "params": {
-            "target": "self",
             "amount": {
               "do": "read",
-              "source": "room"
+              "source": "spiral"
             }
           }
         },
@@ -1688,12 +1685,11 @@
       "effects": [
         {
           "when": "on-play",
-          "do": "rest",
+          "do": "gather",
           "params": {
-            "target": "self",
             "amount": {
               "do": "read",
-              "source": "room"
+              "source": "woken:joinery"
             }
           }
         },
@@ -1771,7 +1767,7 @@
           "when": "on-play",
           "do": "rest",
           "params": {
-            "target": "self",
+            "target": "held:capstone",
             "amount": {
               "do": "read",
               "source": "room"
@@ -1863,7 +1859,7 @@
           "params": {
             "amount": {
               "do": "read",
-              "source": "room"
+              "source": "chain"
             }
           }
         },
@@ -2055,9 +2051,8 @@
         },
         {
           "when": "on-play",
-          "do": "rest",
+          "do": "whittle",
           "params": {
-            "target": "self",
             "amount": {
               "do": "read",
               "source": "room"
@@ -2105,7 +2100,7 @@
           "params": {
             "amount": {
               "do": "read",
-              "source": "room"
+              "source": "chain"
             }
           }
         }
@@ -2166,7 +2161,7 @@
           "params": {
             "amount": {
               "do": "read",
-              "source": "grain:thread"
+              "source": "chain"
             }
           }
         },
@@ -2360,7 +2355,7 @@
           "params": {
             "amount": {
               "do": "read",
-              "source": "grain:thread"
+              "source": "chain"
             }
           }
         },
@@ -2395,7 +2390,7 @@
           "params": {
             "amount": {
               "do": "read",
-              "source": "room"
+              "source": "woken:dance"
             }
           }
         },
@@ -2428,7 +2423,7 @@
           "params": {
             "amount": {
               "do": "read",
-              "source": "room"
+              "source": "woken:dance"
             }
           }
         },
@@ -2672,7 +2667,7 @@
           "params": {
             "amount": {
               "do": "read",
-              "source": "grain:song"
+              "source": "woken:song"
             }
           }
         },
@@ -2865,7 +2860,7 @@
           "params": {
             "amount": {
               "do": "read",
-              "source": "grain:song"
+              "source": "woken:song"
             }
           }
         }
@@ -2901,7 +2896,7 @@
           "params": {
             "amount": {
               "do": "read",
-              "source": "grain:song"
+              "source": "woken:song"
             }
           }
         },
@@ -2935,7 +2930,7 @@
           "params": {
             "amount": {
               "do": "read",
-              "source": "grain:glaze"
+              "source": "woken:glaze"
             }
           }
         },
@@ -2969,7 +2964,7 @@
           "params": {
             "amount": {
               "do": "read",
-              "source": "room"
+              "source": "woken:glaze"
             }
           }
         },
@@ -3090,13 +3085,10 @@
       "effects": [
         {
           "when": "on-play",
-          "do": "rest",
+          "do": "mark-grain",
           "params": {
-            "target": "self",
-            "amount": {
-              "do": "read",
-              "source": "room"
-            }
+            "target": "hand:offgrain",
+            "suit": "glaze"
           }
         },
         {
@@ -3174,7 +3166,7 @@
           "params": {
             "amount": {
               "do": "read",
-              "source": "grain:glaze"
+              "source": "woken:glaze"
             }
           }
         },

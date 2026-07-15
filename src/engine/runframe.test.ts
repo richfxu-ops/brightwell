@@ -29,7 +29,7 @@ describe("the opening Standing is fixed by the run frame", () => {
 });
 
 describe("the crown hangs in the Wintering", () => {
-  it("dawn in the final leg accepts a demand-10 crown, not an ordinary asking", () => {
+  it("dawn in the final leg accepts the crown (CROWN_DEMAND fill), not an ordinary asking", () => {
     const s = testState(x => { x.calendar = { morning: 25, leg: 4 }; x.turn.dawned = false; });
     expect(isWintering(s)).toBe(true);
     const r = dawn(s, noCtx);

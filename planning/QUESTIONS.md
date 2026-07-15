@@ -163,3 +163,16 @@ and the Ways' **starter / second-wave** split (an implied unlock order). Everyth
   permanent stat inheritance (it would let players turtle past "growth is forced by the
   weather"); the meta carries meaning (beads, names, unlocked temperaments, a map of
   brightened Rounds) and opt-in depth (G4), never strength.*
+
+## H · Card-design rubric — open calls (card-quality-rubric task) **[DECIDED 2026-07-14 → D-022]**
+
+Four calls that settle the [card-design bible](card-design.md) v0. All resolved; see D-022.
+
+- **H1 · Payback strictness → QUALITATIVE.** R5 stays a judgment call, no numeric thresholds yet
+  (numbers would be false precision on the single-node toy; revisit with routing/combing).
+- **H2 · Opening-deck win-path → SELF-SUFFICIENT.** A Way's full path (filler + builder + payoff) is
+  all seeded, never Fair-only. Hardens R7.
+- **H3 · Dead / dominant → DEAD < 3% of plays, DOMINANT > 25%** (R14/R15; tunable).
+- **H4 · Bare-rest-self cards → FIXED.** Even the Rim AND the six supports (seasoned-timber,
+  set-the-keel-block, feed-and-fire, even-by-lastlight, mend-the-verge, ease-the-grey) lose the
+  overflow-to-a-Standing-trickle clause and gain an on-identity ability. R2 is now pool-wide.

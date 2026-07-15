@@ -199,27 +199,31 @@ describe("GOLDEN: on-play fill — build the read, then play the filler (D-017)"
   const need = (needFill: number, tier: Asking["tier"] = "poem") =>
     ({ tier, needFill, progress: 0, acceptedMorning: 1, acceptedLeg: 0, staleAfterMornings: 99, touched: false });
 
-  it("in order, the joinery read is built THEN the Beam fills it — its on-play fill completes the need", () => {
+  it("the Beam fills by the joinery woken on earlier mornings (woken:joinery) — its on-play fill completes the need", () => {
     const s = testState(x => {
       x.turn.dawned = true; x.turn.room = 12;
       x.asking = need(2, "plea");
-      x.pieces = [testPiece("setterby-trestle", { instanceId: "j1" }), testPiece("the-fired-beam", { instanceId: "cap" })];
+      // two joinery pieces already woken on earlier mornings — the cross-turn audience the Beam reads
+      x.pieces = [
+        testPiece("setterby-trestle", { instanceId: "j1", fired: true }),
+        testPiece("bank-the-coals", { instanceId: "j2", fired: true }),
+        testPiece("the-fired-beam", { instanceId: "cap" }),
+      ];
     });
-    let r = playPiece(s, "j1", 2, poolCtx);                    // Setterby wakes → joinery worked = 1
-    r = playPiece(r.state, "cap", 7, poolCtx);                 // play the Beam → wakes (joinery = 2); on-play fill by joinery completes
+    const r = playPiece(s, "cap", 7, poolCtx);                 // play the Beam → wakes; on-play fill by woken:joinery = 2 completes
     expect(r.state.pieces.find(p => p.instanceId === "cap")!.fired).toBe(true);
     expect(r.state.events.some(e => e.type === "filled" && e.data?.complete === true)).toBe(true);
     expect(r.state.events.some(e => e.type === "fulfilled")).toBe(true);
     expect(r.state.asking).toBeNull();
   });
 
-  it("out of order, the Beam played cold under-fills — build the read first", () => {
+  it("with no woken joinery audience, the Beam under-fills — the compounder needs a built store", () => {
     const s = testState(x => {
       x.turn.dawned = true; x.turn.room = 12;
       x.asking = need(5);
       x.pieces = [testPiece("the-fired-beam", { instanceId: "cap" })];
     });
-    const r = playPiece(s, "cap", 7, poolCtx);                 // cold: joinery worked = 1 → a thin fill
+    const r = playPiece(s, "cap", 7, poolCtx);                 // cold: the Beam wakes this morning, woken:joinery = 0
     expect(r.state.asking!.progress).toBeLessThan(5);
     expect(r.state.events.some(e => e.type === "filled" && e.data?.complete === true)).toBe(false);
   });
