@@ -328,12 +328,11 @@
       "effects": [
         {
           "when": "on-play",
-          "do": "rest",
+          "do": "gather",
           "params": {
-            "target": "self",
             "amount": {
               "do": "read",
-              "source": "room"
+              "source": "woken:joinery"
             }
           }
         },
@@ -481,12 +480,11 @@
       "effects": [
         {
           "when": "on-play",
-          "do": "rest",
+          "do": "fill",
           "params": {
-            "target": "self",
             "amount": {
               "do": "read",
-              "source": "room"
+              "source": "chain"
             }
           }
         },
@@ -1494,12 +1492,11 @@
       "effects": [
         {
           "when": "on-play",
-          "do": "rest",
+          "do": "gather",
           "params": {
-            "target": "self",
             "amount": {
               "do": "read",
-              "source": "room"
+              "source": "spiral"
             }
           }
         },
@@ -1688,12 +1685,11 @@
       "effects": [
         {
           "when": "on-play",
-          "do": "rest",
+          "do": "gather",
           "params": {
-            "target": "self",
             "amount": {
               "do": "read",
-              "source": "room"
+              "source": "woken:joinery"
             }
           }
         },
@@ -1771,7 +1767,7 @@
           "when": "on-play",
           "do": "rest",
           "params": {
-            "target": "self",
+            "target": "held:capstone",
             "amount": {
               "do": "read",
               "source": "room"
@@ -2055,9 +2051,8 @@
         },
         {
           "when": "on-play",
-          "do": "rest",
+          "do": "whittle",
           "params": {
-            "target": "self",
             "amount": {
               "do": "read",
               "source": "room"
@@ -3090,13 +3085,10 @@
       "effects": [
         {
           "when": "on-play",
-          "do": "rest",
+          "do": "mark-grain",
           "params": {
-            "target": "self",
-            "amount": {
-              "do": "read",
-              "source": "room"
-            }
+            "target": "hand:offgrain",
+            "suit": "glaze"
           }
         },
         {
