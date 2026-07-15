@@ -34,6 +34,7 @@ replacements = {
     r"const TASKS_SNAPSHOT = .*?;\n": f"const TASKS_SNAPSHOT = {json.dumps(read('planning/TASKS.md'))};\n",
     r"const DECISIONS_SNAPSHOT = .*?;\n": f"const DECISIONS_SNAPSHOT = {json.dumps(read('planning/DECISIONS.md'))};\n",
     r"const QUESTIONS_SNAPSHOT = .*?;\n": f"const QUESTIONS_SNAPSHOT = {json.dumps(read('planning/QUESTIONS.md'))};\n",
+    r"const RUBRIC_SNAPSHOT = .*?;\n": f"const RUBRIC_SNAPSHOT = {json.dumps(read('planning/card-design.md'))};\n",
     r"const PROPOSALS_SNAPSHOT = .*?;\n": f"const PROPOSALS_SNAPSHOT = {json.dumps(tasks_files)};\n",
 }
 
