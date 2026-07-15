@@ -1,6 +1,6 @@
 # CLAUDE.md
 
-> Coding preferences for this repo. Project facts, plans, and tasks live in `planning/` — see the index at the bottom. Keep this file prefs-only and lean; it's read into context every session.
+> Coding preferences for this repo. Project facts, plans, code, and tooling are indexed in `INDEX.md` (repo root) — read that to find any file. Keep this file prefs-only and lean; it's read into context every session.
 
 ## How to work with me
 
@@ -73,17 +73,12 @@ lowering the engineering bar above.
 - **Cards are data, not code.** Card and contract content lives in `src/content/*.json` over the 14 effect primitives in `src/engine/vocabulary.ts` / `design/vocabulary.json`. New card behavior means new data, not new engine special-cases.
 - **Diegetic naming.** The world bans commerce vocabulary ("market", "stalls" as literal commerce) — use the in-world terms from `planning/terms.json`.
 
-## Planning docs (where the project detail lives)
+## Where to find things
 
-- `planning/PLAN.md` — what we're building: purpose, scope, features, roadmap, open questions.
-- `planning/ARCHITECTURE.md` — repo structure, module responsibilities, build/test/run commands, conventions to match.
-- `planning/TASKS.md` — the task board (source of truth for work to do).
-- `planning/tasks/` — one file per substantial task: its status, size, design, and checklist.
-- `planning/DECISIONS.md` — dated log of decisions and their rationale (D-001…D-006 from the design pipeline).
-- `planning/QUESTIONS.md` — the open-decisions register: what canon answers, where code drifts, what still needs a human call. Check it before designing any engine phase.
-- `planning/dashboard.html` — visual task tracker that reads `TASKS.md`.
-- `planning/GDD.md` — the locked game design document (7 layers). `planning/WORLD.md` — the locked world bible. `planning/terms.json` / `planning/ledger.json` — canon term registry + mechanics ledger.
+**`INDEX.md` (repo root) is the table of contents** — where every doc, module, and tool lives, each referenced by path. When you need to find something (a planning doc, an engine module, content, a script), read `INDEX.md` first and follow the pointer, rather than searching blind. It's kept out of this file on purpose so `CLAUDE.md` stays lean. `planning/ARCHITECTURE.md` is the fuller structural reference.
 
-**Read `planning/PLAN.md` and `planning/TASKS.md` at the start of a work session.** When work is completed, update `TASKS.md`; when a notable choice is made, log it in `DECISIONS.md`.
+**Keep `INDEX.md` current.** When you add a new important file, module, or doc (a new engine module, content file, script, or reference doc), add a one-line pointer to it in `INDEX.md` as part of the same change — a stale index is worse than none.
+
+**Read `planning/PLAN.md` and `planning/TASKS.md` at the start of a work session.** When work is completed, update `TASKS.md`; when a notable choice is made, log it in `planning/DECISIONS.md`.
 
 **Task lifecycle.** Substantial tasks are worked via the `/task` skill (`.claude/skills/task/SKILL.md`): statuses flow To Do → In Proposal → In Progress → In Review → Complete, and no implementation code is written before the design is signed off (In Progress). Even without invoking the skill, follow that lifecycle — never skip from an unscoped task straight into code.

@@ -10,7 +10,7 @@
 
 ## Repo structure
 
-- `src/engine/` — the rules engine. `vocabulary.ts` holds the 14 locked effect primitives as typed data; `effects.ts` (to be written in M3) implements a resolver per primitive.
+- `src/engine/` — the rules engine. `vocabulary.ts` holds the 14 locked effect primitives as typed data; `effects.ts` implements a resolver per primitive (see Modules below).
 - `src/content/cards/` — starter pool as data: one JSON per archetype (`kilnfast`, `eveners`, `untold`, `fairwrights`, `mannerly`, `gleaners`) plus `shared.json` and the combined `starter-pool.json`.
 - `src/content/contracts/` — `tiers.json`: per-tier contract (asking) numbers.
 - `src/sim/` — the balance simulation harness (Phase 7): bot policies, the run-driver, and the metrics emitter over the engine's public API. `npm run sim` writes `sim/out/records.json` (gitignored) for Phase 8.
