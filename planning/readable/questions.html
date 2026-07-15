@@ -1,0 +1,92 @@
+<!-- SOURCE OF TRUTH for the codex Questions tab. Edit here, then run: python3 scripts/bake-codex.py -->
+<div class="rdbl">
+  <div class="rd-intro">
+    <p><b>What this is.</b> The open-decisions register — every design choice that still had to be made,
+      kept in one place so the game never drifts into an <i>accidental</i> decision. Codes like
+      <span class="rd-code">C4</span> (a question) or <span class="rd-code">D-012</span> (the decision it
+      became) are just cross-references. New here? The <b>Glossary</b> tab decodes the in-world words.</p>
+  </div>
+
+  <!-- STILL OPEN -->
+  <div class="rd-group"><span class="gdot" style="background:var(--need)"></span>Still open — waiting on a human call</div>
+  <p class="rd-group-sub">Choices nobody has made yet. Most are parked until later build stages, but each is a real fork with a recommendation on the table.</p>
+
+  <div class="rd-item">
+    <h4><span class="rd-tag open">Open</span><span class="rd-code">C4</span> How big is the map?</h4>
+    <p>How many towns per leg of the journey, and how many card offers appear each dusk?</p>
+    <p class="rd-why"><b>Leaning toward:</b> ~3 offers a night from a pool of 5–6 towns, with "camp here" always available (other rules depend on camping existing). Decided in the Phase-5 build.</p>
+  </div>
+
+  <div class="rd-item">
+    <h4><span class="rd-tag open">Open</span><span class="rd-code">F2 · F3</span> Two build-process calls</h4>
+    <p><b>F2:</b> what platform the first real playable prototype ships on (web is the likely default). <b>F3:</b> whether the balancing loop is hand-run or handed to an automated skill.</p>
+    <p class="rd-why"><b>Leaning toward:</b> decide each once the current stage teaches us what we need — not yet urgent.</p>
+  </div>
+
+  <div class="rd-item">
+    <h4><span class="rd-tag open">Open</span><span class="rd-code">G1–G5</span> What carries between runs?</h4>
+    <p>The whole meta-progression layer — what you keep after a run ends. Five linked questions:</p>
+    <p class="rd-why">
+      <b>G1</b> — what a "bead" is (leaning: one keepsake card carried into your next run, inert until re-woken).<br>
+      <b>G2</b> — what a <i>lost</i> run hands on (leaning: a bead too, chosen for you).<br>
+      <b>G3</b> — how you unlock the other three classes (leaning: by accidentally playing like them once).<br>
+      <b>G4</b> — how harder difficulty works (leaning: "deeper Rounds" — towns start more overdue).<br>
+      <b>G5</b> — the guiding principle (leaning: the meta carries <i>meaning</i>, never raw power).<br>
+      All parked until after the core game is balanced.
+    </p>
+  </div>
+
+  <!-- PARKED -->
+  <div class="rd-group"><span class="gdot" style="background:var(--ink-faint)"></span>Parked on purpose</div>
+  <p class="rd-group-sub">Not forgotten — deliberately deferred, because they don't matter until later systems exist.</p>
+
+  <div class="rd-item">
+    <h4><span class="rd-tag parked">Parked</span><span class="rd-code">D2 · D3</span> Finer economy details</h4>
+    <p><b>D2:</b> exactly how a courted material becomes a usable card. <b>D3:</b> how "apprentice supplies" (which one card consumes) are bought and stored — a placeholder "start with 2" holds for now.</p>
+  </div>
+
+  <div class="rd-item">
+    <h4><span class="rd-tag parked">Parked</span><span class="rd-code">E</span> The dials</h4>
+    <p>A set of numeric knobs (decay rates, penalty sizes, price caps) whose <i>shapes</i> are locked but whose <i>exact values</i> get tuned by the simulation later. These are tuned, not decided by hand.</p>
+  </div>
+
+  <!-- SETTLED -->
+  <div class="rd-group"><span class="gdot" style="background:var(--moss)"></span>Settled questions</div>
+  <p class="rd-group-sub">These were open once. Each is now closed — the code points to the decision it became (see the Decisions tab).</p>
+
+  <div class="rd-item">
+    <h4><span class="rd-tag settled">Settled</span><span class="rd-code">§A</span> Code vs. canon mismatches → all fixed</h4>
+    <p>Six places where the code didn't match the design (a mis-capped resource, a wrong healing formula, a hard ceiling where there should be a gentle taper, etc.).</p>
+    <p class="rd-why"><b>Outcome:</b> all six corrected on 2026-07-14; one number (the overkill decay rate) was then deliberately tightened by <span class="rd-code">D-018</span> to give the lose-condition real teeth.</p>
+  </div>
+
+  <div class="rd-item">
+    <h4><span class="rd-tag settled">Settled</span><span class="rd-code">§B → D-010</span> The five rules of a turn</h4>
+    <p>How a single morning plays out, decided one rule at a time:</p>
+    <p class="rd-why">
+      <b>B1</b> unspent resources seep into the local town's pool at dusk (recover ⅔ by camping).<br>
+      <b>B2</b> any non-card action "stalls" and halves your momentum unless you spent a "brace."<br>
+      <b>B3</b> triggered effects fire in the order you played the cards.<br>
+      <b>B4</b> unplayed cards go to a discard pile that reshuffles when the deck runs dry.<br>
+      <b>B5</b> only "woken" cards act on later turns; unwoken ones are inert until woken once.
+    </p>
+  </div>
+
+  <div class="rd-item">
+    <h4><span class="rd-tag settled">Settled</span><span class="rd-code">§C → D-012 · D-014</span> Contracts, the year, the ending</h4>
+    <p>How quests fail and cost you (C1–C3), whether delayed rewards exist (C6), and how you win (C5).</p>
+    <p class="rd-why"><b>Outcome:</b> a flopped quest costs gleam equal to its size; a run ends at winter with a single demand-20 crown — stand it to win, or take the Quiet Walk. (Only C4, map size, stayed open.)</p>
+  </div>
+
+  <div class="rd-item">
+    <h4><span class="rd-tag settled">Settled</span><span class="rd-code">§D → D-015</span> How the deck grows</h4>
+    <p>Whether new cards are bought or earned, and how.</p>
+    <p class="rd-why"><b>Outcome:</b> a tiered system — cheap cards are <i>bought</i> with money; the best cards are <i>courted</i> (won by performing, never bought). Your reputation unlocks which tiers appear.</p>
+  </div>
+
+  <div class="rd-item">
+    <h4><span class="rd-tag settled">Settled</span><span class="rd-code">§H → D-022</span> The card-quality rulebook</h4>
+    <p>Four calls that finalised the standard every card is judged against.</p>
+    <p class="rd-why"><b>Outcome:</b> quality stays a judgement call for now (no false-precision numbers); every class's full winning path is seeded from the start; "dead" and "overpowered" cards get hard usage cutoffs; and six weak filler cards were given real abilities.</p>
+  </div>
+</div>

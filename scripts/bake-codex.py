@@ -3,9 +3,16 @@
 
 Run after any planning change worth publishing:
     python3 scripts/bake-codex.py
-Refreshes TASKS_SNAPSHOT, DECISIONS_SNAPSHOT, QUESTIONS_SNAPSHOT, PROPOSALS_SNAPSHOT
-(all task files), and SNAPSHOT_DATE inside planning/brightwell-codex.html.
-When the codex is served over http these snapshots are ignored (it fetches live).
+Refreshes TASKS_SNAPSHOT, RUBRIC_SNAPSHOT, REPORTS_SNAPSHOT, PROPOSALS_SNAPSHOT
+(all task files), and SNAPSHOT_DATE inside planning/brightwell-codex.html. Board / Card
+Rubric / Reports / Proposals fetch live markdown when served over http and fall back to
+these snapshots for file:// viewing.
+
+The Questions / Decisions / Glossary tabs are different: they render hand-authored
+plain-English mirrors (planning/readable/*.html), baked into QUESTIONS_READABLE /
+DECISIONS_READABLE / GLOSSARY_HTML and used always (never the raw markdown). These
+mirrors do NOT auto-translate — rewrite the matching planning/readable/*.html when
+QUESTIONS.md / DECISIONS.md change, then re-bake.
 """
 import datetime
 import glob
@@ -36,8 +43,11 @@ summary_obj = json.load(open(summary_path)) if os.path.exists(summary_path) else
 replacements = {
     r'const SNAPSHOT_DATE = "[^"]*";': f'const SNAPSHOT_DATE = "{today}";',
     r"const TASKS_SNAPSHOT = .*?;\n": f"const TASKS_SNAPSHOT = {json.dumps(read('planning/TASKS.md'))};\n",
-    r"const DECISIONS_SNAPSHOT = .*?;\n": f"const DECISIONS_SNAPSHOT = {json.dumps(read('planning/DECISIONS.md'))};\n",
-    r"const QUESTIONS_SNAPSHOT = .*?;\n": f"const QUESTIONS_SNAPSHOT = {json.dumps(read('planning/QUESTIONS.md'))};\n",
+    # Questions / Decisions / Glossary tabs render hand-authored plain-English mirrors, not raw markdown.
+    # Source of truth: planning/readable/*.html — re-write those when QUESTIONS.md/DECISIONS.md change, then re-bake.
+    r"const DECISIONS_READABLE = .*?;\n": f"const DECISIONS_READABLE = {json.dumps(read('planning/readable/decisions.html'))};\n",
+    r"const QUESTIONS_READABLE = .*?;\n": f"const QUESTIONS_READABLE = {json.dumps(read('planning/readable/questions.html'))};\n",
+    r"const GLOSSARY_HTML = .*?;\n": f"const GLOSSARY_HTML = {json.dumps(read('planning/readable/glossary.html'))};\n",
     r"const RUBRIC_SNAPSHOT = .*?;\n": f"const RUBRIC_SNAPSHOT = {json.dumps(read('planning/card-design.md'))};\n",
     r"const REPORTS_SNAPSHOT = .*?;\n": f"const REPORTS_SNAPSHOT = {json.dumps(summary_obj)};\n",
     r"const PROPOSALS_SNAPSHOT = .*?;\n": f"const PROPOSALS_SNAPSHOT = {json.dumps(tasks_files)};\n",
@@ -49,4 +59,4 @@ for pattern, replacement in replacements.items():
         sys.exit(f"bake-codex: anchor not found for {pattern!r}")
 
 open(CODEX, "w").write(src)
-print(f"baked: {today} · {len(tasks_files)} task files · TASKS/DECISIONS/QUESTIONS refreshed")
+print(f"baked: {today} · {len(tasks_files)} task files · TASKS + readable Questions/Decisions/Glossary refreshed")
