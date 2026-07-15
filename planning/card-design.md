@@ -95,9 +95,10 @@ of them is the turtle that drifts (the playtest that started all this: Standing 
 
 ## 5. Empirical — proven by the harness
 
-- **R14 · No dead cards [HARNESS]** — played in a reasonable share of runs where it's available.
-- **R15 · No dominant card [HARNESS]** — no single card is played ~every run or drives an outsized
-  win-share. (Current diversity is healthy: top card 7–10% of plays.)
+- **R14 · No dead cards [HARNESS]** — **played in ≥ 3% of plays** for a card always in the deck (D-022);
+  below that it's too weak or dominated.
+- **R15 · No dominant card [HARNESS]** — **no single card exceeds ~25% of plays** or drives an outsized
+  win-share (D-022). (Current diversity is healthy: top card 7–10% of plays.)
 - **R16 · Every Way wins [HARNESS]** — each archetype stands the crown at a non-zero rate.
 
 ---
@@ -134,14 +135,12 @@ For the pool audit, each card gets: **id · Way · role · costs** (mark, tier, 
 **· decision** (auto-include / auto-cut / situational) **· flags** (rule violations) **· harness**
 (play-freq, win-share) **· verdict** (keep / fix / cut).
 
-## 9. Open questions (to settle together)
+## 9. Open questions — RESOLVED (D-022, 2026-07-14)
 
-- **Q1** — Do we want hard *numeric* payback thresholds (e.g. "a wd-2 card must return ≥ its mark in a
-  key currency within 2 plays"), or keep R5 qualitative until the economy is more built?
-- **Q2** — R7 says every Way needs a full win-path *in its starter core*. Should some of that path be
-  allowed to live in the Fair-only pool (drafted), or must the opening deck be self-sufficient?
-- **Q3** — R9/R14 need thresholds: what play-frequency counts as "dead" vs "dominant"? (Propose:
-  dead < 3% of plays for a starter it's always in the deck for; dominant > 25%.)
-- **Q4** — Do bare rest-self *support* pieces (non-capstone: seasoned-timber, set-the-keel-block,
-  feed-and-fire, even-by-lastlight, mend-the-verge, ease-the-grey) get fixed too, or are they
-  acceptable as self-waking utility with a real secondary effect?
+- **Q1 → qualitative.** R5 stays a judgment call; no numeric payback thresholds until routing/combing
+  make the economy real.
+- **Q2 → self-sufficient.** The opening deck carries a Way's full win-path; nothing essential is
+  Fair-only. (R7)
+- **Q3 → dead < 3%, dominant > 25%** of plays. (R14/R15)
+- **Q4 → fix them.** Even the Rim *and* the six non-capstone bare-rest-self supports lose the
+  overflow-trickle clause and gain an on-identity ability. R2 applies pool-wide.

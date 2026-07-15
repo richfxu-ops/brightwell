@@ -1,5 +1,20 @@
 # DECISIONS.md — pipeline-test-02
 
+## D-022 · Card-design rubric — the four open calls settled (2026-07-14, user-decided)
+Resolves QUESTIONS.md §H, finalizing the [card-design bible](tasks/../card-design.md) v0 so the audit
++ card-lint can derive from it:
+- **H1 · Payback stays qualitative** — no hard numeric thresholds on R5 yet; the single-node toy makes
+  numeric payback misleading (sim numbers are only a floor, D-016). Revisit once routing/combing land.
+- **H2 · The opening deck must be self-sufficient** — a Way's full win-path (repeatable filler +
+  room/count builder + payoff) is all seeded, never Fair-only; you might never draft your filler (the
+  eveners/fairwrights 0-win trap, D-020). Hardens R7.
+- **H3 · Dead < 3% of plays, dominant > 25%** (R14/R15) — the sim cutoffs, adopted-but-tunable (current
+  pool tops out ~7–10%, so it passes).
+- **H4 · Fix the bare-rest-self cards — remove the dead clause, give a real ability.** Not just the
+  capstone Even the Rim: the six non-capstone supports (seasoned-timber, set-the-keel-block, feed-and-
+  fire, even-by-lastlight, mend-the-verge, ease-the-grey) lose their overflow-to-a-Standing-trickle
+  clause and gain an on-identity ability instead. Cements R2 (overflow must be spent) as pool-wide.
+
 ## D-021 · Fills read the woken audience; crown demand 10→20 — card-flow playtest tuning (2026-07-14, user-decided)
 Playtest follow-up to D-020 (branch cardflow-followups; the task is Complete, this is post-merge tuning
 found by playing the toy). Three coupled findings, each harness-verified:

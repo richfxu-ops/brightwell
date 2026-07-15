@@ -36,9 +36,9 @@ and ask whether it pays back **on play and on replay**.
 - [x] Draft the rubric v0 — [card-design.md](../card-design.md): currencies + cost model, 16 rules
       across Value/Role/Decision/Identity/Empirical (each tagged LINT/REVIEW/HARNESS), cost bands, the
       Way-identity table, and the audit scorecard format.
-- [ ] Settle the four open calls — QUESTIONS.md §H (numeric vs qualitative payback; opening-deck
-      self-sufficiency; dead/dominant thresholds; whether the non-capstone bare-rest-self supports get
-      fixed). Promote answers to DECISIONS.md.
+- [x] Settle the four open calls — QUESTIONS.md §H → **D-022**: payback qualitative; opening deck
+      self-sufficient; dead <3% / dominant >25%; fix the bare-rest-self cards (remove the trickle
+      clause, give an on-identity ability) — Even the Rim + the six supports.
 - [ ] Build the **card-audit dashboard** — every card scored against the rubric (cost/benefit, flags,
       harness play-stats), browsable like the other dashboards.
 - [ ] Build **card-lint** — the [LINT] rules as a build-time check; `npm run check` fails on violation.
