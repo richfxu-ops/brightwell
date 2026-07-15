@@ -8,6 +8,7 @@
     "test": "vitest run",
     "typecheck": "tsc --noEmit",
     "build:toy": "node scripts/build-toy.mjs",
+    "build:site": "node scripts/build-site.mjs",
     "sim": "node scripts/run-sim.mjs",
     "lint": "biome lint",
     "lint:fix": "biome check --write",
