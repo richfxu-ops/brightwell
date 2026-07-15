@@ -29,12 +29,17 @@ tasks_files = {
     for p in sorted(glob.glob(os.path.join(ROOT, "planning", "tasks", "*.md")))
 }
 
+# the harness summary (sim/out/summary.json is gitignored — bake it so Reports shows offline too)
+summary_path = os.path.join(ROOT, "sim", "out", "summary.json")
+summary_obj = json.load(open(summary_path)) if os.path.exists(summary_path) else None
+
 replacements = {
     r'const SNAPSHOT_DATE = "[^"]*";': f'const SNAPSHOT_DATE = "{today}";',
     r"const TASKS_SNAPSHOT = .*?;\n": f"const TASKS_SNAPSHOT = {json.dumps(read('planning/TASKS.md'))};\n",
     r"const DECISIONS_SNAPSHOT = .*?;\n": f"const DECISIONS_SNAPSHOT = {json.dumps(read('planning/DECISIONS.md'))};\n",
     r"const QUESTIONS_SNAPSHOT = .*?;\n": f"const QUESTIONS_SNAPSHOT = {json.dumps(read('planning/QUESTIONS.md'))};\n",
     r"const RUBRIC_SNAPSHOT = .*?;\n": f"const RUBRIC_SNAPSHOT = {json.dumps(read('planning/card-design.md'))};\n",
+    r"const REPORTS_SNAPSHOT = .*?;\n": f"const REPORTS_SNAPSHOT = {json.dumps(summary_obj)};\n",
     r"const PROPOSALS_SNAPSHOT = .*?;\n": f"const PROPOSALS_SNAPSHOT = {json.dumps(tasks_files)};\n",
 }
 
