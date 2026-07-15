@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Brightwell — how the game is meant to play</title>
+<style>
+  :root{
+    --bg:#f4ecdd; --panel:#faf5ea; --ink:#3a3020; --ink-dim:#6b5c44; --ink-faint:#9a8a70;
+    --gold:#b8892f; --gold-deep:#8a6420; --moss:#5f7a4a; --need:#b4643c; --line:#e3d7c0;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);
+    font:16px/1.65 "Iowan Old Style","Palatino Linotype",Georgia,serif;
+    padding:40px 20px}
+  main{max-width:760px;margin:0 auto}
+  h1{font-size:30px;margin:0 0 4px;letter-spacing:.01em}
+  .sub{color:var(--ink-faint);font-style:italic;margin:0 0 30px}
+  h2{font-size:20px;margin:34px 0 10px;color:var(--gold-deep);
+    border-bottom:1px solid var(--line);padding-bottom:6px}
+  h3{font-size:15px;margin:22px 0 6px;color:var(--ink);letter-spacing:.02em}
+  p{margin:10px 0}
+  .panel{background:var(--panel);border:1px solid var(--line);border-radius:12px;
+    padding:16px 20px;margin:16px 0;box-shadow:0 2px 10px rgba(74,54,32,.05)}
+  .loop{counter-reset:step;list-style:none;padding:0;margin:14px 0}
+  .loop li{position:relative;padding:8px 0 8px 42px;border-bottom:1px dotted var(--line)}
+  .loop li:last-child{border-bottom:0}
+  .loop li::before{counter-increment:step;content:counter(step);
+    position:absolute;left:0;top:8px;width:26px;height:26px;border-radius:50%;
+    background:var(--gold);color:#fff;font-size:13px;font-weight:700;
+    display:flex;align-items:center;justify-content:center;font-family:system-ui,sans-serif}
+  b{color:var(--gold-deep)}
+  em.k{font-style:normal;font-weight:700;color:var(--moss)}
+  .flag{background:#fbf0e8;border-left:4px solid var(--need)}
+  .flag h2{color:var(--need);border:0;margin-top:0}
+  .tag{display:inline-block;font:11px/1 system-ui,sans-serif;letter-spacing:.08em;
+    text-transform:uppercase;color:var(--ink-faint);border:1px solid var(--line);
+    border-radius:99px;padding:4px 9px;margin:2px 4px 2px 0}
+  .small{font-size:14px;color:var(--ink-dim)}
+</style>
+</head>
+<body>
+<main>
+  <h1>How Brightwell is meant to play</h1>
+  <p class="sub">…and what "everything's already awoken" is supposed to feel like — vs. what the toy does today.</p>
+
+  <p>Your question — <em>"if you pour just to wake cost, what happens once the cards are all awoken?"</em> — is the hinge the whole design turns on. The short version: <b>waking a card isn't finishing with it. A woken card becomes permanent <em class="k">audience</em>, and audience is the engine.</b></p>
+
+  <h2>The intended turn, one morning</h2>
+  <ol class="loop">
+    <li><b>Dawn.</b> You get income: a base, plus what your <em class="k">woken audience</em> seats into the room, plus yesterday's unspent attention that waited on this table. Draw a hand.</li>
+    <li><b>The room gathers.</b> Your attention pool for the morning = the draw <b>+ every woken piece you own seating the room.</b> More woken pieces → a bigger room, every single dawn. <span class="small">This is the compounding.</span></li>
+    <li><b>Play a chain.</b> Spend attention to play pieces; playing back-to-back keeps the room high (a stall lets it cool). Budget and momentum pulling against each other.</li>
+    <li><b>Wake / operate.</b> Pour onto a <em>cold</em> piece past its mark and it <b>wakes</b> — fired forever, and it joins the audience. Replay an <em>already-woken</em> piece and its on-play effects fire again (gather, fill, brim, draw…).</li>
+    <li><b>Overflow → Standing.</b> Push a play <b>past a card's ceiling</b> and the excess runs to your Standing (gleam). "A full cup runs to the pourer." The biggest gleam swings happen here.</li>
+    <li><b>Fulfill.</b> Fill an asking's need and the town re-makes — you're paid the glad-load (money, a taught new piece, materials).</li>
+  </ol>
+
+  <h2>So — "everything's awoken." Now what?</h2>
+  <p>In the intended design, that's not an ending, it's the moment your <b>machine is finally on.</b> A fully-woken deck is a big automatic room every dawn, and you spend that room by <b>replaying</b> your woken pieces for their effects. You are no longer <em>building</em> the engine — you're <b>running</b> it:</p>
+  <div class="panel">
+    <p style="margin-top:0"><b>The room compounds</b> — more woken audience means a larger pool each morning, so your plays land harder over time.</p>
+    <p><b>You keep reaching for overflow</b> — pouring a woken piece <em>past</em> its ceiling turns surplus room into Standing. That's a repeatable payoff you chase every morning, not a one-time thing.</p>
+    <p><b>Fills scale with the engine</b> — after our recent change, fills read <code>woken:&lt;suit&gt;</code>, your accumulated audience of a grain. So a big woken deck pours a big fill (this is why the count no longer "dries up").</p>
+    <p style="margin-bottom:0"><b>New pieces keep arriving</b> — the Fair offers fresh cards each dawn, so there's always something new to draft and wake <em>on top of</em> the engine you have.</p>
+  </div>
+  <p>And the reason you can't just build one big room and coast: the <b>askings grow with the year.</b> The season "seep" raises the minimum need every leg (1 → 3 → 5 → 7), and answering brightly ratchets future needs higher still. A static engine gets <b>out-grown by the weather</b> — so you must keep reaching, which is exactly where Standing goes at risk. That tension (grow-and-risk vs. play-safe-and-be-outgrown) is the intended heartbeat, and the year-end <b>crown</b> (now demand-20) is the finale the whole rising curve climbs toward: you can only stand it if you <em>grew</em>.</p>
+
+  <div class="panel flag">
+    <h2>The honest gap: the toy is a single node</h2>
+    <p style="margin-top:0">Here's the part worth being straight about — <b>what you're feeling in the toy is real, and it's a known deferral, not a mystery.</b> The intended pressure that keeps a woken engine honest through the mid-game is mostly the systems we haven't built yet:</p>
+    <p>
+      <span class="tag">routing / skip-arithmetic — deferred</span>
+      <span class="tag">the combing boss — deferred</span>
+      <span class="tag">multiple towns / the map — deferred</span>
+    </p>
+    <p>The toy plays <b>one node</b>. So you never route between towns, never choose which pale needs to let ripen into bigger pleas, and never face the combing (the world-scale great asking that a skipped region grows into). Those are the mid-game teeth.</p>
+    <p style="margin-bottom:0">What the toy <em>does</em> have: ordinary askings that grow by season (1→7) and with your peak. But a mature woken engine blows past a need-of-7 easily — so once your engine exceeds the weather floor, the ordinary askings go trivial and <b>nothing is genuinely hard until the Wintering crown.</b> That trough is the flatness you're noticing. In the full game the routing + combing fill that trough; in the toy it's empty.</p>
+  </div>
+
+  <h2>So, plainly</h2>
+  <p><b>Intended:</b> "all awoken" = your engine is online; you operate it (replay for effects, chase overflow→Standing, pour fills that scale with your woken audience), keep drafting new pieces from the Fair, and keep reaching because the weather and the crown demand a bigger engine than you have.</p>
+  <p><b>Today, in the toy:</b> the operate-the-engine half is real and now works (woken audience seats the room, on-play fills scale, overflow pays Standing). The <em>keep-being-pressured</em> half is thin, because the routing/combing/map that supply mid-game pressure are deferred — so a woken deck coasts from "engine online" to "the crown" with little in between.</p>
+  <p class="small">If we wanted the toy to <em>feel</em> the intended loop sooner without building the whole map, the cheapest lever would be a second/third town to route between (so skipping and the spiral-clock come alive) — a much smaller build than the full meta-layer. Happy to scope that if it's worth it.</p>
+</main>
+</body>
+</html>

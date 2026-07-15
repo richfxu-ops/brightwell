@@ -16,6 +16,7 @@
 ## Next
 
 ## In Progress
+- [ ] (P1) [Card Quality Rubric](tasks/card-quality-rubric.md) — design bible + audit dashboard + card-lint; ensure generated cards are good, not just legal (from playtest) #design #balance #m4
 
 ## Done
 - [x] (P1) [Card flow redesign](tasks/card-flow-redesign.md) — repeatable fills, more flow, pool 49→97 (from playtest) #m4

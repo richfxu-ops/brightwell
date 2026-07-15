@@ -163,3 +163,22 @@ and the Ways' **starter / second-wave** split (an implied unlock order). Everyth
   permanent stat inheritance (it would let players turtle past "growth is forced by the
   weather"); the meta carries meaning (beads, names, unlocked temperaments, a map of
   brightened Rounds) and opt-in depth (G4), never strength.*
+
+## H · Card-design rubric — open calls (card-quality-rubric task) **[OPEN]**
+
+Four calls to settle the [card-design bible](card-design.md) (v0). Decided answers → DECISIONS.md;
+they shape the audit dashboard, the `card-lint`, and the card-smith brief.
+
+- **H1 · Numeric or qualitative payback? [OPEN]** Does rule R5 (net-positive value) use hard
+  thresholds ("a wd-2 card returns ≥ its mark in a key currency within 2 plays") or stay a judgment
+  call? *Recommendation: qualitative for now — the single-node toy makes numeric payback misleading,
+  the same reason the sim win-rates are only a floor (D-016). Add numbers once routing/combing land.*
+- **H2 · Must the opening deck carry a full win-path, or can part be Fair-only? [OPEN]** R7 wants a
+  repeatable filler + builder + payoff seeded. *Recommendation: opening deck self-sufficient — you
+  may never draft your filler, which was the eveners/fairwrights 0-win trap (D-020).*
+- **H3 · Dead / dominant thresholds. [OPEN]** R14/R15 need cutoffs on sim play-frequency.
+  *Recommendation: dead < 3% of plays (for a card always in the deck), dominant > 25%.*
+- **H4 · Fix the non-capstone bare-rest-self supports? [OPEN]** seasoned-timber, set-the-keel-block,
+  feed-and-fire, even-by-lastlight, mend-the-verge, ease-the-grey pour-into-itself for only a Standing
+  trickle (R2), but each has a real secondary effect and self-wakes. *Genuinely splits: fix for
+  consistency, or accept as cheap self-waking utility. Even the Rim (a capstone) is fixed regardless.*
