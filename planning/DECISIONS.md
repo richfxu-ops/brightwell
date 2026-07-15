@@ -1,5 +1,28 @@
 # DECISIONS.md — pipeline-test-02
 
+## D-021 · Fills read the woken audience; crown demand 10→20 — card-flow playtest tuning (2026-07-14, user-decided)
+Playtest follow-up to D-020 (branch cardflow-followups; the task is Complete, this is post-merge tuning
+found by playing the toy). Three coupled findings, each harness-verified:
+- **Room-reading fills one-shot the crown.** `fill` reads its amount and adds it straight to the need
+  without spending the room; Fairwrights pump the room into the tens vs a demand-10 crown, so one play
+  of a starter (Feed the Crown, read(room)) stood the whole crown. Fixed the room-fills off `room`.
+- **Grain-count fills DRY UP late — the plateau, resurfaced.** `read(grain:<suit>)` counts only pieces
+  that woke or were stamped **this morning** (D-009); a piece wakes once ever, so a fully-woken deck
+  wakes nothing new and the count falls to ~0 exactly when the Wintering crown hangs. The mirror read
+  `read(woken:<suit>)` — the accumulated cross-turn audience — is **highest when everything's awoken**.
+  Moved the 13 grain-count fills to **woken:<suit>** (the model Kilnfast, the compounder, already won
+  with). Scales with the engine you built all year; can't be cheaply spiked (earned over 27 mornings).
+- **Untold is the exception → chain.** Untold's canon identity is a THIN fast deck (count-and-pace), but
+  woken:thread rewards a FAT thread deck — the bot fat-decked to 51 cards and hit 43/50. Its five fills
+  read **chain** instead (pace, thin-deck-friendly, bounded). Removes the outlier.
+- **Crown demand 10→20 (supersedes D-018's "held at 10").** Woken-scaling fills made the crown trivial
+  at 10 (229/350); swept the demand via the harness (10:229 · 20:79 · 25:34 · 50:1). **20** keeps every
+  Way winnable under the simple bots (~23% floor, all 7 win 1–20, no outlier) while making the crown a
+  real climb. Still a simple-bot floor — Phase-8 competent bots refine the absolute (D-016/D-018).
+- The D-017 golden test retooled: the-fired-beam now fills by **woken:joinery** (on-identity for the
+  Kilnfast cross-turn compounder); the golden reworked from "build the read this morning" to "the
+  audience you woke on earlier mornings fills it." `npm run check` green (136).
+
 ## D-020 · Card pool doubled (49→97) + lean-start/deep-Fair — card-flow Part 3 (2026-07-14, user-decided)
 Part 3 of the card-flow redesign: **more cards** so a woken deck doesn't plateau and every Way can
 stand the crown. Two decisions:

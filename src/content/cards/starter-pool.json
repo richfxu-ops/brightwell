@@ -266,7 +266,7 @@
           "params": {
             "amount": {
               "do": "read",
-              "source": "grain:joinery"
+              "source": "woken:joinery"
             }
           }
         },
@@ -640,7 +640,7 @@
           "params": {
             "amount": {
               "do": "read",
-              "source": "grain:thread"
+              "source": "chain"
             }
           }
         },
@@ -718,7 +718,7 @@
           "params": {
             "amount": {
               "do": "read",
-              "source": "grain:thread"
+              "source": "chain"
             }
           }
         },
@@ -785,7 +785,7 @@
           "params": {
             "amount": {
               "do": "read",
-              "source": "grain:thread"
+              "source": "chain"
             }
           }
         },
@@ -2166,7 +2166,7 @@
           "params": {
             "amount": {
               "do": "read",
-              "source": "grain:thread"
+              "source": "chain"
             }
           }
         },
@@ -2360,7 +2360,7 @@
           "params": {
             "amount": {
               "do": "read",
-              "source": "grain:thread"
+              "source": "chain"
             }
           }
         },
@@ -2395,7 +2395,7 @@
           "params": {
             "amount": {
               "do": "read",
-              "source": "grain:dance"
+              "source": "woken:dance"
             }
           }
         },
@@ -2428,7 +2428,7 @@
           "params": {
             "amount": {
               "do": "read",
-              "source": "room"
+              "source": "woken:dance"
             }
           }
         },
@@ -2672,7 +2672,7 @@
           "params": {
             "amount": {
               "do": "read",
-              "source": "grain:song"
+              "source": "woken:song"
             }
           }
         },
@@ -2865,7 +2865,7 @@
           "params": {
             "amount": {
               "do": "read",
-              "source": "grain:song"
+              "source": "woken:song"
             }
           }
         }
@@ -2901,7 +2901,7 @@
           "params": {
             "amount": {
               "do": "read",
-              "source": "grain:song"
+              "source": "woken:song"
             }
           }
         },
@@ -2935,7 +2935,7 @@
           "params": {
             "amount": {
               "do": "read",
-              "source": "grain:glaze"
+              "source": "woken:glaze"
             }
           }
         },
@@ -2969,7 +2969,7 @@
           "params": {
             "amount": {
               "do": "read",
-              "source": "grain:glaze"
+              "source": "woken:glaze"
             }
           }
         },
@@ -3174,7 +3174,7 @@
           "params": {
             "amount": {
               "do": "read",
-              "source": "grain:glaze"
+              "source": "woken:glaze"
             }
           }
         },

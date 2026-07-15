@@ -11,7 +11,8 @@ export const RUN_TUNABLES = {
   STARTING_STANDING,                              // mirror of the state.ts opening value
   QUIET_WALK_AT: 0,                               // Standing at/below this → the Quiet Walk
   WINTERING_LEG: MORNINGS_PER_LEG.length - 1,     // the last leg — where the crown hangs
-  CROWN_DEMAND: 10,                               // the crown's fill (QUESTIONS.md §C [CANON])
+  CROWN_DEMAND: 20,                               // the crown's fill (QUESTIONS.md §C [CANON]; raised
+                                                  // 10→20 once fills read the woken audience — D-021)
 } as const;
 
 /** The maker is in the final season — the crown's stretch. */
