@@ -28,6 +28,7 @@
 - `src/toy/main.tsx` — the toy-morning prototype: a design reference, not the engine.
 - `scripts/` — tooling: `run-sim.mjs`, `build-toy.mjs`, `build-site.mjs` (assembles `_site/` for GitHub Pages), `bake-codex.py` (refreshes the codex's baked snapshots — run after planning changes).
 - `planning/brightwell-codex.html` — the single-file codex site (Design · Engine · Data Viewer · Project · Reports); published to `_site/` by `npm run build:site` and deployed via `.github/workflows/deploy.yml`.
+- `planning/readable/` — hand-authored plain-English source for the codex's Questions/Decisions/Glossary tabs; baked into the codex by `bake-codex.py`.
 - `docs/engine-plan.html` — the 8-phase engine build plan.
 - `package.json` — dependencies + the `check` / `test` / `sim` / `build:site` scripts; `.nvmrc` pins Node 24.
 

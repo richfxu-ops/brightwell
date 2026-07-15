@@ -12,6 +12,11 @@
 - [ ] (P2) Validate Gleaner pale-route reward vs risk under sim #balance #m4
 - [ ] (P2) Verify glad-load ~54% centrality and crown-stand spread .70–.99 #balance #m4
 - [ ] (P3) Decide prototype form (web/terminal) and sketch UI #prototype #m5
+- [ ] (P2) [Map & routing](tasks/map-and-routing.md) — C4: multi-node map, per-leg offers, camp (FIDELITY expansion Phase 5 deferred) #engine #fidelity
+- [ ] (P3) [Meta-progression](tasks/meta-progression.md) — G1–G5: beads, Quiet-Walk hand-on, Way unlocks, deeper Rounds (post-M4) #meta #m5
+- [ ] (P2) Decide M4 balance orchestration — hand-rolled loop vs game-loop skill (QUESTIONS.md §F3; call at first balance sheet) #balance #m4
+- [ ] (P3) Design the bench — courting→piece pipeline (QUESTIONS.md §D2, FIDELITY deferred) #economy #fidelity
+- [ ] (P3) Apprentice-stuff inventory — how whittle's consumable is acquired & held (QUESTIONS.md §D3, FIDELITY deferred) #economy #fidelity
 
 ## Next
 
