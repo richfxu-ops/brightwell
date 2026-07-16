@@ -22,9 +22,9 @@
 
 ## In Progress
 - [ ] (P1) [Card Quality Rubric](tasks/card-quality-rubric.md) — design bible + audit dashboard + card-lint; ensure generated cards are good, not just legal (from playtest) #design #balance #m4
-- [ ] (P1) [Card telemetry & exploit bot](tasks/card-telemetry-and-exploit-bot.md) — per-card sim stats + fill-first exploit cohort; the card evaluator's data layer #sim #balance #m4 #review
 
 ## Done
+- [x] (P1) [Card telemetry & exploit bot](tasks/card-telemetry-and-exploit-bot.md) — per-card sim stats + fill-first exploit cohort; the card evaluator's data layer #sim #balance #m4
 - [x] (P1) [Card flow redesign](tasks/card-flow-redesign.md) — repeatable fills, more flow, pool 49→97 (from playtest) #m4
 - [x] (P1) [Simulation harness](tasks/sim-harness.md) — engine Phase 7, bots + run-driver + the 57-key emitter #sim #m3
 - [x] (P1) [Acquisition (the Fair)](tasks/acquisition.md) — engine Phase 6, drafting #engine #m3
