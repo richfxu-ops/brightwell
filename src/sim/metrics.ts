@@ -60,6 +60,43 @@ export interface RoundMetricsPerRun {
 
 const num = (v: unknown): number => (typeof v === "number" ? v : 0);
 
+/** One card's tallies within a single run — the audit dashboard's raw material. */
+export interface CardStats {
+  drafted: number;   // Fair takes of this card
+  taught: number;    // glad-load gifts of this card
+  played: number;    // plays of any instance
+  woken: number;     // instances woken
+  fill: number;      // asking-fill this card's effects poured (attributed via the `filled` event)
+}
+
+/**
+ * Per-card per-run tallies, read off the event log + the starting-deck snapshot. Deliberately NOT a
+ * field of the round-metrics record: the 57-key contract (keys.ts) stays untouched — run.ts composes
+ * this alongside collectMetrics the same way it decorates records with `seed`.
+ */
+export function collectCardStats(obs: RunObservations): Record<string, CardStats> {
+  const stats: Record<string, CardStats> = {};
+  const rowOf = (cardId: string): CardStats =>
+    (stats[cardId] ??= { drafted: 0, taught: 0, played: 0, woken: 0, fill: 0 });
+  // a starter that never appears in the log still gets a row — that's dead-card visibility
+  for (const cardId of obs.startingDeck) rowOf(cardId);
+  const cardIdOf = (piece: unknown): string | null =>
+    typeof piece === "string" ? piece.split("#")[0] : null;
+
+  for (const e of obs.events) {
+    const d = e.data ?? {};
+    switch (e.type) {
+      case "drafted": if (typeof d.cardId === "string") rowOf(d.cardId).drafted += 1; break;
+      case "taught": if (typeof d.cardId === "string") rowOf(d.cardId).taught += 1; break;
+      case "played": { const id = cardIdOf(d.piece); if (id) rowOf(id).played += 1; break; }
+      case "woke": { const id = cardIdOf(d.piece); if (id) rowOf(id).woken += 1; break; }
+      case "filled": { const id = cardIdOf(d.piece); if (id) rowOf(id).fill += num(d.amount); break; }
+      default: break;
+    }
+  }
+  return stats;
+}
+
 function median(xs: number[]): number {
   if (xs.length === 0) return 0;
   const s = [...xs].sort((a, b) => a - b);

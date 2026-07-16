@@ -45,6 +45,9 @@ export interface RunObservations {
   events: GameEvent[];
   decisionsPerMorning: number[];
   legSamples: LegSample[];
+  /** cardIds in the opening deck (base pack + seeded Way starters) — seeding emits no event, so
+   *  per-card presence (incl. a starter that never gets played) needs this snapshot. */
+  startingDeck: string[];
 }
 
 const MAX_ACTIONS_PER_MORNING = 40;   // safety net against a policy that never yields "end"
@@ -123,6 +126,7 @@ function applyAction(state: GameState, action: Action): GameState {
 /** Play one full run to its end. Pure over the seeded engine — replays exactly. */
 export function runGame(seed: number, archetype: Archetype, policy: Policy = baselinePolicy): RunObservations {
   let state = seedDeck(createInitialState(seed), archetype);
+  const startingDeck = state.pieces.map(p => p.cardId);
   const decisionsPerMorning: number[] = [];
   const legSamples: LegSample[] = [];
 
@@ -147,5 +151,5 @@ export function runGame(seed: number, archetype: Archetype, policy: Policy = bas
     sampleLeg(state, legSamples);
   }
 
-  return { archetype, seed, finalState: state, events: state.events, decisionsPerMorning, legSamples };
+  return { archetype, seed, finalState: state, events: state.events, decisionsPerMorning, legSamples, startingDeck };
 }

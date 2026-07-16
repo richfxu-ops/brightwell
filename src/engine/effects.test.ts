@@ -204,6 +204,13 @@ describe("the working core", () => {
     expect(s.asking!.progress).toBe(3);
     expect(events.find(e => e.type === "filled")?.data?.complete).toBe(true);
   });
+  it("fill names the piece that poured — per-card attribution for the harness", () => {
+    const s0 = state(s => {
+      s.asking = { tier: "plea", needFill: 3, progress: 0, acceptedMorning: 1, staleAfterMornings: 6, acceptedLeg: 0, touched: false };
+    });
+    const { events } = resolveEffect(s0, fx("fill", { amount: 1 }), ctx);
+    expect(events.find(e => e.type === "filled")?.data?.piece).toBe("self#0");
+  });
   it("fill refuses with no asking", () => {
     const { events } = resolveEffect(state(), fx("fill", { amount: 2 }), ctx);
     expect(events[0].type).toBe("refused");

@@ -362,6 +362,7 @@ const RESOLVERS: Record<PrimitiveId, Resolver> = {
     state.asking.progress += amount;
     state.asking.touched = true;
     emit(state, "filled", {
+      piece: ctx.selfId,   // attribution: which card poured — the harness's per-card fill telemetry
       amount,
       progress: state.asking.progress,
       complete: state.asking.progress >= state.asking.needFill,
