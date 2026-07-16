@@ -26,6 +26,7 @@ for (const f of readdirSync("planning")) {
 }
 copyFileSync("planning/dashboard.html", "_site/dashboard.html");
 copyFileSync("planning/card-audit.html", "_site/card-audit.html");
+copyFileSync("planning/card-design.md", "_site/card-design.md");   // card-audit.html links the rubric
 copyFileSync("planning/TASKS.md", "_site/TASKS.md");   // dashboard.html fetches this at runtime
 
 // every docs/ page ships (engine plan, findings narratives, …); their links back into planning/
@@ -34,7 +35,7 @@ mkdirSync("_site/docs", { recursive: true });
 for (const f of readdirSync("docs")) {
   if (!f.endsWith(".html")) continue;
   writeFileSync(`_site/docs/${f}`,
-    readFileSync(`docs/${f}`, "utf8").replaceAll("../planning/card-audit.html", "../card-audit.html"));
+    readFileSync(`docs/${f}`, "utf8").replaceAll("../planning/", "../"));
 }
 
 // index.html sits at the site root, not planning/, so the codex's "../docs" paths must drop a level.

@@ -5,31 +5,57 @@
 // Judgment rules (R1/R5 payback etc.) are NOT decided here — the verdict column is a *suggestion*
 // derived from the decidable flags; the human audit overrides it.
 
-import { readFileSync, writeFileSync } from "node:fs";
+import { existsSync, readFileSync, writeFileSync } from "node:fs";
 
-const pool = JSON.parse(readFileSync("src/content/cards/starter-pool.json", "utf8")).cards;
-const cardStats = JSON.parse(readFileSync("sim/out/card-stats.json", "utf8"));
-const summary = JSON.parse(readFileSync("sim/out/summary.json", "utf8"));
+const fail = (msg) => { console.error(`bake-card-audit: ${msg}`); process.exit(1); };
+const readJson = (path) => {
+  if (!existsSync(path)) fail(`missing ${path} — run \`npm run sim\` first`);
+  return JSON.parse(readFileSync(path, "utf8"));
+};
+
+const pool = readJson("src/content/cards/starter-pool.json").cards;
+const cardStats = readJson("sim/out/card-stats.json");
+const summary = readJson("sim/out/summary.json");
+
+// The two sim outputs must be from the same run (run.ts stamps both with one timestamp) and must
+// carry the exploit cohorts — a stale pre-D-023 card-stats.json would bake a silently all-zero audit.
+if (cardStats.generated !== summary.generated)
+  fail("card-stats.json and summary.json are from different sim runs — re-run `npm run sim`");
+if (!cardStats.cards.some(c => c.cohorts.some(k => k.policy === "exploit")))
+  fail("card-stats.json has no exploit cohorts (stale shape) — re-run `npm run sim`");
 
 // --- rubric checks decidable from card data (the [LINT]-shaped subset of §1-§2) ---
 
 const hasVerb = (card, verb) => card.effects.some(e => e.do === verb);
-const readsSource = (params, source) =>
-  JSON.stringify(params ?? {}).includes(`"source":"${source}"`);
-const fillReads = (card, source) =>
-  card.effects.some(e => e.do === "fill" && readsSource(e.params, source));
+// Fill amounts are flat numbers or a single read expr ({do:"read", source}); if compound amounts
+// ever land, switch to the engine's readsIn() walker (validate.ts) rather than extending this.
+const fillReads = (card, pred) =>
+  card.effects.some(e => {
+    const source = e.do === "fill" ? e.params?.amount?.source : undefined;
+    return typeof source === "string" && pred(source);
+  });
 
-const bandOf = (mark) => (mark <= 2 ? "enabler" : mark <= 5 ? "workhorse" : "capstone");
-const EXPECTED_WD = { enabler: [1], workhorse: [2], capstone: [3, 4, 5] };
+// Tier bands come from the locked canon (GDD L6 via tiers.json), never a parallel copy here.
+// Mark ranges overlap at 7 (proud vs capstone) — the capstone tag disambiguates, else first match.
+const TIERS = readJson("src/content/contracts/tiers.json").waking_marks_by_card_tier;
+const inRange = (v, r) => (Array.isArray(r) ? v >= r[0] && v <= r[1] : v === r);
+function tierOf(card) {
+  if (card.tags?.includes("capstone")) return "capstone";
+  return Object.keys(TIERS).find(name => inRange(card.mark, TIERS[name].mark)) ?? "capstone";
+}
+function wdMismatch(card, tier) {
+  const t = TIERS[tier];
+  if (card.archetype === "mannerly" && t.woken_delight_mannerly === card.woken_delight) return false;
+  return !inRange(card.woken_delight, t.woken_delight);
+}
 
-function rubricFlags(card) {
+function rubricFlags(card, tier) {
   const flags = [];
   const restSelf = card.effects.some(e => e.do === "rest" && e.params?.target === "self");
   if (restSelf && !hasVerb(card, "fill") && !hasVerb(card, "brim")) flags.push("R2·bare-rest-self");
-  if (fillReads(card, "room")) flags.push("R3·fill-reads-room");
-  if (card.effects.some(e => e.do === "fill" && /"source":"grain:/.test(JSON.stringify(e.params ?? {}))))
-    flags.push("R3·grain-fill");
-  if (!EXPECTED_WD[bandOf(card.mark)].includes(card.woken_delight)) flags.push("R4·band-mismatch");
+  if (fillReads(card, s => s === "room")) flags.push("R3·fill-reads-room");
+  if (fillReads(card, s => s.startsWith("grain:"))) flags.push("R3·grain-fill");
+  if (wdMismatch(card, tier)) flags.push("R4·band-mismatch");
   if (card.tags?.includes("capstone") && !hasVerb(card, "fill") && !hasVerb(card, "brim"))
     flags.push("R6·capstone-no-win");
   return flags;
@@ -72,10 +98,8 @@ function harnessOf(report, exploitFillTotal) {
   const exploitFill = exploit.reduce((n, k) => n + k.fill, 0);
   return {
     runsPresent,
-    played: way.reduce((n, k) => n + k.played, 0),
     playShare: Math.max(0, ...way.map(k => k.playShare)),
     playRate: wRate(k => k.playRate),
-    wokenRate: wRate(k => k.wokenRate),
     fill: way.reduce((n, k) => n + k.fill, 0),
     winDelta: top ? top.winDelta : null,
     winDeltaCohort: top ? top.archetype : null,
@@ -98,6 +122,7 @@ function suggestVerdict(flags, h) {
   if (flags.some(f => f.startsWith("R2") || f.startsWith("R3") || f.startsWith("R6"))) return "fix";
   if (flags.includes("R14·dead") || flags.includes("R9·near-never")) return "fix (buff or cut)";
   if (flags.includes("H·win-outlier")) return h.winDelta > 0 ? "watch (strong)" : "watch (weak)";
+  if (flags.includes("R4·band-mismatch")) return "watch (calibration)";
   return "keep";
 }
 
@@ -112,12 +137,12 @@ const rows = pool.map(card => {
   const report = reportOf.get(card.id) ?? { cohorts: [] };
   const h = harnessOf(report, exploitFillTotal);
   const currencies = currenciesOf(card);
-  const flags = [...rubricFlags(card), ...harnessFlags(h)];
+  const tier = tierOf(card);
+  const flags = [...rubricFlags(card, tier), ...harnessFlags(h)];
   return {
     id: card.id, name: card.name, way: card.archetype ?? "shared",
-    starter: card.tags?.includes("starter") ?? false,
     capstone: card.tags?.includes("capstone") ?? false,
-    mark: card.mark, ceiling: card.ceiling, wd: card.woken_delight, band: bandOf(card.mark),
+    mark: card.mark, wd: card.woken_delight, band: tier,
     role: roleOf(card), currencies, winRelevance: winRelevanceOf(card, currencies),
     effects: card.effects, harness: h, flags,
     verdict: suggestVerdict(flags, h),
@@ -136,12 +161,10 @@ const snapshot = {
 
 const DASH = "planning/card-audit.html";
 const src = readFileSync(DASH, "utf8");
-const marker = /const AUDIT_SNAPSHOT = .*?;\n/;
-if (!marker.test(src)) {
-  console.error("bake-card-audit: AUDIT_SNAPSHOT anchor not found in planning/card-audit.html");
-  process.exit(1);
-}
-writeFileSync(DASH, src.replace(marker, `const AUDIT_SNAPSHOT = ${JSON.stringify(snapshot)};\n`));
+const anchors = src.match(/const AUDIT_SNAPSHOT = .*?;\n/g) ?? [];
+if (anchors.length !== 1) fail(`expected exactly 1 AUDIT_SNAPSHOT anchor in ${DASH}, found ${anchors.length}`);
+// function replacer — a string replacement would interpret $-sequences inside the JSON payload
+writeFileSync(DASH, src.replace(anchors[0], () => `const AUDIT_SNAPSHOT = ${JSON.stringify(snapshot)};\n`));
 
 const flagged = rows.filter(r => r.flags.length > 0);
 const byFlag = {};

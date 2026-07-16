@@ -39,7 +39,7 @@ and ask whether it pays back **on play and on replay**.
 - [x] Settle the four open calls — QUESTIONS.md §H → **D-022**: payback qualitative; opening deck
       self-sufficient; dead <3% / dominant >25%; fix the bare-rest-self cards (remove the trickle
       clause, give an on-identity ability) — Even the Rim + the six supports.
-- [x] Build the **card-audit dashboard** — [card-audit.html](../card-audit.html), baked by
+- [x] Build the **card-audit dashboard** — `planning/card-audit.html`, baked by
       `npm run audit` (codex pattern): §8 scorecard rows, rubric [LINT] flags, harness telemetry
       (play-share, win-deltas, exploit-fill share), suggested verdicts. First findings written up in
       `docs/balance-findings-2026-07-16.html`.
