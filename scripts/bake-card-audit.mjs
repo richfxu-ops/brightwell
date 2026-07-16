@@ -55,7 +55,8 @@ function rubricFlags(card, tier) {
   if (restSelf && !hasVerb(card, "fill") && !hasVerb(card, "brim")) flags.push("R2·bare-rest-self");
   if (fillReads(card, s => s === "room")) flags.push("R3·fill-reads-room");
   if (fillReads(card, s => s.startsWith("grain:"))) flags.push("R3·grain-fill");
-  if (wdMismatch(card, tier)) flags.push("R4·band-mismatch");
+  // mark range matters too: a tag-assigned tier (capstone) can carry an out-of-band mark
+  if (!inRange(card.mark, TIERS[tier].mark) || wdMismatch(card, tier)) flags.push("R4·band-mismatch");
   if (card.tags?.includes("capstone") && !hasVerb(card, "fill") && !hasVerb(card, "brim"))
     flags.push("R6·capstone-no-win");
   return flags;
