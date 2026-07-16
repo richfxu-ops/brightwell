@@ -4,7 +4,7 @@
 import { describe, it, expect } from "vitest";
 import { ARCHETYPES } from "./driver.js";
 import { runArchetype } from "./policies.js";
-import { collectMetrics } from "./metrics.js";
+import { collectCardStats, collectMetrics } from "./metrics.js";
 import {
   CANONICAL_KEYS, PER_RUN_KEYS, PER_RUN_REAL, PER_RUN_ZERO, PHASE8_AGGREGATE,
 } from "./keys.js";
@@ -50,6 +50,31 @@ describe("determinism", () => {
   it("the same (seed, archetype) replays an identical record", () => {
     for (const archetype of ARCHETYPES) {
       expect(collectMetrics(runArchetype(9, archetype))).toEqual(collectMetrics(runArchetype(9, archetype)));
+    }
+  });
+});
+
+describe("per-card stats (card-telemetry task)", () => {
+  it("every starting-deck card has a row, even one the run never touches", () => {
+    const obs = runArchetype(1, "kilnfast");
+    const stats = collectCardStats(obs);
+    for (const cardId of obs.startingDeck) expect(stats[cardId], cardId).toBeDefined();
+  });
+
+  it("tallies reconcile exactly with the event log — nothing dropped, nothing invented", () => {
+    for (const archetype of ARCHETYPES) {
+      const obs = runArchetype(2, archetype);
+      const stats = collectCardStats(obs);
+      const total = (pick: (s: { drafted: number; played: number; woken: number; fill: number }) => number) =>
+        Object.values(stats).reduce((sum, s) => sum + pick(s), 0);
+      const count = (type: string) => obs.events.filter(e => e.type === type).length;
+      expect(total(s => s.played), archetype).toBe(count("played"));
+      expect(total(s => s.woken), archetype).toBe(count("woke"));
+      expect(total(s => s.drafted), archetype).toBe(count("drafted"));
+      const fillLogged = obs.events
+        .filter(e => e.type === "filled")
+        .reduce((sum, e) => sum + (typeof e.data?.amount === "number" ? e.data.amount : 0), 0);
+      expect(total(s => s.fill), archetype).toBe(fillLogged);
     }
   });
 });

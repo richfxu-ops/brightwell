@@ -1,5 +1,21 @@
 # DECISIONS.md — pipeline-test-02
 
+## D-023 · Per-card telemetry + exploit cohort — the balance evaluator's data layer (2026-07-16, user-approved design)
+The balance strategy's measure-first step ([card-telemetry-and-exploit-bot](tasks/card-telemetry-and-exploit-bot.md)):
+- **Fill attribution rides the `filled` event's payload** (`piece: selfId`), not play-order inference —
+  cascades and on-fulfil triggers fire fills from cards other than the one just played.
+- **Win-rate deltas are computed within archetype×policy cohorts** — pooling across Ways confounds a
+  card's effect with its Way's strength.
+- **The exploit strategy is a bot policy, never an engine flag** (Phase-7 rule: identity/strategy
+  lives in policy + seeded cards).
+- **`card_stats` stays outside the locked 57-key round-metrics contract** — a harness-local record
+  extension (`collectCardStats` sibling), so the `design/round_metrics.json` seam is untouched.
+- **D-022 dead/dominant flags fire on identity cohorts only** — the exploit cohort measures the
+  degenerate line, it doesn't judge a card's normal play.
+First readout (50 seeds/cohort): the fill-first exploit line wins ≥ the identity line for **every**
+Way — gaps: apprentice +32, eveners +42, mannerly +36 points — quantifying the playtest's "filling
+the need is trivial"; 15 cards flagged dead, 0 dominant by play-share.
+
 ## D-022 · Card-design rubric — the four open calls settled (2026-07-14, user-decided)
 Resolves QUESTIONS.md §H, finalizing the [card-design bible](tasks/../card-design.md) v0 so the audit
 + card-lint can derive from it:
