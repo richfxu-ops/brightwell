@@ -22,6 +22,7 @@
 
 ## In Progress
 - [ ] (P1) [Card Quality Rubric](tasks/card-quality-rubric.md) — design bible + audit dashboard + card-lint; ensure generated cards are good, not just legal (from playtest) #design #balance #m4
+- [ ] (P1) [Card fix pass](tasks/card-fix-pass.md) — Step 4: nerf trivializers, repair the dead-15, complete Eveners/Mannerly loops, then difficulty knobs #balance #m4
 
 ## Done
 - [x] (P1) [Card telemetry & exploit bot](tasks/card-telemetry-and-exploit-bot.md) — per-card sim stats + fill-first exploit cohort; the card evaluator's data layer #sim #balance #m4

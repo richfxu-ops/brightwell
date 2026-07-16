@@ -1054,7 +1054,7 @@
           "params": {
             "amount": {
               "do": "read",
-              "source": "room"
+              "source": "woken:dance"
             }
           }
         },
@@ -2331,8 +2331,8 @@
       "id": "the-long-tally",
       "name": "The Long Tally",
       "grain": "thread",
-      "mark": 5,
-      "ceiling": 7,
+      "mark": 7,
+      "ceiling": 8,
       "woken_delight": 3,
       "tags": [
         "capstone",
@@ -2358,7 +2358,7 @@
           "params": {
             "amount": {
               "do": "read",
-              "source": "woken:thread"
+              "source": "chain"
             }
           }
         },
@@ -2459,7 +2459,7 @@
           "params": {
             "amount": {
               "do": "read",
-              "source": "room"
+              "source": "woken:dance"
             }
           }
         },
