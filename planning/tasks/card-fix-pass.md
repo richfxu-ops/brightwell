@@ -1,9 +1,14 @@
 ---
-status: In Progress
+status: Complete
 size: Large
 created: 2026-07-16
+completed: 2026-07-16
 title: Card fix pass
 ---
+
+> **Superseded after Part 1 by [way-rebuild](way-rebuild.md) (D-024).** Part 1 (trivializer nerfs)
+> shipped and stands; Parts 2–3 are absorbed into the rebuild program; Part 4's difficulty knobs
+> fold into the rebuild's final phase.
 
 ## Context
 

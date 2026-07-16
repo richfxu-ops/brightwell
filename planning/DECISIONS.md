@@ -1,5 +1,19 @@
 # DECISIONS.md — pipeline-test-02
 
+## D-024 · The Way rebuild — cards rebuilt from scratch against locked identities (2026-07-16, user-decided)
+The telemetry + canon review (`docs/way-design-review.html`) showed the pool drifted from the GDD's
+six distinct win-levers into two generic fill reads — the measured root of "cards all play the same"
+and of exploit-bot dominance. Rather than patch 97 drifted cards, **rebuild the kits card by card**:
+- **User designs, agent organizes** — the user authors card designs; the agent compiles to data,
+  validates (legality + rubric), tracks progress, and sims each batch.
+- **Kilnfast + Gleaners are kept as reference implementations** (canon-true and healthy in data);
+  Untold, Mannerly, Eveners, most of Fairwrights, and all 7 shared cards rebuild.
+- **Cards-only, identities stand** — the locked A1–A6 identities are the spec; revisit an identity
+  only if its rebuilt kit still fails (a further logged decision).
+- Supersedes card-fix-pass Parts 2–3; its Part 4 (difficulty knobs last) folds into the rebuild's
+  final phase. Worked via [way-rebuild](tasks/way-rebuild.md), starting with a feasibility &
+  mechanics review (Phase 0).
+
 ## D-023 · Per-card telemetry + exploit cohort — the balance evaluator's data layer (2026-07-16, user-approved design)
 The balance strategy's measure-first step ([card-telemetry-and-exploit-bot](tasks/card-telemetry-and-exploit-bot.md)):
 - **Fill attribution rides the `filled` event's payload** (`piece: selfId`), not play-order inference —
