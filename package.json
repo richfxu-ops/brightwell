@@ -10,6 +10,7 @@
     "build:toy": "node scripts/build-toy.mjs",
     "build:site": "node scripts/build-site.mjs",
     "sim": "node scripts/run-sim.mjs",
+    "audit": "node scripts/bake-card-audit.mjs",
     "lint": "biome lint",
     "lint:fix": "biome check --write",
     "check": "npm run typecheck && npm run lint && npm run test",

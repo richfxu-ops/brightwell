@@ -39,8 +39,10 @@ and ask whether it pays back **on play and on replay**.
 - [x] Settle the four open calls — QUESTIONS.md §H → **D-022**: payback qualitative; opening deck
       self-sufficient; dead <3% / dominant >25%; fix the bare-rest-self cards (remove the trickle
       clause, give an on-identity ability) — Even the Rim + the six supports.
-- [ ] Build the **card-audit dashboard** — every card scored against the rubric (cost/benefit, flags,
-      harness play-stats), browsable like the other dashboards.
+- [x] Build the **card-audit dashboard** — [card-audit.html](../card-audit.html), baked by
+      `npm run audit` (codex pattern): §8 scorecard rows, rubric [LINT] flags, harness telemetry
+      (play-share, win-deltas, exploit-fill share), suggested verdicts. First findings written up in
+      `docs/balance-findings-2026-07-16.html`.
 - [ ] Build **card-lint** — the [LINT] rules as a build-time check; `npm run check` fails on violation.
 - [ ] Bake the rubric into the **card-smith brief** template so generation follows it.
 - [ ] Fix the cards the audit + lint flag (start: Even the Rim / R2 overflow-must-be-spent); re-lint +

@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Balance Findings — 2026-07-16</title>
+<style>
+  :root { --bg:#0f1115; --panel:#171a21; --border:#2a2f3a; --text:#e6e8ec; --muted:#9aa3b2;
+    --accent:#5b9dff; --good:#34c759; --warn:#ff9f43; --bad:#ff5d5d; }
+  @media (prefers-color-scheme: light) {
+    :root { --bg:#f8f8f6; --panel:#ffffff; --border:#e2e6ec; --text:#1b1f27; --muted:#5b6675; --accent:#2f6df6; }
+  }
+  * { box-sizing: border-box; }
+  body { margin:0; background:var(--bg); color:var(--text);
+    font:16px/1.65 Georgia, "Times New Roman", serif; }
+  main { max-width: 780px; margin: 0 auto; padding: 48px 24px 80px; }
+  h1 { font-size: 30px; margin: 0 0 4px; }
+  h2 { font-size: 21px; margin: 40px 0 8px; }
+  .sub { color: var(--muted); font-size: 14px; font-family: -apple-system, sans-serif; }
+  .tldr { background: var(--panel); border: 1px solid var(--border); border-left: 4px solid var(--accent);
+    border-radius: 10px; padding: 16px 20px; margin: 24px 0; }
+  table { border-collapse: collapse; width: 100%; margin: 12px 0; font-family: -apple-system, sans-serif;
+    font-size: 14px; background: var(--panel); border: 1px solid var(--border); border-radius: 10px; }
+  th, td { padding: 7px 12px; border-bottom: 1px solid var(--border); text-align: left; }
+  th { color: var(--muted); font-size: 12px; text-transform: uppercase; letter-spacing: .04em; }
+  td.num { font-family: ui-monospace, monospace; text-align: right; }
+  .pos { color: var(--good); } .neg { color: var(--bad); } .warn { color: var(--warn); }
+  code { background: var(--panel); border: 1px solid var(--border); border-radius: 5px;
+    padding: 1px 6px; font-size: 13px; }
+  .caveat { color: var(--muted); font-size: 14px; border-left: 3px solid var(--border); padding-left: 14px; }
+  ol li, ul li { margin-bottom: 8px; }
+  a { color: var(--accent); }
+</style>
+</head>
+<body>
+<main>
+<h1>Balance Findings</h1>
+<div class="sub">2026-07-16 · from the per-card telemetry + exploit cohort (D-023) · 700 bot runs (7 archetypes × 2 strategies × 50 seeds)
+· evidence browsable in <a href="../planning/card-audit.html">the card-audit dashboard</a></div>
+
+<div class="tldr">
+<b>TL;DR.</b> Your playtest instinct is confirmed and quantified. A deliberately dumb bot that ignores
+every archetype's identity and just spams fill cards wins <b>as often or more often than the identity
+bots for all seven archetypes</b>. One card — <b>The Long Tally</b> — single-handedly produces 15% of
+everything the exploit strategy fills. Meanwhile <b>15 of 97 cards are dead</b> (in the deck all run,
+almost never worth playing), and two Ways (Eveners, Mannerly) barely function even when played as
+designed. The good news: zero cards break the rubric's structural rules anymore — this is now a
+<em>numbers</em> problem and a <em>variety</em> problem, not a rules problem, and we have the
+instruments to verify every fix.
+</div>
+
+<h2>How this evidence was gathered</h2>
+<p>Every simulated run now records what each card actually did (drafted, played, woken, and — new —
+exactly how much asking-fill each card produced). On top of the six identity bots, an <b>exploit
+bot</b> plays the degenerate strategy a min-maxing human would: fill first, always, draft more fill,
+ignore the Way's identity. Comparing the two cohorts turns "the game feels too easy" into a number.</p>
+<p class="caveat">One honest caveat: the per-card <em>win delta</em> ("do runs containing this card
+win more?") is a correlation, not proof of cause — a card drafted by already-winning runs looks good.
+That's why the findings below triangulate: exploit-cohort fill share, play rates, dead flags, and the
+rubric all have to point the same way before a card gets named.</p>
+
+<h2>Finding 1 — Ignoring your Way's identity is never worse, and usually better</h2>
+<table>
+<tr><th>Way</th><th>played as designed</th><th>played as fill-spam</th><th>gap</th></tr>
+<tr><td>Eveners</td><td class="num">4/50</td><td class="num">25/50</td><td class="num neg">+42 pts</td></tr>
+<tr><td>Mannerly</td><td class="num">8/50</td><td class="num">26/50</td><td class="num neg">+36 pts</td></tr>
+<tr><td>Apprentice (no Way cards)</td><td class="num">0/50</td><td class="num">16/50</td><td class="num neg">+32 pts</td></tr>
+<tr><td>Gleaners</td><td class="num">27/50</td><td class="num">34/50</td><td class="num neg">+14 pts</td></tr>
+<tr><td>Untold</td><td class="num">27/50</td><td class="num">31/50</td><td class="num warn">+8 pts</td></tr>
+<tr><td>Fairwrights</td><td class="num">37/50</td><td class="num">40/50</td><td class="num warn">+6 pts</td></tr>
+<tr><td>Kilnfast</td><td class="num">28/50</td><td class="num">28/50</td><td class="num">±0</td></tr>
+</table>
+<p>This is the measured version of "the cards all play the same and only the fill cards matter."
+If identity play were pulling its weight, at least one Way would beat its own exploit line. None does.
+The starkest row: a deck with <em>no archetype cards at all</em> goes from zero wins to 16 just by
+greedily filling. Kilnfast's ±0 isn't health either — its identity line already <em>is</em>
+fill-adjacent, so the exploit adds nothing new.</p>
+
+<h2>Finding 2 — The cards that trivialize the need</h2>
+<ul>
+<li><b>The Long Tally</b> (Untold capstone) — fills by your woken-thread count, which Untold grows all
+run. It alone contributes <b>15% of all fill in the entire exploit cohort</b> (next card: under 10%),
+and runs containing it win <b>+46%</b> more. The scaling <em>rule</em> it uses is the sanctioned one
+(R3-compliant); the <em>coefficient</em> is simply too generous. Prime nerf candidate.</li>
+<li><b>Ring Up the Lanterns</b> (Fairwrights support, mark 2) — seats as many newcomers as the room
+already holds, i.e. a room snowball for almost nothing. Off-Way drafters love it: Kilnfast runs that
+picked it up won <b>+54%</b> more. A cheap universal room-doubler undermines every Way's identity at
+once — either bound it or price it like the engine piece it is.</li>
+<li><b>Feed and Fire / Comb the Verge</b> — same shape, milder: strong universal builders whose value
+travels to any deck (+39–45% deltas <em>in other Ways' cohorts</em>). Worth watching after the two
+above are tuned.</li>
+</ul>
+
+<h2>Finding 3 — Fifteen dead cards</h2>
+<p>These are in a deck all run and essentially never get played (under 3% of plays, rule R14).
+They cluster into three repair groups:</p>
+<ol>
+<li><b>Reading systems that don't exist yet</b> — <code>walk-the-pale</code>, <code>pale-harvest</code>,
+<code>mend-the-verge</code> (Gleaners) read <code>spiral</code>/<code>season</code>, which the engine
+lists as deferred systems. They're reading zeros. Give them an interim value or re-point the read
+until those systems land.</li>
+<li><b>Known offenders awaiting their D-022 fix</b> — <code>even-the-rim</code>, plus supports like
+<code>seasoned-timber</code>, <code>silver-warm-up</code>: the telemetry independently re-derived your
+playtest fix-list, which is good news for trusting the instrument.</li>
+<li><b>Shared filler-chaff</b> — <code>first-step</code>, <code>grey-bowl</code>, <code>hearth-hum</code>,
+<code>kettle-loaf</code>, <code>loose-thread</code>, <code>pegged-bench</code>, <code>sprig-trestle</code>:
+generic low-impact cards that lose every comparison with a Way card. These need a real job or a cut.</li>
+</ol>
+
+<h2>Finding 4 — Two Ways don't work even played as designed</h2>
+<p><b>Eveners (8% wins)</b> and <b>Mannerly (16%)</b> are the flat archetypes. The telltale detail:
+inside Mannerly's own losing cohort, its two song-count fillers (<code>the-refrain-repeated</code> +49%,
+<code>hold-the-note</code> +40%) are the strongest cards in the entire pool by win-delta — meaning the
+kit has exactly one working win-path and everything else in it is drag. Eveners' chain-fill path
+(<code>even-the-rim</code>) is so unattractive the bots barely play it. These two kits need their
+identity loops completed, not just numbers nudged (rubric R7: a repeatable filler + a builder + a
+payoff, all seeded and all worth playing).</p>
+
+<h2>What to do about it — proposed fix order (Step 4)</h2>
+<ol>
+<li><b>Nerf the two trivializers</b> — The Long Tally's coefficient, Ring Up the Lanterns' snowball —
+and re-run the sim. Success = exploit gaps shrink, especially the +32 apprentice line.</li>
+<li><b>Repair the 15 dead cards by group</b> — re-point the zero-reads, apply the D-022 fixes, give
+the shared chaff real jobs. Success = dead count trends toward 0.</li>
+<li><b>Complete the Eveners and Mannerly identity loops</b> so their designed play beats fill-spam.
+Success = each Way's identity line ≥ its exploit line.</li>
+<li><b>Only then touch global difficulty knobs</b> (crown demand, asking scaling) — tuning difficulty
+while cards are broken just bakes the brokenness in.</li>
+</ol>
+<p>Each step is verified the same way: <code>npm run sim && npm run audit</code>, then check the gap
+table and the flag counts. The dead/dominant thresholds and the exploit gap are now regression
+metrics — a card change that makes them worse fails visibly.</p>
+
+<p class="caveat">Scope note: all numbers are bot floors (deliberately simple policies, D-016) on the
+simplified single-map engine — they understate what a clever human can do, so the exploit gaps are
+conservative. The "more mechanics / cards feel same-y" thread from your original ask is Step 4's
+design work and deliberately not pre-empted here; this report is the evidence it should start from.</p>
+</main>
+</body>
+</html>
