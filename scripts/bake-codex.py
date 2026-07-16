@@ -40,6 +40,20 @@ tasks_files = {
 summary_path = os.path.join(ROOT, "sim", "out", "summary.json")
 summary_obj = json.load(open(summary_path)) if os.path.exists(summary_path) else None
 
+# generated reports for the Reports-tab shelf: the card-audit dashboard + every findings narrative.
+# Globbed, not hand-listed — a new docs/balance-findings-*.html appears on the next bake.
+def title_of(path: str, fallback: str) -> str:
+    m = re.search(r"<title>(.*?)</title>", open(path).read())
+    return m.group(1) if m else fallback
+
+report_pages = []
+if os.path.exists(os.path.join(ROOT, "planning", "card-audit.html")):
+    report_pages.append({"href": "card-audit.html", "title": "Card Audit",
+                         "sub": "every card vs the rubric + harness telemetry, sortable (npm run audit)"})
+for p in sorted(glob.glob(os.path.join(ROOT, "docs", "balance-findings-*.html")), reverse=True):
+    name = os.path.basename(p)
+    report_pages.append({"href": f"../docs/{name}", "title": title_of(p, name), "sub": "findings narrative"})
+
 replacements = {
     r'const SNAPSHOT_DATE = "[^"]*";': f'const SNAPSHOT_DATE = "{today}";',
     r"const TASKS_SNAPSHOT = .*?;\n": f"const TASKS_SNAPSHOT = {json.dumps(read('planning/TASKS.md'))};\n",
@@ -50,6 +64,7 @@ replacements = {
     r"const GLOSSARY_HTML = .*?;\n": f"const GLOSSARY_HTML = {json.dumps(read('planning/readable/glossary.html'))};\n",
     r"const RUBRIC_SNAPSHOT = .*?;\n": f"const RUBRIC_SNAPSHOT = {json.dumps(read('planning/card-design.md'))};\n",
     r"const REPORTS_SNAPSHOT = .*?;\n": f"const REPORTS_SNAPSHOT = {json.dumps(summary_obj)};\n",
+    r"const REPORT_PAGES = .*?;\n": f"const REPORT_PAGES = {json.dumps(report_pages)};\n",
     r"const PROPOSALS_SNAPSHOT = .*?;\n": f"const PROPOSALS_SNAPSHOT = {json.dumps(tasks_files)};\n",
 }
 
