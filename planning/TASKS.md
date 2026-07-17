@@ -15,7 +15,8 @@
 - [ ] (P2) [Map & routing](tasks/map-and-routing.md) — C4: multi-node map, per-leg offers, camp (FIDELITY expansion Phase 5 deferred) #engine #fidelity
 - [ ] (P3) [Meta-progression](tasks/meta-progression.md) — G1–G5: beads, Quiet-Walk hand-on, Way unlocks, deeper Rounds (post-M4) #meta #m5
 - [ ] (P2) Decide M4 balance orchestration — hand-rolled loop vs game-loop skill (QUESTIONS.md §F3; call at first balance sheet) #balance #m4
-- [ ] (P3) Design the bench — courting→piece pipeline (QUESTIONS.md §D2, FIDELITY deferred) #economy #fidelity
+- [ ] (P2) The combing boss — build the Paling-clock boss encounter (deferred canon; D-025 P6, after the way-rebuild kits stabilize) #engine #balance
+- [ ] (P3) Design the bench — courting→piece pipeline (QUESTIONS.md §D2; minimal build lands with way-rebuild's Mannerly batch per D-025 P1) #economy #fidelity
 - [ ] (P3) Apprentice-stuff inventory — how whittle's consumable is acquired & held (QUESTIONS.md §D3, FIDELITY deferred) #economy #fidelity
 
 ## Next

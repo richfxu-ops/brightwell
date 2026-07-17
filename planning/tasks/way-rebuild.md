@@ -42,8 +42,8 @@ instruments). Kilnfast + Gleaners stay as reference kits and the control group.
 
 ## Plan
 
-- [ ] Phase 0 — feasibility & mechanics review doc; discuss; record the user's mechanics picks and
-      the three doc-contradiction rulings as decisions
+- [x] Phase 0 — feasibility & mechanics review doc; discussed; all P1–P7 picks as recommended,
+      logged as D-025 (rubric R3/R10/§7 amended in the same change)
 - [ ] Phase 1 — design briefs for Eveners, Untold, Fairwrights, Mannerly, shared pool
 - [ ] Build card-lint (with card-quality-rubric task) before the first batch
 - [ ] Phase 2 — rebuild batches, one Way per branch, sim-gated

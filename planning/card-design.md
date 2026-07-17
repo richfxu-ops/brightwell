@@ -60,8 +60,9 @@ of them is the turtle that drifts (the playtest that started all this: Standing 
   with a `fill` or `brim` that *uses* the overflow. A bare rest-self (overflow → only a Standing
   trickle) is a dead headline. *(Even the Rim fails this.)*
 - **R3 · Fills scale right [LINT]** — a repeatable `fill` reads `woken:<suit>` (the engine) or `chain`
-  (bounded, rebuildable). **Never `room`** (one-shots the crown) and never bare `grain:<suit>` alone
-  (dries up once the deck is woken).
+  (bounded, rebuildable). **Never `room`** (one-shots the crown). Bare `grain:<suit>` is
+  **Untold-only** (D-025): their exhaust loop re-wakes pieces every morning so the this-morning
+  count stays live; for every other Way it dries up once the deck is woken.
 - **R4 · Cost calibrates power [REVIEW]** — mark + Fair tier must track effect magnitude, both ways: no
   cheap card with a capstone effect, no expensive card with a weak one. (Bands in §5.)
 - **R5 · Net-positive in a currency that matters [REVIEW]** — score cost (play + room + mark + slot)
@@ -83,6 +84,7 @@ of them is the turtle that drifts (the playtest that started all this: Standing 
   states and the wrong call in others. Played ~always or ~never = flat.
 - **R10 · Legibility [REVIEW]** — the *headline* effect is the card's actual point. Value must not hide
   in a conditional clause (a dead front + all the payoff in `on-fulfil`). *(Even the Rim again.)*
+  Generalized terms (D-025) obey this: the headline must stand without its condition.
 - **R11 · Floor/ceiling matches the Way [REVIEW]** — high-variance (big ceiling, low floor) → spike
   Ways (Fairwrights); tight/consistent → control Ways (Eveners).
 
@@ -119,7 +121,7 @@ of them is the turtle that drifts (the playtest that started all this: Standing 
 | **Eveners** | dance/thread | `retire`→room + `whittle`, glued by `steady`/chain | fill by chain; consistency/control |
 | **Untold** | thread | `draw` (thin fast deck) + cheap `fill` by count-and-pace | fill by chain; many cheap plays |
 | **Fairwrights** | dance | `gather` (giant room) + `brim` (the only gleam-writer) | brim overflow → Standing; fill by woken:dance |
-| **Mannerly** | song | `court` + `mark-grain`/`read(grain:song)` growing the count | fill by the song count; highest ceiling |
+| **Mannerly** | song | `court` + `mark-grain` opening the graded market; chain as the performed term | fill by chain — the courtship's depth (GDD A5, D-025); highest ceiling |
 | **Gleaners** | glaze | `read(spiral/season)` scaling `gather`/`whittle` + `soothe` | fill by woken:glaze; board/pale route |
 
 **Canon laws (never break):** Evener's room comes from retires, never the purse. `brim`/overkill-spike

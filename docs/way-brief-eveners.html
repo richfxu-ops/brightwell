@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Design Brief — Eveners</title>
+<style>
+  :root { --bg:#0f1115; --panel:#171a21; --border:#2a2f3a; --text:#e6e8ec; --muted:#9aa3b2;
+    --accent:#5b9dff; --good:#34c759; --warn:#ff9f43; --bad:#ff5d5d; }
+  @media (prefers-color-scheme: light) {
+    :root { --bg:#f8f8f6; --panel:#ffffff; --border:#e2e6ec; --text:#1b1f27; --muted:#5b6675; --accent:#2f6df6; }
+  }
+  * { box-sizing: border-box; }
+  body { margin:0; background:var(--bg); color:var(--text); font:16px/1.65 Georgia, serif; }
+  main { max-width: 820px; margin: 0 auto; padding: 48px 24px 80px; }
+  h1 { font-size: 30px; margin: 0 0 4px; }
+  h2 { font-size: 21px; margin: 40px 0 8px; border-bottom: 1px solid var(--border); padding-bottom: 6px; }
+  .sub { color: var(--muted); font-size: 14px; font-family: -apple-system, sans-serif; }
+  .box { background: var(--panel); border: 1px solid var(--border); border-radius: 10px; padding: 14px 18px; margin: 16px 0; }
+  .box.law { border-left: 4px solid var(--bad); }
+  .box.lever { border-left: 4px solid var(--accent); }
+  .box.tmpl { border-left: 4px solid var(--good); font-family: ui-monospace, monospace; font-size: 13.5px; white-space: pre-wrap; }
+  table { border-collapse: collapse; width: 100%; margin: 12px 0; font-family: -apple-system, sans-serif;
+    font-size: 13px; background: var(--panel); border: 1px solid var(--border); }
+  th, td { padding: 5px 9px; border-bottom: 1px solid var(--border); text-align: left; vertical-align: top; }
+  th { color: var(--muted); font-size: 11.5px; text-transform: uppercase; letter-spacing: .04em; }
+  code { background: var(--panel); border: 1px solid var(--border); border-radius: 5px; padding: 1px 6px; font-size: 13px; }
+  .keep { color: var(--good); font-weight: 600; } .rework { color: var(--warn); font-weight: 600; } .cut { color: var(--bad); font-weight: 600; }
+  .pos { color: var(--good); } .neg { color: var(--bad); }
+  ul li { margin-bottom: 6px; }
+</style>
+</head>
+<body>
+<main>
+<h1>Design Brief — The Eveners</h1>
+<div class="sub">way-rebuild Phase 1 · <em>the purse, moving</em> · first Way in the rebuild ·
+sources: GDD A2 (locked identity), D-025 rulings, post-Part-1 telemetry. You design; I compile,
+validate, and measure.</div>
+
+<h2>The fantasy &amp; the lever</h2>
+<p><b>Identity (locked):</b> the composting Way. Exhaust-heavy, always for <em>conversion</em> —
+last-light the deck's dead weight into room and table income while a handsel engine keeps money
+bright by keeping it moving. Lowest drama, highest consistency; wins long runs on a prepared board,
+never on a spike. Grains: <b>dance</b> and <b>thread</b>.</p>
+<div class="box lever"><b>The win-lever:</b> retired pieces fatten the room → the chain multiplies
+it → the capstone clears its mark on the fattened room and the Way fills <b>by chain</b>. The core
+loop: <code>retire → room/table</code> · <code>whittle → handsels</code> · <code>steady → chain</code>
+· capstone <code>rest(room)</code>.</div>
+<p><b>The decision texture that makes it interesting</b> (design toward these forks):</p>
+<ul>
+<li><b>Room now vs money later</b> — the fattened room can be whittled into handsels (deck growth)
+or poured into the capstone (the win). Same fuel, two spouts: the Way's central choice.</li>
+<li><b>Retire-to-room vs retire-to-table</b> — room helps <em>this morning</em>; the table pays
+<em>tomorrow's dawn, only if you camp</em>. Ties the Way to the camp/travel decision — and
+<code>at-dusk</code> is an unused trigger begging for exactly this.</li>
+<li><b>What to feed the fire</b> — every retire thins the deck permanently. Composting chaff is
+free; composting a good card for tempo is a real cost.</li>
+</ul>
+
+<h2>Hard canon laws (a design that breaks these bounces)</h2>
+<div class="box law"><ul style="margin:0">
+<li>Room is fuelled by <b>retires, never the purse</b> — no <code>read(handsels)</code> feeding
+gather/room; handsels are never spent inside a turn.</li>
+<li>No <code>brim</code> (Fairwright-only), no <code>soothe</code> (Gleaner-only).</li>
+<li><code>fill(room)</code> banned pool-wide; bare <code>grain:</code> fills are Untold-only (D-025).
+Evener fills read <b>chain</b>.</li>
+<li>Twice-benched grade keys only to <em>chosen</em> last-lightings, never to failure.</li>
+</ul></div>
+
+<h2>Costs &amp; the open canon question</h2>
+<p><b>Costs come from the tier table</b> (D-025 ruling): apprentice m1–2/wd1 · mid m3–5/wd2 ·
+proud m6–7/wd3 · capstone m7–8/wd3–5. Shapes come from the GDD; where a canon shape needs an
+off-band number, we log it.</p>
+<p><b>One honest gap you get to resolve by design:</b> the GDD's Evener chain (C1 last-lighting →
+C2 bright-hand → C3 even-the-rim) shows the <em>engine</em> but no explicit <em>filler</em> — canon
+C3 wakes big on the fattened room and draws on-fulfil, but nothing in the signature chain pours
+fill. The pool bridged this with chain-fill pieces (that's consistent with §7's "fill by chain").
+Your call in the design: does the capstone itself fill (rest(room) + fill(chain) on one card), or is
+the capstone the engine-peak and 1–2 mid pieces carry the fill? Both are canon-legal.</p>
+
+<h2>The current 15 — inventory with my suggestions (yours to overrule)</h2>
+<table>
+<tr><th>card</th><th>cost</th><th>does</th><th>data</th><th>suggestion</th></tr>
+<tr><td>*the-last-lighting</td><td>m3/wd2</td><td>retire→room + retire→table</td><td>Δ−23</td><td class="keep">KEEP — canon C1 exactly; its negative delta reflects the missing loop-end, not this card</td></tr>
+<tr><td>*bright-hand-to-hand</td><td>m3/wd1</td><td>whittle(room) + steady</td><td>Δ−22, R4</td><td class="keep">KEEP — canon C2 exactly (wd1 is the canon shape; R4 resolves via the D-025 ruling)</td></tr>
+<tr><td>*even-the-rim</td><td>m6/wd3</td><td>fill(chain) + draw@fulfil</td><td>dead, Δ+56 when played</td><td class="rework">REWORK — restore canon C3 (rest(room) headline) at capstone cost; the +56 says the chain-payoff works when reached</td></tr>
+<tr><td>*waymeet-gift</td><td>m2/wd1</td><td>retire→table + steady</td><td>Δ−15</td><td class="rework">REWORK — table-only retire is camp-dependent; candidate for an at-dusk identity</td></tr>
+<tr><td>*the-turning-purse</td><td>m3/wd1</td><td>whittle(room) + draw</td><td>Δ+27, R4</td><td class="keep">KEEP shape, fix band</td></tr>
+<tr><td>*even-fuel</td><td>m2/wd1</td><td>retire→room + steady</td><td>Δ−18</td><td class="keep">KEEP — the basic builder</td></tr>
+<tr><td>*quick-feet</td><td>m3/wd2</td><td>draw@on-dawn only</td><td>dead, Δ+33</td><td class="cut">CUT or give a daytime headline (dawn-only = invisible to the player's turn)</td></tr>
+<tr><td>*the-dusk-gift</td><td>m3/wd2</td><td>retire→room + fill(chain) + steady</td><td>Δ−21</td><td class="rework">REWORK — three jobs on one mid card (R8: one legible role)</td></tr>
+<tr><td>chainwise-gift</td><td>m4/wd2</td><td>retire→room + fill(chain)</td><td>Δ+36</td><td class="keep">KEEP — the Way's best-performing filler; maybe the model for its siblings</td></tr>
+<tr><td>left-for-the-morning</td><td>m2/wd1</td><td>retire→table + steady</td><td>Δ−20</td><td class="rework">REWORK with waymeet-gift (two near-duplicates)</td></tr>
+<tr><td>seasons-shavings</td><td>m3/wd1</td><td>whittle(season) + steady</td><td>Δ+30, R4</td><td class="rework">REWORK — season-read on an Evener is Gleaner-flavored; decide if that splash is intended</td></tr>
+<tr><td>widening-round</td><td>m3/wd1</td><td>draw + draw@on-dawn</td><td>Δ+22, R4</td><td class="keep">KEEP shape, fix band</td></tr>
+<tr><td>brace-the-waychain</td><td>m2/wd1</td><td>draw + steady</td><td>Δ−12</td><td class="keep">KEEP — cheap glue</td></tr>
+<tr><td>even-by-lastlight</td><td>m4/wd2</td><td>retire→room + whittle(room)</td><td>Δ+33</td><td class="keep">KEEP — the room-vs-money fork on one card</td></tr>
+<tr><td>the-great-un-hoarding</td><td>m6/wd3</td><td>retire→room + rest(chain) + fill(chain)</td><td>Δ+27, R4</td><td class="rework">REWORK — wants to be a second capstone; decide its niche vs even-the-rim</td></tr>
+</table>
+<p class="sub">* = starter (seeded). Δ = win-delta in the eveners cohort. The kit's real holes: no
+<b>payoff</b> role the bots respect, cycler glut (11 of 15), and nothing on
+<code>on-stall</code>/<code>on-wake</code>/<code>at-dusk</code> — the consistency Way should own
+the stall-resilience space.</p>
+
+<h2>Slots to fill (R7 — the starter core must be self-sufficient)</h2>
+<table>
+<tr><th>slot</th><th>count</th><th>notes</th></tr>
+<tr><td>Capstone payoff</td><td>1</td><td>canon C3 shape at capstone cost — the loop's missing end</td></tr>
+<tr><td>Chain-fillers</td><td>2</td><td>repeatable, read chain; chainwise-gift is the proven model</td></tr>
+<tr><td>Builders (retire→room)</td><td>2–3</td><td>exist; differentiate by what they compost</td></tr>
+<tr><td>Money engine (whittle)</td><td>2</td><td>the handsel velocity identity</td></tr>
+<tr><td>Consistency supports</td><td>2–3</td><td>the open space: on-stall brace, at-dusk camp/table, on-wake one-timers</td></tr>
+<tr><td>Cyclers (draw)</td><td>2</td><td>fewer than today; the thin-deck refill</td></tr>
+</table>
+
+<h2>New tools available (D-025)</h2>
+<ul>
+<li><b>Conditions on any verb</b> — <code>{if: read, at_least: n}</code>, e.g. "retire→room; if
+chain ≥ 3, also draw 1". Restraint: the headline must work without the condition (R10).</li>
+<li><b>Read caps</b> — <code>fill(chain, cap 4)</code> etc. Use to make scaling safe, not to
+complicate.</li>
+<li>Engine support for either lands with the first card that uses it.</li>
+</ul>
+
+<h2>How to hand me a design</h2>
+<div class="box tmpl">Name: The Even Keel
+Slot: consistency support · starter
+Intent: the stall-insurance card — Eveners shrug off a broken chain.
+Effects: on play: steady +1 link, braced. on stall: retire an inert hand card into the room.
+Cost feel: cheap (apprentice band).</div>
+<p>Plain language is enough — I compile to JSON over the primitives, run validate + rubric + lint,
+flag anything infeasible or law-breaking, and stage it. When the kit is complete we sim the batch:
+success = <b>Eveners' identity line ≥ its exploit line</b> (currently 5 vs 19 of 50), zero dead
+cards in-kit, no new exploit engines, and the Kilnfast/Gleaners controls unmoved.</p>
+</main>
+</body>
+</html>

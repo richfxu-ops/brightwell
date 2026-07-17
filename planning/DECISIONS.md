@@ -1,5 +1,25 @@
 # DECISIONS.md — pipeline-test-02
 
+## D-025 · Way-rebuild Phase 0 picks — enablers, grammar, and the three doc rulings (2026-07-16, user-decided)
+All seven picks from `docs/way-rebuild-feasibility.html`, as recommended:
+- **P1 · The bench (courting→piece) gets a minimal build** — Mannerly's unlock loop is unrebuildable
+  without it. Built with the Mannerly batch.
+- **P2 · Exhaust/one-shot pieces** — engine support built with the Untold batch (the tag stops
+  being decorative).
+- **P3 · Count-and-pace askings (I-022), minimal version** — with the Untold batch; doubles as
+  difficulty texture.
+- **P4 · Generalized terms** — court's `{if, at_least}` conditional becomes legal on any verb.
+  Restraint rule added to R10: a card's headline effect must stand without its condition.
+- **P5 · Amount caps, and nothing else** — `{do:"read", source, cap}` extends the locked Amount
+  grammar (the one Bucket-C adoption; modal/arithmetic stay out). Implemented with the first card
+  that needs it.
+- **P6 · The combing boss is its own later task** (backlog row added), after the kits stabilize.
+- **P7 · Doc rulings:** (a) **the tier table governs costs, the GDD governs shapes** — rebuilt
+  capstones take canon shapes at tiers.json costs; (b) **R3 amended** — bare `grain:<suit>` fills
+  are Untold-only (their exhaust loop re-wakes each morning, the read stays live); `fill(room)`
+  stays banned pool-wide; (c) **GDD A5 wins for Mannerly** — the payoff reads chain (courtship
+  depth); card-design §7 corrected; the woken:song fillers become support pieces.
+
 ## D-024 · The Way rebuild — cards rebuilt from scratch against locked identities (2026-07-16, user-decided)
 The telemetry + canon review (`docs/way-design-review.html`) showed the pool drifted from the GDD's
 six distinct win-levers into two generic fill reads — the measured root of "cards all play the same"
