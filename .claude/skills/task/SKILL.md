@@ -30,6 +30,7 @@ Look for `planning/tasks/$ARGUMENTS.md` (append `.md` if missing). If no match, 
 
    ## Context
    ```
+   If the task can't start until other tasks finish, add `blocked-by: <stem stem …>` to the frontmatter (space/comma-separated task filenames, no `.md`) — the dashboard shows the task as Blocked until every listed task is Complete, then flips it to Ready.
 3. **Add a board line** to `planning/TASKS.md` under `Backlog` (or `Next` if it's up soon), linking to the file:
    `- [ ] (P2) [<Title>](tasks/<name>.md) #<tag>`
 4. Drop into the **To Do** flow and start scoping.
