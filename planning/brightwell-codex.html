@@ -553,6 +553,52 @@ a{color:var(--gold-soft)}
 .bstate{font-family:var(--code); font-size:9.5px; padding:1px 6px; border-radius:6px; border:1px solid; margin-left:6px}
 .bstate.ready{color:var(--moss); border-color:var(--moss)}
 .bstate.blocked{color:var(--need); border-color:var(--need)}
+/* tasks toolbar + streams view (hexcalibur-style sections) */
+.tkbar{display:flex; flex-wrap:wrap; align-items:center; gap:8px; margin:2px 0 10px}
+.tkbar .lbl{font-family:var(--code); font-size:10px; letter-spacing:.14em; text-transform:uppercase; color:var(--ink-faint); margin-right:2px}
+.tkchip{font-family:var(--code); font-size:10.5px; letter-spacing:.06em; color:var(--ink-dim); background:none;
+  border:1px solid var(--line-soft); border-radius:999px; padding:4px 12px; cursor:pointer}
+.tkchip:hover{border-color:var(--gold-deep)}
+.tkchip.active{color:var(--gold-soft); border-color:var(--gold-deep); background:color-mix(in oklch, var(--gold) 12%, transparent)}
+.tkchip .n{color:var(--ink-faint); margin-left:4px}
+.tkcount{margin-left:auto; font-family:var(--code); font-size:10.5px; letter-spacing:.1em; text-transform:uppercase; color:var(--ink-faint)}
+.tklegend{display:flex; flex-wrap:wrap; gap:16px; font-family:var(--code); font-size:10px; letter-spacing:.1em;
+  text-transform:uppercase; color:var(--ink-faint); padding:0 2px 10px}
+.tklegend .dot{width:7px; height:7px; border-radius:50%; display:inline-block; margin-right:5px}
+.dot.ready{background:var(--gold)} .dot.active{background:var(--flow)} .dot.blocked{background:var(--need)} .dot.done{background:var(--moss)}
+.streams{display:flex; flex-direction:column; gap:14px}
+.stream{background:linear-gradient(168deg, var(--panel-2), var(--panel)); border:1px solid var(--line-soft); border-radius:12px; padding:14px 16px}
+.stream-head{display:flex; align-items:baseline; gap:12px; flex-wrap:wrap; margin-bottom:10px}
+.stream-head h4{font-family:var(--code); font-size:11px; letter-spacing:.18em; text-transform:uppercase; color:var(--ink); margin:0}
+.stream-desc{font-family:var(--body); font-style:italic; font-size:12.5px; color:var(--ink-faint)}
+.stream-tally{margin-left:auto; font-family:var(--code); font-size:9.5px; letter-spacing:.1em; text-transform:uppercase; color:var(--ink-faint)}
+.stream-tally b{font-weight:400}
+.stream-tally .t-ready{color:var(--gold-soft)} .stream-tally .t-active{color:var(--flow)}
+.stream-tally .t-blocked{color:var(--need)} .stream-tally .t-done{color:var(--moss)}
+.sgrid{display:grid; grid-template-columns:repeat(auto-fill, minmax(215px, 1fr)); gap:9px}
+.scard{text-align:left; appearance:none; font:inherit; background:linear-gradient(165deg, var(--panel-2), var(--panel));
+  border:1px solid var(--line-soft); border-radius:8px; padding:10px 12px; display:flex; flex-direction:column; gap:7px;
+  cursor:pointer; transition:border-color .15s ease, transform .15s ease; color:var(--ink)}
+.scard:hover{border-color:var(--gold-deep); transform:translateY(-1px)}
+.scard.nofile{cursor:default}
+.scard.nofile:hover{border-color:var(--line-soft); transform:none}
+.scard.done{opacity:.55}
+.scard-top{display:flex; align-items:flex-start; gap:8px}
+.scard-top .dot{flex:none; margin-top:5px}
+.scard-title{font-family:var(--body); font-weight:500; font-size:13.5px; line-height:1.3}
+.scard.done .scard-title{color:var(--ink-faint)}
+.scard-meta{display:flex; align-items:center; gap:8px}
+.spill{font-family:var(--code); font-size:9px; letter-spacing:.14em; text-transform:uppercase; padding:2px 7px;
+  border-radius:99px; border:1px solid var(--line-soft); color:var(--ink-faint)}
+.spill.ready{color:var(--gold-soft); border-color:var(--gold-deep); background:color-mix(in oklch, var(--gold) 12%, transparent)}
+.spill.active{color:var(--flow); border-color:color-mix(in oklch, var(--flow) 50%, transparent)}
+.spill.blocked{color:var(--need); border-color:color-mix(in oklch, var(--need) 55%, transparent)}
+.spill.done{color:var(--moss); border-color:color-mix(in oklch, var(--moss) 45%, transparent)}
+.scard-meta .prio{font-family:var(--code); font-size:9.5px; color:var(--need)}
+.sdots{margin-left:auto; display:flex; gap:3px}
+.sdots i{width:5px; height:5px; border-radius:50%; background:var(--ink-faint); opacity:.35}
+.sdots i.on{opacity:1; background:var(--gold-deep)}
+.scard-blockers{font-family:var(--code); font-size:10px; color:var(--ink-faint); line-height:1.4}
 #bdOverlay{position:fixed; inset:0; background:rgba(0,0,0,.45); display:none; z-index:60}
 #bdOverlay.open{display:block}
 #bdrawer{position:fixed; top:0; right:0; bottom:0; width:min(560px,92vw); background:var(--panel);
@@ -1824,7 +1870,7 @@ a{ color:var(--gold-deep) } a:hover{ color:var(--gold) }
           <div class="sub">Where the work stands — live from the planning files when served; a dated snapshot otherwise. Full tracker: <a href="dashboard.html">dashboard.html</a>.</div>
         </div>
         <div class="doc-tabs" id="projectTabs">
-          <button type="button" class="active" data-doc="project-board">Board</button>
+          <button type="button" class="active" data-doc="project-board">Tasks</button>
           <button type="button" data-doc="project-proposals">Proposals</button>
           <button type="button" data-doc="project-questions">Questions</button>
           <button type="button" data-doc="project-decisions">Decisions</button>
@@ -2562,34 +2608,147 @@ document.getElementById("bdOverlay").addEventListener("click", closeTaskDrawer);
 document.getElementById("bdClose").addEventListener("click", closeTaskDrawer);
 document.addEventListener("keydown", e => { if (e.key === "Escape") closeTaskDrawer(); });
 
-function renderBoard(md, live){
+// ---- the Tasks page: Streams view (sections by work area) with the kanban Board as a toggle ----
+const TASK_VIEW = { view: "streams", size: "all", milestone: "all" };
+const STREAM_META = {
+  engine: "The rules engine — primitives, resolvers, the run frame.",
+  sim: "Bots, harness, and the balance instruments.",
+  balance: "Tuning and telemetry — the numbers game.",
+  design: "Card and system design — the quality bar.",
+  prototype: "Playable surfaces — the toy morning and beyond.",
+  economy: "Handsels, courting, the bench.",
+  meta: "Across-run progression.",
+  docs: "The codex and the reference shelf.",
+  infra: "Toolchain and repo plumbing.",
+  fidelity: "Deferred-fidelity expansions.",
+  general: "Unsorted work.",
+};
+const STREAM_ORDER = Object.keys(STREAM_META);
+const SIZES = ["small", "medium", "large"];
+let BOARD_LIVE = false;
+
+function blockersOf(t){
+  const f = taskFileOf(t.stem);
+  return f ? (f.meta["blocked-by"] || "").split(/[\s,]+/).filter(Boolean).filter(blockerOpen) : [];
+}
+function taskState(t){
+  if (t.done) return "done";
+  const f = taskFileOf(t.stem);
+  if (f){
+    if (blockersOf(t).length) return "blocked";
+    const st = (f.meta.status || "").toLowerCase();
+    if (st === "in proposal" || st === "in progress" || st === "in review") return "active";
+  }
+  if (t.col.toLowerCase() === "in progress") return "active";
+  return "ready";
+}
+function sizeOf(t){
+  const f = taskFileOf(t.stem);
+  return f && f.meta.size ? f.meta.size.toLowerCase() : null;
+}
+function areaOf(t){
+  return t.tags.find(tag => !/^m\d+$/.test(tag) && STREAM_META[tag])
+    ?? t.tags.find(tag => !/^m\d+$/.test(tag)) ?? "general";
+}
+function taskMatches(t){
+  if (TASK_VIEW.size !== "all" && sizeOf(t) !== TASK_VIEW.size) return false;
+  if (TASK_VIEW.milestone !== "all" && !t.tags.includes(TASK_VIEW.milestone)) return false;
+  return true;
+}
+
+function parseBoardMd(md){
   const cols = []; let cur = null;
   for (const line of md.split("\n")){
     const h = line.match(/^## +(.*)/);
     if (h){ cur = {name: h[1].trim(), items: []}; cols.push(cur); continue; }
     const m = line.match(/^- \[( |x)\] +(.*)/);
     if (m && cur){
-      const linkM = m[2].match(/\[([^\]]+)\]\(([^)\s]+)\)/);
+      const text = m[2];
+      const linkM = text.match(/\[([^\]]+)\]\(([^)\s]+)\)/);
+      const title = linkM
+        ? linkM[1]
+        : text.replace(/\(P\d\)\s*/, "").replace(/#[\w-]+/g, "").split(" — ")[0].replace(/\s{2,}/g, " ").trim();
       cur.items.push({
         done: m[1] === "x" || cur.name.toLowerCase() === "done",
-        text: m[2],
+        text, title,
+        col: cur.name,
+        priority: (text.match(/\(P(\d)\)/) ?? [])[1] ?? null,
+        tags: [...text.matchAll(/#([\w-]+)/g)].map(x => x[1]),
         stem: linkM && /\.md$/i.test(linkM[2]) ? stemOf(linkM[2]) : null,
       });
     }
   }
-  BOARD_COLS = cols;
+  return cols;
+}
+
+function sizeDots(t){
+  const s = sizeOf(t);
+  if (!s) return "";
+  const n = SIZES.indexOf(s) + 1;
+  return `<span class="sdots" title="${esc(s)}">${[1, 2, 3].map(i => `<i${i <= n ? ' class="on"' : ""}></i>`).join("")}</span>`;
+}
+function scardHtml(t){
+  const st = taskState(t);
+  const blockers = st === "blocked" ? blockersOf(t) : [];
+  const tag = t.stem ? "button" : "div";
+  return `<${tag}${t.stem ? ' type="button"' : ""} class="scard ${st}${t.stem ? "" : " nofile"}"${t.stem ? ` data-stem="${esc(t.stem)}"` : ""}>
+    <span class="scard-top"><span class="dot ${st}"></span><span class="scard-title">${esc(t.title)}</span></span>
+    <span class="scard-meta"><span class="spill ${st}">${st}</span>${t.priority ? `<span class="prio">P${t.priority}</span>` : ""}${sizeDots(t)}</span>
+    ${blockers.length ? `<span class="scard-blockers">waiting on: ${esc(blockers.join(", "))}</span>` : ""}
+  </${tag}>`;
+}
+function renderStreams(tasks){
+  const groups = new Map();
+  for (const t of tasks){ const a = areaOf(t); if (!groups.has(a)) groups.set(a, []); groups.get(a).push(t); }
+  const order = [...groups.keys()].sort((a, b) => {
+    const ia = STREAM_ORDER.indexOf(a), ib = STREAM_ORDER.indexOf(b);
+    return (ia < 0 ? 99 : ia) - (ib < 0 ? 99 : ib) || a.localeCompare(b);
+  });
+  return `<div class="streams">${order.map(a => {
+    const ts = groups.get(a);
+    const tally = ["ready", "active", "blocked", "done"]
+      .map(s => [s, ts.filter(t => taskState(t) === s).length]).filter(([, n]) => n > 0)
+      .map(([s, n]) => `<b class="t-${s}">${n} ${s}</b>`).join(" · ");
+    return `<section class="stream"><div class="stream-head"><h4>${esc(a)}</h4>
+      <span class="stream-desc">${esc(STREAM_META[a] ?? "")}</span><span class="stream-tally">${tally}</span></div>
+      <div class="sgrid">${ts.map(scardHtml).join("")}</div></section>`;
+  }).join("")}</div>`;
+}
+function renderBoardCols(cols){
   const fmt = t => esc(t)
     .replace(/\[([^\]]+)\]\(([^)]+)\)/g, (_, a) => `<span class="btitle">${a}</span>`)
     .replace(/\(P(\d)\)/g, '<span class="prio">P$1</span>')
     .replace(/#([\w-]+)/g, '<span class="btag">#$1</span>');
-  document.getElementById("boardContent").innerHTML =
-    `<p class="livenote">${live ? "live · planning/TASKS.md" : "snapshot of " + SNAPSHOT_DATE + " — open via a local server for live data"}</p>
-     <div class="bcols">${cols.map(c => `<div class="bcol"><h4>${esc(c.name)}<span>${c.items.length}</span></h4>${
-       c.items.map(i => `<div class="bitem ${i.done ? "done" : ""}${i.stem ? " clickable" : ""}"${i.stem ? ` data-stem="${esc(i.stem)}"` : ""}><span class="bx">${i.done ? "✓" : ""}</span><span>${fmt(i.text)}${i.stem && !i.done ? stateBadge(i) : ""}</span></div>`).join("") || '<div class="bempty">nothing here</div>'
-     }</div>`).join("")}</div>`;
-  document.querySelectorAll("#boardContent .bitem.clickable").forEach(el => {
-    el.addEventListener("click", () => openTaskDrawer(el.dataset.stem));
-  });
+  return `<div class="bcols">${cols.map(c => {
+    const items = c.items.filter(taskMatches);
+    return `<div class="bcol"><h4>${esc(c.name)}<span>${items.length}</span></h4>${
+      items.map(i => `<div class="bitem ${i.done ? "done" : ""}${i.stem ? " clickable" : ""}"${i.stem ? ` data-stem="${esc(i.stem)}"` : ""}><span class="bx">${i.done ? "✓" : ""}</span><span>${fmt(i.text)}${i.stem && !i.done ? stateBadge(i) : ""}</span></div>`).join("") || '<div class="bempty">nothing here</div>'
+    }</div>`;
+  }).join("")}</div>`;
+}
+function renderTasks(){
+  const all = BOARD_COLS.flatMap(c => c.items);
+  const tasks = all.filter(taskMatches);
+  const milestones = [...new Set(all.flatMap(t => t.tags.filter(tag => /^m\d+$/.test(tag))))].sort();
+  const chip = (key, val, label, n) =>
+    `<button type="button" class="tkchip${TASK_VIEW[key] === val ? " active" : ""}" data-k="${key}" data-v="${esc(val)}">${label}${n !== undefined ? `<span class="n">${n}</span>` : ""}</button>`;
+  document.getElementById("boardContent").innerHTML = `
+    <p class="livenote">${BOARD_LIVE ? "live · planning/TASKS.md" : "snapshot of " + SNAPSHOT_DATE + " — open via a local server for live data"}</p>
+    <div class="tkbar"><span class="lbl">view</span>${chip("view", "streams", "Streams")}${chip("view", "board", "Board")}
+      <span class="lbl" style="margin-left:10px">size</span>${chip("size", "all", "All")}${SIZES.map(s => chip("size", s, s[0].toUpperCase() + s.slice(1))).join("")}
+      <span class="tkcount">${tasks.length} tasks</span></div>
+    <div class="tkbar"><span class="lbl">milestone</span>${chip("milestone", "all", "All")}${milestones.map(m => chip("milestone", m, m.toUpperCase(), all.filter(t => t.tags.includes(m)).length)).join("")}</div>
+    <div class="tklegend">${["ready", "active", "blocked", "done"].map(s => `<span><span class="dot ${s}"></span>${s}</span>`).join("")}</div>
+    ${TASK_VIEW.view === "streams" ? renderStreams(tasks) : renderBoardCols(BOARD_COLS)}`;
+  document.querySelectorAll("#boardContent .tkchip").forEach(el =>
+    el.addEventListener("click", () => { TASK_VIEW[el.dataset.k] = el.dataset.v; renderTasks(); }));
+  document.querySelectorAll("#boardContent [data-stem]").forEach(el =>
+    el.addEventListener("click", () => openTaskDrawer(el.dataset.stem)));
+}
+function renderBoard(md, live){
+  BOARD_COLS = parseBoardMd(md);
+  BOARD_LIVE = live;
+  renderTasks();
 }
 // Shared block-markdown → HTML: headings, wrapped lists, blockquotes, tables, inline marks.
 // Used by the Rubric, Decisions, and Questions docs so they render the same way.
