@@ -63,6 +63,32 @@
     border-radius: 12px; color: var(--muted); }
   .notice code { background: var(--panel-2); padding: 1px 6px; border-radius: 5px; color: var(--text); }
   .notice b { color: var(--text); }
+  .state { font-size: 11px; font-weight: 700; padding: 1px 7px; border-radius: 6px; border: 1px solid; }
+  .state.ready { color: var(--done); border-color: var(--done); }
+  .state.blocked { color: var(--p0); border-color: var(--p0); }
+  .card.clickable { cursor: pointer; }
+  .card.clickable:hover { border-color: var(--accent); }
+  #overlay { position: fixed; inset: 0; background: rgba(0,0,0,.45); display: none; }
+  #overlay.open { display: block; }
+  #drawer { position: fixed; top: 0; right: 0; bottom: 0; width: min(560px, 92vw); background: var(--panel);
+    border-left: 1px solid var(--border); display: none; flex-direction: column;
+    box-shadow: -12px 0 32px rgba(0,0,0,.35); }
+  #drawer.open { display: flex; }
+  .dhead { display: flex; align-items: start; justify-content: space-between; gap: 10px;
+    padding: 16px 18px 10px; border-bottom: 1px solid var(--border); }
+  .dhead .ttl { font-size: 17px; font-weight: 700; }
+  .dmeta { display: flex; flex-wrap: wrap; gap: 6px; padding: 10px 18px 0; }
+  .dbody { padding: 4px 18px 24px; overflow-y: auto; }
+  .dbody h2 { font-size: 15px; margin: 18px 0 6px; }
+  .dbody h3, .dbody h4 { font-size: 13px; margin: 14px 0 4px; }
+  .dbody p { margin: 8px 0; }
+  .dbody ul { margin: 6px 0; padding-left: 22px; }
+  .dbody li { margin: 3px 0; list-style: none; margin-left: -8px; }
+  .dbody code { background: var(--panel-2); padding: 1px 5px; border-radius: 5px; font-size: 12.5px; }
+  .dbody pre { background: var(--panel-2); border: 1px solid var(--border); border-radius: 8px;
+    padding: 10px 12px; overflow-x: auto; }
+  .dbody pre code { background: none; padding: 0; }
+  .dbody a { color: var(--accent); }
 </style>
 </head>
 <body>
@@ -87,9 +113,77 @@
 
 <div id="content"></div>
 
+<div id="overlay"></div>
+<aside id="drawer" role="dialog" aria-modal="true">
+  <div class="dhead"><div class="ttl" id="dttl"></div><button id="dclose" aria-label="Close">✕</button></div>
+  <div class="dmeta" id="dmeta"></div>
+  <div class="dbody" id="dbody"></div>
+</aside>
+
 <script>
 const STANDARD = ["Backlog", "Next", "In Progress", "Done"];
 let STATE = { columns: [], title: "Task Dashboard", selectedTags: new Set(), search: "" };
+
+// ---- task-file details, fetched from the board's [Title](tasks/x.md) links ----
+// Enables the Ready/Blocked badges (from `blocked-by:` frontmatter) and the
+// click-through detail drawer. Needs the folder to be served over HTTP; in
+// file-picker mode these fetches fail per-file and the board still renders.
+let FILES = {}; // stem -> { ok, status, size, blockedBy, body }
+
+function stemOf(link) { return (link || "").split("/").pop().replace(/\.md$/i, ""); }
+
+function parseFrontmatter(md) {
+  const m = md.match(/^---\r?\n([\s\S]*?)\r?\n---\r?\n?/);
+  if (!m) return { meta: {}, body: md };
+  const meta = {};
+  m[1].split(/\r?\n/).forEach(l => {
+    const kv = l.match(/^([\w-]+):\s*(.*)$/);
+    if (kv) meta[kv[1].toLowerCase()] = kv[2].trim();
+  });
+  return { meta, body: md.slice(m[0].length) };
+}
+
+async function fetchTaskFiles() {
+  FILES = {};
+  const links = new Set();
+  STATE.columns.forEach(c => c.tasks.forEach(t => { if (t.link && /\.md$/i.test(t.link)) links.add(t.link); }));
+  await Promise.all([...links].map(async link => {
+    try {
+      const res = await fetch(link, { cache: "no-store" });
+      if (!res.ok) throw new Error("HTTP " + res.status);
+      const { meta, body } = parseFrontmatter(await res.text());
+      FILES[stemOf(link)] = {
+        ok: true,
+        status: (meta.status || "").toLowerCase(),
+        size: meta.size || null,
+        blockedBy: (meta["blocked-by"] || "").split(/[\s,]+/).filter(Boolean),
+        body,
+      };
+    } catch { FILES[stemOf(link)] = { ok: false }; }
+  }));
+}
+
+// A blocker counts as complete via its file status or its board checkbox;
+// unknown stems are ignored rather than blocking forever on a typo.
+function boardDone(stem) {
+  for (const c of STATE.columns) for (const t of c.tasks)
+    if (t.link && stemOf(t.link) === stem) return t.done;
+  return undefined;
+}
+function blockerOpen(stem) {
+  const f = FILES[stem], onBoard = boardDone(stem);
+  if (!f && onBoard === undefined) return false;
+  return !((f && f.ok && f.status === "complete") || onBoard === true);
+}
+function stateBadge(t) {
+  if (t.done || !t.link) return "";
+  const f = FILES[stemOf(t.link)];
+  if (!f || !f.ok) return "";
+  const open = (f.blockedBy || []).filter(blockerOpen);
+  if (open.length) return `<span class="state blocked" title="waiting on: ${escapeHtml(open.join(", "))}">Blocked</span>`;
+  if (!f.status || f.status === "to do") return `<span class="state ready">Ready</span>`;
+  return "";
+}
 
 function parseTasks(md) {
   const lines = md.split(/\r?\n/);
@@ -187,6 +281,8 @@ function render() {
       const pcls = t.priority ? t.priority.toLowerCase() : "p3";
       card.className = "card " + pcls + (t.done ? " done" : "");
       const meta = [];
+      const sb = stateBadge(t);
+      if (sb) meta.push(sb);
       if (t.priority) meta.push(`<span class="badge ${pcls}">${t.priority}</span>`);
       if (t.id) meta.push(`<span class="id">${escapeHtml(t.id)}</span>`);
       t.tags.forEach(tag => meta.push(`<span class="tag">#${escapeHtml(tag)}</span>`));
@@ -195,6 +291,11 @@ function render() {
         : escapeHtml(t.title);
       card.innerHTML = `<div class="ttl">${ttlHtml}</div>` +
         (meta.length ? `<div class="meta">${meta.join("")}</div>` : "");
+      const f = t.link && FILES[stemOf(t.link)];
+      if (f && f.ok) {
+        card.classList.add("clickable");
+        card.onclick = (e) => { if (e.target.closest("a")) return; openDrawer(t); };
+      }
       c.appendChild(card);
     });
     board.appendChild(c);
@@ -206,6 +307,64 @@ function render() {
 
 function escapeHtml(s) { return s.replace(/[&<>"']/g, m => ({ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;" }[m])); }
 
+// ---- detail drawer: renders the task file's markdown in-page ----
+// Minimal renderer (headings, lists + checkboxes, code fences, bold, inline
+// code, links) — task files are house-authored, so this small subset is the
+// contract, not a general markdown engine. Input is escaped first.
+function inlineMd(s) {
+  return s
+    .replace(/`([^`]+)`/g, "<code>$1</code>")
+    .replace(/\*\*([^*]+)\*\*/g, "<b>$1</b>")
+    .replace(/\[([^\]]+)\]\(([^)\s]+)\)/g, (m, t, u) => `<a href="${u}" target="_blank" rel="noopener">${t}</a>`);
+}
+function mdToHtml(src) {
+  const out = [];
+  const lines = escapeHtml(src).split(/\r?\n/);
+  let inCode = false, inList = false, para = [];
+  const flushPara = () => { if (para.length) { out.push("<p>" + inlineMd(para.join(" ")) + "</p>"); para = []; } };
+  const closeList = () => { if (inList) { out.push("</ul>"); inList = false; } };
+  for (const line of lines) {
+    if (/^```/.test(line.trim())) {
+      flushPara(); closeList();
+      out.push(inCode ? "</code></pre>" : "<pre><code>"); inCode = !inCode; continue;
+    }
+    if (inCode) { out.push(line); continue; }
+    const h = line.match(/^(#{1,4})\s+(.+)$/);
+    if (h) { flushPara(); closeList(); const lvl = Math.min(h[1].length + 1, 4); out.push(`<h${lvl}>${inlineMd(h[2])}</h${lvl}>`); continue; }
+    const li = line.match(/^\s*[-*]\s+(.+)$/);
+    if (li) {
+      flushPara(); if (!inList) { out.push("<ul>"); inList = true; }
+      let item = li[1];
+      const cb = item.match(/^\[([ xX])\]\s*(.*)$/);
+      if (cb) item = (/[xX]/.test(cb[1]) ? "☑ " : "☐ ") + cb[2];
+      out.push("<li>" + inlineMd(item) + "</li>"); continue;
+    }
+    if (!line.trim()) { flushPara(); closeList(); continue; }
+    para.push(line.trim());
+  }
+  flushPara(); closeList(); if (inCode) out.push("</code></pre>");
+  return out.join("\n");
+}
+
+function openDrawer(t) {
+  const f = FILES[stemOf(t.link)];
+  if (!f || !f.ok) return;
+  document.getElementById("dttl").textContent = t.title;
+  const meta = [];
+  if (f.status) meta.push(`<span class="tag">${escapeHtml(f.status)}</span>`);
+  if (f.size) meta.push(`<span class="tag">${escapeHtml(f.size)}</span>`);
+  (f.blockedBy || []).forEach(s =>
+    meta.push(`<span class="state ${blockerOpen(s) ? "blocked" : "ready"}">⛓ ${escapeHtml(s)}</span>`));
+  document.getElementById("dmeta").innerHTML = meta.join("");
+  document.getElementById("dbody").innerHTML = mdToHtml(f.body || "");
+  document.getElementById("drawer").classList.add("open");
+  document.getElementById("overlay").classList.add("open");
+}
+function closeDrawer() {
+  document.getElementById("drawer").classList.remove("open");
+  document.getElementById("overlay").classList.remove("open");
+}
+
 function load(md, sourceLabel) {
   const parsed = parseTasks(md);
   STATE.columns = parsed.columns;
@@ -213,6 +372,7 @@ function load(md, sourceLabel) {
   document.getElementById("updated").textContent =
     (sourceLabel || "Loaded") + " · " + new Date().toLocaleString();
   render();
+  fetchTaskFiles().then(render); // enrich with Ready/Blocked + details once files arrive
 }
 
 function showNotice() {
@@ -236,6 +396,9 @@ async function fetchTasks() {
 }
 
 document.getElementById("reload").onclick = fetchTasks;
+document.getElementById("dclose").onclick = closeDrawer;
+document.getElementById("overlay").onclick = closeDrawer;
+document.addEventListener("keydown", (e) => { if (e.key === "Escape") closeDrawer(); });
 document.getElementById("clearfilters").onclick = () => { STATE.selectedTags.clear(); STATE.search = ""; document.getElementById("search").value = ""; render(); };
 document.getElementById("search").oninput = (e) => { STATE.search = e.target.value; render(); };
 document.getElementById("pickbtn").onclick = () => document.getElementById("picker").click();
