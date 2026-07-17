@@ -45,6 +45,9 @@ instruments). Kilnfast + Gleaners stay as reference kits and the control group.
 - [x] Phase 0 — feasibility & mechanics review doc; discussed; all P1–P7 picks as recommended,
       logged as D-025 (rubric R3/R10/§7 amended in the same change)
 - [ ] Phase 1 — design briefs for Eveners, Untold, Fairwrights, Mannerly, shared pool
+      *(paused 2026-07-16: Eveners brief done — `docs/way-brief-eveners.html`; next step is the
+      user's first card sketches, capstone suggested first; remaining briefs written as each Way
+      comes up)*
 - [ ] Build card-lint (with card-quality-rubric task) before the first batch
 - [ ] Phase 2 — rebuild batches, one Way per branch, sim-gated
 - [ ] Phase 3 — shared pool + integration sim + difficulty knobs; findings report v3; Review Card
