@@ -15,16 +15,18 @@
 - [ ] (P2) [Map & routing](tasks/map-and-routing.md) — C4: multi-node map, per-leg offers, camp (FIDELITY expansion Phase 5 deferred) #engine #fidelity
 - [ ] (P3) [Meta-progression](tasks/meta-progression.md) — G1–G5: beads, Quiet-Walk hand-on, Way unlocks, deeper Rounds (post-M4) #meta #m5
 - [ ] (P2) Decide M4 balance orchestration — hand-rolled loop vs game-loop skill (QUESTIONS.md §F3; call at first balance sheet) #balance #m4
-- [ ] (P3) Design the bench — courting→piece pipeline (QUESTIONS.md §D2, FIDELITY deferred) #economy #fidelity
+- [ ] (P2) The combing boss — build the Paling-clock boss encounter (deferred canon; D-025 P6, after the way-rebuild kits stabilize) #engine #balance
+- [ ] (P3) Design the bench — courting→piece pipeline (QUESTIONS.md §D2; minimal build lands with way-rebuild's Mannerly batch per D-025 P1) #economy #fidelity
 - [ ] (P3) Apprentice-stuff inventory — how whittle's consumable is acquired & held (QUESTIONS.md §D3, FIDELITY deferred) #economy #fidelity
 
 ## Next
 
 ## In Progress
 - [ ] (P1) [Card Quality Rubric](tasks/card-quality-rubric.md) — design bible + audit dashboard + card-lint; ensure generated cards are good, not just legal (from playtest) #design #balance #m4
-- [ ] (P1) [Card fix pass](tasks/card-fix-pass.md) — Step 4: nerf trivializers, repair the dead-15, complete Eveners/Mannerly loops, then difficulty knobs #balance #m4
+- [ ] (P1) [Way rebuild](tasks/way-rebuild.md) — D-024: rebuild the kits card by card against locked identities (user designs, agent organizes); Kilnfast/Gleaners as controls #design #balance #m4
 
 ## Done
+- [x] (P1) [Card fix pass](tasks/card-fix-pass.md) — Part 1 trivializer nerfs shipped; Parts 2–4 superseded by way-rebuild (D-024) #balance #m4
 - [x] (P1) [Card telemetry & exploit bot](tasks/card-telemetry-and-exploit-bot.md) — per-card sim stats + fill-first exploit cohort; the card evaluator's data layer #sim #balance #m4
 - [x] (P1) [Card flow redesign](tasks/card-flow-redesign.md) — repeatable fills, more flow, pool 49→97 (from playtest) #m4
 - [x] (P1) [Simulation harness](tasks/sim-harness.md) — engine Phase 7, bots + run-driver + the 57-key emitter #sim #m3

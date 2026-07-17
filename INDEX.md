@@ -11,6 +11,7 @@
 - `planning/DECISIONS.md` — dated log of decisions and their rationale (D-001… from the design pipeline onward).
 - `planning/QUESTIONS.md` — the open-decisions register: what canon answers, where code drifts, what still needs a human call. Check it before designing any engine phase.
 - `planning/dashboard.html` — visual task tracker that reads `TASKS.md`.
+- `planning/card-audit.html` — per-card audit dashboard: rubric flags + harness telemetry, baked by `npm run audit` (`scripts/bake-card-audit.mjs`).
 
 ## Locked design canon (read, don't hand-edit — changes go through a decision)
 
@@ -24,12 +25,16 @@
 
 - `src/engine/` — the pure rules engine. Start at `state.ts` (the whole `GameState`), then `vocabulary.ts` (the 14 locked effect primitives), `reads.ts`, `effects.ts`, `morning.ts` (the worked turn), `asking.ts` · `acquisition.ts` · `runframe.ts`, and `validate.ts` (the card firewall).
 - `src/content/cards/` · `src/content/contracts/` — the card pool and contract tiers as JSON. Card behavior is data here, not engine code.
-- `src/sim/` — the balance simulation harness (bots + run-driver + metrics); `npm run sim` → `sim/out/records.json` (gitignored).
+- `src/sim/` — the balance simulation harness (bots incl. the fill-first exploit policy, run-driver, metrics, and the `card-stats.ts` per-card reducer); `npm run sim` → `sim/out/records.json` · `summary.json` · `card-stats.json` (gitignored).
 - `src/toy/main.tsx` — the toy-morning prototype: a design reference, not the engine.
 - `scripts/` — tooling: `run-sim.mjs`, `build-toy.mjs`, `build-site.mjs` (assembles `_site/` for GitHub Pages), `bake-codex.py` (refreshes the codex's baked snapshots — run after planning changes).
 - `planning/brightwell-codex.html` — the single-file codex site (Design · Engine · Data Viewer · Project · Reports); published to `_site/` by `npm run build:site` and deployed via `.github/workflows/deploy.yml`.
 - `planning/readable/` — hand-authored plain-English source for the codex's Questions/Decisions/Glossary tabs; baked into the codex by `bake-codex.py`.
 - `docs/engine-plan.html` — the 8-phase engine build plan.
+- `docs/balance-findings-2026-07-16.html` — Step-3 balance findings: exploit gaps, trivializer cards, the dead-15, flat Ways, fix order.
+- `docs/way-design-review.html` — per-Way design review (canon vs pool vs telemetry): the convergence thesis behind D-024.
+- `docs/way-rebuild-feasibility.html` — way-rebuild Phase 0: card-grammar census, per-Way feasibility matrix, the mechanics menu (P1–P7 picks).
+- `docs/way-brief-eveners.html` — Phase 1 design brief: Eveners identity, laws, kit inventory with keep/rework/cut, slot map, the design-handoff template.
 - `package.json` — dependencies + the `check` / `test` / `sim` / `build:site` scripts; `.nvmrc` pins Node 24.
 
-Keep this map current as the repo grows — a stale pointer is worse than none.
+Keep this map current on any structural change — a file, module, or doc added, moved, renamed, or removed, or the layout reorganized. Add, update, or drop the affected pointer(s) in the same change; a stale pointer is worse than none.

@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Way Design Review — 2026-07-16</title>
+<style>
+  :root { --bg:#0f1115; --panel:#171a21; --border:#2a2f3a; --text:#e6e8ec; --muted:#9aa3b2;
+    --accent:#5b9dff; --good:#34c759; --warn:#ff9f43; --bad:#ff5d5d; }
+  @media (prefers-color-scheme: light) {
+    :root { --bg:#f8f8f6; --panel:#ffffff; --border:#e2e6ec; --text:#1b1f27; --muted:#5b6675; --accent:#2f6df6; }
+  }
+  * { box-sizing: border-box; }
+  body { margin:0; background:var(--bg); color:var(--text); font:16px/1.65 Georgia, serif; }
+  main { max-width: 800px; margin: 0 auto; padding: 48px 24px 80px; }
+  h1 { font-size: 30px; margin: 0 0 4px; }
+  h2 { font-size: 22px; margin: 42px 0 8px; border-bottom: 1px solid var(--border); padding-bottom: 6px; }
+  h3 { font-size: 16px; margin: 18px 0 4px; font-family: -apple-system, sans-serif; color: var(--accent); }
+  .sub { color: var(--muted); font-size: 14px; font-family: -apple-system, sans-serif; }
+  .tldr { background: var(--panel); border: 1px solid var(--border); border-left: 4px solid var(--accent);
+    border-radius: 10px; padding: 16px 20px; margin: 24px 0; }
+  table { border-collapse: collapse; width: 100%; margin: 12px 0; font-family: -apple-system, sans-serif;
+    font-size: 13.5px; background: var(--panel); border: 1px solid var(--border); }
+  th, td { padding: 6px 10px; border-bottom: 1px solid var(--border); text-align: left; vertical-align: top; }
+  th { color: var(--muted); font-size: 12px; text-transform: uppercase; letter-spacing: .04em; }
+  td.num { font-family: ui-monospace, monospace; text-align: right; }
+  .pos { color: var(--good); } .neg { color: var(--bad); } .warn { color: var(--warn); }
+  code { background: var(--panel); border: 1px solid var(--border); border-radius: 5px; padding: 1px 6px; font-size: 13px; }
+  .q { background: var(--panel); border: 1px solid var(--border); border-radius: 8px; padding: 10px 14px;
+    margin: 10px 0; font-family: -apple-system, sans-serif; font-size: 14.5px; }
+  .q b { color: var(--warn); }
+  ul li { margin-bottom: 6px; }
+  .drift { color: var(--bad); font-weight: 600; }
+</style>
+</head>
+<body>
+<main>
+<h1>Way Design Review</h1>
+<div class="sub">2026-07-16 · groundwork for the card-fix-pass Part 3 conversation · sources: GDD §A1–A6
+(locked), card-design.md §7, post-Part-1 telemetry (50 seeds/cohort)</div>
+
+<div class="tldr">
+<b>TL;DR — the Ways converged, and that's the disease.</b> The GDD gives each Way a distinct win-lever:
+Kilnfast compounds a permanent audience, Untold counts <em>this morning's</em> tempo, Fairwrights spike
+overkill into Standing, Mannerly pays by courtship depth, Eveners convert trash to velocity, Gleaners
+farm the grey. But the current pool has <span class="drift">flattened most payoffs into two generic
+reads</span> — <code>fill(chain)</code> and <code>fill(woken:suit)</code>. Untold's count-read
+(<code>grain:thread</code>) appears <em>nowhere</em>; Fairwrights' capstone gained a fill it never had
+in canon (making it the new exploit engine); Mannerly's payoff swapped chain-depth for a woken-count.
+When every Way's payoff is the same verb reading the same two sources, "the cards all play the same"
+isn't a feeling — it's literally true, and fill-spam approximates every identity. <b>Part 3's real job
+is restoring the six distinct levers, not buffing numbers.</b>
+</div>
+
+<h2>Scoreboard (post-Part-1)</h2>
+<table>
+<tr><th>Way</th><th>identity wins</th><th>exploit gap</th><th>kit roles (15 cards)</th><th>dead</th></tr>
+<tr><td>Kilnfast</td><td class="num">19/50</td><td class="num">+4</td><td>7 builders · 4 fillers · 2 cyclers · 2 support</td><td>2</td></tr>
+<tr><td>Eveners</td><td class="num">5/50</td><td class="num warn">+28</td><td class="warn">11 cyclers · 4 fillers · <b>no builder, no payoff</b></td><td>2</td></tr>
+<tr><td>Untold</td><td class="num">10/50</td><td class="num">+10</td><td>8 cyclers · 7 fillers</td><td>0</td></tr>
+<tr><td>Fairwrights</td><td class="num">35/50</td><td class="num warn">+16</td><td>8 builders · 3 fillers · 2 payoffs · 2 cyclers</td><td>1</td></tr>
+<tr><td>Mannerly</td><td class="num">4/50</td><td class="num warn">+30</td><td>8 builders · 5 fillers · 2 cyclers</td><td>1</td></tr>
+<tr><td>Gleaners</td><td class="num pos">26/50</td><td class="num pos">−4</td><td>7 builders · 4 fillers · 3 cyclers · 1 support</td><td>2</td></tr>
+<tr><td>shared pool</td><td class="num">—</td><td class="num">—</td><td>5 builders · 2 support</td><td class="neg">all 7</td></tr>
+</table>
+
+<h2>Kilnfast — the fired, held ✅ mostly canon-true</h2>
+<p><b>Canon:</b> tiny dense deck; fired pieces seat as permanent audience; <code>gather(woken:joinery)</code>
+compounds the room every turn; lowest variance; wins by out-scaling. <b>Pool reality:</b> the signature
+loop survives intact (setterby-trestle → calipers → fired-beam) and the data shows it working: the
+compounder cards carry positive win-deltas, gap only +4. <b>Diagnosis:</b> the healthiest reference
+implementation — this is what "identity that works" looks like in the data.</p>
+<div class="q"><b>Q1.</b> Kilnfast dropped 28→19 wins after Part 1 (cross-Way Fair effects). Is ~40%
+bot win rate the power level to tune the others <em>toward</em>, or is the GDD's .70–.99 crown band the
+bar (which would mean everyone, Kilnfast included, tunes up once bots improve)?</div>
+
+<h2>Eveners — the purse, moving ❌ structurally incomplete</h2>
+<p><b>Canon:</b> retire dead weight into room/table income, whittle the fattened room into bright
+handsels, capstone rest(room)×chain clears the mark — convert, never hoard. <b>Pool reality:</b> the kit
+is <span class="drift">11 cyclers with no payoff role</span> — a conversion engine with nothing to spend
+into. <code>even-the-rim</code> lost its canon <code>rest(room)</code> (it's now a bare
+<code>fill(chain)</code> at capstone cost) and is dead at &lt;3% of plays; every top-played Evener card
+carries a <em>negative</em> win-delta. The bot dutifully cycles and loses. <b>Diagnosis:</b> the loop's
+last link is missing — canon's "fattened room × chain → clear the mark" doesn't exist in data.</p>
+<div class="q"><b>Q2.</b> Restore <code>even-the-rim</code> to canon (rest(room) + the chain glue via
+<code>bright-hand-to-hand</code>) and add one true payoff/builder — or redesign the Evener win-path from
+scratch? (Canon is explicit here; I'd restore first, measure, then judge.)</div>
+
+<h2>Untold — the pace, ratcheted ❌ identity absent from data</h2>
+<p><b>Canon:</b> thin fast deck of cheap <em>exhausting</em> one-shots; pressure = count-and-pace;
+capstone reads <code>grain:thread</code> — <em>pieces woken/stamped this morning</em>, the per-morning
+tempo count — plus chain, converting tempo into one crown burst. <b>Pool reality:</b>
+<span class="drift">no Untold card reads <code>grain:thread</code></span>; paper-bird and
+the-standing-count both read <code>chain</code> — a generic pace-read every Way can use. The one-shot
+exhaust identity ("its pieces never seat") also appears unmodeled — Untold cards have wake marks and
+delight like everyone else's. Part 1 removed its off-canon crutch (long-tally's woken-count fill) and
+wins fell 27→10: without the borrowed Kilnfast lever there's no Untold lever at all.
+<b>Diagnosis:</b> the Way with the least of its canon in the data.</p>
+<div class="q"><b>Q3.</b> Restore the count-lever: the-standing-count reads <code>grain:thread</code>
+per canon. But card-design R3 currently <em>bans</em> bare grain-reads on fills ("dries up once the
+deck is woken") — for the exhaust-and-rewake Untold, the ban is wrong. Amend R3 with an Untold
+exception, or keep the ban and find another count mechanism? Also: does the one-shot exhaust need
+engine/data support (a real fidelity question), or does the thin-deck feel survive without it?</div>
+
+<h2>Fairwrights — the room, spiked ⚠ strong, but for the wrong reason</h2>
+<p><b>Canon:</b> assemble a huge <em>transient</em> crowd, dump it past a ceiling in one enormous turn,
+overkill runs to Standing via <code>brim</code> — the only brim Way; wins by spike, not by fill.
+<b>Pool reality:</b> the-whole-fair-turn is mark 6 (canon: 8) and <span class="drift">gained a
+<code>fill(woken:dance)</code> canon never gave it</span> — so the "spike" Way actually wins by
+generic woken-count filling, and that fill is now the exploit cohort's #1 engine (12% of exploit fill;
+feed-the-crown adds 11%). The gap grew to +16 after Part 1 because exploit decks lean harder on these.
+<b>Diagnosis:</b> strong win rate, weak identity — it wins the way every other Way does, not the way
+canon says.</p>
+<div class="q"><b>Q4.</b> Restore the-whole-fair-turn to canon (mark 8, brim payoff, <em>no</em> fill)?
+That likely drops Fairwrights' win rate meaningfully — brim pays Standing (survival), not fill (the
+win), so canon Fairwrights need crown-filling from somewhere. Canon answer: <code>fill(woken:dance)</code>
+belongs on <em>support</em> pieces (feed-the-crown), the capstone is the gleam spike. Is that split the
+intent to enforce?</div>
+
+<h2>Mannerly — the proud, courted ❌ the loop never fires</h2>
+<p><b>Canon:</b> build chain depth (the performed term) → <code>court</code> proud stock with gleam as a
+pure gate → the proud piece pays by <em>courtship depth</em> (<code>fill(chain)</code>). Dead cards in a
+dim hand until the courtship lands. <b>Pool reality:</b> the payoff (silver-refrain) has the biggest
+play share in the kit and a <b>−27%</b> win-delta — the bot plays the proud piece <em>without</em> the
+term-state, exactly the "dead card in a dim hand" canon warns about. Meanwhile the kit's only positive
+cards (refrain-repeated +49, hold-the-note +40) read <code>woken:song</code> —
+<span class="drift">which contradicts GDD A5's explicit "pays by chain, <em>not</em>
+read(grain:&lt;suit&gt;)"</span> (card-design §7's "fill by the song count" drifted from the GDD).
+<b>Diagnosis:</b> two documented win-paths, and the sim says the non-canon one is the only one working;
+the courtship chain likely never assembles under a greedy bot.</p>
+<div class="q"><b>Q5.</b> Which Mannerly is real — the GDD's courtship-depth engine, or §7's song-count
+engine the data favors? If courtship: the bot needs to be able to execute a 3-step unlock (a Part 3
+bot-policy item), and we should check <code>courtings_landed</code> in the records to see if the court
+ever even fires. This is a locked-canon interpretation call → DECISIONS.md.</div>
+
+<h2>Gleaners — the grey, harvested ✅ quietly the healthiest</h2>
+<p><b>Canon:</b> walk toward the grey — <code>read(spiral/season)</code> scale gather/whittle on pale
+nodes, soothe as the signature payoff, mend what you farmed. <b>Pool reality:</b> the only Way whose
+identity line now <em>beats</em> its exploit line (−4 gap). walk-the-pale turned positive (+15) after
+Part 1. Two pale-route cards are still dead (<code>mend-the-verge</code>, <code>pale-harvest</code>) —
+rings are ~0 early, so early-game they read nothing. <b>Diagnosis:</b> the identity works when the
+weather cooperates; the dead cards are an early-game liveness problem, not an identity problem.</p>
+<div class="q"><b>Q6.</b> Fix the two dead pale cards with early floors (flat base + spiral upside), or
+lean the whole Way harder into rings-camping as a strategy (bigger payoff for standing in the grey)?
+Part 2 territory, but the direction call shapes it.</div>
+
+<h2>Cross-cutting: canon contradictions the audit surfaced</h2>
+<ul>
+<li><b>GDD signature cards vs the tier table.</b> The GDD's own capstones violate
+<code>tiers.json</code>'s locked bands: the-standing-count (canon mark 4, capstone band is 7–8),
+even-the-rim (mark 6). Nine cards now carry R4 flags. Which canon wins — the tier table or the
+signature chains? Needs a logged decision; the audit can't score R4 fairly until it's made.</li>
+<li><b>R3's grain-read ban vs Untold's identity.</b> card-design.md R3 bans bare
+<code>grain:&lt;suit&gt;</code> fills pool-wide; GDD A3 builds Untold's entire identity on one.
+(Engine fact: <code>grain:</code> counts <em>this morning's</em> wakes/stamps — for an exhaust-heavy
+Way it doesn't dry up.) R3 needs an exception clause or A3 needs a re-read.</li>
+<li><b>card-design §7 vs GDD A5</b> on Mannerly's payoff read (song-count vs chain-depth) — see Q5.</li>
+<li><b>The shared base pack is 100% dead</b> — all 7 shared cards flag R14 even in the apprentice
+cohort where they're the whole starting deck. The apprentice wins 0/50 playing them and 16/50 ignoring
+them for drafted fill. They need jobs or cuts (Part 2, group C).</li>
+<li><b>The bot-competence confound.</b> Mannerly's courtship and Fairwrights' one-enormous-turn need
+multi-step setup the greedy bots don't attempt. Before judging those kits weak, Part 3 should teach
+the bots the 3-step line (or hand-verify it) — the sim is a floor, not a verdict (D-016).</li>
+</ul>
+
+<h2>Suggested discussion order</h2>
+<p class="sub">Each is independent; Q5 and the R4 canon call are the two that touch locked docs.</p>
+<ol style="font-family:-apple-system,sans-serif; font-size:14.5px">
+<li>The convergence thesis: agree/disagree that restoring distinct win-levers is Part 3's job.</li>
+<li>Q3 + Q5 — the two identity restorations that need canon rulings (Untold's count, Mannerly's chain).</li>
+<li>Q4 — Fairwrights' fill-vs-brim split (the current top Way changes most).</li>
+<li>Q2 — Eveners' missing loop end (least controversial, canon is explicit).</li>
+<li>Q1 — what "balanced" means numerically before bot improvements land.</li>
+</ol>
+</main>
+</body>
+</html>
