@@ -24,10 +24,9 @@ for (const f of readdirSync("planning")) {
   if (f.startsWith("brightwell-") && f.endsWith(".html") && f !== "brightwell-codex.html")
     copyFileSync(`planning/${f}`, `_site/${f}`);
 }
-copyFileSync("planning/dashboard.html", "_site/dashboard.html");
 copyFileSync("planning/card-audit.html", "_site/card-audit.html");
 copyFileSync("planning/card-design.md", "_site/card-design.md");   // card-audit.html links the rubric
-copyFileSync("planning/TASKS.md", "_site/TASKS.md");   // dashboard.html fetches this at runtime
+copyFileSync("planning/TASKS.md", "_site/TASKS.md");   // the codex Tasks page fetches this at runtime
 
 // every docs/ page ships (engine plan, findings narratives, …); their links back into planning/
 // re-point to the site root, where those pages actually land

@@ -30,7 +30,7 @@ Look for `planning/tasks/$ARGUMENTS.md` (append `.md` if missing). If no match, 
 
    ## Context
    ```
-   If the task can't start until other tasks finish, add `blocked-by: <stem stem …>` to the frontmatter (space/comma-separated task filenames, no `.md`) — the dashboard shows the task as Blocked until every listed task is Complete, then flips it to Ready.
+   If the task can't start until other tasks finish, add `blocked-by: <stem stem …>` to the frontmatter (space/comma-separated task filenames, no `.md`) — the codex Tasks page shows the task as Blocked until every listed task is Complete, then flips it to Ready.
 3. **Add a board line** to `planning/TASKS.md` under `Backlog` (or `Next` if it's up soon), linking to the file:
    `- [ ] (P2) [<Title>](tasks/<name>.md) #<tag>`
 4. Drop into the **To Do** flow and start scoping.
@@ -91,7 +91,7 @@ On every status change, update the task's line on the board:
 | In Review | In Progress | add `#review` tag |
 | Complete | Done | check the box `[x]`, drop `#review` |
 
-Keep the markdown link to the task file on the line — the dashboard renders it as a clickable card.
+Keep the markdown link to the task file on the line — the codex Tasks page renders it as a clickable card.
 
 ## Sizes
 

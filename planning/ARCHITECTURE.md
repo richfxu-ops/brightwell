@@ -38,7 +38,7 @@
 - Simulation: `npm run sim` (esbuild-bundles `src/sim/run.ts` and runs it → `sim/out/records.json` · `summary.json` · `card-stats.json`)
 - Build / run / dev: none yet — engine-only; no lint/format configured (deferred until there's engine code)
 - Napkin sims (pipeline-era, working): `python3 design/napkin/layer-0N.py`
-- Task dashboard: `cd planning && python3 -m http.server 8000` → http://localhost:8000/dashboard.html
+- Task tracker: the codex's Project → Tasks page — `python3 -m http.server 8791` (repo root) → http://localhost:8791/planning/brightwell-codex.html (live data when served; baked snapshot otherwise)
 
 ## Conventions (match these)
 

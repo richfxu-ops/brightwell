@@ -10,7 +10,6 @@
 - `planning/tasks/` — one file per substantial task: its status, size, design, and checklist.
 - `planning/DECISIONS.md` — dated log of decisions and their rationale (D-001… from the design pipeline onward).
 - `planning/QUESTIONS.md` — the open-decisions register: what canon answers, where code drifts, what still needs a human call. Check it before designing any engine phase.
-- `planning/dashboard.html` — visual task tracker that reads `TASKS.md`.
 - `planning/card-audit.html` — per-card audit dashboard: rubric flags + harness telemetry, baked by `npm run audit` (`scripts/bake-card-audit.mjs`).
 
 ## Locked design canon (read, don't hand-edit — changes go through a decision)
@@ -28,7 +27,7 @@
 - `src/sim/` — the balance simulation harness (bots incl. the fill-first exploit policy, run-driver, metrics, and the `card-stats.ts` per-card reducer); `npm run sim` → `sim/out/records.json` · `summary.json` · `card-stats.json` (gitignored).
 - `src/toy/main.tsx` — the toy-morning prototype: a design reference, not the engine.
 - `scripts/` — tooling: `run-sim.mjs`, `build-toy.mjs`, `build-site.mjs` (assembles `_site/` for GitHub Pages), `bake-codex.py` (refreshes the codex's baked snapshots — run after planning changes).
-- `planning/brightwell-codex.html` — the single-file codex site (Design · Engine · Data Viewer · Project · Reports); published to `_site/` by `npm run build:site` and deployed via `.github/workflows/deploy.yml`.
+- `planning/brightwell-codex.html` — the single-file codex site (Design · Engine · Data Viewer · Project · Reports); its Project → Tasks page is **the** task tracker (streams view + kanban + detail drawer). Published to `_site/` by `npm run build:site` and deployed via `.github/workflows/deploy.yml`.
 - `planning/readable/` — hand-authored plain-English source for the codex's Questions/Decisions/Glossary tabs; baked into the codex by `bake-codex.py`.
 - `docs/engine-plan.html` — the 8-phase engine build plan.
 - `docs/balance-findings-2026-07-16.html` — Step-3 balance findings: exploit gaps, trivializer cards, the dead-15, flat Ways, fix order.

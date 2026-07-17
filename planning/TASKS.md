@@ -1,6 +1,6 @@
 # Tasks — Brightwell
 
-> Source of truth for work. Format is fixed so `dashboard.html` can parse it:
+> Source of truth for work. Format is fixed so the codex Tasks page (`brightwell-codex.html` → Project → Tasks) can parse it:
 > columns are `## ` headings; tasks are `- [ ]` / `- [x]`; optional `(P0)`–`(P3)` priority, `#tags`,
 > and a `[Title](tasks/<name>.md)` link to the task's file in `tasks/` (worked via the `/task` skill).
 
