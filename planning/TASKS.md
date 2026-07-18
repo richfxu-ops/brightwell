@@ -22,11 +22,11 @@
 ## Next
 
 ## In Progress
-- [ ] (P2) [Codex card notes & tooltips](tasks/codex-card-notes.md) — plain-English notes in the card JSON, glossary tooltips, bake real card data into the viewer #docs #review
 - [ ] (P1) [Card Quality Rubric](tasks/card-quality-rubric.md) — design bible + audit dashboard + card-lint; ensure generated cards are good, not just legal (from playtest) #design #balance #m4
 - [ ] (P1) [Way rebuild](tasks/way-rebuild.md) — D-024: rebuild the kits card by card against locked identities (user designs, agent organizes); Kilnfast/Gleaners as controls #design #balance #m4
 
 ## Done
+- [x] (P2) [Codex card notes & tooltips](tasks/codex-card-notes.md) — plain-English notes in the card JSON, glossary tooltips, bake real card data into the viewer #docs
 - [x] (P1) [Card fix pass](tasks/card-fix-pass.md) — Part 1 trivializer nerfs shipped; Parts 2–4 superseded by way-rebuild (D-024) #balance #m4
 - [x] (P1) [Card telemetry & exploit bot](tasks/card-telemetry-and-exploit-bot.md) — per-card sim stats + fill-first exploit cohort; the card evaluator's data layer #sim #balance #m4
 - [x] (P1) [Card flow redesign](tasks/card-flow-redesign.md) — repeatable fills, more flow, pool 49→97 (from playtest) #m4

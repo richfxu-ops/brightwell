@@ -1,7 +1,8 @@
 ---
-status: In Review
+status: Complete
 size: Medium
 created: 2026-07-17
+completed: 2026-07-17
 title: Codex card notes & tooltips
 ---
 
@@ -81,3 +82,8 @@ Part 3 — per-card notes
 - [x] Render the note on tile + inspector
 - [x] `npm run check` green
 - [x] Re-bake the codex
+
+Review fixes (user findings): released the two remaining overflow clips
+(`.insp-stats`, `.ecard`) and added a flip-below for tooltips near the viewport
+top; corrected the glossary's delight definition (scoring unit, not a per-morning
+payment) after checking the engine.
