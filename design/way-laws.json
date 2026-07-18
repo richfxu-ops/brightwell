@@ -1,0 +1,50 @@
+{
+  "$note": "Per-Way design laws + pool-wide cost bands, as data. ONE source of truth, two readers: bake-codex.py bakes it into the codex Workbench (WAY_LAWS), and card-lint (card-quality-rubric task) will enforce the machine-checkable rules. Content derives from locked canon + logged decisions (GDD A1-A6, D-025, the Way briefs) — change it via a decision, not a drive-by edit. A Way appears here when its design brief is written; the Workbench lights it up on the next bake.",
+  "pool": {
+    "banned": [
+      {"rule": "fill(room)", "why": "banned pool-wide — a room-sized fill one-shots the crown (D-025 R3 ruling)"}
+    ],
+    "fillReadBans": ["room"],
+    "tiers": [
+      {"id": "apprentice", "mark": [1, 2], "woken_delight": [1, 1]},
+      {"id": "mid", "mark": [3, 5], "woken_delight": [2, 2]},
+      {"id": "proud", "mark": [6, 7], "woken_delight": [3, 3]},
+      {"id": "capstone", "mark": [7, 8], "woken_delight": [3, 5]}
+    ]
+  },
+  "ways": {
+    "eveners": {
+      "name": "The Eveners",
+      "grains": ["dance", "thread"],
+      "winLever": "Retired pieces fatten the room, the chain multiplies it, and the capstone clears its mark on the fattened room — the Way fills by chain.",
+      "coreLoop": "retire → room/table · whittle → handsels · steady → chain · capstone rest(room)",
+      "bannedPrimitives": [
+        {"id": "brim", "why": "Fairwright-only — the Eveners never spike the overflow"},
+        {"id": "soothe", "why": "Gleaner-only — the board is not this Way's business"}
+      ],
+      "fillReads": ["chain"],
+      "amountBans": [
+        {"source": "handsels", "on": ["gather", "rest"], "why": "room is fuelled by retires, never the purse — no read(handsels) feeding gather or room"}
+      ],
+      "laws": [
+        "Room is fuelled by retires, never the purse — no read(handsels) feeding gather or room; handsels are never spent inside a turn.",
+        "Fills read the chain. Bare grain-count fills are Untold-only (D-025), and fill(room) is banned pool-wide.",
+        "Twice-benched grade keys only to chosen last-lightings, never to failure."
+      ],
+      "forks": [
+        ["Room now vs money later", "the fattened room can be whittled into handsels (deck growth) or poured into the capstone (the win). Same fuel, two spouts — the Way's central choice."],
+        ["Retire-to-room vs retire-to-table", "room helps this morning; the table pays tomorrow's dawn, only if you camp. Ties the Way to the camp decision — and at-dusk is an unused trigger begging for it."],
+        ["What to feed the fire", "every retire thins the deck permanently. Composting chaff is free; composting a good card for tempo is a real cost."]
+      ],
+      "slots": [
+        {"id": "capstone", "name": "Capstone payoff", "count": "1", "note": "canon C3 shape at capstone cost — the loop's missing end"},
+        {"id": "chain-filler", "name": "Chain-fillers", "count": "2", "note": "repeatable, read chain; chainwise-gift is the proven model"},
+        {"id": "builder", "name": "Builders (retire→room)", "count": "2–3", "note": "exist today; differentiate by what they compost"},
+        {"id": "money", "name": "Money engine (whittle)", "count": "2", "note": "the handsel-velocity identity"},
+        {"id": "support", "name": "Consistency supports", "count": "2–3", "note": "the open space: on-stall brace, at-dusk camp/table, on-wake one-timers"},
+        {"id": "cycler", "name": "Cyclers (draw)", "count": "2", "note": "fewer than today; the thin-deck refill"}
+      ],
+      "brief": "../docs/way-brief-eveners.html"
+    }
+  }
+}

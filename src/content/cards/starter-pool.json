@@ -482,12 +482,13 @@
     {
       "id": "even-the-rim",
       "name": "Even the Rim",
-      "note": "The Eveners' payoff: fills by your chain and hands back two cards on each fulfilment — the round that keeps the round going.",
+      "note": "The Eveners' payoff, restored: wakes itself on the room your retires fattened, fills by your chain, and hands a card back on each fulfilment.",
       "grain": "dance",
-      "mark": 6,
-      "ceiling": 8,
+      "mark": 7,
+      "ceiling": 9,
       "woken_delight": 3,
       "tags": [
+        "role:capstone",
         "starter",
         "chain:C3",
         "capstone"
@@ -495,6 +496,17 @@
       "archetype": "eveners",
       "combo": true,
       "effects": [
+        {
+          "when": "on-play",
+          "do": "rest",
+          "params": {
+            "target": "self",
+            "amount": {
+              "do": "read",
+              "source": "room"
+            }
+          }
+        },
         {
           "when": "on-play",
           "do": "fill",
@@ -509,7 +521,7 @@
           "when": "on-fulfil",
           "do": "draw",
           "params": {
-            "n": 2
+            "n": 1
           }
         }
       ]

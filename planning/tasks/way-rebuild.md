@@ -50,4 +50,7 @@ instruments). Kilnfast + Gleaners stay as reference kits and the control group.
       comes up)*
 - [ ] Build card-lint (with card-quality-rubric task) before the first batch
 - [ ] Phase 2 — rebuild batches, one Way per branch, sim-gated
+      *(Eveners batch begun 2026-07-17: even-the-rim reworked to canon C3 — the first card designed
+      through the Workbench (D-027); landed on the `workbench` branch as the tool's acceptance
+      test; the rest of the batch gets its own branch after that merges)*
 - [ ] Phase 3 — shared pool + integration sim + difficulty knobs; findings report v3; Review Card

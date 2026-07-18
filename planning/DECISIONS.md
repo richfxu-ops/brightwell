@@ -1,5 +1,18 @@
 # DECISIONS.md — pipeline-test-02
 
+## D-027 · The Workbench — codex card-design workshop, shape A+ (2026-07-17, user-decided)
+A card-design workshop screen enters the codex to support way-rebuild Phase 2 (concept + option
+analysis: `docs/card-workshop-concept.html`; task: `planning/tasks/workbench.md`). **Shape A+**
+chosen over A (sketch-only), B (full builder), C (no screen):
+- **Compile to JSON is mechanical serialization only** — the form's fields mirror the card schema,
+  so emitting JSON is formatting, not judgment. No rule logic is reimplemented in the browser;
+  the emitted card is a *draft* that still runs validate.ts + card-lint + batch sim before
+  entering the pool. Rejected B because a second, hand-copied rule engine in the codex HTML
+  drifts and then lies about legality.
+- **Two honesty requirements:** per-Way laws become shared data (one file read by both the codex
+  bake and card-lint — no drift) and every fiddly param has a plain-English escape hatch that
+  compiles to a TODO the agent resolves.
+
 ## D-026 · Card notes live in the card JSON; codex card data is baked, not copied (2026-07-17, user-decided)
 From the codex-card-notes task (Data Viewer readability):
 - **Per-card plain-English notes are a `note` field on the cards in `starter-pool.json`** (optional

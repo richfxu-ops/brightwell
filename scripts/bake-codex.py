@@ -4,7 +4,8 @@
 Run after any planning change worth publishing:
     python3 scripts/bake-codex.py
 Refreshes TASKS_SNAPSHOT, RUBRIC_SNAPSHOT, REPORTS_SNAPSHOT, PROPOSALS_SNAPSHOT
-(all task files), and SNAPSHOT_DATE inside planning/brightwell-codex.html. Board / Card
+(all task files), WAY_LAWS (the Workbench's per-Way laws, from design/way-laws.json),
+and SNAPSHOT_DATE inside planning/brightwell-codex.html. Board / Card
 Rubric / Reports / Proposals fetch live markdown when served over http and fall back to
 these snapshots for file:// viewing.
 
@@ -58,6 +59,8 @@ replacements = {
     r'const SNAPSHOT_DATE = "[^"]*";': f'const SNAPSHOT_DATE = "{today}";',
     # the Data Viewer's card data — always the shipped pool, never a hand-copy
     r"const CARDS_SNAPSHOT = .*?;\n": f"const CARDS_SNAPSHOT = {json.dumps(json.loads(read('src/content/cards/starter-pool.json')))};\n",
+    # the Workbench's per-Way laws — shared with card-lint; design/way-laws.json is the source of truth
+    r"const WAY_LAWS = .*?;\n": f"const WAY_LAWS = {json.dumps(json.loads(read('design/way-laws.json')))};\n",
     r"const TASKS_SNAPSHOT = .*?;\n": f"const TASKS_SNAPSHOT = {json.dumps(read('planning/TASKS.md'))};\n",
     # Questions / Decisions / Glossary tabs render hand-authored plain-English mirrors, not raw markdown.
     # Source of truth: planning/readable/*.html — re-write those when QUESTIONS.md/DECISIONS.md change, then re-bake.
