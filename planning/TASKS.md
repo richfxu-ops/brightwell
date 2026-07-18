@@ -18,6 +18,7 @@
 - [ ] (P2) The combing boss — build the Paling-clock boss encounter (deferred canon; D-025 P6, after the way-rebuild kits stabilize) #engine #balance
 - [ ] (P3) Design the bench — courting→piece pipeline (QUESTIONS.md §D2; minimal build lands with way-rebuild's Mannerly batch per D-025 P1) #economy #fidelity
 - [ ] (P3) Apprentice-stuff inventory — how whittle's consumable is acquired & held (QUESTIONS.md §D3, FIDELITY deferred) #economy #fidelity
+- [ ] (P3) Rule GDD A6 vs R3 — the Gleaner capstone's canon fill(room) vs the pool-wide fill(room) ban (D-025); unruled, surfaces only if the Gleaner control kit is touched (found writing the six-Ways reference) #design #balance
 
 ## Next
 - [ ] (P2) [The Workbench](tasks/workbench.md) — D-027: codex card-design workshop, shape A+ (slot board, identity panel, crib, sketch form + mechanical compile); concept: docs/card-workshop-concept.html; supports way-rebuild Phase 2 #design #docs
