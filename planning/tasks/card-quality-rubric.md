@@ -43,7 +43,8 @@ and ask whether it pays back **on play and on replay**.
       `npm run audit` (codex pattern): §8 scorecard rows, rubric [LINT] flags, harness telemetry
       (play-share, win-deltas, exploit-fill share), suggested verdicts. First findings written up in
       `docs/balance-findings-2026-07-16.html`.
-- [ ] Build **card-lint** — the [LINT] rules as a build-time check; `npm run check` fails on violation.
+- [x] Build **card-lint** — `src/engine/card-lint.ts` + tests; the pool test makes `npm run check`
+      fail on violation. Enforces R2, R3, and the way-laws.json machine rules (core set — see Decisions).
 - [ ] Bake the rubric into the **card-smith brief** template so generation follows it.
 - [ ] Fix the cards the audit + lint flag (start: Even the Rim / R2 overflow-must-be-spent); re-lint +
       re-harness green; Review Card.
@@ -52,3 +53,16 @@ and ask whether it pays back **on play and on replay**.
 
 - **Rubric-first, full 3-layer (user-decided, 2026-07-14).** Nail the rubric before the audit/lint,
   since both derive from it; invest in the automated lint so generated cards are checked forever.
+- **Lint scope: core rules only (user-decided, 2026-07-18).** card-lint hard-fails on R2, R3, and
+  the way-laws.json machine rules — all clean in today's pool, so the tripwire arms green. R4 bands
+  (8 current mismatches; a [REVIEW] rule) stay audit-dashboard flags; R7 starter-core completeness
+  waits for the way-rebuild briefs (Mannerly's payoff definition is the unruled §7-vs-A5 question) —
+  way-laws.json per-Way `slots` is its natural future home. Alternatives (lint them now) were
+  rejected to keep known legacy problems owned by way-rebuild instead of blocking the build.
+- **Code-review deferrals (2026-07-18; full report: `docs/code-review-card-lint-2026-07-18.html`).**
+  Two lint gaps left open as design calls for way-rebuild: (1) R3's *positive* allowlist
+  ("fills read woken/chain") is enforced only for Ways with a `fillReads` entry — deliberate,
+  each brief lands its own allowlist; rule it pool-wide only if a brief-less Way ships first.
+  (2) `amountBans` match sources exactly while `fillReads` prefix-match — unify the matcher
+  before anyone writes a family-level ban (e.g. `source:"grain"`), which today would silently
+  never fire.

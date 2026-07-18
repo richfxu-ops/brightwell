@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Code Review — card-lint (2026-07-18)</title>
+<style>
+  :root {
+    --bg: #faf8f4; --ink: #2b2620; --muted: #7a715f; --card: #ffffff;
+    --line: #e6e0d4; --confirmed: #b3402a; --plausible: #a07d1c; --low: #6b7b52;
+    --refuted: #7a715f; --accent: #3c5a78; --chip: #f0ebe0;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #201d18; --ink: #e8e2d6; --muted: #a89d88; --card: #2a2620;
+      --line: #3d382f; --confirmed: #e07a5f; --plausible: #d4b04a; --low: #a3b58a;
+      --refuted: #a89d88; --accent: #8fb3d9; --chip: #353027;
+    }
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; padding: 2rem 1rem 4rem; background: var(--bg); color: var(--ink);
+         font: 16px/1.55 Georgia, 'Times New Roman', serif; }
+  main { max-width: 860px; margin: 0 auto; }
+  h1 { font-size: 1.6rem; margin: 0 0 .25rem; }
+  h2 { font-size: 1.15rem; margin: 2.2rem 0 .8rem; border-bottom: 1px solid var(--line); padding-bottom: .3rem; }
+  .sub { color: var(--muted); margin-bottom: 1.6rem; }
+  .tally { display: flex; gap: .6rem; flex-wrap: wrap; margin: 1rem 0 0; }
+  .tally span { background: var(--chip); border-radius: 999px; padding: .2rem .8rem; font-size: .85rem; }
+  .finding { background: var(--card); border: 1px solid var(--line); border-left: 4px solid var(--muted);
+             border-radius: 8px; padding: .9rem 1.1rem; margin: .8rem 0; }
+  .finding.confirmed { border-left-color: var(--confirmed); }
+  .finding.plausible { border-left-color: var(--plausible); }
+  .finding.low { border-left-color: var(--low); }
+  .head { display: flex; gap: .6rem; align-items: baseline; flex-wrap: wrap; margin-bottom: .35rem; }
+  .num { color: var(--muted); font-size: .85rem; }
+  .verdict { font-size: .72rem; letter-spacing: .06em; font-weight: bold; padding: .1rem .5rem;
+             border-radius: 4px; color: var(--bg); }
+  .confirmed .verdict { background: var(--confirmed); }
+  .plausible .verdict { background: var(--plausible); }
+  .low .verdict { background: var(--low); }
+  .cat { font-size: .78rem; color: var(--muted); }
+  .loc { font-family: ui-monospace, Menlo, monospace; font-size: .82rem; color: var(--accent); }
+  .summary { margin: .2rem 0 .45rem; font-weight: 600; }
+  .scenario { margin: 0; color: var(--muted); font-size: .92rem; }
+  .scenario b { color: var(--ink); }
+  .refuted-item { background: var(--card); border: 1px solid var(--line); border-left: 4px solid var(--refuted);
+                  border-radius: 8px; padding: .7rem 1.1rem; margin: .6rem 0; font-size: .92rem; }
+  .refuted-item .why { color: var(--muted); }
+  .note { background: var(--chip); border-radius: 8px; padding: .8rem 1.1rem; font-size: .92rem; margin-top: 1rem; }
+  code { font-family: ui-monospace, Menlo, monospace; font-size: .85em; background: var(--chip);
+         padding: .06em .3em; border-radius: 3px; }
+</style>
+</head>
+<body>
+<main>
+  <h1>Code review — card-lint</h1>
+  <p class="sub">Branch <code>card-lint</code>, working-tree diff · 2026-07-18 · xhigh effort: 10 finder angles → 53 candidates → deduped to 12 → 11 adversarial verifiers → gap sweep.
+  <span class="tally"><span>🔴 12 confirmed</span><span>🟡 2 plausible</span><span>🟢 1 low</span><span>⚪ 4 refuted</span><span>build stays green today</span></span></p>
+
+  <h2>What matters most</h2>
+  <p>Nothing breaks today's build — the pool is genuinely clean. The real story is <b>latent gaps in the tripwire itself</b>: three ways a future bad card could slip past the lint, and two ways the lint's own tests wouldn't notice the lint breaking. All are small fixes.</p>
+
+  <h2>Findings (ranked)</h2>
+
+  <div class="finding confirmed"><div class="head"><span class="num">1</span><span class="verdict">CONFIRMED</span><span class="cat">correctness</span><span class="loc">src/engine/card-lint.ts:62</span></div>
+    <p class="summary">R2 misses a rest-self whose <code>target</code> is omitted.</p>
+    <p class="scenario">The engine treats a missing target as "self" (<code>effects.ts:77-79</code>) and the validator permits omitting it — but the lint checks for the literal string <code>"self"</code> only. A future card written <code>{do:"rest", params:{amount:3}}</code> with no fill/brim is the exact dead-headline R2 exists to catch, and it lints clean. <b>Latent</b>: all 20 rests in today's pool spell out a target. <b>Fix:</b> treat <code>undefined</code> target as self.</p></div>
+
+  <div class="finding confirmed"><div class="head"><span class="num">2</span><span class="verdict">CONFIRMED</span><span class="cat">correctness</span><span class="loc">src/engine/card-lint.ts:77</span></div>
+    <p class="summary">A misspelled archetype silently gets zero way-law enforcement.</p>
+    <p class="scenario"><code>archetype</code> is a free string, never validated against a closed set anywhere in the codebase. A card tagged <code>"evener"</code> (typo of <code>"eveners"</code>) skips every Eveners law — and since a typo produces <i>fewer</i> lint hits, the enforcing test stays green precisely when it should fail. <b>Fix:</b> lint unknown archetypes as violations (known Ways ∪ "shared").</p></div>
+
+  <div class="finding confirmed"><div class="head"><span class="num">3</span><span class="verdict">CONFIRMED</span><span class="cat">test-coverage</span><span class="loc">src/engine/card-lint.test.ts:95</span></div>
+    <p class="summary">The enforcing pool test is never proven able to fire.</p>
+    <p class="scenario">Every test asserts clean results; none feeds <code>lintPool</code> a violating pool. A refactor that accidentally makes <code>lintPool</code> return <code>[]</code> would disarm the quality gate with the whole suite green. <b>Fix:</b> one test asserting a known-bad pool returns non-empty.</p></div>
+
+  <div class="finding confirmed"><div class="head"><span class="num">4</span><span class="verdict">CONFIRMED</span><span class="cat">correctness</span><span class="loc">src/engine/card-lint.ts:13</span></div>
+    <p class="summary">A mis-keyed field in way-laws.json silently disables a law.</p>
+    <p class="scenario">All three enforced fields of <code>WayLawset</code> are optional, and TypeScript applies no excess-property check to a JSON import — so fat-fingering <code>fillReads</code> → <code>fillRead</code> compiles, tests pass, and the allowlist is quietly gone. The exact silent-under-enforcement class the lint exists to prevent. <b>Fix:</b> a shape assertion in the test (fail on unknown keys).</p></div>
+
+  <div class="finding confirmed"><div class="head"><span class="num">5</span><span class="verdict">CONFIRMED</span><span class="cat">correctness</span><span class="loc">scripts/bake-card-audit.mjs:60</span></div>
+    <p class="summary">The new "keep in sync" comment is already false — the audit baker diverges from the lint two ways.</p>
+    <p class="scenario">The baker's grain-fill flag lacks the Untold exemption (D-025) the lint applies, and it hardcodes <code>"room"</code> where the lint reads <code>fillReadBans</code> from data. Latent until the first legal Untold grain-fill card lands — then the dashboard wrongly says "fix" on a card the build accepts. <b>Fix:</b> add the exemption + read the ban list from way-laws.json.</p></div>
+
+  <div class="finding plausible"><div class="head"><span class="num">6</span><span class="verdict">PLAUSIBLE</span><span class="cat">correctness / design call</span><span class="loc">src/engine/card-lint.ts:66</span></div>
+    <p class="summary">R3's positive rule ("fills read woken or chain") is unenforced — only the bans are.</p>
+    <p class="scenario">Five of six Ways have no allowlist, so a fill reading <code>season</code>, <code>spiral</code>, or <code>handsels</code> lints clean. Possibly intended — allowlists arrive as each Way's brief lands — but that deferral is nowhere written down. <b>Your call:</b> enforce pool-wide now, or note the deferral explicitly in the task file.</p></div>
+
+  <div class="finding plausible"><div class="head"><span class="num">7</span><span class="verdict">PLAUSIBLE</span><span class="cat">correctness / api trap</span><span class="loc">src/engine/card-lint.ts:45</span></div>
+    <p class="summary">Bans match sources exactly; allowlists match by prefix — inconsistent semantics.</p>
+    <p class="scenario">A future family-level ban like <code>{source:"grain"}</code> would silently never fire (real sources are always <code>grain:&lt;suit&gt;</code>), while the neighbouring allowlist would have matched the family. Latent — today's only ban is a complete source. <b>Fix:</b> use the same matcher for both.</p></div>
+
+  <div class="finding confirmed"><div class="head"><span class="num">8</span><span class="verdict">CONFIRMED</span><span class="cat">test-coverage</span><span class="loc">src/engine/card-lint.test.ts:35</span></div>
+    <p class="summary">R2's brim exemption branch has zero test coverage.</p>
+    <p class="scenario">The only accept-case pairs rest-self with a fill, never a brim. If the brim clause is ever dropped, every legitimate Fairwright rest-self+brim card hard-fails the build while the suite stays green. <b>Fix:</b> one rest-self + brim accept-case.</p></div>
+
+  <div class="finding confirmed"><div class="head"><span class="num">9</span><span class="verdict">CONFIRMED</span><span class="cat">docs</span><span class="loc">INDEX.md:26</span></div>
+    <p class="summary">INDEX overclaims: "the card-design bible's [LINT] rules" — R7 is enforced nowhere at build time.</p>
+    <p class="scenario">A reader could trust the index, skip design review, and ship a Way with no starter payoff — the 0-win trap R7 exists to catch. <b>Fix:</b> one word — "rules" → "core subset (R2/R3 + way-laws)".</p></div>
+
+  <div class="finding confirmed"><div class="head"><span class="num">10</span><span class="verdict">CONFIRMED</span><span class="cat">docs / process</span><span class="loc">planning/brightwell-codex.html:3253</span></div>
+    <p class="summary">The codex's baked copy of way-laws.json is stale.</p>
+    <p class="scenario">The $note was edited after the last bake, so the Workbench still shows "will enforce" future-tense text. <b>Fix:</b> re-run <code>python3 scripts/bake-codex.py</code>.</p></div>
+
+  <div class="finding confirmed"><div class="head"><span class="num">11</span><span class="verdict">CONFIRMED</span><span class="cat">reuse</span><span class="loc">src/engine/card-lint.ts:25</span></div>
+    <p class="summary"><code>hasVerb</code> is the <i>fifth</i> copy of the same effects-scan predicate in the codebase.</p>
+    <p class="scenario">policies.ts (×2), driver.ts, toy/main.tsx, now card-lint — past your own "wait for the third use" rule, so a shared helper in vocabulary.ts is now warranted, not premature.</p></div>
+
+  <div class="finding confirmed"><div class="head"><span class="num">12</span><span class="verdict">CONFIRMED</span><span class="cat">reuse</span><span class="loc">src/engine/card-lint.test.ts:12</span></div>
+    <p class="summary">The minimal-Card test fixture is the fourth hand-rolled copy across test suites.</p>
+    <p class="scenario">firewalls, asking, runframe, now card-lint — none centralized in test-helpers.ts, whose stated purpose is "one edit, not three". A new required Card field means four independent edits, one of which gets missed behind a cast. <b>Fix:</b> add a <code>card()</code> builder to test-helpers.ts.</p></div>
+
+  <div class="finding confirmed"><div class="head"><span class="num">13</span><span class="verdict">CONFIRMED</span><span class="cat">simplification / data</span><span class="loc">design/way-laws.json:4</span></div>
+    <p class="summary"><code>pool.banned</code> (display) and <code>pool.fillReadBans</code> (enforcement) state the same fact twice.</p>
+    <p class="scenario">A future ruling logged only in <code>banned</code> is shown in the codex but never enforced. <b>Fix:</b> derive the display entry from the enforced list (one source of truth).</p></div>
+
+  <div class="finding low"><div class="head"><span class="num">14</span><span class="verdict">CONFIRMED · LOW</span><span class="cat">correctness-minor</span><span class="loc">src/engine/card-lint.ts:49</span></div>
+    <p class="summary">One violation can be reported twice (pool ban + Way allowlist overlap).</p>
+    <p class="scenario">An Eveners fill reading <code>room</code> would produce both an R3 line and a way-law line for the same effect. Cosmetic; arguably two independent rules.</p></div>
+
+  <div class="finding confirmed"><div class="head"><span class="num">15</span><span class="verdict">CONFIRMED</span><span class="cat">conventions</span><span class="loc">working tree</span></div>
+    <p class="summary">The branch mixes unrelated changes — against your "small, single-purpose diffs" rule.</p>
+    <p class="scenario">CLAUDE.md preference edits, the story-and-cast task, and a pre-session balance-sheet.md edit share the tree with the lint code. <b>Fix at commit time:</b> separate commits — planning edits apart from card-lint code; leave balance-sheet.md out of both.</p></div>
+
+  <h2>Checked and cleared (refuted candidates)</h2>
+  <div class="refuted-item"><b>R2 over-fires on cards that can't overflow</b> — <span class="why">refuted: attention accumulates on a piece across replays and the chain multiplies it, so any positive rest-self can eventually crest any ceiling. The blanket check is correct.</span></div>
+  <div class="refuted-item"><b>R2 satisfied by an "unrelated" fill</b> — <span class="why">refuted: the canonical Even-the-Rim fix is exactly that pattern (only <code>brim</code> mechanically consumes overflow), so presence-of-fill/brim is the intended decidable proxy.</span></div>
+  <div class="refuted-item"><b>if-guard reads bypass the Eveners purse ban</b> — <span class="why">refuted: a guard is canonically a pure gate — never spent, never feeding — and the ban targets feeds, whose only slot for gather/rest is <code>params.amount</code>, exactly what the lint checks.</span></div>
+  <div class="refuted-item"><b>No runtime enforcement gate</b> — <span class="why">refuted: <code>assertPoolValid</code> is equally test-only, so card-lint matches the sibling pattern; pipeline wiring is already an owned roadmap item.</span></div>
+
+  <p class="note"><b>Suggested fix order:</b> quick wins first — findings 1, 2, 3, 8 (two predicate fixes + two tests), 10 (re-bake), 9 (one word) — then 5 (baker sync), 11–13 (reuse/data cleanups), with 6 and 7 recorded as design notes for the way-rebuild to rule on. 15 is handled at commit time.</p>
+</main>
+</body>
+</html>

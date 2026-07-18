@@ -25,6 +25,9 @@ if (!cardStats.cards.some(c => c.cohorts.some(k => k.policy === "exploit")))
   fail("card-stats.json has no exploit cohorts (stale shape) — re-run `npm run sim`");
 
 // --- rubric checks decidable from card data (the [LINT]-shaped subset of §1-§2) ---
+// The hard [LINT] rules are ALSO enforced at build time by src/engine/card-lint.ts (via its
+// pool test); this copy additionally computes [REVIEW]-shaped display flags (R4/R6) the lint
+// deliberately does not enforce. Keep the R2/R3 logic in sync with card-lint.ts.
 
 const hasVerb = (card, verb) => card.effects.some(e => e.do === verb);
 // Fill amounts are flat numbers or a single read expr ({do:"read", source}); if compound amounts
@@ -49,12 +52,19 @@ function wdMismatch(card, tier) {
   return !inRange(card.woken_delight, t.woken_delight);
 }
 
+// Pool-wide fill-read bans come from the same data card-lint enforces, not a literal here.
+const FILL_READ_BANS = readJson("design/way-laws.json").pool.fillReadBans;
+
 function rubricFlags(card, tier) {
   const flags = [];
-  const restSelf = card.effects.some(e => e.do === "rest" && e.params?.target === "self");
+  // An omitted rest target defaults to self in the engine — same predicate as card-lint.ts.
+  const restSelf = card.effects.some(e => e.do === "rest" && (e.params?.target ?? "self") === "self");
   if (restSelf && !hasVerb(card, "fill") && !hasVerb(card, "brim")) flags.push("R2·bare-rest-self");
-  if (fillReads(card, s => s === "room")) flags.push("R3·fill-reads-room");
-  if (fillReads(card, s => s.startsWith("grain:"))) flags.push("R3·grain-fill");
+  for (const ban of FILL_READ_BANS) {
+    if (fillReads(card, s => s === ban)) flags.push(`R3·fill-reads-${ban}`);
+  }
+  // Bare grain-count fills are Untold-only (D-025) — their exhaust loop keeps the count live.
+  if (fillReads(card, s => s.startsWith("grain:")) && card.archetype !== "untold") flags.push("R3·grain-fill");
   // mark range matters too: a tag-assigned tier (capstone) can carry an out-of-band mark
   if (!inRange(card.mark, TIERS[tier].mark) || wdMismatch(card, tier)) flags.push("R4·band-mismatch");
   if (card.tags?.includes("capstone") && !hasVerb(card, "fill") && !hasVerb(card, "brim"))
