@@ -58,7 +58,10 @@ with a *mechanical* Compile-to-JSON; all rule checking stays in TypeScript.
       reload via localStorage. way-laws.json gained machine fields `fillReads`/`amountBans`/
       `fillReadBans` for the soft warnings — card-lint reads the same fields)*
 - [ ] Chunk 3 — precedent shelf with baked telemetry
-- [ ] First real use: sketch the Eveners capstone through it; the agent pipeline accepts the draft
+- [x] First real use: the Eveners capstone (2026-07-17) — user picked shape A from a pitched
+      option set (self-contained: rest(room) + fill(chain) + draw@fulfil); compiled to the draft
+      wrapper, swapped into the pool as the even-the-rim rework, passed validate.ts + note test +
+      rubric REVIEW; single-card sim preview run (batch sim still gates the full kit)
 - [ ] Review Card; board + INDEX current
 
 ## Decisions
