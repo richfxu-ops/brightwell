@@ -64,9 +64,9 @@ Three parts, in order — the pipeline fix first so the new content lands on rea
 ## Plan
 
 Part 1 — real card data in the viewer
-- [ ] `bake-codex.py`: bake `CARDS_SNAPSHOT` from `starter-pool.json`
-- [ ] Codex: derive `GROUPS` from the snapshot; delete the hand-pasted constant
-- [ ] Verify: 97 pieces counted; way/grain/role filters, inspector, and Effects-tab
+- [x] `bake-codex.py`: bake `CARDS_SNAPSHOT` from `starter-pool.json`
+- [x] Codex: derive `GROUPS` from the snapshot; delete the hand-pasted constant
+- [x] Verify: 97 pieces counted; way/grain/role filters, inspector, and Effects-tab
       cross-links still work
 
 Part 2 — glossary tooltips
