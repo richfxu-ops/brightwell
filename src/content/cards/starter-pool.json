@@ -3,6 +3,7 @@
     {
       "id": "sprig-trestle",
       "name": "Sprig Trestle",
+      "note": "The apprentice crowd-caller: seats onlookers to match your joinery count. Every run's first way of filling the room.",
       "grain": "joinery",
       "mark": 1,
       "ceiling": 2,
@@ -28,6 +29,7 @@
     {
       "id": "pegged-bench",
       "name": "Pegged Bench",
+      "note": "The apprentice chain-piece — adds a link so your next play lands harder. Teaches the habit every Way builds on: don't stall.",
       "grain": "joinery",
       "mark": 1,
       "ceiling": 2,
@@ -50,6 +52,7 @@
     {
       "id": "loose-thread",
       "name": "Loose Thread",
+      "note": "The plainest of pieces: it just resists the Paling one extra season. No combo, no trick — a safe hold in the early hand.",
       "grain": "thread",
       "mark": 1,
       "ceiling": 2,
@@ -70,6 +73,7 @@
     {
       "id": "kettle-loaf",
       "name": "Kettle-Loaf",
+      "note": "Plain bread: a flat bit of delight, no combo, no setup. The dependable baseline your first mornings lean on.",
       "grain": "dough",
       "mark": 1,
       "ceiling": 2,
@@ -93,6 +97,7 @@
     {
       "id": "hearth-hum",
       "name": "Hearth-Hum",
+      "note": "Sprig Trestle's song-side twin: seats onlookers to match your song count.",
       "grain": "song",
       "mark": 2,
       "ceiling": 3,
@@ -118,6 +123,7 @@
     {
       "id": "grey-bowl",
       "name": "Grey Bowl",
+      "note": "The glaze twin of the apprentice crowd-callers: onlookers to match your glaze count. Gleaners-to-be lean on it early.",
       "grain": "glaze",
       "mark": 2,
       "ceiling": 3,
@@ -143,6 +149,7 @@
     {
       "id": "first-step",
       "name": "First Step",
+      "note": "The dance twin of the apprentice crowd-callers: onlookers to match your dance count. A Fairwright's first stage.",
       "grain": "dance",
       "mark": 2,
       "ceiling": 3,
@@ -168,6 +175,7 @@
     {
       "id": "setterby-trestle",
       "name": "Setterby Trestle",
+      "note": "Opens the Kilnfast chain: the crowd it seats grows with every piece you've fired for good, and it braces the chain while it builds.",
       "grain": "joinery",
       "mark": 2,
       "ceiling": 4,
@@ -202,6 +210,7 @@
     {
       "id": "calipers-at-the-bench",
       "name": "Calipers at the Bench",
+      "note": "The middle of the chain: pours spare attention onto your held capstone, and once woken it stamps off-suit cards 'joinery' so the engine counts them.",
       "grain": "joinery",
       "mark": 3,
       "ceiling": 5,
@@ -237,6 +246,7 @@
     {
       "id": "the-fired-beam",
       "name": "The Fired Beam",
+      "note": "The Kilnfast payoff: wakes itself off your room, then fills askings by how much you've fired for good. By winter it's the biggest ordinary morning there is.",
       "grain": "joinery",
       "mark": 7,
       "ceiling": 8,
@@ -282,6 +292,7 @@
     {
       "id": "bank-the-coals",
       "name": "Bank the Coals",
+      "note": "Steady fuel: a crowd off your joinery count plus a chain link. Keeps the room warm while the big pieces mature.",
       "grain": "joinery",
       "mark": 3,
       "ceiling": 5,
@@ -315,6 +326,7 @@
     {
       "id": "seasoned-timber",
       "name": "Seasoned Timber",
+      "note": "Second line of the engine: crowd from your fired pieces, and once woken it stamps spare cards 'joinery' to feed the count.",
       "grain": "joinery",
       "mark": 3,
       "ceiling": 5,
@@ -349,6 +361,7 @@
     {
       "id": "keep-the-kiln",
       "name": "Keep the Kiln",
+      "note": "Insurance: braces the chain against a stall and holds itself fresh a season. The quiet card that stops a bad morning becoming a broken one.",
       "grain": "joinery",
       "mark": 2,
       "ceiling": 3,
@@ -376,6 +389,7 @@
     {
       "id": "dovetail-draw",
       "name": "Dovetail Draw",
+      "note": "Consistency at dawn: digs a joinery piece from your pack each morning so the engine never starves.",
       "grain": "joinery",
       "mark": 3,
       "ceiling": 5,
@@ -401,6 +415,7 @@
     {
       "id": "the-last-lighting",
       "name": "The Last Lighting",
+      "note": "Opens the Eveners' round: composts a dead card in hand into room now, and one in the pack into the town's table. Waste, recycled twice.",
       "grain": "dance",
       "mark": 3,
       "ceiling": 5,
@@ -433,6 +448,7 @@
     {
       "id": "bright-hand-to-hand",
       "name": "Bright Hand to Hand",
+      "note": "Keeps the purse moving: carves handsels out of your spare room while the chain grows. Money that would have gone dull, made bright.",
       "grain": "thread",
       "mark": 3,
       "ceiling": 5,
@@ -466,6 +482,7 @@
     {
       "id": "even-the-rim",
       "name": "Even the Rim",
+      "note": "The Eveners' payoff: fills by your chain and hands back two cards on each fulfilment — the round that keeps the round going.",
       "grain": "dance",
       "mark": 6,
       "ceiling": 8,
@@ -500,6 +517,7 @@
     {
       "id": "waymeet-gift",
       "name": "Waymeet Gift",
+      "note": "A gift on the road: composts a dead card into the town's table and keeps your chain moving. Thin your deck, thicken the town.",
       "grain": "thread",
       "mark": 2,
       "ceiling": 3,
@@ -531,6 +549,7 @@
     {
       "id": "the-turning-purse",
       "name": "The Turning Purse",
+      "note": "Money in motion: carves handsels from spare room and replaces itself. The purse never sits.",
       "grain": "thread",
       "mark": 3,
       "ceiling": 5,
@@ -564,6 +583,7 @@
     {
       "id": "even-fuel",
       "name": "Even Fuel",
+      "note": "The on-ramp: a dead card becomes room right now, plus a link. The cheapest way to start the compost round.",
       "grain": "dance",
       "mark": 2,
       "ceiling": 3,
@@ -595,6 +615,7 @@
     {
       "id": "quick-feet",
       "name": "Quick Feet",
+      "note": "Dawn consistency: a dance piece each morning keeps the round supplied.",
       "grain": "dance",
       "mark": 3,
       "ceiling": 5,
@@ -620,6 +641,7 @@
     {
       "id": "paper-bird",
       "name": "Paper-Bird",
+      "note": "The signature dart: a chain-sized fill and it replaces itself. One-shot — it flies once, but the flock is many.",
       "grain": "thread",
       "mark": 1,
       "ceiling": 2,
@@ -655,6 +677,7 @@
     {
       "id": "quick-hand",
       "name": "Quick-Hand",
+      "note": "Tempo glue: a card and a braced link. Keeps the thin deck spinning without risk.",
       "grain": "thread",
       "mark": 2,
       "ceiling": 3,
@@ -687,6 +710,7 @@
     {
       "id": "the-standing-count",
       "name": "The Standing Count",
+      "note": "The Untold payoff: wakes off your chain, fills by it, and pays two cards on fulfilment. Pace, converted into tonnage.",
       "grain": "thread",
       "mark": 4,
       "ceiling": 6,
@@ -733,6 +757,7 @@
     {
       "id": "thread-the-needle",
       "name": "Thread the Needle",
+      "note": "Makes everything thread: stamps a spare card into the suit and digs for the next. The count must keep counting.",
       "grain": "thread",
       "mark": 2,
       "ceiling": 3,
@@ -765,6 +790,7 @@
     {
       "id": "swift-tally",
       "name": "Swift Tally",
+      "note": "A dart with a link in it: chain-sized fill, then keeps the chain moving. Cheap, fast, gone.",
       "grain": "thread",
       "mark": 1,
       "ceiling": 2,
@@ -800,6 +826,7 @@
     {
       "id": "keep-the-pace",
       "name": "Keep the Pace",
+      "note": "The rhythm-keeper: a braced link and a card each time the chain moves. Never stall, never starve.",
       "grain": "thread",
       "mark": 2,
       "ceiling": 3,
@@ -832,6 +859,7 @@
     {
       "id": "morning-flock",
       "name": "Morning Flock",
+      "note": "A thread piece every dawn — the flock replenishes itself.",
       "grain": "thread",
       "mark": 1,
       "ceiling": 2,
@@ -857,6 +885,7 @@
     {
       "id": "raise-the-wain-stage",
       "name": "Raise the Wain-Stage",
+      "note": "Raises the venue: a flat six-seat crowd and a braced chain. The show starts with a stage.",
       "grain": "dance",
       "mark": 2,
       "ceiling": 4,
@@ -888,6 +917,7 @@
     {
       "id": "pitch-the-ring",
       "name": "Pitch the Ring",
+      "note": "Doubles down: seats a crowd the size of the room you already have, and stamps a spare card 'dance'. The ring grows the ring.",
       "grain": "dance",
       "mark": 2,
       "ceiling": 4,
@@ -923,6 +953,7 @@
     {
       "id": "the-whole-fair-turn",
       "name": "The Whole-Fair Turn",
+      "note": "The one enormous show: wakes off the whole room, fills by your dance troupe, and turns everything past its ceiling into gleam. The turn the run was for.",
       "grain": "dance",
       "mark": 6,
       "ceiling": 8,
@@ -971,6 +1002,7 @@
     {
       "id": "bunting-and-banners",
       "name": "Bunting and Banners",
+      "note": "Dressing the venue: a crowd matching your room, another hand stamped 'dance'. Spectacle stacked on spectacle.",
       "grain": "dance",
       "mark": 3,
       "ceiling": 5,
@@ -1006,6 +1038,7 @@
     {
       "id": "call-the-crowd",
       "name": "Call the Crowd",
+      "note": "A dependable barker: four seats and a brace. Fills the benches while the big turn assembles.",
       "grain": "dance",
       "mark": 3,
       "ceiling": 5,
@@ -1037,6 +1070,7 @@
     {
       "id": "string-the-bunting",
       "name": "String the Bunting",
+      "note": "Crowd off your woken troupe plus a link — the venue crew that scales with the show.",
       "grain": "dance",
       "mark": 3,
       "ceiling": 5,
@@ -1070,6 +1104,7 @@
     {
       "id": "the-ringmasters-draw",
       "name": "The Ringmaster's Draw",
+      "note": "A dance piece each dawn: the ringmaster always has the next act ready.",
       "grain": "dance",
       "mark": 3,
       "ceiling": 5,
@@ -1095,6 +1130,7 @@
     {
       "id": "keep-the-silver-singing",
       "name": "Keep the Silver Singing",
+      "note": "Opens the courtship: two braced links and your cheapest card stamped 'song'. The proper introductions, made early.",
       "grain": "song",
       "mark": 2,
       "ceiling": 4,
@@ -1127,6 +1163,7 @@
     {
       "id": "court-the-singing-silver",
       "name": "Court the Singing-Silver",
+      "note": "The courtship itself: with a chain of three standing, wins the singing-silver over. Your gleam is checked, never spent.",
       "grain": "song",
       "mark": 3,
       "ceiling": 5,
@@ -1157,6 +1194,7 @@
     {
       "id": "the-silver-refrain",
       "name": "The Silver Refrain",
+      "note": "The wooed payoff: wakes off the room, fills by your chain, and returns a song card each fulfilment — the highest steady delight in the pool.",
       "grain": "song",
       "mark": 6,
       "ceiling": 8,
@@ -1203,6 +1241,7 @@
     {
       "id": "tune-the-strings",
       "name": "Tune the Strings",
+      "note": "Warm-up scales: two braced links, a card into 'song'. Sets the term the courtship will ask for.",
       "grain": "song",
       "mark": 2,
       "ceiling": 3,
@@ -1235,6 +1274,7 @@
     {
       "id": "the-standing-introduction",
       "name": "The Standing Introduction",
+      "note": "The easy introduction: courts silver on the lightest term — a single link. How a Mannerly deck gets its first proud piece.",
       "grain": "song",
       "mark": 3,
       "ceiling": 5,
@@ -1266,6 +1306,7 @@
     {
       "id": "grace-note",
       "name": "Grace-Note",
+      "note": "A polite crowd off your song count and a link — small manners that keep the room listening.",
       "grain": "song",
       "mark": 2,
       "ceiling": 3,
@@ -1299,6 +1340,7 @@
     {
       "id": "silver-warm-up",
       "name": "Silver Warm-Up",
+      "note": "A song piece each dawn: rehearsal never stops.",
       "grain": "song",
       "mark": 3,
       "ceiling": 5,
@@ -1324,6 +1366,7 @@
     {
       "id": "walk-the-pale",
       "name": "Walk the Pale",
+      "note": "Walks into the fading on purpose: a crowd from the town's grey, handsels from the season's fade. The braver the route, the richer the morning.",
       "grain": "glaze",
       "mark": 3,
       "ceiling": 5,
@@ -1360,6 +1403,7 @@
     {
       "id": "glean-the-ground",
       "name": "Glean the Ground",
+      "note": "Feeds the big piece from bad ground: pours room onto your held capstone while the grey seats a crowd.",
       "grain": "glaze",
       "mark": 3,
       "ceiling": 5,
@@ -1397,6 +1441,7 @@
     {
       "id": "ripe-mending",
       "name": "Ripe Mending",
+      "note": "The harvest and the healing: fills by your woken glaze, and every fulfilment mends this town's fading. The only Way that leaves places better.",
       "grain": "glaze",
       "mark": 7,
       "ceiling": 9,
@@ -1447,6 +1492,7 @@
     {
       "id": "grey-gleaning",
       "name": "Grey-Gleaning",
+      "note": "Harvest crew: a grey-sized crowd and a spare card stamped 'glaze'. The count grows where others won't go.",
       "grain": "glaze",
       "mark": 3,
       "ceiling": 5,
@@ -1482,6 +1528,7 @@
     {
       "id": "mend-the-verge",
       "name": "Mend the Verge",
+      "note": "Harvests the edge and mends it after: a grey-fed crowd, then healing on fulfilment.",
       "grain": "glaze",
       "mark": 5,
       "ceiling": 6,
@@ -1520,6 +1567,7 @@
     {
       "id": "slow-the-grey",
       "name": "Slow the Grey",
+      "note": "The gentle start: a crowd off your glaze count and a link — before the deep grey pays, the shallow grey teaches.",
       "grain": "glaze",
       "mark": 2,
       "ceiling": 3,
@@ -1553,6 +1601,7 @@
     {
       "id": "pale-harvest",
       "name": "Pale Harvest",
+      "note": "A glaze piece each dawn: the harvest never lacks hands.",
       "grain": "glaze",
       "mark": 3,
       "ceiling": 5,
@@ -1578,6 +1627,7 @@
     {
       "id": "stoke-the-long-fire",
       "name": "Stoke the Long Fire",
+      "note": "Mid-run filler: turns your fired-for-good count directly into asking progress without waiting for the capstone.",
       "grain": "joinery",
       "mark": 4,
       "ceiling": 6,
@@ -1611,6 +1661,7 @@
     {
       "id": "even-the-coalbed",
       "name": "Even the Coalbed",
+      "note": "Fills by your chain length and braces it — a Kilnfast fill that rewards playing clean, not just growing tall.",
       "grain": "joinery",
       "mark": 3,
       "ceiling": 5,
@@ -1644,6 +1695,7 @@
     {
       "id": "trestle-run",
       "name": "Trestle Run",
+      "note": "A cheap tempo piece: a small crowd off your fired count, a link for the chain. Early rhythm while the kiln heats.",
       "grain": "joinery",
       "mark": 2,
       "ceiling": 4,
@@ -1676,6 +1728,7 @@
     {
       "id": "set-the-keel-block",
       "name": "Set the Keel-Block",
+      "note": "The sturdier tempo piece: crowd off your fired count with a braced link, for the mornings that must not slip.",
       "grain": "joinery",
       "mark": 4,
       "ceiling": 6,
@@ -1709,6 +1762,7 @@
     {
       "id": "sort-the-offcuts",
       "name": "Sort the Offcuts",
+      "note": "Digs for the joinery piece you need now, rather than at dawn. Utility for assembling the chain on time.",
       "grain": "joinery",
       "mark": 3,
       "ceiling": 5,
@@ -1733,6 +1787,7 @@
     {
       "id": "warm-the-workshop",
       "name": "Warm the Workshop",
+      "note": "Plain warmth, Kilnfast-stamped: flat delight, no combo. Filler that never wastes a slot entirely.",
       "grain": "joinery",
       "mark": 2,
       "ceiling": 3,
@@ -1756,6 +1811,7 @@
     {
       "id": "feed-and-fire",
       "name": "Feed and Fire",
+      "note": "The engine-builder: pours your room onto the held capstone, and once woken it starts seating crowds off your fired count.",
       "grain": "joinery",
       "mark": 4,
       "ceiling": 6,
@@ -1792,6 +1848,7 @@
     {
       "id": "the-ember-crown",
       "name": "The Ember Crown",
+      "note": "Too proud to buy — the kiln's crowning piece. Wakes off your room, fills by your fired count, and pays a card back on every fulfilment.",
       "grain": "joinery",
       "mark": 7,
       "ceiling": 8,
@@ -1837,6 +1894,7 @@
     {
       "id": "the-dusk-gift",
       "name": "The Dusk-Gift",
+      "note": "Compost into progress: burns a dead card for room, fills by your chain, and links on. The Eveners' whole plan on one card.",
       "grain": "dance",
       "mark": 3,
       "ceiling": 5,
@@ -1878,6 +1936,7 @@
     {
       "id": "chainwise-gift",
       "name": "Chainwise Gift",
+      "note": "A bigger dusk-gift without the link: dead card in, chain-sized fill out.",
       "grain": "dance",
       "mark": 4,
       "ceiling": 6,
@@ -1911,6 +1970,7 @@
     {
       "id": "left-for-the-morning",
       "name": "Left for the Morning",
+      "note": "Tidies the pack overnight: a dead card becomes worth on the town's table, and the chain keeps its step.",
       "grain": "dance",
       "mark": 2,
       "ceiling": 3,
@@ -1941,6 +2001,7 @@
     {
       "id": "seasons-shavings",
       "name": "Season's Shavings",
+      "note": "Carves handsels that grow as the season fades, braced against the stall. Late-year money for the steady hand.",
       "grain": "thread",
       "mark": 3,
       "ceiling": 5,
@@ -1973,6 +2034,7 @@
     {
       "id": "widening-round",
       "name": "Widening Round",
+      "note": "Card flow, twice: one now, one each dawn. The round widens on its own.",
       "grain": "thread",
       "mark": 3,
       "ceiling": 5,
@@ -2004,6 +2066,7 @@
     {
       "id": "brace-the-waychain",
       "name": "Brace the Waychain",
+      "note": "The safety piece: a card, a link, and a brace so the next stall doesn't cool anything.",
       "grain": "thread",
       "mark": 2,
       "ceiling": 3,
@@ -2034,6 +2097,7 @@
     {
       "id": "even-by-lastlight",
       "name": "Even by Lastlight",
+      "note": "The little engine: compost a dead card into room, then carve that room into handsels. Nothing wasted, in one motion.",
       "grain": "dance",
       "mark": 4,
       "ceiling": 6,
@@ -2067,6 +2131,7 @@
     {
       "id": "the-great-un-hoarding",
       "name": "The Great Un-Hoarding",
+      "note": "The proud finale of thrift: composts a card, wakes itself off your chain, and fills by it. Everything saved, spent at once — the Eveners' one showy morning.",
       "grain": "dance",
       "mark": 6,
       "ceiling": 8,
@@ -2112,6 +2177,7 @@
     {
       "id": "running-tally",
       "name": "Running Tally",
+      "note": "A dart that recruits: chain-sized fill, and your cheapest card joins the thread count.",
       "grain": "thread",
       "mark": 1,
       "ceiling": 2,
@@ -2146,6 +2212,7 @@
     {
       "id": "marked-in-passing",
       "name": "Marked in Passing",
+      "note": "Fill in passing, stamp in passing: a one-shot that grows the count as it scores.",
       "grain": "thread",
       "mark": 1,
       "ceiling": 2,
@@ -2181,6 +2248,7 @@
     {
       "id": "dawn-errand",
       "name": "Dawn Errand",
+      "note": "Double dawn draw — the fastest hands in Brightwell start with the fullest hands.",
       "grain": "thread",
       "mark": 1,
       "ceiling": 2,
@@ -2205,6 +2273,7 @@
     {
       "id": "nimble-step",
       "name": "Nimble Step",
+      "note": "A burst of two cards and a link: the step that keeps the thin deck ahead of trouble.",
       "grain": "thread",
       "mark": 2,
       "ceiling": 3,
@@ -2235,6 +2304,7 @@
     {
       "id": "chalk-the-count",
       "name": "Chalk the Count",
+      "note": "Chalks your cheapest card into the thread count and digs onward. Bookkeeping at a run.",
       "grain": "thread",
       "mark": 2,
       "ceiling": 3,
@@ -2266,6 +2336,7 @@
     {
       "id": "hold-the-thread",
       "name": "Hold the Thread",
+      "note": "The only piece that works on a stall: it patches the chain the moment it would break. Insurance for a Way that lives on momentum.",
       "grain": "thread",
       "mark": 2,
       "ceiling": 3,
@@ -2297,6 +2368,7 @@
     {
       "id": "the-little-ledger",
       "name": "The Little Ledger",
+      "note": "A small self-waking engine: wakes off your chain and adds a flat fill. Modest, repeatable, very Untold.",
       "grain": "thread",
       "mark": 3,
       "ceiling": 5,
@@ -2330,6 +2402,7 @@
     {
       "id": "the-long-tally",
       "name": "The Long Tally",
+      "note": "The proud sum of all the small: wakes off the chain, fills by it, and pays two cards per fulfilment. Every dart counted.",
       "grain": "thread",
       "mark": 7,
       "ceiling": 8,
@@ -2375,6 +2448,7 @@
     {
       "id": "feed-the-crown",
       "name": "Feed the Crown",
+      "note": "Progress between shows: fills by your troupe with the chain held safe. Not every morning can be the big one.",
       "grain": "dance",
       "mark": 3,
       "ceiling": 5,
@@ -2409,6 +2483,7 @@
     {
       "id": "pour-the-turnout",
       "name": "Pour the Turnout",
+      "note": "The mid-size show: a troupe-sized fill and four more seats. Keeps standing up between spectacles.",
       "grain": "dance",
       "mark": 5,
       "ceiling": 7,
@@ -2442,6 +2517,7 @@
     {
       "id": "ring-up-the-lanterns",
       "name": "Ring Up the Lanterns",
+      "note": "Lights the ring: a crowd off the troupe, a link on the chain. Cheap venue prep.",
       "grain": "dance",
       "mark": 2,
       "ceiling": 4,
@@ -2475,6 +2551,7 @@
     {
       "id": "throng-the-ring",
       "name": "Throng the Ring",
+      "note": "Five seats, braced: the throng arrives early and stays through a stall.",
       "grain": "dance",
       "mark": 2,
       "ceiling": 3,
@@ -2505,6 +2582,7 @@
     {
       "id": "the-callboys-round",
       "name": "The Callboy's Round",
+      "note": "The callboy fetches the next act and holds the chain. Utility with stage manners.",
       "grain": "dance",
       "mark": 3,
       "ceiling": 5,
@@ -2536,6 +2614,7 @@
     {
       "id": "spill-the-ring-over",
       "name": "Spill the Ring Over",
+      "note": "The rehearsal for the big one: wakes off your room and spills its own overflow into gleam. Overkill, on purpose.",
       "grain": "dance",
       "mark": 5,
       "ceiling": 6,
@@ -2573,6 +2652,7 @@
     {
       "id": "tally-the-ring",
       "name": "Tally the Ring",
+      "note": "Counts the house and stamps another act 'dance'. The room, made bigger by measuring it.",
       "grain": "dance",
       "mark": 4,
       "ceiling": 6,
@@ -2607,6 +2687,7 @@
     {
       "id": "crown-the-round-fair",
       "name": "Crown the Round-Fair",
+      "note": "The proud finale: seats a room-sized crowd, wakes off all of it, and brims the excess into gleam. When it lands, the run is won.",
       "grain": "dance",
       "mark": 7,
       "ceiling": 9,
@@ -2654,6 +2735,7 @@
     {
       "id": "the-refrain-repeated",
       "name": "The Refrain Repeated",
+      "note": "Fills by your woken songs and stamps the next voice in. The refrain grows by repetition.",
       "grain": "song",
       "mark": 4,
       "ceiling": 5,
@@ -2687,6 +2769,7 @@
     {
       "id": "answer-in-kind",
       "name": "Answer in Kind",
+      "note": "A courteous reply: a chain-sized fill and a link onward. Progress with manners.",
       "grain": "song",
       "mark": 4,
       "ceiling": 5,
@@ -2719,6 +2802,7 @@
     {
       "id": "rehearse-the-courtesies",
       "name": "Rehearse the Courtesies",
+      "note": "The cheap rehearsal: braced links and a stamped card, for setting terms on a budget.",
       "grain": "song",
       "mark": 2,
       "ceiling": 3,
@@ -2750,6 +2834,7 @@
     {
       "id": "a-word-of-introduction",
       "name": "A Word of Introduction",
+      "note": "A middle introduction: courts silver on a two-link term. For when the easy jar is spent and the grand term isn't ready.",
       "grain": "song",
       "mark": 3,
       "ceiling": 4,
@@ -2779,6 +2864,7 @@
     {
       "id": "listen-for-the-answer",
       "name": "Listen for the Answer",
+      "note": "Two song cards at once: listening is how the next courtship is found.",
       "grain": "song",
       "mark": 3,
       "ceiling": 4,
@@ -2803,6 +2889,7 @@
     {
       "id": "note-what-the-room-loves",
       "name": "Note What the Room Loves",
+      "note": "The cheapest manners: stamp a spare card 'song' and seat the crowd that answers. A tiny card that grows the whole court.",
       "grain": "song",
       "mark": 1,
       "ceiling": 2,
@@ -2836,6 +2923,7 @@
     {
       "id": "hold-the-note",
       "name": "Hold the Note",
+      "note": "The patient engine: wakes off your chain, then fills by your woken songs each morning after.",
       "grain": "song",
       "mark": 4,
       "ceiling": 5,
@@ -2872,6 +2960,7 @@
     {
       "id": "the-silver-wedding",
       "name": "The Silver Wedding",
+      "note": "The courtship's grand prize: wakes off the whole room and fills by every woken song. Set it up right and it lands like a wedding.",
       "grain": "song",
       "mark": 7,
       "ceiling": 9,
@@ -2916,6 +3005,7 @@
     {
       "id": "windrow-mending",
       "name": "Windrow Mending",
+      "note": "Fills by your woken glaze and stamps another hand for the harvest. Work and recruitment in one pass.",
       "grain": "glaze",
       "mark": 3,
       "ceiling": 5,
@@ -2950,6 +3040,7 @@
     {
       "id": "attend-the-ripe",
       "name": "Attend the Ripe",
+      "note": "Attends the ripest ground: a glaze-fed fill plus a grey-fed crowd. The deeper the fade, the better it works.",
       "grain": "glaze",
       "mark": 4,
       "ceiling": 5,
@@ -2986,6 +3077,7 @@
     {
       "id": "read-the-gatepost",
       "name": "Read the Gatepost",
+      "note": "Reads the town before working it: a small grey-fed crowd and a card stamped 'glaze'. Cheap scouting for the harvest.",
       "grain": "glaze",
       "mark": 2,
       "ceiling": 3,
@@ -3020,6 +3112,7 @@
     {
       "id": "comb-the-verge",
       "name": "Comb the Verge",
+      "note": "Combs what the season dropped: a crowd that grows as the year fades, plus a link.",
       "grain": "glaze",
       "mark": 3,
       "ceiling": 4,
@@ -3052,6 +3145,7 @@
     {
       "id": "sift-the-sheaves",
       "name": "Sift the Sheaves",
+      "note": "Digs for the glaze piece the harvest needs now.",
       "grain": "glaze",
       "mark": 2,
       "ceiling": 3,
@@ -3076,6 +3170,7 @@
     {
       "id": "ease-the-grey",
       "name": "Ease the Grey",
+      "note": "Recruitment that heals: stamps a hand 'glaze' and mends the town on each fulfilment.",
       "grain": "glaze",
       "mark": 4,
       "ceiling": 5,
@@ -3111,6 +3206,7 @@
     {
       "id": "spiral-readers-round",
       "name": "Spiral-Reader's Round",
+      "note": "The full round: a grey-fed crowd, a stamped hand, a link. The reader's whole craft on one card.",
       "grain": "glaze",
       "mark": 4,
       "ceiling": 6,
@@ -3152,6 +3248,7 @@
     {
       "id": "the-ripe-hour",
       "name": "The Ripe Hour",
+      "note": "The proudest harvest: fills by every woken glaze, wakes off the room, and mends the land with each fulfilment. The grey, repaid.",
       "grain": "glaze",
       "mark": 7,
       "ceiling": 9,

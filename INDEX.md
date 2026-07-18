@@ -26,7 +26,7 @@
 - `src/content/cards/` · `src/content/contracts/` — the card pool and contract tiers as JSON. Card behavior is data here, not engine code.
 - `src/sim/` — the balance simulation harness (bots incl. the fill-first exploit policy, run-driver, metrics, and the `card-stats.ts` per-card reducer); `npm run sim` → `sim/out/records.json` · `summary.json` · `card-stats.json` (gitignored).
 - `src/toy/main.tsx` — the toy-morning prototype: a design reference, not the engine.
-- `scripts/` — tooling: `run-sim.mjs`, `build-toy.mjs`, `build-site.mjs` (assembles `_site/` for GitHub Pages), `bake-codex.py` (refreshes the codex's baked snapshots — run after planning changes).
+- `scripts/` — tooling: `run-sim.mjs`, `build-toy.mjs`, `build-site.mjs` (assembles `_site/` for GitHub Pages), `bake-codex.py` (refreshes the codex's baked snapshots, including the Data Viewer's card data — run after planning or card changes).
 - `planning/brightwell-codex.html` — the single-file codex site (Design · Engine · Data Viewer · Project · Reports); its Project → Tasks page is **the** task tracker (streams view + kanban + detail drawer). Published to `_site/` by `npm run build:site` and deployed via `.github/workflows/deploy.yml`.
 - `planning/readable/` — hand-authored plain-English source for the codex's Questions/Decisions/Glossary tabs; baked into the codex by `bake-codex.py`.
 - `docs/engine-plan.html` — the 8-phase engine build plan.

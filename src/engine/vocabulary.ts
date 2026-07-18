@@ -40,6 +40,7 @@ export interface Effect {
 export interface Card {
   id: string;
   name: string;
+  note?: string;               // plain-English "what this card is for" (shown in the codex, ignored by the engine)
   grain: Grain;
   mark: number;                // FIXED — no primitive lowers it
   ceiling: number;             // FIXED

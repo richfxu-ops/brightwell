@@ -56,6 +56,8 @@ for p in sorted(glob.glob(os.path.join(ROOT, "docs", "balance-findings-*.html"))
 
 replacements = {
     r'const SNAPSHOT_DATE = "[^"]*";': f'const SNAPSHOT_DATE = "{today}";',
+    # the Data Viewer's card data — always the shipped pool, never a hand-copy
+    r"const CARDS_SNAPSHOT = .*?;\n": f"const CARDS_SNAPSHOT = {json.dumps(json.loads(read('src/content/cards/starter-pool.json')))};\n",
     r"const TASKS_SNAPSHOT = .*?;\n": f"const TASKS_SNAPSHOT = {json.dumps(read('planning/TASKS.md'))};\n",
     # Questions / Decisions / Glossary tabs render hand-authored plain-English mirrors, not raw markdown.
     # Source of truth: planning/readable/*.html — re-write those when QUESTIONS.md/DECISIONS.md change, then re-bake.

@@ -1,5 +1,18 @@
 # DECISIONS.md — pipeline-test-02
 
+## D-026 · Card notes live in the card JSON; codex card data is baked, not copied (2026-07-17, user-decided)
+From the codex-card-notes task (Data Viewer readability):
+- **Per-card plain-English notes are a `note` field on the cards in `starter-pool.json`** (optional
+  `note?: string` on `Card`; the engine ignores it). Rejected: a side file keyed by id — a note that
+  travels with its card gets edited or deleted with the card during the way-rebuild instead of
+  going stale in parallel. A test guards that every pool card carries a note ≤ 170 chars.
+- **The codex Data Viewer's card data is baked from `starter-pool.json`** by `bake-codex.py`
+  (`CARDS_SNAPSHOT`), replacing a hand-pasted copy that had drifted to 49 stale cards. Confirmed in
+  passing: `starter-pool.json` is the only card file the engine/sim/tests load; the per-Way JSONs
+  are dead copies (separate cleanup task).
+- **Glossary tooltips are codex-wide** and parse their definitions from the one authored glossary
+  (`planning/readable/glossary.html`) — a definition is written once and every hover reuses it.
+
 ## D-025 · Way-rebuild Phase 0 picks — enablers, grammar, and the three doc rulings (2026-07-16, user-decided)
 All seven picks from `docs/way-rebuild-feasibility.html`, as recommended:
 - **P1 · The bench (courting→piece) gets a minimal build** — Mannerly's unlock loop is unrebuildable
