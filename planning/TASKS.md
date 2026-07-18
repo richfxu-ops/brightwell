@@ -20,6 +20,7 @@
 - [ ] (P3) Apprentice-stuff inventory — how whittle's consumable is acquired & held (QUESTIONS.md §D3, FIDELITY deferred) #economy #fidelity
 
 ## Next
+- [ ] (P2) [The Workbench](tasks/workbench.md) — D-027: codex card-design workshop, shape A+ (slot board, identity panel, crib, sketch form + mechanical compile); concept: docs/card-workshop-concept.html; supports way-rebuild Phase 2 #design #docs
 
 ## In Progress
 - [ ] (P1) [Card Quality Rubric](tasks/card-quality-rubric.md) — design bible + audit dashboard + card-lint; ensure generated cards are good, not just legal (from playtest) #design #balance #m4

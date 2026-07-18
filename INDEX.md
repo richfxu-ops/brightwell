@@ -18,6 +18,7 @@
 - `planning/WORLD.md` — the locked world bible.
 - `planning/terms.json` · `planning/ledger.json` — canon term registry + mechanics ledger.
 - `design/vocabulary.json` — canonical source for the 14 effect primitives (`src/engine/vocabulary.ts` derives from it).
+- `design/way-laws.json` — per-Way design laws + pool cost bands as data (derives from GDD identities + D-025 rulings; change via a decision). Read by `bake-codex.py` (the codex Workbench) and by card-lint.
 - `design/napkin/*.py` — executable balance checks from the design pipeline.
 
 ## Code, content & tooling
@@ -27,13 +28,14 @@
 - `src/sim/` — the balance simulation harness (bots incl. the fill-first exploit policy, run-driver, metrics, and the `card-stats.ts` per-card reducer); `npm run sim` → `sim/out/records.json` · `summary.json` · `card-stats.json` (gitignored).
 - `src/toy/main.tsx` — the toy-morning prototype: a design reference, not the engine.
 - `scripts/` — tooling: `run-sim.mjs`, `build-toy.mjs`, `build-site.mjs` (assembles `_site/` for GitHub Pages), `bake-codex.py` (refreshes the codex's baked snapshots, including the Data Viewer's card data — run after planning or card changes).
-- `planning/brightwell-codex.html` — the single-file codex site (Design · Engine · Data Viewer · Project · Reports); its Project → Tasks page is **the** task tracker (streams view + kanban + detail drawer). Published to `_site/` by `npm run build:site` and deployed via `.github/workflows/deploy.yml`.
+- `planning/brightwell-codex.html` — the single-file codex site (Design · Engine · Data Viewer · Workbench · Project · Reports); its Project → Tasks page is **the** task tracker (streams view + kanban + detail drawer), and the Workbench is the card-design workshop (D-027, `tasks/workbench.md`). Published to `_site/` by `npm run build:site` and deployed via `.github/workflows/deploy.yml`.
 - `planning/readable/` — hand-authored plain-English source for the codex's Questions/Decisions/Glossary tabs; baked into the codex by `bake-codex.py`.
 - `docs/engine-plan.html` — the 8-phase engine build plan.
 - `docs/balance-findings-2026-07-16.html` — Step-3 balance findings: exploit gaps, trivializer cards, the dead-15, flat Ways, fix order.
 - `docs/way-design-review.html` — per-Way design review (canon vs pool vs telemetry): the convergence thesis behind D-024.
 - `docs/way-rebuild-feasibility.html` — way-rebuild Phase 0: card-grammar census, per-Way feasibility matrix, the mechanics menu (P1–P7 picks).
 - `docs/way-brief-eveners.html` — Phase 1 design brief: Eveners identity, laws, kit inventory with keep/rework/cut, slot map, the design-handoff template.
+- `docs/card-workshop-concept.html` — the Workbench concept: how MtG designs cards, the mapping to Brightwell's pipeline, and the proposed codex card-design workshop (proposal, unbuilt).
 - `package.json` — dependencies + the `check` / `test` / `sim` / `build:site` scripts; `.nvmrc` pins Node 24.
 
 Keep this map current on any structural change — a file, module, or doc added, moved, renamed, or removed, or the layout reorganized. Add, update, or drop the affected pointer(s) in the same change; a stale pointer is worse than none.

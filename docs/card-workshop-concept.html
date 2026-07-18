@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Concept — The Workbench (a card-design workshop in the codex)</title>
+<style>
+  :root { --bg:#0f1115; --panel:#171a21; --border:#2a2f3a; --text:#e6e8ec; --muted:#9aa3b2;
+    --accent:#5b9dff; --good:#34c759; --warn:#ff9f43; --bad:#ff5d5d; }
+  @media (prefers-color-scheme: light) {
+    :root { --bg:#f8f8f6; --panel:#ffffff; --border:#e2e6ec; --text:#1b1f27; --muted:#5b6675; --accent:#2f6df6; }
+  }
+  * { box-sizing: border-box; }
+  body { margin:0; background:var(--bg); color:var(--text); font:16px/1.65 Georgia, serif; }
+  main { max-width: 860px; margin: 0 auto; padding: 48px 24px 80px; }
+  h1 { font-size: 30px; margin: 0 0 4px; }
+  h2 { font-size: 21px; margin: 44px 0 8px; border-bottom: 1px solid var(--border); padding-bottom: 6px; }
+  h3 { font-size: 17px; margin: 26px 0 6px; }
+  .sub { color: var(--muted); font-size: 14px; font-family: -apple-system, sans-serif; }
+  .box { background: var(--panel); border: 1px solid var(--border); border-radius: 10px; padding: 14px 18px; margin: 16px 0; }
+  .box.idea { border-left: 4px solid var(--accent); }
+  .box.warn { border-left: 4px solid var(--warn); }
+  .box.rec { border-left: 4px solid var(--good); }
+  table { border-collapse: collapse; width: 100%; margin: 12px 0; font-family: -apple-system, sans-serif;
+    font-size: 13px; background: var(--panel); border: 1px solid var(--border); }
+  th, td { padding: 6px 10px; border-bottom: 1px solid var(--border); text-align: left; vertical-align: top; }
+  th { color: var(--muted); font-size: 11.5px; text-transform: uppercase; letter-spacing: .04em; }
+  code { background: var(--panel); border: 1px solid var(--border); border-radius: 5px; padding: 1px 6px; font-size: 13px; }
+  ul li { margin-bottom: 6px; }
+  .wire { font-family: ui-monospace, monospace; font-size: 12.5px; line-height: 1.45; white-space: pre;
+    overflow-x: auto; background: var(--panel); border: 1px solid var(--border); border-radius: 10px; padding: 16px; }
+  .muted { color: var(--muted); }
+  .pill { display:inline-block; font-family:-apple-system,sans-serif; font-size:11px; border:1px solid var(--border);
+    border-radius:99px; padding:1px 9px; margin-right:6px; color:var(--muted); }
+</style>
+</head>
+<body>
+<main>
+<h1>The Workbench</h1>
+<div class="sub">Concept note · a card-design workshop screen in the codex · 2026-07-17 ·
+status: <b>shape decided — A+ (D-027)</b>, task file
+<code>planning/tasks/workbench.md</code> (In Proposal) · feeds the in-progress
+<em>way-rebuild</em> task (Phase 2: you design, the agent compiles)</div>
+
+<h2>The problem you actually have</h2>
+<p>You said three things, and they're really one thing:</p>
+<ul>
+  <li>"I have trouble coming up with card designs from scratch."</li>
+  <li>"I don't understand all the mechanics very well and need reminders."</li>
+  <li>"I'm thinking of a card design screen in the codex, but I'm not sure what it would look like."</li>
+</ul>
+<p>Here's the reframe that professional card designers would give you: <b>nobody good designs
+cards from scratch.</b> "From scratch" — a blank page, infinite options, all constraints held in
+your head — is the hardest possible way to design anything, and the pros have spent thirty years
+building tools specifically so they never have to do it. The trouble you're having isn't a talent
+gap; it's a tooling gap. So let's look at the tools.</p>
+
+<h2>How Magic: The Gathering actually designs cards</h2>
+<p>Magic is the most-studied case in card design because its head designer, Mark Rosewater, has
+written a weekly column about the craft for over twenty years. A few of their core practices are
+directly stealable for Brightwell.</p>
+
+<h3>1 · Design happens in a pipeline, not a moment</h3>
+<p>A Magic set passes through four named stages: <b>Exploratory Design</b> (is this theme even
+fun?), <b>Vision Design</b> (what is this set <em>about</em> — its themes and signature mechanics),
+<b>Set Design</b> (actually making the several hundred cards), and <b>Play Design</b> (a dedicated
+balance team that plays the set competitively for months and sets the final numbers). The insight:
+<em>inventing what a card does</em> and <em>deciding its numbers</em> are different jobs, done by
+different processes, at different times. A designer sketching a card is explicitly <b>not</b>
+responsible for getting the cost right on the first try.</p>
+
+<h3>2 · The design skeleton — you fill slots, you don't face blank pages</h3>
+<p>This is the single most useful idea for you. Before any individual card is designed, the lead
+builds a <b>design skeleton</b>: a spreadsheet of empty slots, one per card the set needs, each
+slot pre-labeled with a <em>role</em> — "cheap white creature," "common removal spell," "card that
+supports the graveyard theme," "big splashy rare." Designing a card then means picking a slot and
+answering a much smaller question: <em>"what's a fun way to be the common removal spell in a ghost
+set?"</em> That question has maybe a dozen good answers. "Design a card" has infinite answers,
+which is why it paralyzes.</p>
+<div class="box idea">You already have a skeleton and may not have noticed: the Eveners design
+brief defines <b>role slots</b> — filler, builder, payoff, supports — with numeric bands per tier.
+The way-rebuild plan calls for one brief per Way. A skeleton is those briefs turned into a
+checklist of empty slots you can point at.</div>
+
+<h3>3 · The color pie — identity through restriction</h3>
+<p>Magic's five colors each have a philosophy, a list of things they're best at, and — crucially —
+a list of things they are <b>never allowed to do</b>. Red doesn't get card-draw-and-heal; white
+doesn't get "destroy anything cheaply." Rosewater calls the color pie the most important part of
+Magic's design, and his most-repeated lesson is <b>"restrictions breed creativity."</b> The
+restrictions aren't a cage around design; they're what makes each color <em>feel like something</em>
+— and what hands a stuck designer their starting point.</p>
+<div class="box idea">Your color pie already exists and it's stricter than Magic's: six Walking
+Ways with locked identities, plus hard firewalls in the vocabulary (<code>brim</code> is the only
+gleam-writer; <code>soothe</code> never touches gleam; fills read chain for Eveners and bare grain
+only for Untold…). What's missing is having those laws <em>in front of you</em> while you design,
+instead of spread across the GDD, D-025, and the vocabulary file.</div>
+
+<h3>4 · A complexity budget — simple by default, depth on purpose</h3>
+<p>Since 2011 Magic has run an explicit policy ("New World Order"): cards at common rarity must
+stay simple enough that a newer player can read the battlefield; complexity is a <em>budget</em>
+spent deliberately at higher rarities. They even have vocabulary for it — a "vanilla" card has no
+text at all, and a "lenticular" card reads simple to a beginner while hiding depth for an expert.
+Your vocabulary already encodes this: <code>warm</code> and <code>keep</code> are explicitly
+no-combo "legible baseline" primitives, and your card-quality rubric's decision rules are a
+complexity budget in embryo.</p>
+
+<h3>5 · Who is this card for?</h3>
+<p>Magic designs against player archetypes — <b>Timmy</b> wants to experience something big,
+<b>Johnny</b> wants to build something clever, <b>Spike</b> wants to win efficiently. Every card
+is aimed at someone. Your single-player equivalent is the brief's "decision texture" bullets:
+a card earns its slot by creating a fork the player feels ("room now vs money later").
+A card that creates no decision is aimed at no one.</p>
+
+<h3>6 · Cards live in a database and iterate constantly</h3>
+<p>Internally, every in-progress Magic card lives in a shared database (they've called it
+Multiverse) where any R&amp;D member can comment on any card; cards carry joke placeholder names
+for months; numbers change dozens of times; and the balance team (playing in the "Future Future
+League") feeds results back in. No card is right the first time, <em>by design of the process</em>.
+Your equivalents: the card JSON pool, the codex Data Viewer, the sim harness + exploit bot, and
+the card-audit dashboard. Your iteration loop already exists — it's the sketching front-end that
+doesn't.</p>
+
+<h2>The scoreboard: Magic's machine vs yours</h2>
+<table>
+<tr><th>Magic's tool</th><th>What it does</th><th>Your equivalent</th><th>Status</th></tr>
+<tr><td>Vision design</td><td>What the game is about</td><td>WORLD.md + GDD (locked)</td><td>✅ done</td></tr>
+<tr><td>Color pie</td><td>Identity through restriction</td><td>Six Way identities + vocabulary firewalls + D-025 laws</td><td>✅ done</td></tr>
+<tr><td>Design skeleton</td><td>Slots with roles, no blank pages</td><td>Way briefs' role slots (filler/builder/payoff/supports)</td><td>🟡 exists per-brief, not as a visible slot board</td></tr>
+<tr><td>Set design</td><td>Humans sketch cards into slots</td><td>Way-rebuild Phase 2 — <b>you</b></td><td>🔴 this is the gap</td></tr>
+<tr><td>Play design / FFL</td><td>Balance by playing a lot</td><td>Sim harness, exploit bot, card-stats, audit dashboard</td><td>✅ done</td></tr>
+<tr><td>Card database</td><td>One home per card, tracked</td><td>src/content/*.json + codex Data Viewer</td><td>✅ done</td></tr>
+<tr><td>Complexity budget</td><td>Simple by default</td><td>Legible-baseline primitives + quality rubric</td><td>✅ done (lint pending)</td></tr>
+</table>
+<p>Read the table and the conclusion writes itself: <b>you are not missing a design process — you
+are missing the one screen where a human sits down inside it.</b> Everything a designer needs at
+the moment of sketching exists, but it's scattered across the GDD, two decision logs, the
+vocabulary JSON, a brief, and a telemetry dashboard. Seven documents can't be held in one head,
+so the blank page wins.</p>
+
+<h2>The proposal: a Workbench tab in the codex</h2>
+<p>One new section in <code>brightwell-codex.html</code>, next to Design / Engine / Data Viewer /
+Project / Reports. Everything it shows is <b>baked data you already produce</b> (the codex's
+existing <code>bake-codex.py</code> pattern). Rough layout:</p>
+
+<div class="wire">┌─ WORKBENCH ─────────────────────────────────────────────────────────────┐
+│  Way: [ Eveners ▾ ]                                                     │
+│                                                                         │
+│ ┌─ SLOT BOARD ──────────────┐  ┌─ IDENTITY PANEL ─────────────────────┐ │
+│ │ capstone   ░ empty  ←next │  │ Win-lever: retire→room→chain→payoff  │ │
+│ │ payoff     ░ empty        │  │ Laws: no brim · no soothe ·          │ │
+│ │ builder ×2 ░ ░            │  │  fills read CHAIN · room from        │ │
+│ │ filler  ×3 ▓ ░ ░  (1 of 3)│  │  retires, never the purse            │ │
+│ │ support ×2 ░ ░            │  │ Decision forks to aim at:            │ │
+│ └───────────────────────────┘  │  room-now vs money-later …           │ │
+│                                └──────────────────────────────────────┘ │
+│ ┌─ SKETCH FORM (fills the selected slot) ─────────────────────────────┐ │
+│ │ Working name: ____________   Tier: mid (mark 3–5, wd 2) ← auto      │ │
+│ │ What it does, in plain English: ___________________________________ │ │
+│ │ Trigger: [on-play ▾]  Primitive: [retire ▾]  (menus show ONLY       │ │
+│ │   what's legal for this Way — the firewall as a dropdown)           │ │
+│ │ The decision it creates: ___________________________________________ │ │
+│ │                                            [ Copy sketch for agent ]│ │
+│ └─────────────────────────────────────────────────────────────────────┘ │
+│ ┌─ CRIB SHEET ──────────────┐  ┌─ PRECEDENT SHELF ────────────────────┐ │
+│ │ retire — "last-light a    │  │ Other cards in this slot-role, with  │ │
+│ │  piece; its worth returns │  │ telemetry: play-share · win-delta ·  │ │
+│ │  to the room or table"    │  │ "The Last Lighting  ▓▓▓ healthy"     │ │
+│ │ (all 14, plain English)   │  │ "Grain-count fill   ▓ dead — why…"   │ │
+│ └───────────────────────────┘  └──────────────────────────────────────┘ │
+└─────────────────────────────────────────────────────────────────────────┘</div>
+
+<p>The five pieces, in the order they earn their keep:</p>
+<table>
+<tr><th>Piece</th><th>What it gives you</th><th>Which of your 3 pains it fixes</th></tr>
+<tr><td><b>Slot board</b></td><td>The Way's role slots from its brief, shown filled/empty. You never "design a card"; you fill the next empty slot.</td><td>"from scratch"</td></tr>
+<tr><td><b>Identity panel</b></td><td>The Way's win-lever, hard laws, and decision forks — the color pie, on screen while you think.</td><td>"from scratch" + "reminders"</td></tr>
+<tr><td><b>Crib sheet</b></td><td>All 14 primitives in plain English with what each reads/writes and its firewall notes. (Extends the plain-English notes + glossary tooltips you already shipped.)</td><td>"reminders"</td></tr>
+<tr><td><b>Sketch form</b></td><td>A guided form that produces a <em>structured sketch</em> — the brief's design-handoff template — with dropdowns filtered to what's legal for this Way and tier numbers pre-filled from the D-025 table. Output: a block you paste to me.</td><td>"what would it look like"</td></tr>
+<tr><td><b>Precedent shelf</b></td><td>Existing cards in the same role, with their sim telemetry — see what a healthy filler looks like and what a dead one looked like, before sketching yours.</td><td>"from scratch"</td></tr>
+</table>
+
+<h2>The key decision: how much of the pipeline lives in the browser?</h2>
+<p>This is the one-way-door-ish choice, so it's yours. Three shapes:</p>
+
+<div class="box rec"><b>Option A — Sketchpad.</b> The Workbench produces
+<em>sketches</em>, not finished cards. You fill the form, copy the sketch block, hand it to me in
+chat; I compile it to JSON over the primitives, run <code>validate.ts</code> + the rubric lint,
+and sim the batch — exactly the division of labor D-024 already locked ("the user is the card
+designer; the agent organizes"). The form can still give soft, contextual warnings (pick
+<code>brim</code> as an Evener and it turns red), but the real firewall stays in one place: the
+TypeScript. <br><br><b>Why this beats B:</b> no duplicated rule logic to drift out of sync.
+<b>Cost of being wrong:</b> low — if sketch-only proves too weak, A upgrades into B later; the
+baked-data plumbing is the same.</div>
+
+<div class="box rec"><b>Option A+ — Sketchpad with a mechanical compile (recommended).</b> Everything in A, plus a
+<b>"Compile to JSON"</b> button. This is <em>not</em> Option B in disguise, because the button only
+does <em>serialization</em>: the form's fields already mirror the card schema (name, grain, mark,
+ceiling, tags, <code>effects[{when, do, params}]</code>, the plain-English note), so emitting the
+JSON is formatting, not judgment. No rule logic moves into the browser. The emitted card is
+explicitly a <b>draft</b> — it still goes through the real pipeline (<code>validate.ts</code> +
+card-lint + batch sim) before it can enter the pool; the browser never gets to say "legal."
+<br><br>Two requirements keep this honest:
+<ul style="margin:8px 0 0">
+<li><b>Rules as shared data.</b> The Way-filtered dropdowns need to know per-Way laws ("Eveners
+never brim"). Those laws should live in one small data file (alongside
+<code>design/vocabulary.json</code>), baked into the codex <em>and</em> consumed by card-lint — one
+source of truth, two readers, no drift. This new file is the real decision to sign off.</li>
+<li><b>Escape hatches per field.</b> Some params are genuinely fiddly (amounts with
+<code>read(...)</code> per/by syntax, targets like <code>inert:hand</code>). Any param can drop
+back to plain English; the compile emits it as a <code>TODO</code> the agent resolves. The form
+never blocks you on the hard 10%.</li>
+</ul></div>
+
+<div class="box"><b>Option B — Full builder.</b> The form produces final card JSON with live
+validation replicated in JavaScript inside the codex. More self-serve power, but it means
+maintaining a second copy of <code>validate.ts</code> + card-lint inside a 3,000-line single-file
+HTML — every future rule change lands twice or the tool starts lying to you. A tool that lies
+about legality is worse than no tool. <b>Cost of being wrong:</b> permanent double maintenance.</div>
+
+<div class="box"><b>Option C — No screen.</b> Keep working from the brief docs + chat. Cheapest,
+and the briefs are genuinely good — but it leaves all seven documents open in tabs and the blank
+page undefeated. Given you've now hit this wall twice (the pause note in way-rebuild's plan is
+literally "next step is the user's first card sketches"), I don't think C holds.</div>
+
+<h2>Suggested build order (if you pick A)</h2>
+<p>Three small, separately shippable chunks — each useful on its own, matching your
+small-reviewable-pieces preference:</p>
+<ul>
+<li><b>Chunk 1 — the reading half:</b> Workbench tab with Identity panel + Crib sheet + Slot
+board, all baked from existing sources (briefs, vocabulary.json, D-025 tier table). No new
+interactivity. This alone kills the "reminders" problem.</li>
+<li><b>Chunk 2 — the sketch form:</b> the guided form with Way-filtered dropdowns and the
+copy-out sketch block. This kills the blank page. <em>If A+:</em> the "Compile to JSON" button
+lands here too — it makes this the biggest chunk, since each primitive needs a small param widget
+(with the plain-English escape hatch for the fiddly ones).</li>
+<li><b>Chunk 3 — the precedent shelf:</b> role-filtered card list with the audit dashboard's
+telemetry columns. This teaches taste.</li>
+</ul>
+<div class="box warn"><b>One honest dependency:</b> the slot board needs each Way's brief to
+exist, and only the Eveners brief is written. That's fine — the Workbench can launch
+Eveners-only, and each new brief lights up its Way. It also means the Workbench <em>creates
+pull</em> to finish the briefs, which is the order way-rebuild wanted anyway.</div>
+
+<h2>Where this sits on the board</h2>
+<p>Not a new project — a support tool for <b>way-rebuild Phase 2</b>, and a consumer of the
+<b>card-quality-rubric</b> task's outputs (tier bands, lint categories as soft warnings). I've
+added a Backlog row to TASKS.md pointing at this note. If you approve a direction, the next step
+per your task lifecycle is a proper task file with a design section — then, and only then, code.</p>
+
+<h2>Next steps (your call)</h2>
+<ul>
+<li>Pick a shape: A (sketchpad), <b>A+</b> (sketchpad + mechanical compile — recommended),
+B (full builder), or C (no screen). A+'s one extra sign-off: per-Way laws move into a shared
+data file that both the codex bake and card-lint read.</li>
+<li>If A: confirm the chunk order, or reorder (e.g. sketch form first if the blank page hurts more than the reminders).</li>
+<li>Orthogonal quick win, available today: even before any screen exists, you can sketch your
+first Eveners capstone in plain English in chat — the brief's open question ("does the capstone
+itself fill, or do mid pieces carry the fill?") is a genuinely fun design fork, and I'll compile
+whatever you sketch.</li>
+</ul>
+
+<p class="muted" style="margin-top:40px">Sources for the Magic material: Mark Rosewater's
+long-running "Making Magic" column (design skeletons, New World Order, psychographics,
+lenticular design, "restrictions breed creativity"), and his GDC talk "Twenty Years, Twenty
+Lessons." All paraphrased from memory — the concepts are load-bearing here, the trivia isn't.</p>
+</main>
+</body>
+</html>
