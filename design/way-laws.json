@@ -1,5 +1,5 @@
 {
-  "$note": "Per-Way design laws + pool-wide cost bands, as data. ONE source of truth, two readers: bake-codex.py bakes it into the codex Workbench (WAY_LAWS), and card-lint (card-quality-rubric task) will enforce the machine-checkable rules. Content derives from locked canon + logged decisions (GDD A1-A6, D-025, the Way briefs) — change it via a decision, not a drive-by edit. A Way appears here when its design brief is written; the Workbench lights it up on the next bake.",
+  "$note": "Per-Way design laws + pool-wide cost bands, as data. ONE source of truth, two readers: bake-codex.py bakes it into the codex Workbench (WAY_LAWS), and card-lint (src/engine/card-lint.ts) enforces the machine-checkable rules at build time. Content derives from locked canon + logged decisions (GDD A1-A6, D-025, the Way briefs) — change it via a decision, not a drive-by edit. A Way appears here when its design brief is written; the Workbench lights it up on the next bake.",
   "pool": {
     "banned": [
       {"rule": "fill(room)", "why": "banned pool-wide — a room-sized fill one-shots the crown (D-025 R3 ruling)"}

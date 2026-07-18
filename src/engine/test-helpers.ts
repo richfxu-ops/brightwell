@@ -1,6 +1,6 @@
 // Shared test fixtures — one PieceInstance default literal for every suite,
 // so a new state field means one edit, not three. Not a test file (no .test.).
-import type { Effect } from "./vocabulary.js";
+import type { Card, Effect } from "./vocabulary.js";
 import { createInitialState, type GameState, type PieceInstance } from "./state.js";
 
 let n = 0;
@@ -34,3 +34,11 @@ export function testState(over: (s: GameState) => void = () => {}): GameState {
 
 export const fx = (do_: string, params: Record<string, unknown> = {}, when = "on-play"): Effect =>
   ({ when, do: do_, params } as unknown as Effect);
+
+/** A minimal canon-shaped Card; override what the test cares about. */
+export function testCard(over: Partial<Card> & Pick<Card, "effects">): Card {
+  return {
+    id: "test-card", name: "Test Card", grain: "thread", mark: 3, ceiling: 6,
+    woken_delight: 2, ...over,
+  };
+}

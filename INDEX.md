@@ -23,7 +23,7 @@
 
 ## Code, content & tooling
 
-- `src/engine/` — the pure rules engine. Start at `state.ts` (the whole `GameState`), then `vocabulary.ts` (the 14 locked effect primitives), `reads.ts`, `effects.ts`, `morning.ts` (the worked turn), `asking.ts` · `acquisition.ts` · `runframe.ts`, and `validate.ts` (the card firewall).
+- `src/engine/` — the pure rules engine. Start at `state.ts` (the whole `GameState`), then `vocabulary.ts` (the 14 locked effect primitives), `reads.ts`, `effects.ts`, `morning.ts` (the worked turn), `asking.ts` · `acquisition.ts` · `runframe.ts`, `validate.ts` (the card firewall — legality), and `card-lint.ts` (the quality tripwire — the rubric's machine-checkable core: R2, R3, and the `way-laws.json` machine rules, enforced by its pool test; R7 and the judgment rules stay in review + the audit dashboard).
 - `src/content/cards/` · `src/content/contracts/` — the card pool and contract tiers as JSON. Card behavior is data here, not engine code.
 - `src/sim/` — the balance simulation harness (bots incl. the fill-first exploit policy, run-driver, metrics, and the `card-stats.ts` per-card reducer); `npm run sim` → `sim/out/records.json` · `summary.json` · `card-stats.json` (gitignored).
 - `src/toy/main.tsx` — the toy-morning prototype: a design reference, not the engine.
@@ -32,6 +32,7 @@
 - `planning/readable/` — hand-authored plain-English source for the codex's Questions/Decisions/Glossary tabs; baked into the codex by `bake-codex.py`.
 - `docs/engine-plan.html` — the 8-phase engine build plan.
 - `docs/balance-findings-2026-07-16.html` — Step-3 balance findings: exploit gaps, trivializer cards, the dead-15, flat Ways, fix order.
+- `docs/code-review-card-lint-2026-07-18.html` — xhigh code review of card-lint: 15 verified findings + refuted candidates + fix order.
 - `docs/way-design-review.html` — per-Way design review (canon vs pool vs telemetry): the convergence thesis behind D-024.
 - `docs/way-rebuild-feasibility.html` — way-rebuild Phase 0: card-grammar census, per-Way feasibility matrix, the mechanics menu (P1–P7 picks).
 - `docs/way-brief-eveners.html` — Phase 1 design brief: Eveners identity, laws, kit inventory with keep/rework/cut, slot map, the design-handoff template.
