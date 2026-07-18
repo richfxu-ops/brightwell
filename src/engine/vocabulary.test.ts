@@ -35,6 +35,16 @@ describe("the card pool", () => {
     expect(starterPool.cards).toHaveLength(97);
   });
 
+  // The codex Data Viewer shows each card's note as its plain-English "what it's for" line;
+  // a missing note renders as the raw effect gloss, so guard that every card carries one.
+  it("every card carries a short plain-English note", () => {
+    for (const c of CARDS) {
+      const note = c.note ?? "";
+      expect(note, `${c.id} is missing its note`).not.toBe("");
+      expect(note.length, `${c.id}'s note should stay 1-2 short sentences`).toBeLessThanOrEqual(170);
+    }
+  });
+
   // The crown is only standable with a repeatable fill in the opening deck (fills fire on-play,
   // D-017). seedDeck seeds only `starter`-tagged cards, so every Way MUST carry a starter filler —
   // else it drifts every run (the eveners/fairwrights 0-win trap Part 3 fixed). Guard it here.

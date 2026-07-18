@@ -1,5 +1,5 @@
 ---
-status: In Progress
+status: In Review
 size: Medium
 created: 2026-07-17
 title: Codex card notes & tooltips
@@ -70,14 +70,14 @@ Part 1 — real card data in the viewer
       cross-links still work
 
 Part 2 — glossary tooltips
-- [ ] Term → definition map built from the baked glossary
-- [ ] Tooltip span + styling (hover and tap/focus)
-- [ ] Auto-scanner wraps glossary terms codex-wide (Design, Data Viewer, Project, Reports)
-- [ ] Spot-check every tab for over- and under-highlighting
+- [x] Term → definition map built from the baked glossary
+- [x] Tooltip span + styling (hover and tap/focus)
+- [x] Auto-scanner wraps glossary terms codex-wide (Design, Data Viewer, Project, Reports)
+- [x] Spot-check every tab for over- and under-highlighting
 
 Part 3 — per-card notes
-- [ ] `note?: string` on `Card` in `vocabulary.ts`
-- [ ] Draft notes for all 97 pool cards; user reviews per Way
-- [ ] Render the note on tile + inspector
-- [ ] `npm run check` green
-- [ ] Re-bake the codex
+- [x] `note?: string` on `Card` in `vocabulary.ts`
+- [x] Draft notes for all 97 pool cards; user reviews per Way
+- [x] Render the note on tile + inspector
+- [x] `npm run check` green
+- [x] Re-bake the codex
