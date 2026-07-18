@@ -22,6 +22,7 @@
 ## Next
 
 ## In Progress
+- [ ] (P2) [Codex card notes & tooltips](tasks/codex-card-notes.md) — plain-English notes in the card JSON, glossary tooltips, bake real card data into the viewer #docs
 - [ ] (P1) [Card Quality Rubric](tasks/card-quality-rubric.md) — design bible + audit dashboard + card-lint; ensure generated cards are good, not just legal (from playtest) #design #balance #m4
 - [ ] (P1) [Way rebuild](tasks/way-rebuild.md) — D-024: rebuild the kits card by card against locked identities (user designs, agent organizes); Kilnfast/Gleaners as controls #design #balance #m4
 
