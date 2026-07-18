@@ -4,6 +4,7 @@
     "banned": [
       {"rule": "fill(room)", "why": "banned pool-wide — a room-sized fill one-shots the crown (D-025 R3 ruling)"}
     ],
+    "fillReadBans": ["room"],
     "tiers": [
       {"id": "apprentice", "mark": [1, 2], "woken_delight": [1, 1]},
       {"id": "mid", "mark": [3, 5], "woken_delight": [2, 2]},
@@ -20,6 +21,10 @@
       "bannedPrimitives": [
         {"id": "brim", "why": "Fairwright-only — the Eveners never spike the overflow"},
         {"id": "soothe", "why": "Gleaner-only — the board is not this Way's business"}
+      ],
+      "fillReads": ["chain"],
+      "amountBans": [
+        {"source": "handsels", "on": ["gather", "rest"], "why": "room is fuelled by retires, never the purse — no read(handsels) feeding gather or room"}
       ],
       "laws": [
         "Room is fuelled by retires, never the purse — no read(handsels) feeding gather or room; handsels are never spent inside a turn.",

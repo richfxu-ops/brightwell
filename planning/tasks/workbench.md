@@ -50,9 +50,13 @@ with a *mechanical* Compile-to-JSON; all rule checking stays in TypeScript.
       *(landed 2026-07-17 on branch `workbench`; refinement: slot-matching tags are
       `role:<slot-id>` with the slot ids declared per-Way in way-laws.json, not a fixed
       pool-wide enum — the enum would have collided with two Evener slots both being "builders")*
-- [ ] Chunk 2 — sketch form + Compile to JSON: per-primitive param widgets, escape hatches,
+- [x] Chunk 2 — sketch form + Compile to JSON: per-primitive param widgets, escape hatches,
       wrapper output, localStorage. **Eval:** round-trip The Last Lighting — rebuild it in the
       form; the compiled card must diff clean against its starter-pool entry
+      *(landed 2026-07-17: round-trip byte-identical incl. key order; negative test raised all
+      6 expected law/band flags; TODO hatch emits path+text in the wrapper; sketch survives
+      reload via localStorage. way-laws.json gained machine fields `fillReads`/`amountBans`/
+      `fillReadBans` for the soft warnings — card-lint reads the same fields)*
 - [ ] Chunk 3 — precedent shelf with baked telemetry
 - [ ] First real use: sketch the Eveners capstone through it; the agent pipeline accepts the draft
 - [ ] Review Card; board + INDEX current
