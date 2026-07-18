@@ -173,6 +173,9 @@ a{color:var(--gold-soft)}
   box-shadow:0 6px 22px rgba(43,31,18,0.18); opacity:0; visibility:hidden; pointer-events:none;
   transition:opacity .14s ease, transform .14s ease }
 .term:hover::after, .term:focus-visible::after{ opacity:1; visibility:visible; transform:translateX(-50%) translateY(0) }
+/* flipped variant: opens downward when the viewport's top edge would clip it (see placeTip) */
+.term.below::after{ bottom:auto; top:calc(100% + 9px); transform:translateX(-50%) translateY(-4px) }
+.term.below:hover::after, .term.below:focus-visible::after{ transform:translateX(-50%) translateY(0) }
 
 /* ========== Data viewer: grid + inspector ========== */
 .viewer-split{display:grid; grid-template-columns:1fr 384px; gap:var(--gap); align-items:start}
@@ -182,9 +185,10 @@ a{color:var(--gold-soft)}
   font-family:var(--body); font-size:inherit;
   background:linear-gradient(168deg, var(--panel-2), var(--panel));
   border:1px solid var(--line-soft); border-radius:var(--radius);
-  padding:15px 16px 13px; overflow:hidden; --accent:var(--gold);
+  padding:15px 16px 13px; --accent:var(--gold);
   transition:transform .18s ease, border-color .18s ease, box-shadow .18s ease;}
-.ecard::before{content:""; position:absolute; inset:0; pointer-events:none;
+/* overflow stays visible so stat-label tooltips can escape; the hover glow clips itself */
+.ecard::before{content:""; position:absolute; inset:0; pointer-events:none; border-radius:var(--radius);
   background:radial-gradient(85% 62% at 50% -12%, color-mix(in oklch, var(--accent) 19%, transparent), transparent 60%);
   opacity:0; transition:opacity .2s ease;}
 .ecard:hover{transform:translateY(-3px); border-color:color-mix(in oklch, var(--accent) 48%, transparent);
@@ -250,8 +254,11 @@ a{color:var(--gold-soft)}
 .insp-tags{display:flex; gap:7px; flex-wrap:wrap; margin-top:16px}
 .insp-stats{display:grid; grid-template-columns:repeat(auto-fit, minmax(64px,1fr)); gap:1px;
   margin-top:20px; background:var(--line-soft); border:1px solid var(--line-soft);
-  border-radius:8px; overflow:hidden;}
+  border-radius:8px;}
+/* overflow stays visible so stat-label tooltips can escape; the end cells round themselves */
 .insp-stats .cell{background:color-mix(in oklch, var(--bg) 58%, var(--panel)); padding:11px 8px; text-align:center}
+.insp-stats .cell:first-child{border-radius:7px 0 0 7px}
+.insp-stats .cell:last-child{border-radius:0 7px 7px 0}
 .insp-stats .cell .v{font-family:var(--code); font-weight:600; font-size:18px; color:var(--ink)}
 .insp-stats .cell .k{font-family:var(--code); font-size:8.5px; letter-spacing:0.15em; text-transform:uppercase;
   color:var(--ink-faint); margin-top:3px;}
@@ -2992,6 +2999,15 @@ function tipify(root){
     }
   }
 }
+
+// tooltips open upward by default; flip below when the term sits too near the viewport top
+// (e.g. in the sticky inspector) and the tip would clip off-screen
+function placeTip(e){
+  const t = e.target.closest ? e.target.closest(".term") : null;
+  if (t) t.classList.toggle("below", t.getBoundingClientRect().top < 120);
+}
+document.addEventListener("pointerover", placeTip);
+document.addEventListener("focusin", placeTip);
 
 function boot(){
   buildAtmosphere();
