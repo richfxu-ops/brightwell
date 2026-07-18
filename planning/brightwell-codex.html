@@ -2966,9 +2966,28 @@ function wbWarnings(s, card){
   });
   return W;
 }
+/* copy ladder: sync execCommand inside the click gesture (works on file:// and Safari),
+   then the async clipboard API; if both refuse, select the JSON and ask for ⌘C. */
 function wbCopy(btn){
-  navigator.clipboard.writeText(document.getElementById("wbOutJson").textContent)
-    .then(()=>{ btn.textContent="Copied ✓"; setTimeout(()=>{ btn.textContent="Copy draft"; }, 1400); });
+  const text = document.getElementById("wbOutJson").textContent;
+  const done = ok => {
+    if (!ok){
+      const r = document.createRange(); r.selectNodeContents(document.getElementById("wbOutJson"));
+      const sel = window.getSelection(); sel.removeAllRanges(); sel.addRange(r);
+    }
+    btn.textContent = ok ? "Copied ✓" : "Copy blocked — draft selected, press ⌘C";
+    setTimeout(()=>{ btn.textContent = "Copy draft"; }, ok ? 1400 : 4000);
+  };
+  const ta = document.createElement("textarea");
+  ta.value = text; ta.style.position = "fixed"; ta.style.opacity = "0";
+  document.body.appendChild(ta); ta.focus(); ta.select();
+  let ok = false;
+  try { ok = document.execCommand("copy"); } catch { ok = false; }
+  ta.remove();
+  if (ok) return done(true);
+  if (navigator.clipboard && navigator.clipboard.writeText)
+    navigator.clipboard.writeText(text).then(()=>done(true), ()=>done(false));
+  else done(false);
 }
 
 /* ---------- doc tabs + project (Inkfall layout) ---------- */
