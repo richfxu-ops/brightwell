@@ -786,6 +786,20 @@ a{color:var(--gold-soft)}
   white-space:pre; overflow:auto; max-height:360px; margin-top:10px;
   background:var(--bg); border:1px solid var(--line-soft); border-radius:8px; padding:12px}
 .wb-out-note{font-size:12.5px; font-style:italic; color:var(--ink-faint); margin-top:8px}
+/* the word-book */
+.wb-gloss{margin-top:12px; border:1px solid var(--line-soft); border-radius:8px;
+  background:color-mix(in oklch, var(--bg) 45%, transparent)}
+.wb-gloss summary{cursor:pointer; padding:9px 14px; font-family:var(--ui); font-size:12.5px;
+  color:var(--ink-dim); user-select:none}
+.wb-gloss summary:hover{color:var(--ink)}
+.wb-gloss-grid{display:grid; grid-template-columns:repeat(auto-fit, minmax(230px,1fr));
+  gap:4px 20px; padding:2px 16px 14px}
+.wb-gloss h5{font-family:var(--code); font-size:9.5px; letter-spacing:0.16em; text-transform:uppercase;
+  color:var(--gold-deep); margin:10px 0 4px}
+.wb-gloss dl{margin:0}
+.wb-gloss dt{font-family:var(--code); font-size:11.5px; color:var(--gold-soft);
+  float:left; clear:left; margin-right:8px}
+.wb-gloss dd{font-size:12px; color:var(--ink-dim); margin:0 0 3px; overflow:hidden; line-height:1.45}
 
 /* ========== Toy Morning (redesigned dashboard — design/handoff/toy-morning-ui) ========== */
 .tm-app{display:flex; flex-direction:column; height:calc(100dvh - 150px); min-height:640px;
@@ -2748,6 +2762,62 @@ const WB_SPECS = {
   warm:{ n:{t:"num"} },
   keep:{}
 };
+/* the word-book: plain-English gloss for every dropdown word (verbs reuse PRIMS) */
+const WB_GLOSS = {
+  triggers: [
+    ["on-play","when you play the card — the basic case"],
+    ["on-wake","the moment this piece wakes (rests past its mark); fires once"],
+    ["on-chain","while the chain is counted — chain-work like steady rides here"],
+    ["on-stall","when your chain breaks this morning"],
+    ["on-overkill","when attention pours past this piece's ceiling"],
+    ["on-fulfil","when you complete an asking — the fill reaches its need"],
+    ["on-court","when a courting term is performed"],
+    ["on-dawn","at the start of each morning — invisible during your turn, use sparingly"],
+    ["at-dusk","at day's end, when you camp or move on"]],
+  targets: [
+    ["self","this card itself"],
+    ["held:capstone","the capstone you're holding in hand"],
+    ["hand:offgrain","a card in hand that doesn't match your Way's grains"],
+    ["hand:cheapest","the cheapest card in your hand"],
+    ["inert:hand","a dead card in your hand — one doing nothing right now"],
+    ["inert:pack","a dead card in your deck"]],
+  reads: [
+    ["room","the attention seated before you this morning"],
+    ["chain","how many links your unbroken chain holds"],
+    ["fill","the accepted asking's progress so far"],
+    ["season","how far the year has faded (feeds yield, never gleam)"],
+    ["spiral","this town's grey rings — the Paling's local mark (never feeds gleam)"],
+    ["grain","grain:‹suit› — this morning's count of that craft-suit"],
+    ["woken","woken:‹suit› — every piece of that suit you've ever woken; the count that compounds"],
+    ["handsels","your bright money — most Ways may not read it, check the laws"],
+    ["over-ceiling","how much just spilled past the ceiling"]],
+  to: [
+    ["room","the retired piece's worth returns to your room, this morning"],
+    ["table","its worth seeps to this town's table — pays tomorrow's dawn, if you camp"]],
+  small: [
+    ["links","extra links counted onto the chain"],
+    ["brace","the next stall doesn't cool the room"],
+    ["cap","ceiling on a read amount (D-025) — keeps scaling safe"],
+    ["stock","the shy material a courting is for"],
+    ["term","the chain depth a courting demands"]]
+};
+const wbGlossOf = (group, key) => { const hit = (WB_GLOSS[group]||[]).find(([t]) => t===key); return hit ? hit[1] : ""; };
+let wbGlossOpen = false;
+function wbGlossHtml(){
+  const dl = rows => `<dl>${rows.map(([t,g]) => `<dt>${esc(t)}</dt><dd>${esc(g)}</dd>`).join("")}</dl>`;
+  return `<details class="wb-gloss"${wbGlossOpen ? " open" : ""} ontoggle="wbGlossOpen=this.open">
+    <summary>📖 the word-book — every word in the dropdowns, in plain English</summary>
+    <div class="wb-gloss-grid">
+      <div><h5>Triggers — when it fires</h5>${dl(WB_GLOSS.triggers)}</div>
+      <div><h5>Verbs — what it does</h5>${dl(PRIMS.filter(p => p.id!=="read").map(p => [p.id, p.gloss]))}</div>
+      <div><h5>Targets — what it points at</h5>${dl(WB_GLOSS.targets)}
+           <h5>Destinations — retire's "to"</h5>${dl(WB_GLOSS.to)}</div>
+      <div><h5>Read surfaces — live numbers an amount can read</h5>${dl(WB_GLOSS.reads)}
+           <h5>Small words</h5>${dl(WB_GLOSS.small)}</div>
+    </div>
+  </details>`;
+}
+
 function wbFreshParam(sp){
   if (sp.t==="amount") return {mode:"num", num:1, source:"chain", suit:GRAINS[0], cap:"", todo:""};
   if (sp.t==="bool") return {mode:"v", v:false, todo:""};
@@ -2808,7 +2878,7 @@ function wbAmountHtml(i,k,st,sp){
   const needsSuit = st.source==="grain" || st.source==="woken";
   return `${modeSel}
     <select onchange="wbSetP(${i},'${k}','source',this.value); renderWbForm()">
-      ${reads.map(r => `<option value="${r}"${st.source===r?" selected":""}>${r==="grain"?"grain:‹suit›":r==="woken"?"woken:‹suit›":r}</option>`).join("")}</select>
+      ${reads.map(r => `<option value="${r}" title="${esc(wbGlossOf("reads",r))}"${st.source===r?" selected":""}>${r==="grain"?"grain:‹suit›":r==="woken"?"woken:‹suit›":r}</option>`).join("")}</select>
     ${needsSuit ? `<select onchange="wbSetP(${i},'${k}','suit',this.value)">${GRAINS.map(g=>`<option${st.suit===g?" selected":""}>${g}</option>`).join("")}</select>` : ""}
     <input type="number" min="0" placeholder="cap" title="optional read cap (D-025 P5)" value="${esc(st.cap)}"
       oninput="wbSetP(${i},'${k}','cap',this.value)" style="width:60px"> ${hatch}`;
@@ -2820,9 +2890,11 @@ function wbPlainHtml(i,k,st,sp){
   if (st.mode==="todo")
     return `<input type="text" placeholder="plain English…" value="${esc(st.todo)}"
       oninput="wbSetP(${i},'${k}','todo',this.value)" style="min-width:160px"> ${hatch}`;
-  if (sp.t==="enum")
+  if (sp.t==="enum"){
+    const group = k==="target" ? "targets" : k==="to" ? "to" : null;
     return `<select onchange="wbSetP(${i},'${k}','v',this.value)">
-      ${sp.opts.map(o=>`<option value="${esc(o)}"${st.v===o?" selected":""}>${esc(o)}</option>`).join("")}</select> ${hatch}`;
+      ${sp.opts.map(o=>`<option value="${esc(o)}"${group?` title="${esc(wbGlossOf(group,o))}"`:""}${st.v===o?" selected":""}>${esc(o)}</option>`).join("")}</select> ${hatch}`;
+  }
   if (sp.t==="bool")
     return `<input type="checkbox"${st.v?" checked":""} onchange="wbSetP(${i},'${k}','v',this.checked)"> ${hatch}`;
   if (sp.t==="num")
@@ -2833,7 +2905,7 @@ function wbEffHtml(e,i,banned){
   const spec = WB_SPECS[e.do]||{};
   return `<div class="wb-eff"><div class="wb-frow" style="margin-top:0">
     <div class="wb-field"><label>trigger</label><select onchange="wbEffWhen(${i},this.value)">
-      ${WB_TRIGGERS.map(t=>`<option value="${t}"${e.when===t?" selected":""}>${t}</option>`).join("")}</select></div>
+      ${WB_TRIGGERS.map(t=>`<option value="${t}" title="${esc(wbGlossOf("triggers",t))}"${e.when===t?" selected":""}>${t}</option>`).join("")}</select></div>
     <div class="wb-field"><label>verb</label><select onchange="wbEffVerb(${i},this.value)">
       ${PRIMS.filter(p=>p.id!=="read").map(p=>{ const why = banned.get(p.id);
         return `<option value="${p.id}"${e.do===p.id?" selected":""}${why?" disabled":""}>${p.id}${why?" — banned":""}</option>`; }).join("")}</select></div>
@@ -2852,6 +2924,7 @@ function renderWbForm(){
   const grains = [...(L.grains||[]), ...GRAINS.filter(g=>!(L.grains||[]).includes(g))];
   el.innerHTML = `
     <div class="wb-eyebrow">the sketch form — widgets or plain English; compile emits a draft, never a legal card</div>
+    ${wbGlossHtml()}
     <div class="wb-frow">
       <div class="wb-field"><label>slot</label><select onchange="wbSet('slot',this.value)">
         <option value="free"${s.slot==="free"?" selected":""}>— free sketch (no slot)</option>
